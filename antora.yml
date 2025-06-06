@@ -1,5 +1,5 @@
-name: REPLACEREPONAME
-title: FIXME Course Title
+name: vLLM inference for Red Hat AI
+title: vLLM inference for Red Hat AI
 version: 1
 nav:
 - modules/ROOT/nav.adoc

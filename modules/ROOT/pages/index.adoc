@@ -3,12 +3,12 @@
 
 == Introduction
 
-Course Title: Course title FIXME
+Course Title: vLLM inference for Red Hat AI
 
 Description:
-Course description FIXME
+Course description vLLM inference for Red Hat AI
 
-Duration: FIXME hours
+Duration: 1 hours
 
 == Objectives
 

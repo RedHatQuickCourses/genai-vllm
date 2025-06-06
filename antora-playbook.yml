@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title: vLLM inference for Red Hat AI
+  start_page: genai-vllm::index.adoc
 
 content:
   sources:
