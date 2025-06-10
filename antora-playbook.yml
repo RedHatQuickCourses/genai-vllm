@@ -1,5 +1,5 @@
 site:
-  title: vLLM: From Model to Deployment
+  title: vLLM, From Model to Deployment
   start_page: genai-vllm::index.adoc
 
 content:
