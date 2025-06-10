@@ -1,10 +1,9 @@
 = Red Hat AI Platform Solutions
 
 Red Hat AI models
-*-* Validated Models
-*-* Indenified models
-*-* Supported models
-*-* Unsupported models
-
+*-* Validated Models - Tested with vLLM & Red Hat Platforms
+*-* Imdemnified models - Granite base model when used on Red Hat Platforms
+*-* Supported models - when used on Red Hat Platforms
+*-* Unsupported models - Any Third party model
 
 
