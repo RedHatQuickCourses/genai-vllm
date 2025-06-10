@@ -19,18 +19,20 @@ Duration: 1-2 hours
 
 On completing this course, you should be able to:
 
-* Select a model from the Red Hat AI Model Repository.
+* Select a capable model from the Red Hat AI Model Repository.
 * Deploy selected optimized model using OpenShift AI.
 * Query that model using RHOAI Workbench + Notebook.
+* Evaluation of model on standarized Question and Answers.
 
 == Prerequisites
 
 This course assumes that you have the following prior experience:
 
-* Understanding of LLM compression techniques such as quantization and sparzation.
+
 * Knowledge of OpenShift AI Dashboard Menus and Tabs.
 * Knowledge of Jupyter notebooks and Python.
 * vLLM Inference server (runtime) and vLLM Compressor.
+* Understanding of LLM compression techniques such as quantization and sparzation.
 
 [NOTE]
 ====

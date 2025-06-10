@@ -1,6 +1,41 @@
-= Section 2
+= The Scenario
 
-* Create multiple copies of this section as needed.
-* Remove any unnecessary sections or chapter pages.
-* Customize the section as appropriate.
-* Ensure that each page contains a manageable amount of content.
+The Customer: "Innovatech Robotics," a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.
+
+The Problem: Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.
+
+The Request: The CTO of Innovatech approaches you. "We've heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what's possible. We don't know where to start."
+
+Your Role: You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.
+
+Use Case Prioritization: You guide the team to brainstorm potential AI solutions on a whiteboard.
+
+
+* Idea A: A chatbot for the public website to answer pre-sales questions. (Medium Impact, Medium Feasibility - data is scattered).
+* Idea B: An AI tool to help engineers write documentation faster. (Medium Impact, Low Feasibility - engineers see it as extra work).
+* Idea C: An internal tool to analyze incoming support tickets, categorize them, and suggest relevant documentation links for engineers to use. (High Impact, High Feasibility).
+
+The Decision: Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.
+
+
+Outcome of Phase 1: The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.
+
+Step-by-Step Execution:
+Frame the TCO Discussion: You present two primary options to the CTO.
+
+
+Option A: Proprietary API (The "Lease" Option)
+
+
+Model: Continue using the Google Gemini Pro API.
+Upfront Cost: Minimal. Mostly integration work.
+Recurring Cost: Pay-per-use. You estimate they process ~1,500 tickets/month. You calculate a projected annual cost of ~$18,000.
+TCO (1 Year): ~$25,000 (including integration labor).
+Option B: Open-Source Self-Hosted (The "Buy" Option)
+
+
+Model: Use a powerful open-source model like Llama 3 8B Instruct.
+Upfront Cost: Higher. Requires setting up a cloud server with a GPU, plus more complex MLOps for deployment and monitoring. Estimated setup cost: $15,000.
+Recurring Cost: Infrastructure cost for a dedicated cloud GPU instance. Estimated annual cost: ~$12,000.
+TCO (1 Year): ~$27,000.
+The Recommendation: You plot the TCO on a timeline. While the costs are similar in Year 1, you highlight that Innovatech lacks a dedicated MLOps team. The operational overhead and risk of managing the open-source model are high for them right now

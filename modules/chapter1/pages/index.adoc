@@ -1,21 +1,4 @@
-= Chapter 1
-
-The Challenge: Vague Requirements and a Fixed Budget
-
-Customers often hear the hype around AI and say, "I need AI," without a clear understanding of what that entails. This is a significant risk for fixed-budget projects, as it can lead to scope creep, mismatched expectations, and project failure. Your primary goal is to anchor the customer's broad interest in AI to a specific, high-value business problem that can be realistically solved within their budget.
-
-This approach is broken down into three phases, designed to systematically de-risk the project and ensure alignment between the solution and the customer's needs.
-
-Phase 1: Discovery and Use Case Prioritization (The "Art of the Possible" Workshop)
-This is the most critical phase. Do not start by discussing models or technology. Instead, focus entirely on the customer's business.
-
-Objective: To identify and prioritize a list of potential AI use cases based on business value and feasibility. 
-
-*_That’s not what this course is about.  For this course on vLLM,  this task should have already been figured out and we should be prepared to determine what model we need for to solve the high-value business problem below the budget provided._*
-
-If you interested in Phase 1 use cases, check out this course on Red Hat AI use cases. (link to Greg's Course)
-
-The Generative AI Use Cases: Chatbot (https://internal-comms.redhat.com/h/dyov2h7s?url=https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D79794317[Internal]| https://internal-comms.redhat.com/h/dyov2mXv?url=https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D79794871[Partner]) course explores technical challenges across various industries and demonstrates how Red Hat AI can be leveraged to create chatbot solutions. By completing this course, learners will also gain insights into potential customer concerns and objections.
+= Red Hat AI
 
 
 
