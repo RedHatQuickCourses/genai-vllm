@@ -1,0 +1,33 @@
+= Common model variations
+
+The terminology used to describe variations of generative AI models can sometimes be fluid, but several common types have emerged, each tailored for specific tasks and behaviors. Here is a list of common model variations and what they mean:
+
+1. Base Model
+
+What it is: A base model is a foundational model that has been trained on a massive and broad dataset of text and code. It is the starting point from which other, more specialized models are created.
+What it means: These models are incredibly knowledgeable but are not explicitly trained to be conversational, follow instructions, or adhere to safety guidelines. Their primary function is to predict the next word in a sequence based on the input they are given. Interacting with a raw base model can be unpredictable; it might complete your prompt, answer a question, continue a story, or generate nonsensical text, all depending on the patterns it learned during training.
+Analogy: Think of a base model as a massive library of books. It contains a vast amount of information, but there's no librarian to help you find what you need or to frame the information in a useful way.
+
+2. Instruct (or Instruction-Tuned) Model
+
+What it is: An instruct model is a base model that has undergone a second phase of training called "instruction fine-tuning." During this phase, it's trained on a curated dataset of specific prompts (instructions) and high-quality, desired responses. This process often includes techniques like Reinforcement Learning with Human Feedback (RLHF) to align the model's answers with human preferences for helpfulness and safety.
+What it means: This model is designed to be a helpful assistant. It understands how to follow commands, answer questions directly, and engage in a conversational back-and-forth (dialogue). It's generally safer and more predictable than a base model because it has been explicitly taught to respond to instructions in a specific way. Most public-facing chatbots (like Gemini, ChatGPT, Claude) are instruct-tuned models.
+Analogy: This is the same library of books, but now it has a skilled librarian. You can ask the librarian a question, and they will understand your request, find the relevant information, and present it to you in a clear and helpful answer.
+
+3. Code Model
+
+What it is: A code model is a specialized version of a base or instruct model that has been either trained from scratch on a massive corpus of public source code or has been extensively fine-tuned on code.
+What it means: These models are experts in programming-related tasks. Their capabilities include generating code in various languages, completing code snippets, debugging, explaining code, and translating code from one language to another. While a general instruct model can often write some code, a dedicated code model will have a much deeper understanding of syntax, libraries, and common programming patterns, resulting in higher-quality and more accurate code.
+Analogy: This is a specialized technical library focused exclusively on computer science and programming, staffed by a librarian who is also an expert software developer.
+
+4. Chat Model
+
+What it is: This is a specific type of instruct-tuned model that is optimized for multi-turn conversations or dialogue. While most instruct models can chat, "chat models" are specifically tuned to remember the context of the previous turns in the conversation to provide more coherent and relevant responses over a longer interaction.
+What it means: The model excels at maintaining a natural, back-and-forth conversation. It's better at handling follow-up questions, clarifications, and references to earlier parts of the dialogue.
+Analogy: This is a librarian who not only answers your initial question but remembers it and can engage in a detailed discussion with you about the topic, referencing what you've already talked about.
+
+5. TL;DR (or Summarization) Model
+
+What it is: "TL;DR" (Too Long; Didn't Read) is more of a task description than a formal model type, but models are often fine-tuned specifically for this purpose. A summarization model is trained on a dataset of long documents paired with their concise summaries.
+What it means: This model is highly skilled at taking a large piece of text (like an article, research paper, or email thread) and condensing it into a short, accurate summary that captures the main points. While a general-purpose instruct model can summarize, a specialized summarization model is often more effective at producing high-quality, abstractive summaries rather than just extracting key sentences.
+Analogy: This is a librarian who is an expert at reading a lengthy book and then giving you a perfect one-paragraph synopsis.

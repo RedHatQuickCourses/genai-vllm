@@ -1,30 +1,36 @@
-= An Example Quick Course
+= vLLM: From Model to Deployment
 :navtitle: Home
 
 == Introduction
 
-Course Title: vLLM inference for Red Hat AI
+Course Title: vLLM: From Model to Deployment
 
 Description:
-Course description vLLM inference for Red Hat AI
 
-Duration: 1 hours
+Deploying large language models (LLMs) in a real-world enterprise environment comes with its unique set of challenges—from selecting the right model within budget constraints to ensuring seamless integration and robust performance. 
+
+This course, vLLM: From Model to Deployment, is designed to cut through that complexity, providing you with the practical skills and knowledge to confidently bring your AI initiatives to life.
+
+Our mission is straightforward: to guide you through the complete lifecycle of deploying a vLLM instance, empowering you to demonstrate the tangible delivery of a functional AI engine.
+
+Duration: 1-2 hours
 
 == Objectives
 
 On completing this course, you should be able to:
 
-* Observable, measurable objective...
-* Observable, measurable objective...
-* Observable, measurable objective...
+* Select a model from the Red Hat AI Model Repository.
+* Deploy selected optimized model using OpenShift AI.
+* Query that model using RHOAI Workbench + Notebook.
 
 == Prerequisites
 
 This course assumes that you have the following prior experience:
 
-* Course or experience...
-* Course or experience...
-* Course or experience...
+* Understanding of LLM compression techniques such as quantization and sparzation.
+* Knowledge of OpenShift AI Dashboard Menus and Tabs.
+* Knowledge of Jupyter notebooks and Python.
+* vLLM Inference server (runtime) and vLLM Compressor.
 
 [NOTE]
 ====
