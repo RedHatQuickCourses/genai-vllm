@@ -15,6 +15,7 @@ Objective: To identify and prioritize a list of potential AI use cases based on 
 
 If you interested in Phase 1 use cases, check out this course on Red Hat AI use cases. (link to Greg's Course)
 
+The Generative AI Use Cases: Chatbot (https://internal-comms.redhat.com/h/dyov2h7s?url=https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D79794317[Internal]| https://internal-comms.redhat.com/h/dyov2mXv?url=https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D79794871[Partner]) course explores technical challenges across various industries and demonstrates how Red Hat AI can be leveraged to create chatbot solutions. By completing this course, learners will also gain insights into potential customer concerns and objections.
 
 
 
