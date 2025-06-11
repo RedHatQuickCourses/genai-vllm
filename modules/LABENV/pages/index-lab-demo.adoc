@@ -3,7 +3,11 @@
 == Instructions to Launch Your Lab on the Red Hat Demo Platform (RHDP)
 
 . **Log in** to the xref:#RHDP-Portal-Links[RHDP portal]
-. **Search** for the catalog entry: **FIXME Lab Catalog Name**.
+. **Search** for the catalog entry: 
+
+ ** *RHOAI on OCP on AWS with NVIDIA GPUs*. 
+ ** *LB2959- Optimizing LLMs for inference with vLLM on RHEL Al & Red Hat OpenShift AI.*.
+
 . **Click** on the catalog entry in the search results.
 . On the catalog page, **click** the **Order** button.
 . **Fill out** the required details in the order form.
@@ -25,7 +29,7 @@
 - RedHat associates: https://demo.redhat.com/[https://demo.redhat.com/,window=_blank]
 - RedHat partners: https://partner.demo.redhat.com/[https://partner.demo.redhat.com/,window=_blank]
 
-=== Lab Activity: 
+=== Pre-Existing Lab Activity: 
 
 Optimizing LLMs for inference with vLLM on RHEL Al and Red Hat OpenShift Al
 This lab will teach you how to optimize AI models using Red Hat’s AI model optimization tools on
