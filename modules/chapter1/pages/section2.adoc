@@ -21,21 +21,61 @@ The Decision: Using an Impact vs. Feasibility matrix, the choice becomes obvious
 Outcome of Phase 1: The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.
 
 Step-by-Step Execution:
-Frame the TCO Discussion: You present two primary options to the CTO.
+
+Already a Red Hat customer Innovatech already has an OpenShift AI instance with 2 GPU worker nodes (Nvidia A10G -24GB). They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab. 
+
+We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun)
+
+If your not familiar with OpenShift AI - not worry, we have a 30 minute interactive course for on the installation, operation, and utilization of OpenShift AI available at this link. 
+
+With that let's get into creating exploring the Innovatech's Openshift AI environment.
+
+- Provided with OpenShift console link along with the username and password.
+
+- OpenShift AI is dependant on an OpenShift Container Platform cluster as the primary environment that OpenShift AI utilizes features from to Automate AI/ML and Data Engineering infrastructure and tasks.
+
+OpenShift AI shared the authentican services from OpenShift, so this password will work for both. 
+
+Let's get logged and check on this services running in this cluster.  If possible get a test model up and running as a development prototype for the rest of the application. 
+
+---Arcade walkthrough of logging into OPenShift AI
+
+++++
+<iframe 
+  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Arcade walkthrough of s3 compatible storage for data connections and pipelines
+
+ * determine the data connection settings
+ * minio s3 compatible storage
+ * pipeline services 
 
 
-Option A: Proprietary API (The "Lease" Option)
+++++
+<iframe 
+  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Now with the a better understanding of the OpenShift AI Projects and resource consumption, we can look for compatible models for this business's needs. 
 
 
-Model: Continue using the Google Gemini Pro API.
-Upfront Cost: Minimal. Mostly integration work.
-Recurring Cost: Pay-per-use. You estimate they process ~1,500 tickets/month. You calculate a projected annual cost of ~$18,000.
-TCO (1 Year): ~$25,000 (including integration labor).
-Option B: Open-Source Self-Hosted (The "Buy" Option)
 
-
-Model: Use a powerful open-source model like Llama 3 8B Instruct.
-Upfront Cost: Higher. Requires setting up a cloud server with a GPU, plus more complex MLOps for deployment and monitoring. Estimated setup cost: $15,000.
-Recurring Cost: Infrastructure cost for a dedicated cloud GPU instance. Estimated annual cost: ~$12,000.
-TCO (1 Year): ~$27,000.
-The Recommendation: You plot the TCO on a timeline. While the costs are similar in Year 1, you highlight that Innovatech lacks a dedicated MLOps team. The operational overhead and risk of managing the open-source model are high for them right now

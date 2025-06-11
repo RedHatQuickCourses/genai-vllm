@@ -1,1 +1,2 @@
 * xref:index.adoc[]
+** xref:index-lab-demo.adoc[]

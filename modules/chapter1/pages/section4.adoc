@@ -1,0 +1,15 @@
+= Model Inference with OpenShift AI
+
+
+- serving runtime
+- Launch model
+- workbench
+- notebooks
+- launch jupyter - clone repository
+- run notebook
+- connect to model
+
+
+ The operational overhead and risk of managing the open-source model are high for them right now but with Red Hat AI solutions, they feel confident this mission will succeed.
+
+ 

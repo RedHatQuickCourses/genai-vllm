@@ -1,4 +1,4 @@
-= Lab Environment
+= Red Hat Demo Hub
 
 == Instructions to Launch Your Lab on the Red Hat Demo Platform (RHDP)
 
@@ -24,4 +24,20 @@
 === RHDP Portal Links
 - RedHat associates: https://demo.redhat.com/[https://demo.redhat.com/,window=_blank]
 - RedHat partners: https://partner.demo.redhat.com/[https://partner.demo.redhat.com/,window=_blank]
+
+=== Lab Activity: 
+
+Optimizing LLMs for inference with vLLM on RHEL Al and Red Hat OpenShift Al
+This lab will teach you how to optimize AI models using Red Hat’s AI model optimization tools on
+OpenShift AI, focusing on:
+
+ * OpenShift AI Platform: Get familiar with OpenShift AI’s capabilities for data science projects.
+ * Model Optimization: Master the use of llm-compressor to adapt models to your specific
+hardware.
+ * Quantization Techniques: Learn different approaches to model quantization (int4, fp8, int8).
+ * Model Evaluation: Understand how to assess model performance using lm-eval.
+ * Deployment Optimization: Leverage vLLM inference server through OpenShift AI for efficient
+model serving.
+
+The information, code, pipelines, and techniques it contains are illustrations of what a first prototype could look like.
 
