@@ -22,7 +22,7 @@ Outcome of Phase 1: The Innovatech team is aligned and excited. They have moved 
 
 Step-by-Step Execution:
 
-Already a Red Hat customer Innovatech already has an OpenShift AI instance with 2 GPU worker nodes (Nvidia A10G -24GB). They were previously using the cluster for another AI initiaves but have since stop using this environment. 
+Already a Red Hat customer Innovatech already has an OpenShift AI instance with 2 GPU worker nodes (Nvidia A10G -24GB). They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab. 
 
 We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun)
 
@@ -39,9 +39,43 @@ OpenShift AI shared the authentican services from OpenShift, so this password wi
 Let's get logged and check on this services running in this cluster.  If possible get a test model up and running as a development prototype for the rest of the application. 
 
 ---Arcade walkthrough of logging into OPenShift AI
-- determine the data connection settings
-- minio s3 compatible storage
-- pipeline services 
+
+++++
+<iframe 
+  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Arcade walkthrough of s3 compatible storage for data connections and pipelines
+
+ * determine the data connection settings
+ * minio s3 compatible storage
+ * pipeline services 
+
+
+++++
+<iframe 
+  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Now with the a better understanding of the OpenShift AI Projects and resource consumption, we can look for compatible models for this business's needs. 
 
 
 
