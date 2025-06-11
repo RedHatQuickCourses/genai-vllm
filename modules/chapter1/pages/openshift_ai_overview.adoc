@@ -1,0 +1,81 @@
+= Innovatech's OpenShift AI Environment
+
+If your not familiar with OpenShift AI - not worry, we have a 30 minute interactive course for on the installation, operation, and utilization of OpenShift AI available at this link. 
+
+With that let's get into creating exploring the Innovatech's Openshift AI environment.
+
+- Provided with OpenShift console link along with the username and password.
+
+- OpenShift AI is dependant on an OpenShift Container Platform cluster as the primary environment that OpenShift AI utilizes features from to Automate AI/ML and Data Engineering infrastructure and tasks.
+
+OpenShift AI shared the authentican services from OpenShift, so this password will work for both. 
+
+Let's get logged and check on this services running in this cluster.  If possible get a test model up and running as a development prototype for the rest of the application. 
+
+---Arcade walkthrough of logging into OPenShift AI
+
+++++
+<iframe 
+  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Arcade walkthrough of s3 compatible storage for data connections and pipelines
+
+ * determine the data connection settings
+ * minio s3 compatible storage
+ * pipeline services 
+
+
+++++
+<iframe 
+  src="https://demo.arcade.software/BkLOElw2o6VLhyL2I6vL?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+++++
+<iframe 
+  src="https://demo.arcade.software/7JiWIqs2i8Kg4bJG9Btd?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+++++
+<iframe 
+  src="https://demo.arcade.software/Tx1Ye0zpgTFHhqs6ID01?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+
+Now with the a better understanding of the OpenShift AI Projects and resource consumption, we can look for compatible models for this business's needs. 

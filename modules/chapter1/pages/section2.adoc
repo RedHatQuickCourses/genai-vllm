@@ -1,81 +1,41 @@
 = The Scenario
 
-The Customer: "Innovatech Robotics," a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.
+=== The Customer: 
 
-The Problem: Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.
+*"Innovatech Robotics,"* a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.
 
-The Request: The CTO of Innovatech approaches you. "We've heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what's possible. We don't know where to start."
+=== The Problem: 
 
-Your Role: You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.
+Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.
 
-Use Case Prioritization: You guide the team to brainstorm potential AI solutions on a whiteboard.
+=== The Request: 
+
+The CTO of Innovatech approaches you. "We've heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what's possible. We don't know where to start."
+
+=== Your Role: 
+
+You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.
+
+=== Use Case Prioritization: 
+
+You previously guided the team to brainstorm potential AI solutions on a whiteboard.
 
 
 * Idea A: A chatbot for the public website to answer pre-sales questions. (Medium Impact, Medium Feasibility - data is scattered).
 * Idea B: An AI tool to help engineers write documentation faster. (Medium Impact, Low Feasibility - engineers see it as extra work).
 * Idea C: An internal tool to analyze incoming support tickets, categorize them, and suggest relevant documentation links for engineers to use. (High Impact, High Feasibility).
 
-The Decision: Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.
+=== The Decision: 
+
+Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.
 
 
-Outcome of Phase 1: The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.
+=== Outcome of Phase 1: 
 
-Step-by-Step Execution:
+The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.
+
+=== Step-by-Step Execution:
 
 Already a Red Hat customer Innovatech already has an OpenShift AI instance with 2 GPU worker nodes (Nvidia A10G -24GB). They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab. 
 
 We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun)
-
-If your not familiar with OpenShift AI - not worry, we have a 30 minute interactive course for on the installation, operation, and utilization of OpenShift AI available at this link. 
-
-With that let's get into creating exploring the Innovatech's Openshift AI environment.
-
-- Provided with OpenShift console link along with the username and password.
-
-- OpenShift AI is dependant on an OpenShift Container Platform cluster as the primary environment that OpenShift AI utilizes features from to Automate AI/ML and Data Engineering infrastructure and tasks.
-
-OpenShift AI shared the authentican services from OpenShift, so this password will work for both. 
-
-Let's get logged and check on this services running in this cluster.  If possible get a test model up and running as a development prototype for the rest of the application. 
-
----Arcade walkthrough of logging into OPenShift AI
-
-++++
-<iframe 
-  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-  width="100%" 
-  height="600px" 
-  frameborder="0" 
-  allowfullscreen
-  webkitallowfullscreen
-  mozallowfullscreen
-  allow="clipboard-write"
-  muted>
-</iframe>
-++++
-
-Arcade walkthrough of s3 compatible storage for data connections and pipelines
-
- * determine the data connection settings
- * minio s3 compatible storage
- * pipeline services 
-
-
-++++
-<iframe 
-  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-  width="100%" 
-  height="600px" 
-  frameborder="0" 
-  allowfullscreen
-  webkitallowfullscreen
-  mozallowfullscreen
-  allow="clipboard-write"
-  muted>
-</iframe>
-++++
-
-Now with the a better understanding of the OpenShift AI Projects and resource consumption, we can look for compatible models for this business's needs. 
-
-
-
