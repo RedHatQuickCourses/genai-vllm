@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Hands on Exploration and Further Study :: vLLM, From Model to Deployment</title>
-    <link rel="prev" href="model_phases.html">
-    <link rel="next" href="../LABENV/index.html">
+    <title>Innovatech&#8217;s OpenShift AI Environment :: vLLM, From Model to Deployment</title>
+    <link rel="prev" href="section2.html">
+    <link rel="next" href="section3.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -48,25 +48,25 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter1/index.html">Red Hat AI</a>
+    <a class="nav-link" href="index.html">Red Hat AI</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section1.html">The Challenge</a>
+    <a class="nav-link" href="section1.html">The Challenge</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter1/section2.html">The Scenario</a>
+    <a class="nav-link" href="section2.html">The Scenario</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../chapter1/openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section3.html">Red Hat AI Platform Solutions</a>
+    <a class="nav-link" href="section3.html">Red Hat AI Platform Solutions</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section4.html">Model Inference with OpenShift AI</a>
+    <a class="nav-link" href="section4.html">Model Inference with OpenShift AI</a>
   </li>
 </ul>
   </li>
@@ -121,13 +121,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="appendix.html">Appendix</a>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model_phases.html">Common model variations</a>
+    <a class="nav-link" href="../appendix/model_phases.html">Common model variations</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="further_study.html">Hands on Exploration and Further Study</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
   </li>
 </ul>
   </li>
@@ -177,8 +177,9 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vLLM, From Model to Deployment</a></li>
-    <li><a href="appendix.html">Appendix</a></li>
-    <li><a href="further_study.html">Hands on Exploration and Further Study</a></li>
+    <li><a href="index.html">Red Hat AI</a></li>
+    <li><a href="section2.html">The Scenario</a></li>
+    <li><a href="openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a></li>
   </ul>
 </nav>
 </div>
@@ -187,65 +188,98 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Hands on Exploration and Further Study</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Innovatech&#8217;s OpenShift AI Environment</h1>
 <div class="paragraph">
-<p>This section provides a curated collection of blogs, interactive experiences, vLLM office hours, and
-YouTube videos to deepen your understanding of vLLM, including practical guidance on setup, usage,
-optimization, and multimodal inference, along with opportunities for hands-on learning with vLLM and
-related tools.</p>
+<p>If your not familiar with OpenShift AI - not worry, we have a 30 minute interactive course for on the installation, operation, and utilization of OpenShift AI available at this link.</p>
 </div>
+<div class="paragraph">
+<p>With that let&#8217;s get into creating exploring the Innovatech&#8217;s Openshift AI environment.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_blogs"><a class="anchor" href="#_blogs"></a>Blogs:</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>vLLM: Easy, Fast, and Cheap LLM Serving with Page Attention</p>
+<p>Provided with OpenShift console link along with the username and password.</p>
 </li>
 <li>
-<p>LLM Compressor is here: Faster inference with vLLM</p>
-</li>
-<li>
-<p>vLLM V1: Accelerating multimodal inference for large language models</p>
-</li>
-<li>
-<p>vLLM V1 User Guide</p>
+<p>OpenShift AI is dependant on an OpenShift Container Platform cluster as the primary environment that OpenShift AI utilizes features from to Automate AI/ML and Data Engineering infrastructure and tasks.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>OpenShift AI shared the authentican services from OpenShift, so this password will work for both.</p>
 </div>
-<div class="sect2">
-<h3 id="_interactive_experiences"><a class="anchor" href="#_interactive_experiences"></a>Interactive experiences:</h3>
+<div class="paragraph">
+<p>Let&#8217;s get logged and check on this services running in this cluster.  If possible get a test model up and running as a development prototype for the rest of the application.</p>
+</div>
+<div class="paragraph">
+<p>---Arcade walkthrough of logging into OPenShift AI</p>
+</div>
+<iframe
+  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+<div class="paragraph">
+<p>Arcade walkthrough of s3 compatible storage for data connections and pipelines</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Introduction to Red Hat AI Inference Server</p>
+<p>determine the data connection settings</p>
 </li>
 <li>
-<p>Hands on with vLLM</p>
+<p>minio s3 compatible storage</p>
 </li>
 <li>
-<p>LLM Compression and Model Optimization</p>
+<p>pipeline services</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_vllm_office_hours"><a class="anchor" href="#_vllm_office_hours"></a>vLLM Office Hours:</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>vLLM Office Hours #22 - Intro</p>
-</li>
-</ul>
-</div>
+<iframe
+  src="https://demo.arcade.software/BkLOElw2o6VLhyL2I6vL?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+<iframe
+  src="https://demo.arcade.software/7JiWIqs2i8Kg4bJG9Btd?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+<iframe
+  src="https://demo.arcade.software/Tx1Ye0zpgTFHhqs6ID01?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+<div class="paragraph">
+<p>Now with the a better understanding of the OpenShift AI Projects and resource consumption, we can look for compatible models for this business&#8217;s needs.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="model_phases.html">Common model variations</a></span>
-  <span class="next"><a href="../LABENV/index.html">Lab Environment</a></span>
+  <span class="prev"><a href="section2.html">The Scenario</a></span>
+  <span class="next"><a href="section3.html">Red Hat AI Platform Solutions</a></span>
 </nav>
 </article>
   </div>

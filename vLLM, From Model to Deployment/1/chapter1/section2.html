@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>The Scenario :: vLLM, From Model to Deployment</title>
     <link rel="prev" href="section1.html">
-    <link rel="next" href="section3.html">
+    <link rel="next" href="openshift_ai_overview.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -48,26 +48,19 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">Red Hat AI</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section1.html">The Challenge</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="section2.html">The Scenario</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section3.html">Red Hat AI Platform Solutions</a>
@@ -140,6 +133,22 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -179,20 +188,34 @@
 </aside>
 <article class="doc">
 <h1 class="page">The Scenario</h1>
+<div class="sect2">
+<h3 id="_the_customer"><a class="anchor" href="#_the_customer"></a>The Customer:</h3>
 <div class="paragraph">
-<p>The Customer: "Innovatech Robotics," a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.</p>
+<p><strong>"Innovatech Robotics,"</strong> a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.</p>
 </div>
-<div class="paragraph">
-<p>The Problem: Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.</p>
 </div>
+<div class="sect2">
+<h3 id="_the_problem"><a class="anchor" href="#_the_problem"></a>The Problem:</h3>
 <div class="paragraph">
-<p>The Request: The CTO of Innovatech approaches you. "We&#8217;ve heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what&#8217;s possible. We don&#8217;t know where to start."</p>
+<p>Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.</p>
 </div>
-<div class="paragraph">
-<p>Your Role: You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.</p>
 </div>
+<div class="sect2">
+<h3 id="_the_request"><a class="anchor" href="#_the_request"></a>The Request:</h3>
 <div class="paragraph">
-<p>Use Case Prioritization: You guide the team to brainstorm potential AI solutions on a whiteboard.</p>
+<p>The CTO of Innovatech approaches you. "We&#8217;ve heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what&#8217;s possible. We don&#8217;t know where to start."</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_your_role"><a class="anchor" href="#_your_role"></a>Your Role:</h3>
+<div class="paragraph">
+<p>You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_case_prioritization"><a class="anchor" href="#_use_case_prioritization"></a>Use Case Prioritization:</h3>
+<div class="paragraph">
+<p>You previously guided the team to brainstorm potential AI solutions on a whiteboard.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -207,90 +230,31 @@
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The Decision: Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.</p>
 </div>
+<div class="sect2">
+<h3 id="_the_decision"><a class="anchor" href="#_the_decision"></a>The Decision:</h3>
 <div class="paragraph">
-<p>Outcome of Phase 1: The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.</p>
+<p>Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_outcome_of_phase_1"><a class="anchor" href="#_outcome_of_phase_1"></a>Outcome of Phase 1:</h3>
 <div class="paragraph">
-<p>Step-by-Step Execution:</p>
+<p>The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_step_by_step_execution"><a class="anchor" href="#_step_by_step_execution"></a>Step-by-Step Execution:</h3>
 <div class="paragraph">
 <p>Already a Red Hat customer Innovatech already has an OpenShift AI instance with 2 GPU worker nodes (Nvidia A10G -24GB). They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab.</p>
 </div>
 <div class="paragraph">
 <p>We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun)</p>
 </div>
-<div class="paragraph">
-<p>If your not familiar with OpenShift AI - not worry, we have a 30 minute interactive course for on the installation, operation, and utilization of OpenShift AI available at this link.</p>
-</div>
-<div class="paragraph">
-<p>With that let&#8217;s get into creating exploring the Innovatech&#8217;s Openshift AI environment.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Provided with OpenShift console link along with the username and password.</p>
-</li>
-<li>
-<p>OpenShift AI is dependant on an OpenShift Container Platform cluster as the primary environment that OpenShift AI utilizes features from to Automate AI/ML and Data Engineering infrastructure and tasks.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>OpenShift AI shared the authentican services from OpenShift, so this password will work for both.</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s get logged and check on this services running in this cluster.  If possible get a test model up and running as a development prototype for the rest of the application.</p>
-</div>
-<div class="paragraph">
-<p>---Arcade walkthrough of logging into OPenShift AI</p>
-</div>
-<iframe
-  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-  width="100%"
-  height="600px"
-  frameborder="0"
-  allowfullscreen
-  webkitallowfullscreen
-  mozallowfullscreen
-  allow="clipboard-write"
-  muted>
-</iframe>
-<div class="paragraph">
-<p>Arcade walkthrough of s3 compatible storage for data connections and pipelines</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>determine the data connection settings</p>
-</li>
-<li>
-<p>minio s3 compatible storage</p>
-</li>
-<li>
-<p>pipeline services</p>
-</li>
-</ul>
-</div>
-<iframe
-  src="https://demo.arcade.software/9nnyBw1uHPOmuQtB60Yr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-  width="100%"
-  height="600px"
-  frameborder="0"
-  allowfullscreen
-  webkitallowfullscreen
-  mozallowfullscreen
-  allow="clipboard-write"
-  muted>
-</iframe>
-<div class="paragraph">
-<p>Now with the a better understanding of the OpenShift AI Projects and resource consumption, we can look for compatible models for this business&#8217;s needs.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="section1.html">The Challenge</a></span>
-  <span class="next"><a href="section3.html">Red Hat AI Platform Solutions</a></span>
+  <span class="next"><a href="openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a></span>
 </nav>
 </article>
   </div>
