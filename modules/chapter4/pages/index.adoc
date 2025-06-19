@@ -1,7 +1,186 @@
-= Using vLLM
+= vLLM, What is it ?
 
-vLLM supports the following usage patterns:
+== Introduction 
 
- * Inference and Serving: Run a single instance of a model.
- * Deployment: Scale up model instances for production.
- * Training: Train or fine-tune a model.
+Virtual Large Language Model, vLLM is a cutting-edge inference engine renowned for its high-throughput and memory-efficient performance. Originating from research at UC Berkeley, vLLM achieves this through innovative techniques like *pagedAttention and continuous batching* These methods allow vLLM to optimize GPU memory management and speed up inference, often delivering several times higher performance (2-4x) compared to traditional serving methods.
+
+The fundamental purpose of model serving is to make these trained ML models accessible and usable within real-world applications and business processes. 
+
+By exposing models via Application Programming Interfaces (APIs), typically REST or gRPC, serving systems allow various applications to consume model predictions without needing to host or manage their own copies of the model.  
+
+vLLM offers an OpenAI-compatible API, making it a drop-in replacement for external services.
+
+== Key Features
+
+=== Pagedattention
+
+The core concept behind vLLM's high-throughput and memory-efficient performance lies the innovative technique called PagedAttention.  PagedAttention is a key innovation that helps vLLM optimize GPU memory management and speed up inference. It allows vLLM to achieve significantly higher throughput, specifically cited as 2-4x higher compared to traditional serving methods.
+
+ * *Memory division and storage:* PagedAttention divides the KV cache into blocks and stores these blocks in non-contiguous memory.
+ * *Reduced memory waste:* This block-based approach significantly reduces memory waste. It addresses both internal and external fragmentation, which are common issues in existing LLM serving systems.
+ * *Increased throughput:* By minimizing memory waste, PagedAttention makes the KV cache more efficient, which in turn allows the system to batch a larger number of requests. Batching more requests together leads to a substantial improvement in the throughput of the LLM serving system.
+ * *Flexible memory sharing:* PagedAttention enables the sharing of KV cache blocks. This sharing can occur across different sequences within the same request (useful for parallel decoding) or even across different requests (useful for handling shared prefixes).
+ * *Support for complex decoding:* The efficient memory management provided by PagedAttention makes it well-suited for supporting various advanced decoding scenarios, including parallel sampling, beam search, and handling shared prefixes in prompts
+
+=== Continuous Batching
+
+Continuous batching is a core concept and key feature leveraged by vLLM to achieve its high-throughput performance. The fundamental idea behind batching requests is to maximize GPU usage by processing multiple queries together rather than sequentially. This approach directly increases throughput.
+_Unlike traditional methods like static batching, where a client bundles queries and waits for the entire batch to finish, or dynamic batching, which is server-side and often based on fixed time windows or batch sizes_, *continuous batching dynamically groups new incoming requests with ongoing requests that have not yet completed processing. The system dynamically adjusts the batch size based on the availability of resources like GPU memory and compute power. 
+
+This dynamic grouping allows the underlying language model to process parts of different requests in parallel, meaning it doesn't have to wait for every request in a batch to finish before starting work on new ones. By continuously adding new requests to the batch as resources become available, vLLM can maintain a high level of GPU utilization, which is crucial for achieving significant improvements in the number of requests and tokens served per second.
+
+== Supported Models
+
+=== Text --> Text
+
+Text models are the workhorses of natural language processing. They excel at tasks like text generation, question answering, translation, summarization, and creative writing.
+Encoder-decoder models: These models, such as T5 and BART, typically take an input sequence and produce an output sequence. They are well-suited for tasks like translation and summarization.
+Causal language models: These models predict the next token in a sequence given the preceding tokens. They are the foundation for many text generation tasks.
+
+
+=== MultiModal - Text and Image --> Text
+
+Multimodal models are capable of processing and understanding information from multiple modalities, such as text, images, audio, and video. Examples include:
+Image captioning models: Generating textual descriptions of images.
+Visual question answering (VQA) models: Answering questions based on the content of an image.
+Text-to-image generation models: Creating images from textual descriptions.
+Video understanding models: Analyzing and interpreting video content.
+
+
+=== Embedding
+
+Embedding models are designed to convert text or other data into dense vector representations (embeddings). These embeddings capture the semantic meaning of the input, allowing for efficient comparison and retrieval of similar items. Common use cases include:
+Semantic Search: Finding documents or passages that are semantically similar to a query.
+Recommendation Systems: Suggesting items based on the similarity of their embeddings to a user's preferences or past interactions.
+Clustering and Classification: Grouping or categorizing data points based on the similarity of their embeddings.
+
+
+=== Reward models
+
+Reward models are trained to predict a scalar reward score that reflects the quality or desirability of a given output, often in the context of reinforcement learning from human feedback (RLHF). These models are crucial for aligning LLMs with human preferences. Common applications include:
+Ranking Model Outputs: Given multiple generated responses, the reward model can rank them based on their quality.
+Guiding Reinforcement Learning: The reward score serves as a feedback signal to train language models to generate more preferred outputs.
+
+
+Mamba models represent a recent advancement in sequence modeling, offering a compelling alternative to traditional Transformer architectures, particularly for long-sequence tasks. Their core innovation lies in the Selective State Space (SSS) layer.
+
+Encoder-decoder models separate the process of understanding the input sequence (encoding) from the process of generating the output sequence (decoding), using a context vector to bridge the gap. The integration of attention mechanisms has further enhanced their ability to handle complex sequence-to-sequence tasks.
+
+== Tensor Parallelism, Pipeline Parallelism
+
+LLMs often require significant computational resources, particularly GPU memory and processing power. To overcome these limitations and achieve scalability for serving these models, vLLM leverages and interacts with various concepts from the realm of distributed computing and high-performance inference. These techniques are employed to distribute the model and its computations across multiple GPUs.
+
+=== Distributed Inference Frameworks:
+
+*Ray:* vLLM can leverage Ray, a framework designed for building distributed applications. Ray provides tools for managing distributed actors, task scheduling, and resource management across multiple nodes and GPUs. vLLM can use Ray to orchestrate its distributed workers.
+*Multiprocessing:* For simpler setups involving multiple GPUs within a single node, vLLM can also utilize Python's built-in multiprocessing library to manage its distributed processes.
+*Model Sharding and Distribution:* Beyond specific parallelism techniques, the entire model can be sharded (split) across multiple nodes in various ways. vLLM needs to coordinate how these model shards are loaded and accessed by the different serving processes.
+
+=== Parallelism Techniques: 
+
+vLLM utilizes various methods to parallelize computations across multiple devices:
+
+ * *Tensor Parallelism:* This technique is used to shard each model layer across multiple GPUs within a node. It distributes large tensor computations across these GPUs. This is typically used in single-node, multi-GPU configurations.
+ * *Pipeline Parallelism:* This is employed when the entire model is too large to fit on a single device. The model is split into stages, with each stage executed on a different device. Activations are passed between neighboring stages when a boundary is reached during execution. This is typically used in multi-node configurations.
+
+ * *Expert Parallelism (EP)* for Mixture of Experts (MoE) models: vLLM includes specialized optimizations for efficiently handling Mixture-of-Experts (MoE) model architectures. It manages their unique routing and computation needs.
+ * *Data Parallelism (DP):* vLLM supports Data Parallel Attention, which routes individual requests to different vLLM engines. During MoE layers, the data parallel engines join together, sharding experts across all data parallel and tensor parallel workers. This is particularly important for models like DeepSeekV3 or Qwen3 with a small number of Key Value (KV) Attention heads, where tensor parallelism can cause wasteful KV Cache duplication. Data Parallelism allows vLLM to scale to a larger number of GPUs in this scenario.
+
+== Hardware Compatibility
+
+[cols="4*",options="header"]
+|===
+|GPU (accelerators)
+|CPU
+|Other AI Accelerators
+|Requirements
+
+|Nvidia CUDA
+|Intel/AMD x86
+|Google TPU
+|OS: Linux
+
+|AMD ROCm
+|ARM AArch64
+|Intel Gaudi
+|Python 3.9-3.12
+
+|Intel XPU
+|Apple silicon
+|AWS Neuron
+|
+|===
+
+[NOTE]
+Various combinations of hardware have additional requirements: https://docs.vllm.ai/en/latest/getting_started/installation.html[Documentation]
+
+
+== Tool and Function Calling
+
+vLLM's core contribution to enabling advanced capabilities like Tool/Function Calling and Structured Outputs lies in its role as a highly efficient and scalable inference engine. It does not inherently provide the intelligence or logic for how a model generates a function call or structured output. Instead, vLLM provides the necessary infrastructure to efficiently serve language models that are designed or prompted to perform these tasks, making their practical use feasible and performant.
+
+ * *Tool/Function Calling:* This feature involves a language model determining the need for interaction with external tools, generating a structured call to a function (including name and parameters), and then processing the result from that function to produce a final response. vLLM's role here is to efficiently and reliably serve the language model that orchestrates this process.
+ * *Structured Outputs:* This refers to a language model's ability to generate responses in a specific, predefined format like JSON, XML, or CSV. This is valuable for integrating LLMs with other systems and enabling downstream processing. vLLM provides the fast and reliable inference infrastructure required to serve language models that are adept at generating structured outputs.
+
+
+[NOTE]
+
+Key Takeaway: While the specific logic for generating function calls or structured outputs resides within the language model itself and is handled by your application code, vLLM is the high-performance server that enables these capable models to operate effectively, ensuring speed and efficiency in your applications utilizing these advanced features.
+
+== LLM Optimization and Compression
+
+=== Quantization
+
+The central aim is to enable substantially faster inference and more efficient deployment of LLMs by providing a framework to apply compression best practices. 
+
+Reasons to quantize or simply the precision of AI models 
+
+ * less precision means less processing power to compute
+ * model size is reduced by up to 50% or more
+ * reduces the memory needed to load the model
+ * model precision better aligns with GPU supported features.
+ * reduced size is cheaper to operate.
+
+=== Sparsification
+
+ * reduced model size by setting values to 0
+ * structured or unstructured   
+    structured 2:4 sparsity: two of every four parameters is set to 0
+ * Nvidia GPUs offer hardware acceleration for 2:4 sparse matrices.
+
+=== The Trade-off:
+
+The main trade-off is accuracy. When you simplify (quantize) your numbers, you lose some of the original precision.  The art is in simplifying enough to get the speed and size benefits without losing too much accuracy.
+
+ * *INT4* is the smallest and potentially fastest but has the highest risk of hurting accuracy.
+ * *FP8* tries to keep some decimal precision, which can be better for accuracy than INT8 in some cases, especially with newer hardware that supports it well.
+ * *INT8* is a common balance, offering good compression and speed-up with often manageable accuracy loss.
+
+So, quantization is all about making AI models leaner and meaner by simplifying the numbers they use, with INT4 being the most extreme simplification among these three, and FP8 trying to keep a bit more decimal detail than the integer types.
+
+
+Okay, let's connect how weights and activations are affected by the quantization types (INT8, FP8, INT4).
+
+ * *Weights:* These are like the fixed ingredient amounts written in your recipe book (e.g., "10.123456 grams of sugar"). They are learned during training and then generally stay the same when the model is being used.
+ * *Activations:* These are like the measurements or results of intermediate steps while you are baking (e.g., "after mixing sugar and butter, the mixture weighs 50.4567 grams," or "the oven temperature is currently 175.123 degrees"). They are dynamic and change with each specific input (each time you bake).
+ * *Weight-Only Quantization:* This is like only simplifying the numbers in your recipe book (weights to INT8, FP8, or INT4) but still using your super-precise digital scale and thermometer for all the live baking steps (activations remain in higher precision, like FP16 or FP32). This primarily makes the recipe book smaller.
+* *Weight and Activation (W&A) Quantization:* This is like simplifying both the recipe book (weights to INT8, FP8, INT4) and deciding to use simpler, less precise measuring tools (activations also to INT8, FP8, or INT4) for all your live baking steps. This makes the recipe book smaller AND makes the actual baking process faster and potentially use less "mental energy" (compute).
+
+So, when you see terms like "W8A8 quantization," it means both the weights (W) and the activations (A) are being represented using 8-bit numbers (could be INT8 for both, or FP8 for both, or a mix). "W4A16" would mean 4-bit weights and 16-bit (higher precision) activations.
+
+The goal is always to find the right balance: simplify enough to get the size and speed benefits, but not so much that your final cake (the AI model's output) is significantly worse.
+
+[NOTE]
+LLM Compressor supports various precisions, including INT4 (primarily for weights), INT8 (for both weights and activations), and FP8 (also for weights and activations). FP8 quantization, in particular, is targeted at NVIDIA's newer Ada Lovelace and Hopper GPU architectures, which have dedicated hardware support for FP8 computations.
+
+=== Nvidia GPU Architecture 
+
+Support features for architecture versions of Nvidia GPU and their supported featuers and the precision optimizations they support.
+
+
+
+
+
+
+
+

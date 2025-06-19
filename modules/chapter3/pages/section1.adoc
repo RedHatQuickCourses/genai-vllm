@@ -1,6 +1,28 @@
 = Section 1
 
-* Create multiple copies of this section as needed.
-* Remove any unnecessary sections or chapter pages.
-* Customize the section as appropriate.
-* Ensure that each page contains a manageable amount of content.
+== Phase 2: Rapid Viability Assessment & PoC (The "How" and "If")
+
+Objective: Prove the "Support Ticket Triage Assistant" is technically feasible and will work in their environment, without over-investing.
+Budget Allocation: ~$10,000 (for cloud credits and 2-3 weeks of engineering time).
+
+Design the MVP (Human-in-the-Loop): Instead of full automation, you design a safer, more helpful MVP. The AI will not respond to customers directly. Instead, when a support engineer opens a ticket in Jira, the AI's analysis (category, suggested URL, and a draft summary) will automatically appear in a private comment field.
+
+
+Need a summarization model or text to text based model for text generation. 
+The actual model that could meet these requirements is pretty broad. 
+With our knowledge of the their existing hardware of two nodes with GPUs both A10Gs 24GB video memory means we could possible host a model up to ~12B parameters, working with calculation that a model requires 2x its parameters in GPU memory to operator and more for KV caching or other features. 
+With this assumption, we can expect to select a model with less than 12B parameters and for this project we could probably go with a really small model since we can use data from previous ticket help align the model or at least provide additional context for model queries.  
+
+Design would be something like a new ticket created in Jira for support,  an API that collects the data in json format and submits it to our AI model for summarization, categorization, and to determine the best links for additional information on the topic. 
+
+Model format the output as json and the application returns this to the jira application which post the summarization and links to urls within the comment field.
+
+What this group will deliver is an deploy AI model in OpenShift AI that provides and endpoint for the customer application that will query Jira, construct the prompt, query the AI model, collect the response, return the response to the application which will in turn post the response to Jira.
+
+The customer will be responsible for the application and Jira integration and we will focus on AI model selection, deployment, performance, along with safety and security coming in later course modules.
+
+We understand the requirements, the next step is to find and select a model as our first test candidate.
+
+To narrow down the model selection process, we are going to review a few of the models in the red hat ai model repository on huggingface. 
+
+

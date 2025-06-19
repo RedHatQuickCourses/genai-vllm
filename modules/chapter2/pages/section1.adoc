@@ -12,4 +12,4 @@ So which model to choose will depend on several factors:
  * The size of the model. Unfortunately that may be the most restrictive point for your choice. The model simply must fit on the hardware you have at your disposal, or the amount of money you are willing to pay.
 
 
-Currently, a good LLM with interesting performance for a relatively small size is Mistral-7B. Fully Open Source with an Apache 2.0 license, it will fit in an unquantized version on about 22GB of VRAM, which is perfect for an A10G card.
+Currently, a good LLM with interesting performance for a relatively small size is Mistral-7B. Fully Open Source with an Apache 2.0 license, it will fit in an unquantized version on about 22GB of VRAM, which is perfect for an A10G or L4 accelerator card.

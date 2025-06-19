@@ -11,7 +11,7 @@ This is the most critical phase. Do not start by discussing models or technology
 
 Objective: To identify and prioritize a list of potential AI use cases based on business value and feasibility. 
 
-*_That’s not what this course is about.  For this course on vLLM,  this task should have already been figured out and we should be prepared to determine what model we need for to solve the high-value business problem below the budget provided._*
+*_That’s not what this course is about.  For this course on vLLM,  this task should have already been figured out and we should be prepared to determine what model we need to solve the high-value business problem below the budget provided._*
 
 If you interested in Phase 1 use cases, check out this course on Red Hat AI use cases.
 
