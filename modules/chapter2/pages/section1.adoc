@@ -1,15 +1,3 @@
 = Section 1
 
-In this section we will assume that you want to work with a "local" open source model, and not consume a commercial one through an API, like OpenAI's ChatGPT or Anthropic's Claude.
 
-There are literally hundreds of thousands of models available, almost all of them available on the Hugging Face site. If you don't know what this site is, you can think of it as what Quay or DockerHub are for containers: a big repository of models and datasets ready to download and use. Of course Hugging Face (the company) is also creating code, providing hosting capabilities,... but that's another story.
-
-So which model to choose will depend on several factors:
-
- * Of course how good this model is. There are several benchmarks that have been published, as well as constantly updated rankings.
- * The dataset it was trained on. Was it curated or just raw data from anywhere, does it contain nsfw material,...? And of course what the license is (some datasets are provided for research only or non-commercial).
- * The license of the model itself. Some are fully open source, some claim to be... They may be free to use in most cases, but have some restrictions attached to them (looking at you Llama2...).
- * The size of the model. Unfortunately that may be the most restrictive point for your choice. The model simply must fit on the hardware you have at your disposal, or the amount of money you are willing to pay.
-
-
-Currently, a good LLM with interesting performance for a relatively small size is Mistral-7B. Fully Open Source with an Apache 2.0 license, it will fit in an unquantized version on about 22GB of VRAM, which is perfect for an A10G card.

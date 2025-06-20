@@ -10,9 +10,13 @@
 . Wait for the lab creation process to complete.
 . When the lab is created, refer to the **SSH Private Key & Instructions** on the page to access your lab.
 
-NOTE:
+[NOTE]
 
-There is no GPU provided with this environment, however you can select to deploy a model that runs on GPU. 
+There is no GPU provided with this environment, however you can select to deploy a model that runs on CPU. 
+++
+This is great solution for instantly ready lab environment to create a workbench, deploy an notebook, interact with remote model, develop and test scripts and notebooks, and perform any of OpenShift AI tasks that do not require a GPU, like design pipelines. 
+++
+Easy and Fast environment, but no control of the backend services, or admin access to OpenShift or OpenShift AI.
 
 
 ++++

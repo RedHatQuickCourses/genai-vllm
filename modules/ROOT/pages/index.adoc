@@ -5,9 +5,9 @@
 
 Deploying large language models (LLMs) in a real-world enterprise environment comes with its unique set of challenges—from selecting the right model within budget constraints to ensuring seamless integration and robust performance. 
 
-This course, vLLM: From Model to Deployment, is designed to cut through that complexity, providing you with the practical skills and knowledge to confidently bring your AI initiatives to life.
+This course is designed to cut through that complexity, providing you with the practical skills and knowledge to confidently bring your AI initiatives to life.
 
-Our mission is straightforward: to guide you through the complete lifecycle of deploying a vLLM instance, empowering you to demonstrate the tangible delivery of a functional AI engine.
+Our mission is straightforward: to guide you through the complete lifecycle of deploying vLLM instance on OpenShift AI, empowering you to demonstrate the tangible delivery of a functional AI engine.
 
 ==== Duration: 1-2 hours
 

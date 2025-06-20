@@ -36,6 +36,6 @@ The Innovatech team is aligned and excited. They have moved from a fuzzy concept
 
 === Step-by-Step Execution:
 
-Already a Red Hat customer Innovatech already has an OpenShift AI instance with 2 GPU worker nodes (Nvidia A10G -24GB). They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab. 
+Already a Red Hat customer, Innovatech has an OpenShift AI instance with 2 GPU worker nodes, each with an Nvidia L4 24GB accelerator. They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab. 
 
-We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun)
+We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun).
