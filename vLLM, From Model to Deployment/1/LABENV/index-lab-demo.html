@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Red Hat Demo Hub :: vLLM, From Model to Deployment</title>
+    <title>Red Hat Demo Hub: Lab Environment Selection :: vLLM, From Model to Deployment</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="developer_sandbox.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -89,13 +89,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter3/index.html">Chapter 3</a>
+    <a class="nav-link" href="../chapter3/index.html">Red Hat AI Model Repository</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter3/section1.html">Red Hat AI: Validated Models and Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section2.html">Section 2</a>
+    <a class="nav-link" href="../chapter3/section2.html">Individual Model Analysis: Pre-Selected for This Course</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
   </li>
 </ul>
   </li>
@@ -105,13 +108,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter4/index.html">Chapter 4</a>
+    <a class="nav-link" href="../chapter4/index.html">vLLM, What is it ?</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter4/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter4/section2.html">Introduction to vLLM</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter4/section2.html">Section 2</a>
+    <a class="nav-link" href="../chapter4/section1.html">vLLM Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">vLLM Serving Runtime on Red Hat OpenShift AI</a>
   </li>
 </ul>
   </li>
@@ -129,6 +135,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_studyv2.html">Common Generative AI Model Variations and Their Creation</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -137,10 +146,10 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Lab Environment</a>
+    <a class="nav-link" href="index.html">Lab Environments</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="index-lab-demo.html">Red Hat Demo Hub</a>
+    <a class="nav-link" href="index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="developer_sandbox.html">Red Hat Developer Platform</a>
@@ -177,8 +186,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vLLM, From Model to Deployment</a></li>
-    <li><a href="index.html">Lab Environment</a></li>
-    <li><a href="index-lab-demo.html">Red Hat Demo Hub</a></li>
+    <li><a href="index.html">Lab Environments</a></li>
+    <li><a href="index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a></li>
   </ul>
 </nav>
 </div>
@@ -187,30 +196,93 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Red Hat Demo Hub</h1>
+<h1 class="page">Red Hat Demo Hub: Lab Environment Selection</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section guides you through selecting and launching a suitable lab environment on the Red Hat Demo Platform (RHDP) for this course.</p>
+</div>
+<div class="paragraph">
+<p><strong>Interactive Experience - RHDP - RHOAI on OCP on AWS with NVIDIA GPUs</strong></p>
+</div>
+<iframe
+  src="https://demo.arcade.software/pIzuROOj0NbUY4pEHfxN?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_instructions_to_launch_your_lab_on_the_red_hat_demo_platform_rhdp"><a class="anchor" href="#_instructions_to_launch_your_lab_on_the_red_hat_demo_platform_rhdp"></a>Instructions to Launch Your Lab on the Red Hat Demo Platform (RHDP)</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Log in</strong> to the <a href="#RHDP-Portal-Links">RHDP portal</a></p>
+<p><strong>Log in</strong> to the <a href="#RHDP-Portal-Links">RHDP portal</a>.</p>
 </li>
 <li>
-<p><strong>Search</strong> for the catalog entry:</p>
+<p><strong>Search</strong> for one of the following catalog entries:</p>
+</li>
+</ol>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>RHOAI on OCP on AWS with NVIDIA GPUs</strong></p>
+</div>
+<div class="paragraph">
+<p>This option provides a flexible OpenShift and OpenShift AI environment that can be customized to replicate or explore various scenarios.</p>
+</div>
+<div class="paragraph">
+<p>It includes two worker nodes each with an NVIDIA L4 GPU (24GB each), offering capacity for both model training and inference. For example, you can attach one GPU to a Workbench (Jupyter Notebook) for development and utilize the other for model serving.</p>
+</div>
+<div class="paragraph">
+<p><strong>Author&#8217;s Note:</strong> Please note that this environment requires you to download your chosen model to local storage and then upload it to a manually deployed S3-compatible storage, for model serving to function.</p>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>LB2959 - Optimizing LLMs for inference with vLLM on RHEL AI &amp; Red Hat OpenShift AI</strong></p>
+</div>
+<div class="paragraph">
+<p>This lab environment provides a pre-configured setup ideal for immediate use. It includes S3-compatible storage with an AI model already pre-uploaded to the <code>models/base-model</code> directory. Data connections are also pre-configured, enabling immediate model deployment.</p>
+</div>
+<div class="paragraph">
+<p>This environment includes lab examples with:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>RHOAI on OCP on AWS with NVIDIA GPUs</strong>.</p>
+<p>A notebook to query the AI model once it&#8217;s available for inference.</p>
 </li>
 <li>
-<p><strong>LB2959- Optimizing LLMs for inference with vLLM on RHEL Al &amp; Red Hat OpenShift AI.</strong>.</p>
+<p>A notebook to quantize the model into various precisions.</p>
+</li>
+<li>
+<p>A notebook for model evaluation.</p>
 </li>
 </ul>
 </div>
-</li>
+<div class="paragraph">
+<p><strong>Author&#8217;s Note:</strong> This lab served as the foundation for this course. However, this course utilizes different models, notebooks, and applications to showcase specific use cases relevant to AI model delivery, rather than compression and optimizaiton strategies.</p>
+</div>
+</div>
+</div>
+<hr>
+<div class="sect2">
+<h3 id="_follow_the_steps_below_to_deploy_your_chosen_environment"><a class="anchor" href="#_follow_the_steps_below_to_deploy_your_chosen_environment"></a>Follow the steps below to deploy your chosen environment.</h3>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><strong>Click</strong> on the catalog entry in the search results.</p>
+<p><strong>Click</strong> on your selected catalog entry in the search results.</p>
 </li>
 <li>
 <p>On the catalog page, <strong>click</strong> the <strong>Order</strong> button.</p>
@@ -227,12 +299,13 @@
 </li>
 </ol>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_important_notes"><a class="anchor" href="#_important_notes"></a>Important Notes:</h3>
+<h3 id="_important_notes_on_lab_provisioning"><a class="anchor" href="#_important_notes_on_lab_provisioning"></a>Important Notes on Lab Provisioning:</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>This lab may take approximately <strong>FIXME minutes</strong> to become ready.</p>
+<p>These labs may take approximately <strong>120 minutes</strong> to become ready.</p>
 </li>
 <li>
 <p>You will receive an <strong>email with access details</strong> once your lab environment is ready.</p>
@@ -261,50 +334,18 @@
 <div class="ulist">
 <ul>
 <li>
-<p>RedHat associates: <a href="https://demo.redhat.com/" target="_blank" rel="noopener">https://demo.redhat.com/</a></p>
+<p>Red Hat Associates: <a href="https://demo.redhat.com/" target="_blank" rel="noopener">https://demo.redhat.com/</a></p>
 </li>
 <li>
-<p>RedHat partners: <a href="https://partner.demo.redhat.com/" target="_blank" rel="noopener">https://partner.demo.redhat.com/</a></p>
+<p>Red Hat Partners: <a href="https://partner.demo.redhat.com/" target="_blank" rel="noopener">https://partner.demo.redhat.com/</a></p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_pre_existing_lab_activity"><a class="anchor" href="#_pre_existing_lab_activity"></a>Pre-Existing Lab Activity:</h3>
-<div class="paragraph">
-<p>Optimizing LLMs for inference with vLLM on RHEL Al and Red Hat OpenShift Al
-This lab will teach you how to optimize AI models using Red Hat’s AI model optimization tools on
-OpenShift AI, focusing on:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>OpenShift AI Platform: Get familiar with OpenShift AI’s capabilities for data science projects.</p>
-</li>
-<li>
-<p>Model Optimization: Master the use of llm-compressor to adapt models to your specific
-hardware.</p>
-</li>
-<li>
-<p>Quantization Techniques: Learn different approaches to model quantization (int4, fp8, int8).</p>
-</li>
-<li>
-<p>Model Evaluation: Understand how to assess model performance using lm-eval.</p>
-</li>
-<li>
-<p>Deployment Optimization: Leverage vLLM inference server through OpenShift AI for efficient
-model serving.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The information, code, pipelines, and techniques it contains are illustrations of what a first prototype could look like.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Lab Environment</a></span>
+  <span class="prev"><a href="index.html">Lab Environments</a></span>
   <span class="next"><a href="developer_sandbox.html">Red Hat Developer Platform</a></span>
 </nav>
 </article>

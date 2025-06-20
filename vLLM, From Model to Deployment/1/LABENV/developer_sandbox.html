@@ -88,13 +88,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter3/index.html">Chapter 3</a>
+    <a class="nav-link" href="../chapter3/index.html">Red Hat AI Model Repository</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter3/section1.html">Red Hat AI: Validated Models and Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section2.html">Section 2</a>
+    <a class="nav-link" href="../chapter3/section2.html">Individual Model Analysis: Pre-Selected for This Course</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
   </li>
 </ul>
   </li>
@@ -104,13 +107,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter4/index.html">Chapter 4</a>
+    <a class="nav-link" href="../chapter4/index.html">vLLM, What is it ?</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter4/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter4/section2.html">Introduction to vLLM</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter4/section2.html">Section 2</a>
+    <a class="nav-link" href="../chapter4/section1.html">vLLM Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">vLLM Serving Runtime on Red Hat OpenShift AI</a>
   </li>
 </ul>
   </li>
@@ -128,6 +134,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_studyv2.html">Common Generative AI Model Variations and Their Creation</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -136,10 +145,10 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Lab Environment</a>
+    <a class="nav-link" href="index.html">Lab Environments</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="index-lab-demo.html">Red Hat Demo Hub</a>
+    <a class="nav-link" href="index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="developer_sandbox.html">Red Hat Developer Platform</a>
@@ -176,7 +185,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vLLM, From Model to Deployment</a></li>
-    <li><a href="index.html">Lab Environment</a></li>
+    <li><a href="index.html">Lab Environments</a></li>
     <li><a href="developer_sandbox.html">Red Hat Developer Platform</a></li>
   </ul>
 </nav>
@@ -215,11 +224,21 @@
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>NOTE:</p>
-</div>
-<div class="paragraph">
-<p>There is no GPU provided with this environment, however you can select to deploy a model that runs on GPU.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There is no GPU provided with this environment, however you can select to deploy a model that runs on CPU.
+
+This is great solution for instantly ready lab environment to create a workbench, deploy an notebook, interact with remote model, develop and test scripts and notebooks, and perform any of OpenShift AI tasks that do not require a GPU, like design pipelines.
+
+Easy and Fast environment, but no control of the backend services, or admin access to OpenShift or OpenShift AI.
+</td>
+</tr>
+</table>
 </div>
 <iframe
   src="https://demo.arcade.software/LHigl35cjrRDTQsQHomr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
@@ -235,7 +254,7 @@
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index-lab-demo.html">Red Hat Demo Hub</a></span>
+  <span class="prev"><a href="index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a></span>
 </nav>
 </article>
   </div>

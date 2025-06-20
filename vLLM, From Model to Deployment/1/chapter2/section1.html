@@ -89,13 +89,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter3/index.html">Chapter 3</a>
+    <a class="nav-link" href="../chapter3/index.html">Red Hat AI Model Repository</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter3/section1.html">Red Hat AI: Validated Models and Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter3/section2.html">Section 2</a>
+    <a class="nav-link" href="../chapter3/section2.html">Individual Model Analysis: Pre-Selected for This Course</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
   </li>
 </ul>
   </li>
@@ -105,13 +108,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter4/index.html">Chapter 4</a>
+    <a class="nav-link" href="../chapter4/index.html">vLLM, What is it ?</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter4/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter4/section2.html">Introduction to vLLM</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter4/section2.html">Section 2</a>
+    <a class="nav-link" href="../chapter4/section1.html">vLLM Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">vLLM Serving Runtime on Red Hat OpenShift AI</a>
   </li>
 </ul>
   </li>
@@ -129,6 +135,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_studyv2.html">Common Generative AI Model Variations and Their Creation</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -137,10 +146,10 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub</a>
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
@@ -188,37 +197,10 @@
 </aside>
 <article class="doc">
 <h1 class="page">Section 1</h1>
-<div class="paragraph">
-<p>In this section we will assume that you want to work with a "local" open source model, and not consume a commercial one through an API, like OpenAI&#8217;s ChatGPT or Anthropic&#8217;s Claude.</p>
-</div>
-<div class="paragraph">
-<p>There are literally hundreds of thousands of models available, almost all of them available on the Hugging Face site. If you don&#8217;t know what this site is, you can think of it as what Quay or DockerHub are for containers: a big repository of models and datasets ready to download and use. Of course Hugging Face (the company) is also creating code, providing hosting capabilities,&#8230;&#8203; but that&#8217;s another story.</p>
-</div>
-<div class="paragraph">
-<p>So which model to choose will depend on several factors:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Of course how good this model is. There are several benchmarks that have been published, as well as constantly updated rankings.</p>
-</li>
-<li>
-<p>The dataset it was trained on. Was it curated or just raw data from anywhere, does it contain nsfw material,&#8230;&#8203;? And of course what the license is (some datasets are provided for research only or non-commercial).</p>
-</li>
-<li>
-<p>The license of the model itself. Some are fully open source, some claim to be&#8230;&#8203; They may be free to use in most cases, but have some restrictions attached to them (looking at you Llama2&#8230;&#8203;).</p>
-</li>
-<li>
-<p>The size of the model. Unfortunately that may be the most restrictive point for your choice. The model simply must fit on the hardware you have at your disposal, or the amount of money you are willing to pay.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Currently, a good LLM with interesting performance for a relatively small size is Mistral-7B. Fully Open Source with an Apache 2.0 license, it will fit in an unquantized version on about 22GB of VRAM, which is perfect for an A10G card.</p>
-</div>
+
 <nav class="pagination">
   <span class="prev"><a href="index.html">Chapter 2</a></span>
-  <span class="next"><a href="../chapter3/index.html">Chapter 3</a></span>
+  <span class="next"><a href="../chapter3/index.html">Red Hat AI Model Repository</a></span>
 </nav>
 </article>
   </div>
