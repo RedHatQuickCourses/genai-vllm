@@ -7,7 +7,7 @@ There is, however, also a **CPU version** that can load models on the CPU.
 
 ## Installation
 
-You must first make sure that you have properly installed the necessary component of the Single-Model Serving stack, as documented [here](https://access.redhat.com/documentation/en-us/red_hat_openshift_ai_self-managed/2-latest/html/serving_models/serving-large-models_serving-large-models).
+You must first make sure that you have properly installed the necessary components of the Single-Model Serving stack for Openshift AI, as documented [here](https://access.redhat.com/documentation/en-us/red_hat_openshift_ai_self-managed/2-latest/html/serving_models/serving-large-models_serving-large-models)[here].
 
 Once the stack is installed, adding the runtime is pretty straightforward:
 
@@ -18,7 +18,58 @@ Once the stack is installed, adding the runtime is pretty straightforward:
 
 The runtime is now available when deploying a model.
 
+=== vLLM Serving Runtime for RHOAI
+ 
+// The title attribute is used as
+// clickable text to open the example block.
+.Click to view vLLM Serving Runtime code.
+[%collapsible]
+====
+```yaml
+
+# Setting up vllm server with ServingRuntime
+# Save as: vllm-servingruntime.yaml
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+ name: vllm-cuda-runtime # OPTIONAL CHANGE: set a unique name
+ annotations:
+   openshift.io/display-name: vLLM NVIDIA GPU ServingRuntime for KServe
+   opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+ labels:
+   opendatahub.io/dashboard: 'true'
+spec:
+ annotations:
+   prometheus.io/port: '8080'
+   prometheus.io/path: '/metrics'
+ multiModel: false
+ supportedModelFormats:
+   - autoSelect: true
+     name: vLLM
+ containers:
+   - name: kserve-container
+     image: quay.io/modh/vllm:rhoai-2.20-cuda # CHANGE if needed. If AMD: quay.io/modh/vllm:rhoai-2.20-rocm
+     command:
+       - python
+       - -m
+       - vllm.entrypoints.openai.api_server
+     args:
+       - "--port=8080"
+       - "--model=/mnt/models"
+       - "--served-model-name={{.Name}}"
+     env:
+       - name: HF_HOME
+         value: /tmp/hf_home
+     ports:
+       - containerPort: 8080
+         protocol: TCP
+
+
 ## Model Deployment
+```
+====
+
+
 
 This runtime can be used in the exact same way as the out of the box ones:
 

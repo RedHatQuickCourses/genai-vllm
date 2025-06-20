@@ -15,3 +15,42 @@
 - RedHat associates: https://role.rhu.redhat.com/rol-rhu/app/[https://role.rhu.redhat.com/rol-rhu/app/,window=_blank]
 - RedHat partners: https://rol.redhat.com/rol/app[https://rol.redhat.com/rol/app,window=_blank]
 
+
+
+
+
+
+= Red Hat Developer Platform
+
+== Instructions to Launch Your Lab on the Red Hat Developer Platform
+
+. **Log in** *Red Hat Developer Sandbox*
+. **From** from product menu dropdown entry: *Select Red Hat OpenShift AI*.
+. **Click** on the **Try it our no cost developer sandbox** button, once logged in, you will be taken the Red Hat Hybird Cloud Console dashboard.
+. On the page, **scroll down in the menu** then under the OpenShift AI, select the **Developer Sandbox | OpenShift AI** option.
+. Click on the **Get Started** button on the Start exploring Developer Sandbox launch the lab.
+. Wait for the lab creation process to complete.
+. When the lab is created, refer to the **SSH Private Key & Instructions** on the page to access your lab.
+
+[NOTE]
+
+There is no GPU provided with this environment, however you can select to deploy a model that runs on CPU. 
+++
+This is great solution for instantly ready lab environment to create a workbench, deploy an notebook, interact with remote model, develop and test scripts and notebooks, and perform any of OpenShift AI tasks that do not require a GPU, like design pipelines. 
+++
+Easy and Fast environment, but no control of the backend services, or admin access to OpenShift or OpenShift AI.
+
+
+++++
+<iframe 
+  src="https://demo.arcade.software/LHigl35cjrRDTQsQHomr?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++

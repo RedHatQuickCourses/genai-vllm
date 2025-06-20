@@ -1,3 +1,1 @@
-= Lab Environment
-
-select a lab environment based on your access levels
+= Lab Environments
