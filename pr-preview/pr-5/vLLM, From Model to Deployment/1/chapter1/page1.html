@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Red Hat AI Platforms :: vLLM, From Model to Deployment</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section1.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM, From Model to Deployment</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM, From Model to Deployment" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM, From Model to Deployment</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Red Hat AI</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="page1.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">The Challenge</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="section2.html">The Scenario</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Red Hat AI Platform Solutions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Model Inference with OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter2/index.html">Chapter 2</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter3/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section1.html">Red Hat AI: Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section2.html">Individual Model Analysis: Pre-Selected for This Course</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter4/index.html">vLLM, What is it ?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section2.html">Introduction to vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section1.html">vLLM Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">vLLM Serving Runtime on Red Hat OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/model_phases.html">Common Generative AI Model Variations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM, From Model to Deployment</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM, From Model to Deployment</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM, From Model to Deployment</a></li>
+    <li><a href="index.html">Red Hat AI</a></li>
+    <li><a href="page1.html">Red Hat AI Platforms</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Red Hat AI Platforms</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Red Hat AI gives you access to a supported, enterprise version of open source tools and technologies for the AI lifecycle. This means you stay at the forefront of AI innovation with consistent access to the most transparent and optimized solutions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flexible_platform"><a class="anchor" href="#_flexible_platform"></a>Flexible Platform</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Red Hat AI provides users with the flexibility to choose where to train, tune, deploy, and run models and gen AI applications–on premise, in the public cloud, or at the edge. By managing your gen AI models within your environment of choice, you can control access, automate compliance monitoring, and enhance data security.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Red Hat AI Inference Server</th>
+<th class="tableblock halign-left valign-top">Red Hat Enterprise Linux AI</th>
+<th class="tableblock halign-left valign-top">Red Hat OpenShift AI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat® AI Inference Server optimizes model inference across the hybrid cloud for faster, cost-effective model deployments.</p>
+<p class="tableblock">Powered by vLLM, it includes access to validated and optimized third-party models on Hugging Face. It also includes LLM compressor tools.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat Enterprise Linux® AI is a platform for inference and training of large language models to power enterprise applications.</p>
+<p class="tableblock">It includes InstructLab tooling for customizing models, as well as integrated hardware accelerators.</p>
+<p class="tableblock">+ Includes Red Hat AI Inference Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat OpenShift® AI builds on the capabilities of Red Hat OpenShift to provide a platform for managing the lifecycle of generative and predictive AI models at scale.</p>
+<p class="tableblock">Through integrated MLOps and LLMOps capabilities, it offers complete lifecycle management with distributed training, tuning, inference, and monitoring of AI applications across hybrid cloud environments.</p>
+<p class="tableblock">+ Includes Red Hat AI Inference Server.</p>
+<p class="tableblock">+ Includes Red Hat Enterprise Linux AI.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_red_hat_inference"><a class="anchor" href="#_red_hat_inference"></a>Red Hat Inference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>vLLM is the Inference engine for Red Hat AI Inference Server, Red Hat Enterprise Linux AI, and is also support on kubernetes via Kserver for OpenShift AI Inference use cases.   vLLM is designed to run efficiently on a range of hardware configurations.</p>
+</div>
+<div class="paragraph">
+<p>vLLM supports flexible deployment of your gen AI applications by breaking up the work of processing across multiple GPUs. This distributes services across nodes that receive, process, and transmit data and makes for more efficient use of computing resources.</p>
+</div>
+<div class="paragraph">
+<p>Red Hat AI also supports disconnected and air-gapped environments, so you can safeguard your most sensitive data.</p>
+</div>
+<div class="paragraph">
+<p>This course focuses on the Model Inference on OpenShift AI, using vLLM runtime for Nvidia GPUs, Nvidia L4 accelerators, and models from Red Hat AI Repository on Huggingface.com</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Red Hat AI</a></span>
+  <span class="next"><a href="section1.html">The Challenge</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
