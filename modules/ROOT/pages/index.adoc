@@ -1,13 +1,13 @@
-= vLLM: From Model to Deployment
+= vLLM: Model Selection and Deployment
 :navtitle: Home
 
 == Introduction
 
 Deploying large language models (LLMs) in a real-world enterprise environment comes with its unique set of challenges—from selecting the right model within budget constraints to ensuring seamless integration and robust performance. 
 
-This course is designed to cut through that complexity, providing you with the practical skills and knowledge to confidently bring your AI initiatives to life.
+This course is designed to provide you with the practical skills and knowledge to confidently deliver an AI initiative.
 
-Our mission is straightforward: to guide you through the complete lifecycle of deploying vLLM instance on OpenShift AI, empowering you to demonstrate the tangible delivery of a functional AI engine.
+Our mission is straightforward: to guide you through model selection from the Red Hat AI catalog, then serve that model on OpenShift AI for Inference, empowering you to demonstrate the tangible delivery of a functional AI engine for an application.
 
 ==== Duration: 1-2 hours
 
@@ -24,12 +24,13 @@ On completing this course, you should be able to:
 
 This course assumes that you have the following prior experience:
 
-
 * Knowledge of OpenShift AI Dashboard Menus and Tabs.
 * Knowledge of Jupyter notebooks and Python.
-* vLLM Inference server (runtime) and vLLM Compressor.
+* vLLM Inference server (runtime) and LLM Compressor.
 * Understanding of LLM compression techniques such as quantization and sparzation.
 
+
+////
 [NOTE]
 ====
 .Quick interactive introduction to using and customizing your Workbench (recommended)
@@ -49,19 +50,4 @@ This course assumes that you have the following prior experience:
 </iframe>
 ++++
 ====
-
-
-++++
-<iframe 
-  src="https://demo.arcade.software/0ttb9MxpcNxWhaF1e49W?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-  width="100%" 
-  height="600px" 
-  frameborder="0" 
-  allowfullscreen
-  webkitallowfullscreen
-  mozallowfullscreen
-  allow="clipboard-write"
-  muted>
-</iframe>
-++++
-
+////
