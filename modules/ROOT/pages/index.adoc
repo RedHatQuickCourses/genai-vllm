@@ -29,8 +29,10 @@ This course assumes that you have the following prior experience:
 * vLLM Inference server (runtime) and LLM Compressor.
 * Understanding of LLM compression techniques such as quantization and sparzation.
 
+== Interactive Experiences
 
-////
+This course features a series of interactive experiences designed to provide a hands-on learning environment. These modules simulate real-world lab scenarios, requiring you to click on specific hotspots to advance through the steps. Think of these as guided, self-paced walkthroughs of critical tasks like configuring OpenShift AI or deploying a model for inference with vLLM. This interactive format is designed to build procedural muscle memory and deepen your understanding of the end-to-end workflow, ensuring you can confidently apply these skills in customer engagements.
+
 [NOTE]
 ====
 .Quick interactive introduction to using and customizing your Workbench (recommended)
@@ -50,4 +52,3 @@ This course assumes that you have the following prior experience:
 </iframe>
 ++++
 ====
-////
