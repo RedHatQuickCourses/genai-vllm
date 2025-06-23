@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Common model variations :: vLLM, From Model to Deployment</title>
+    <title>Common Generative AI Model Variations :: vLLM, From Model to Deployment</title>
     <link rel="prev" href="appendix.html">
     <link rel="next" href="further_study.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -51,6 +51,9 @@
     <a class="nav-link" href="../chapter1/index.html">Red Hat AI</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/page1.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter1/section1.html">The Challenge</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -79,7 +82,7 @@
     <a class="nav-link" href="../chapter2/index.html">Chapter 2</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter2/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter2/section1.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
   </li>
 </ul>
   </li>
@@ -130,13 +133,10 @@
     <a class="nav-link" href="appendix.html">Appendix</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="model_phases.html">Common model variations</a>
+    <a class="nav-link" href="model_phases.html">Common Generative AI Model Variations</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="further_studyv2.html">Common Generative AI Model Variations and Their Creation</a>
   </li>
 </ul>
   </li>
@@ -187,7 +187,7 @@
   <ul>
     <li><a href="../index.html">vLLM, From Model to Deployment</a></li>
     <li><a href="appendix.html">Appendix</a></li>
-    <li><a href="model_phases.html">Common model variations</a></li>
+    <li><a href="model_phases.html">Common Generative AI Model Variations</a></li>
   </ul>
 </nav>
 </div>
@@ -196,69 +196,154 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Common model variations</h1>
+<h1 class="page">Common Generative AI Model Variations</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The terminology used to describe variations of generative AI models can sometimes be fluid, but several common types have emerged, each tailored for specific tasks and behaviors. Here is a list of common model variations and what they mean:</p>
+<p>The landscape of generative AI models is continuously evolving, leading to a diverse set of model variations, each optimized for distinct tasks and behaviors. Understanding these common types and their creation processes leads to effective deployment and application.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_base_model"><a class="anchor" href="#_1_base_model"></a>1. Base Model</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
 <li>
-<p>Base Model</p>
+<p><strong>What it is:</strong> A base model, often referred to as a "foundational model," is an LLM trained on an enormous and diverse dataset comprising vast amounts of text and code. It represents the initial, broad learning phase from which more specialized models are subsequently derived.</p>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>What it is: A base model is a foundational model that has been trained on a massive and broad dataset of text and code. It is the starting point from which other, more specialized models are created.
-What it means: These models are incredibly knowledgeable but are not explicitly trained to be conversational, follow instructions, or adhere to safety guidelines. Their primary function is to predict the next word in a sequence based on the input they are given. Interacting with a raw base model can be unpredictable; it might complete your prompt, answer a question, continue a story, or generate nonsensical text, all depending on the patterns it learned during training.
-Analogy: Think of a base model as a massive library of books. It contains a vast amount of information, but there&#8217;s no librarian to help you find what you need or to frame the information in a useful way.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Instruct (or Instruction-Tuned) Model</p>
+<p><strong>Key Characteristics:</strong></p>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>What it is: An instruct model is a base model that has undergone a second phase of training called "instruction fine-tuning." During this phase, it&#8217;s trained on a curated dataset of specific prompts (instructions) and high-quality, desired responses. This process often includes techniques like Reinforcement Learning with Human Feedback (RLHF) to align the model&#8217;s answers with human preferences for helpfulness and safety.
-What it means: This model is designed to be a helpful assistant. It understands how to follow commands, answer questions directly, and engage in a conversational back-and-forth (dialogue). It&#8217;s generally safer and more predictable than a base model because it has been explicitly taught to respond to instructions in a specific way. Most public-facing chatbots (like Gemini, ChatGPT, Claude) are instruct-tuned models.
-Analogy: This is the same library of books, but now it has a skilled librarian. You can ask the librarian a question, and they will understand your request, find the relevant information, and present it to you in a clear and helpful answer.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Code Model</p>
+<p><strong>Broad Knowledge:</strong> Possesses extensive general knowledge acquired during pre-training.</p>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>What it is: A code model is a specialized version of a base or instruct model that has been either trained from scratch on a massive corpus of public source code or has been extensively fine-tuned on code.
-What it means: These models are experts in programming-related tasks. Their capabilities include generating code in various languages, completing code snippets, debugging, explaining code, and translating code from one language to another. While a general instruct model can often write some code, a dedicated code model will have a much deeper understanding of syntax, libraries, and common programming patterns, resulting in higher-quality and more accurate code.
-Analogy: This is a specialized technical library focused exclusively on computer science and programming, staffed by a librarian who is also an expert software developer.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Chat Model</p>
+<p><strong>Predictive Nature:</strong> Its core function is to predict the next token (word, subword, or character) in a sequence based on the input it receives.</p>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>What it is: This is a specific type of instruct-tuned model that is optimized for multi-turn conversations or dialogue. While most instruct models can chat, "chat models" are specifically tuned to remember the context of the previous turns in the conversation to provide more coherent and relevant responses over a longer interaction.
-What it means: The model excels at maintaining a natural, back-and-forth conversation. It&#8217;s better at handling follow-up questions, clarifications, and references to earlier parts of the dialogue.
-Analogy: This is a librarian who not only answers your initial question but remembers it and can engage in a detailed discussion with you about the topic, referencing what you&#8217;ve already talked about.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>TL;DR (or Summarization) Model</p>
+<p><strong>Unstructured Interaction:</strong> Not explicitly trained for conversational interactions, instruction following, or adherence to safety guidelines.</p>
 </li>
-</ol>
+<li>
+<p><strong>Unpredictable Output:</strong> Direct interaction with a raw base model can yield varied and sometimes unpredictable outputs, ranging from completing prompts, answering questions, continuing narratives, or generating less coherent text, all depending on the patterns learned during its extensive training.</p>
+</li>
+<li>
+<p><strong>Analogy:</strong> Consider a base model as a vast, unfiltered digital library. It contains an immense volume of information, but lacks an organized system or a guide (like a librarian) to help users efficiently locate specific information or present it in a structured, helpful manner.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>What it is: "TL;DR" (Too Long; Didn&#8217;t Read) is more of a task description than a formal model type, but models are often fine-tuned specifically for this purpose. A summarization model is trained on a dataset of long documents paired with their concise summaries.
-What it means: This model is highly skilled at taking a large piece of text (like an article, research paper, or email thread) and condensing it into a short, accurate summary that captures the main points. While a general-purpose instruct model can summarize, a specialized summarization model is often more effective at producing high-quality, abstractive summaries rather than just extracting key sentences.
-Analogy: This is a librarian who is an expert at reading a lengthy book and then giving you a perfect one-paragraph synopsis.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_instruct_or_instruction_tuned_model"><a class="anchor" href="#_2_instruct_or_instruction_tuned_model"></a>2. Instruct (or Instruction-Tuned) Model</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it is:</strong> An instruct model is a base model that has undergone a critical second phase of training called "instruction fine-tuning" or "alignment." During this phase, it is trained on a meticulously curated dataset consisting of explicit prompts (instructions) paired with high-quality, desired responses. This process frequently incorporates techniques such as Reinforcement Learning with Human Feedback (RLHF) to align the model&#8217;s behavior and responses with human preferences for helpfulness, safety, and conciseness.</p>
+</li>
+<li>
+<p><strong>Key Characteristics:</strong></p>
+</li>
+<li>
+<p><strong>Helpful Assistant:</strong> Designed to act as a responsive and cooperative assistant.</p>
+</li>
+<li>
+<p><strong>Instruction Following:</strong> Exhibits a strong ability to understand and follow specific commands and answer questions directly.</p>
+</li>
+<li>
+<p><strong>Conversational Capability:</strong> Capable of engaging in conversational exchanges and dialogue.</p>
+</li>
+<li>
+<p><strong>Improved Predictability &amp; Safety:</strong> Generally more predictable, reliable, and safer than a base model due to explicit training on desired response patterns and safety guidelines.</p>
+</li>
+<li>
+<p><strong>Common Application:</strong> Most publicly accessible chatbots (e.g., Gemini, ChatGPT, Claude) are examples of instruct-tuned models.</p>
+</li>
+<li>
+<p><strong>Analogy:</strong> This is the same vast library, but now equipped with a highly skilled and helpful librarian. You can articulate your needs or questions, and the librarian will comprehend your request, retrieve relevant information, and present it in a clear, concise, and useful answer, tailored to your instruction.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_code_model"><a class="anchor" href="#_3_code_model"></a>3. Code Model</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it is:</strong> A code model is a specialized variant of a base or instruct model. It is either pre-trained from scratch on an extensive corpus primarily composed of public source code or has undergone substantial fine-tuning specifically on programming languages and code-related datasets.</p>
+</li>
+<li>
+<p><strong>Key Characteristics:</strong></p>
+</li>
+<li>
+<p><strong>Programming Expertise:</strong> Functions as an expert in various programming-related tasks.</p>
+</li>
+<li>
+<p><strong>Capabilities:</strong> Includes generating code in multiple languages, completing code snippets, debugging existing code, explaining complex code logic, and translating code between different programming languages.</p>
+</li>
+<li>
+<p><strong>Deep Understanding:</strong> While a general instruct model can often generate rudimentary code, a dedicated code model possesses a far deeper understanding of programming syntax, standard libraries, APIs, and common architectural patterns, leading to significantly higher-quality and more accurate code outputs.</p>
+</li>
+<li>
+<p><strong>Analogy:</strong> Envision this as a highly specialized technical library exclusively dedicated to computer science and programming. This library is staffed by a librarian who is not only knowledgeable about books but is also an experienced software developer, capable of directly assisting with coding challenges.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_4_chat_model"><a class="anchor" href="#_4_chat_model"></a>4. Chat Model</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it is:</strong> A chat model is a specific type of instruct-tuned model rigorously optimized for multi-turn conversations and sustained dialogue. While many instruct models possess conversational abilities, "chat models" are specifically fine-tuned to maintain contextual awareness of prior turns in a conversation, enabling them to generate more coherent, relevant, and engaging responses over extended interactions.</p>
+</li>
+<li>
+<p><strong>Key Characteristics:</strong></p>
+</li>
+<li>
+<p><strong>Coherent Dialogue:</strong> Excels at maintaining a natural and fluid back-and-forth conversation.</p>
+</li>
+<li>
+<p><strong>Context Retention:</strong> Demonstrates superior capability in handling follow-up questions, requests for clarification, and references to earlier parts of the dialogue history.</p>
+</li>
+<li>
+<p><strong>Enhanced User Experience:</strong> Leads to a more seamless and intuitive conversational experience for the end-user.</p>
+</li>
+<li>
+<p><strong>Analogy:</strong> This is a librarian who not only answers your initial inquiry but also actively remembers the entire discussion, engaging in a detailed and continuous dialogue while seamlessly referencing previous points in your conversation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_5_summarization_model_task_specific_fine_tune"><a class="anchor" href="#_5_summarization_model_task_specific_fine_tune"></a>5. Summarization Model (Task-Specific Fine-Tune)</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>What it is:</strong> "TL;DR" (Too Long; Didn’t Read) describes a common task, and models are frequently fine-tuned specifically for this purpose. A summarization model is trained on a dataset comprising pairs of lengthy documents and their corresponding concise summaries.</p>
+</li>
+<li>
+<p><strong>Key Characteristics:</strong></p>
+</li>
+<li>
+<p><strong>Condensation Expertise:</strong> Highly skilled at processing substantial blocks of text (e.g., articles, research papers, email threads) and condensing them into brief, accurate summaries that encapsulate the main points.</p>
+</li>
+<li>
+<p><strong>Abstractive vs. Extractive:</strong> Specialized summarization models are often more adept at producing high-quality <strong>abstractive</strong> summaries (generating new sentences to capture meaning) rather than merely <strong>extractive</strong> summaries (pulling key sentences directly from the source text). While a general-purpose instruct model can summarize, a dedicated summarization model typically offers superior results for this specific task.</p>
+</li>
+<li>
+<p><strong>Analogy:</strong> This is a librarian who possesses an exceptional ability to read a voluminous book and then provide a perfect, succinct one-paragraph synopsis that captures its essence.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="appendix.html">Appendix</a></span>

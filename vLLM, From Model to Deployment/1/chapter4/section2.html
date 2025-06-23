@@ -51,6 +51,9 @@
     <a class="nav-link" href="../chapter1/index.html">Red Hat AI</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/page1.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter1/section1.html">The Challenge</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -79,7 +82,7 @@
     <a class="nav-link" href="../chapter2/index.html">Chapter 2</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter2/section1.html">Section 1</a>
+    <a class="nav-link" href="../chapter2/section1.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
   </li>
 </ul>
   </li>
@@ -130,13 +133,10 @@
     <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/model_phases.html">Common model variations</a>
+    <a class="nav-link" href="../appendix/model_phases.html">Common Generative AI Model Variations</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_studyv2.html">Common Generative AI Model Variations and Their Creation</a>
   </li>
 </ul>
   </li>
@@ -226,39 +226,59 @@
 <ul>
 <li>
 <p><strong>Memory Efficiency:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Divides the KV cache into fixed-size <strong>blocks</strong> and stores these blocks in non-contiguous memory, similar to how operating systems manage virtual memory.</p>
 </li>
 <li>
 <p>Significantly <strong>reduces memory waste</strong> by eliminating both internal (unused space within a sequence&#8217;s allocated memory) and external fragmentation (unusable small gaps between allocated memory blocks), which are common issues in traditional LLM serving systems.</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p><strong>Increased Throughput:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>By minimizing memory waste, PagedAttention makes the KV cache much more efficient, allowing the system to <strong>batch a larger number of requests</strong> concurrently on the GPU.</p>
 </li>
 <li>
 <p>Processing more requests together in a single batch leads to a substantial improvement in the overall throughput (requests and tokens per second) of the LLM serving system.</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p><strong>Flexible Memory Sharing:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Enables the <strong>sharing of KV cache blocks</strong> across different sequences. This is particularly beneficial for:</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Parallel Decoding:</strong> Sharing blocks within the same request (e.g., for beam search or speculative decoding).</p>
 </li>
 <li>
 <p><strong>Shared Prefixes:</strong> Efficiently handling multiple requests that start with the same prompt or initial tokens.</p>
 </li>
-<li>
-<p><strong>Advanced Decoding Support:</strong></p>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </li>
 <li>
+<p><strong>Advanced Decoding Support:</strong></p>
+<div class="ulist">
+<ul>
+<li>
 <p>The efficient and flexible memory management provided by PagedAttention makes it well-suited for supporting various advanced decoding scenarios, including parallel sampling, beam search, and handling shared prefixes in prompts.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -272,16 +292,21 @@
 <ul>
 <li>
 <p><strong>Traditional Batching Limitations:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Static Batching:</strong> Clients bundle queries and wait for the entire batch to complete before receiving any results. This can lead to latency issues and underutilized GPUs if batch sizes are fixed or requests are sparse.</p>
 </li>
 <li>
 <p><strong>Dynamic Batching (fixed-window):</strong> Server-side batching based on fixed time windows or predefined batch sizes, which can still lead to idle GPU time if requests don&#8217;t align with the windows or if a few long requests hold up the entire batch.</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p><strong>vLLM&#8217;s Continuous Batching:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Dynamic Grouping:</strong> Continuously and dynamically groups <strong>new incoming requests</strong> with <strong>ongoing requests</strong> that have not yet completed processing.</p>
 </li>
@@ -293,6 +318,9 @@
 </li>
 <li>
 <p><strong>Maximized GPU Utilization:</strong> By continuously adding new requests to the batch as resources become available, vLLM maintains a consistently high level of GPU utilization, which is crucial for achieving significant improvements in the number of requests and tokens served per second.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -308,42 +336,84 @@
 <div class="sect2">
 <h3 id="_text_to_text_models"><a class="anchor" href="#_text_to_text_models"></a>Text-to-Text Models</h3>
 <div class="paragraph">
-<p>These are the foundational LLMs, excelling at tasks involving natural language understanding and generation.
-* <strong>Encoder-Decoder Models:</strong> (e.g., T5, BART) Take an input sequence and produce an output sequence. Well-suited for tasks like machine translation and summarization.
-* <strong>Causal Language Models:</strong> (e.g., Llama, Mistral, Falcon) Predict the next token in a sequence based on preceding tokens. The backbone for many text generation tasks, including chatbots, creative writing, and code generation.</p>
+<p>These are the foundational LLMs, excelling at tasks involving natural language understanding and generation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Encoder-Decoder Models:</strong> (e.g., T5, BART) Take an input sequence and produce an output sequence. Well-suited for tasks like machine translation and summarization.</p>
+</li>
+<li>
+<p><strong>Causal Language Models:</strong> (e.g., Llama, Mistral, Falcon) Predict the next token in a sequence based on preceding tokens. The backbone for many text generation tasks, including chatbots, creative writing, and code generation.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_multimodal_models_text_and_image_to_text"><a class="anchor" href="#_multimodal_models_text_and_image_to_text"></a>Multimodal Models (Text and Image to Text)</h3>
 <div class="paragraph">
-<p>Multimodal models are capable of processing and understanding information from multiple modalities, such as text and images. vLLM can serve these models when their output is text-based.
-* <strong>Image Captioning:</strong> Generating textual descriptions of images.
-* <strong>Visual Question Answering (VQA):</strong> Answering questions based on the content of an image.</p>
+<p>Multimodal models are capable of processing and understanding information from multiple modalities, such as text and images. vLLM can serve these models when their output is text-based.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Image Captioning:</strong> Generating textual descriptions of images.</p>
+</li>
+<li>
+<p><strong>Visual Question Answering (VQA):</strong> Answering questions based on the content of an image.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_embedding_models"><a class="anchor" href="#_embedding_models"></a>Embedding Models</h3>
 <div class="paragraph">
-<p>Embedding models convert text or other data into dense vector representations (embeddings). These embeddings capture semantic meaning, enabling efficient comparison and retrieval.
-* <strong>Semantic Search:</strong> Finding documents or passages semantically similar to a query.
-* <strong>Recommendation Systems:</strong> Suggesting items based on embedding similarity to user preferences.
-* <strong>Clustering and Classification:</strong> Grouping or categorizing data points based on embedding similarity.</p>
+<p>Embedding models convert text or other data into dense vector representations (embeddings). These embeddings capture semantic meaning, enabling efficient comparison and retrieval.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Semantic Search:</strong> Finding documents or passages semantically similar to a query.</p>
+</li>
+<li>
+<p><strong>Recommendation Systems:</strong> Suggesting items based on embedding similarity to user preferences.</p>
+</li>
+<li>
+<p><strong>Clustering and Classification:</strong> Grouping or categorizing data points based on embedding similarity.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_reward_models"><a class="anchor" href="#_reward_models"></a>Reward Models</h3>
 <div class="paragraph">
-<p>Reward models are trained to predict a scalar score reflecting the quality or desirability of an output, often used in Reinforcement Learning from Human Feedback (RLHF) to align LLMs with human preferences.
-* <strong>Ranking Model Outputs:</strong> Ranking multiple generated responses based on quality.
-* <strong>Guiding Reinforcement Learning:</strong> Providing feedback signals to train language models to generate preferred outputs.</p>
+<p>Reward models are trained to predict a scalar score reflecting the quality or desirability of an output, often used in Reinforcement Learning from Human Feedback (RLHF) to align LLMs with human preferences.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ranking Model Outputs:</strong> Ranking multiple generated responses based on quality.</p>
+</li>
+<li>
+<p><strong>Guiding Reinforcement Learning:</strong> Providing feedback signals to train language models to generate preferred outputs.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_specialized_architectures"><a class="anchor" href="#_specialized_architectures"></a>Specialized Architectures</h3>
 <div class="paragraph">
-<p>vLLM continuously adds support for emerging architectures, including:
-* <strong>Mamba Models:</strong> Represent a recent advancement in sequence modeling, offering an alternative to Transformer architectures, particularly for long-sequence tasks, via their Selective State Space (SSS) layer.
-* <strong>Mixture of Experts (MoE) Models:</strong> Architectures that route inputs to a subset of "expert" sub-networks, enabling very large models with efficient sparse activation.</p>
+<p>vLLM continuously adds support for emerging architectures, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Mamba Models:</strong> Represent a recent advancement in sequence modeling, offering an alternative to Transformer architectures, particularly for long-sequence tasks, via their Selective State Space (SSS) layer.</p>
+</li>
+<li>
+<p><strong>Mixture of Experts (MoE) Models:</strong> Architectures that route inputs to a subset of "expert" sub-networks, enabling very large models with efficient sparse activation.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -357,9 +427,17 @@
 <div class="sect2">
 <h3 id="_distributed_inference_frameworks"><a class="anchor" href="#_distributed_inference_frameworks"></a>Distributed Inference Frameworks</h3>
 <div class="paragraph">
-<p>vLLM can orchestrate its operations across multiple nodes and GPUs using established distributed frameworks:
-* <strong>Ray:</strong> A powerful framework for building distributed applications, providing tools for managing distributed actors, task scheduling, and resource management. vLLM uses Ray to coordinate its distributed workers.
-* <strong>Multiprocessing:</strong> For simpler setups involving multiple GPUs within a single node, vLLM can also utilize Python&#8217;s built-in <code>multiprocessing</code> library to manage its distributed processes.</p>
+<p>vLLM can orchestrate its operations across multiple nodes and GPUs using established distributed frameworks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ray:</strong> A powerful framework for building distributed applications, providing tools for managing distributed actors, task scheduling, and resource management. vLLM uses Ray to coordinate its distributed workers.</p>
+</li>
+<li>
+<p><strong>Multiprocessing:</strong> For simpler setups involving multiple GPUs within a single node, vLLM can also utilize Python&#8217;s built-in <code>multiprocessing</code> library to manage its distributed processes.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -371,36 +449,52 @@
 <ul>
 <li>
 <p><strong>Tensor Parallelism:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Concept:</strong> Shards individual model layers (e.g., weight matrices) across multiple GPUs <strong>within a node</strong>. Large tensor computations are distributed and executed in parallel.</p>
 </li>
 <li>
 <p><strong>Use Case:</strong> Typically used in single-node, multi-GPU configurations to fit very large layers into memory and accelerate their computation.</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p><strong>Pipeline Parallelism:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Concept:</strong> Splits the entire model into sequential <strong>stages</strong>, with each stage executed on a different device (GPU). Activations are passed between neighboring stages as data flows through the model.</p>
 </li>
 <li>
 <p><strong>Use Case:</strong> Employed when the entire model is too large to fit on a single device, often across multiple nodes.</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p><strong>Data Parallelism (DP) with Data Parallel Attention:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Concept:</strong> Routes individual requests (data) to different vLLM engines running in parallel. For specific layers (like MoE layers), the data-parallel engines can collaborate, sharding experts across all workers (data parallel and tensor parallel).</p>
 </li>
 <li>
 <p><strong>Use Case:</strong> Particularly important for models with a small number of Key-Value (KV) Attention heads (e.g., DeepSeekV3, Qwen3), where traditional tensor parallelism might lead to wasteful KV Cache duplication. Data Parallelism allows vLLM to scale to a larger number of GPUs in such scenarios by distributing the input data rather than just the model layers.</p>
 </li>
-<li>
-<p><strong>Expert Parallelism (EP):</strong></p>
+</ul>
+</div>
 </li>
 <li>
+<p><strong>Expert Parallelism (EP):</strong></p>
+<div class="ulist">
+<ul>
+<li>
 <p><strong>Concept:</strong> Specialized optimization for Mixture-of-Experts (MoE) model architectures. vLLM efficiently manages the unique routing and computation needs of these models, where different "experts" (sub-networks) are activated based on the input.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -422,7 +516,8 @@
 <ul>
 <li>
 <p><strong>Benefits of Quantization:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Faster Inference:</strong> Less precision requires less processing power to compute, leading to faster computations.</p>
 </li>
@@ -438,13 +533,17 @@
 <li>
 <p><strong>Reduced Operating Costs:</strong> Smaller models are cheaper to store and run, reducing cloud inference costs.</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p><strong>The Quantization Trade-off: Accuracy vs. Performance:</strong>
 The main trade-off in quantization is accuracy. Simplifying numerical precision inherently leads to some loss of information from the original model. The "art" of quantization lies in finding the optimal balance: simplifying enough to gain significant speed and size benefits without compromising model accuracy to an unacceptable degree.</p>
 </li>
 <li>
 <p><strong>Common Quantization Types:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>INT4:</strong> The smallest and potentially fastest precision. It offers the highest compression but carries the highest risk of impacting accuracy.</p>
 </li>
@@ -454,9 +553,13 @@ The main trade-off in quantization is accuracy. Simplifying numerical precision 
 <li>
 <p><strong>FP8:</strong> A lower-precision floating-point format that attempts to retain more decimal precision than integer types. It can offer better accuracy than INT8 in some cases, especially on newer hardware architectures that provide dedicated hardware support for FP8 computations (e.g., NVIDIA Ada Lovelace and Hopper GPUs).</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p><strong>Quantization Scope: Weights vs. Activations:</strong></p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Weights (W):</strong> These are the fixed, learned parameters of the model, similar to the "ingredient amounts" in a recipe. They are determined during training and remain static during inference.</p>
 </li>
@@ -468,6 +571,9 @@ The main trade-off in quantization is accuracy. Simplifying numerical precision 
 </li>
 <li>
 <p><strong>Weight and Activation (W&amp;A) Quantization (e.g., W8A8):</strong> Both weights and activations are quantized to lower precision (e.g., 8-bit). This offers maximum benefits in terms of memory reduction and computational speed-up, as the entire inference pipeline uses lower precision arithmetic.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -487,10 +593,20 @@ LLM Compressor, a tool integrated with the Red Hat OpenShift AI platform, suppor
 <div class="sect2">
 <h3 id="_sparsification"><a class="anchor" href="#_sparsification"></a>Sparsification</h3>
 <div class="paragraph">
-<p>Sparsification is an optimization technique that reduces model size and computation by setting a significant number of model parameters (weights) to zero.
-* <strong>Mechanism:</strong> Values are set to 0, making the weight matrix "sparse."
-* <strong>Types:</strong> Can be <strong>structured</strong> (e.g., 2:4 sparsity, where two out of every four parameters are zero) or <strong>unstructured</strong>.
-* <strong>Hardware Acceleration:</strong> NVIDIA GPUs (Ampere architecture and newer) offer hardware acceleration for specific structured sparsity patterns (e.g., 2:4 sparse matrices), leading to significant performance gains.</p>
+<p>Sparsification is an optimization technique that reduces model size and computation by setting a significant number of model parameters (weights) to zero.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Mechanism:</strong> Values are set to 0, making the weight matrix "sparse."</p>
+</li>
+<li>
+<p><strong>Types:</strong> Can be <strong>structured</strong> (e.g., 2:4 sparsity, where two out of every four parameters are zero) or <strong>unstructured</strong>.</p>
+</li>
+<li>
+<p><strong>Hardware Acceleration:</strong> NVIDIA GPUs (Ampere architecture and newer) offer hardware acceleration for specific structured sparsity patterns (e.g., 2:4 sparse matrices), leading to significant performance gains.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

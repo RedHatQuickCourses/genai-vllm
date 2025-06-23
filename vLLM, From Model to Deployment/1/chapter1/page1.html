@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>The Scenario :: vLLM, From Model to Deployment</title>
-    <link rel="prev" href="section1.html">
-    <link rel="next" href="openshift_ai_overview.html">
+    <title>Red Hat AI Platforms :: vLLM, From Model to Deployment</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section1.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -50,13 +50,13 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">Red Hat AI</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="page1.html">Red Hat AI Platforms</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section1.html">The Challenge</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="section2.html">The Scenario</a>
 <ul class="nav-list">
@@ -187,7 +187,7 @@
   <ul>
     <li><a href="../index.html">vLLM, From Model to Deployment</a></li>
     <li><a href="index.html">Red Hat AI</a></li>
-    <li><a href="section2.html">The Scenario</a></li>
+    <li><a href="page1.html">Red Hat AI Platforms</a></li>
   </ul>
 </nav>
 </div>
@@ -196,74 +196,69 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">The Scenario</h1>
-<div class="sect2">
-<h3 id="_the_customer"><a class="anchor" href="#_the_customer"></a>The Customer:</h3>
+<h1 class="page">Red Hat AI Platforms</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>"Innovatech Robotics,"</strong> a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.</p>
+<p>Red Hat AI gives you access to a supported, enterprise version of open source tools and technologies for the AI lifecycle. This means you stay at the forefront of AI innovation with consistent access to the most transparent and optimized solutions.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_the_problem"><a class="anchor" href="#_the_problem"></a>The Problem:</h3>
+</div>
+<div class="sect1">
+<h2 id="_flexible_platform"><a class="anchor" href="#_flexible_platform"></a>Flexible Platform</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.</p>
+<p>Red Hat AI provides users with the flexibility to choose where to train, tune, deploy, and run models and gen AI applications–on premise, in the public cloud, or at the edge. By managing your gen AI models within your environment of choice, you can control access, automate compliance monitoring, and enhance data security.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Red Hat AI Inference Server</th>
+<th class="tableblock halign-left valign-top">Red Hat Enterprise Linux AI</th>
+<th class="tableblock halign-left valign-top">Red Hat OpenShift AI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat® AI Inference Server optimizes model inference across the hybrid cloud for faster, cost-effective model deployments.</p>
+<p class="tableblock">Powered by vLLM, it includes access to validated and optimized third-party models on Hugging Face. It also includes LLM compressor tools.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat Enterprise Linux® AI is a platform for inference and training of large language models to power enterprise applications.</p>
+<p class="tableblock">It includes InstructLab tooling for customizing models, as well as integrated hardware accelerators.</p>
+<p class="tableblock">+ Includes Red Hat AI Inference Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Red Hat OpenShift® AI builds on the capabilities of Red Hat OpenShift to provide a platform for managing the lifecycle of generative and predictive AI models at scale.</p>
+<p class="tableblock">Through integrated MLOps and LLMOps capabilities, it offers complete lifecycle management with distributed training, tuning, inference, and monitoring of AI applications across hybrid cloud environments.</p>
+<p class="tableblock">+ Includes Red Hat AI Inference Server.</p>
+<p class="tableblock">+ Includes Red Hat Enterprise Linux AI.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_the_request"><a class="anchor" href="#_the_request"></a>The Request:</h3>
+<div class="sect1">
+<h2 id="_red_hat_inference"><a class="anchor" href="#_red_hat_inference"></a>Red Hat Inference</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The CTO of Innovatech approaches you. "We&#8217;ve heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what&#8217;s possible. We don&#8217;t know where to start."</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_your_role"><a class="anchor" href="#_your_role"></a>Your Role:</h3>
-<div class="paragraph">
-<p>You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_use_case_prioritization"><a class="anchor" href="#_use_case_prioritization"></a>Use Case Prioritization:</h3>
-<div class="paragraph">
-<p>You previously guided the team to brainstorm potential AI solutions on a whiteboard.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Idea A: A chatbot for the public website to answer pre-sales questions. (Medium Impact, Medium Feasibility - data is scattered).</p>
-</li>
-<li>
-<p>Idea B: An AI tool to help engineers write documentation faster. (Medium Impact, Low Feasibility - engineers see it as extra work).</p>
-</li>
-<li>
-<p>Idea C: An internal tool to analyze incoming support tickets, categorize them, and suggest relevant documentation links for engineers to use. (High Impact, High Feasibility).</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_the_decision"><a class="anchor" href="#_the_decision"></a>The Decision:</h3>
-<div class="paragraph">
-<p>Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_outcome_of_phase_1"><a class="anchor" href="#_outcome_of_phase_1"></a>Outcome of Phase 1:</h3>
-<div class="paragraph">
-<p>The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_step_by_step_execution"><a class="anchor" href="#_step_by_step_execution"></a>Step-by-Step Execution:</h3>
-<div class="paragraph">
-<p>Already a Red Hat customer, Innovatech has an OpenShift AI instance with 2 GPU worker nodes, each with an Nvidia L4 24GB accelerator. They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab.</p>
+<p>vLLM is the Inference engine for Red Hat AI Inference Server, Red Hat Enterprise Linux AI, and is also support on kubernetes via Kserver for OpenShift AI Inference use cases.   vLLM is designed to run efficiently on a range of hardware configurations.</p>
 </div>
 <div class="paragraph">
-<p>We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun).</p>
+<p>vLLM supports flexible deployment of your gen AI applications by breaking up the work of processing across multiple GPUs. This distributes services across nodes that receive, process, and transmit data and makes for more efficient use of computing resources.</p>
+</div>
+<div class="paragraph">
+<p>Red Hat AI also supports disconnected and air-gapped environments, so you can safeguard your most sensitive data.</p>
+</div>
+<div class="paragraph">
+<p>This course focuses on the Model Inference on OpenShift AI, using vLLM runtime for Nvidia GPUs, Nvidia L4 accelerators, and models from Red Hat AI Repository on Huggingface.com</p>
+</div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section1.html">The Challenge</a></span>
-  <span class="next"><a href="openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a></span>
+  <span class="prev"><a href="index.html">Red Hat AI</a></span>
+  <span class="next"><a href="section1.html">The Challenge</a></span>
 </nav>
 </article>
   </div>
