@@ -1,0 +1,45 @@
+= Red Hat AI Platforms
+
+Red Hat AI gives you access to a supported, enterprise version of open source tools and technologies for the AI lifecycle. This means you stay at the forefront of AI innovation with consistent access to the most transparent and optimized solutions.
+
+
+== Flexible Platform
+
+Red Hat AI provides users with the flexibility to choose where to train, tune, deploy, and run models and gen AI applications–on premise, in the public cloud, or at the edge. By managing your gen AI models within your environment of choice, you can control access, automate compliance monitoring, and enhance data security. 
+
+
+
+[cols="3*",options="header"]
+|===
+|Red Hat AI Inference Server
+|Red Hat Enterprise Linux AI
+|Red Hat OpenShift AI
+
+|Red Hat® AI Inference Server optimizes model inference across the hybrid cloud for faster, cost-effective model deployments. 
+
+Powered by vLLM, it includes access to validated and optimized third-party models on Hugging Face. It also includes LLM compressor tools. 
+|Red Hat Enterprise Linux® AI is a platform for inference and training of large language models to power enterprise applications. 
+
+It includes InstructLab tooling for customizing models, as well as integrated hardware accelerators. 
+
++ Includes Red Hat AI Inference Server
+|Red Hat OpenShift® AI builds on the capabilities of Red Hat OpenShift to provide a platform for managing the lifecycle of generative and predictive AI models at scale. 
+
+Through integrated MLOps and LLMOps capabilities, it offers complete lifecycle management with distributed training, tuning, inference, and monitoring of AI applications across hybrid cloud environments.
+
++ Includes Red Hat AI Inference Server. 
+
++ Includes Red Hat Enterprise Linux AI.
+
+|===
+
+== Red Hat Inference
+
+vLLM is the Inference engine for Red Hat AI Inference Server, Red Hat Enterprise Linux AI, and is also support on kubernetes via Kserver for OpenShift AI Inference use cases.   vLLM is designed to run efficiently on a range of hardware configurations.
+
+vLLM supports flexible deployment of your gen AI applications by breaking up the work of processing across multiple GPUs. This distributes services across nodes that receive, process, and transmit data and makes for more efficient use of computing resources. 
+
+Red Hat AI also supports disconnected and air-gapped environments, so you can safeguard your most sensitive data.
+
+This course focuses on the Model Inference on OpenShift AI, using vLLM runtime for Nvidia GPUs, Nvidia L4 accelerators, and models from Red Hat AI Repository on Huggingface.com
+

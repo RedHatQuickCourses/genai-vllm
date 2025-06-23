@@ -1,4 +1,4 @@
 = Red Hat AI
 
-
+Tune small models with enterprise-relevant data, and develop and deploy AI solutions across hybrid cloud environments.
 
