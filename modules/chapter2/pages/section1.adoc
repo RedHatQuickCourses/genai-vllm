@@ -64,7 +64,3 @@ Clear boundaries are key to a successful PoC.
 
 With the requirements and architecture defined, our immediate next step is to identify the best candidate model for the job. We will begin by exploring the curated models available in the **Red Hat AI Model Library on Hugging Face** to find a suitable starting point for our Support Ticket Triage Assistant.
 
-
-image::gpu_ram_size.pdf
-
-image::gpu_ram_size.pdf[message]
