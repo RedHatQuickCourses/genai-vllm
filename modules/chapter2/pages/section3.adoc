@@ -1,70 +1,41 @@
-= Cost based AI Model Selection
-:toc: left
-:toclevels: 2
-:sectnums:
+= Red Hat AI Platform Solutions
 
-A practical guide for Delivery Engineers and Consultants on balancing AI model performance, VRAM usage, and infrastructure cost based on this fictional use-case, real world requirements may vary.
+Red Hat AI models
 
-== The VRAM Equation: Calculating Real-World GPU Needs
+ * Validated Models - Tested with vLLM & Red Hat Platforms
+ * Imdemnified models - Granite base model when used on Red Hat Platforms
+ * Supported models - when used on Red Hat Platforms
+ * Unsupported models - Any Third party model
 
-Before selecting a model, you must understand its memory footprint. This goes beyond just the size of its weights.
+To simplify deployment further, Red Hat AI Inference Server includes access to a curated repository of
+popular LLMs (such as Llama, Mistral, or Granite families), conveniently hosted on the Red Hat AI page
+on Hugging Face.
+These aren't just standard models; they have been optimized using the integrated compression
+techniques—leveraging Neural Magic's expertise within Red Hat—specifically for high-performance
+execution on the vLLM engine, often distributed using efficient formats like safetensors. This means
+you get readily deployable, efficient models out-of-the-box, drastically reducing the time and
+effort needed to get your AI applications into production and delivering value faster.
 
-.Step 1: Baseline Model Weights
-The starting point is a simple rule of thumb: a model needs approximately twice its parameter count in VRAM to store its weights in standard FP16/BF16 precision.
-[source,text]
-----
-Formula: Model Parameters (in Billions) x 2 ≈ Required VRAM (in GB)
-Example: A 12B parameter model requires ~24 GB VRAM.
-----
+We are going to focus on Validated Models located at Red Hat AI on Huggingface.
 
-.Step 2: Accounting for Real-World Overhead
-Model weights are only part of the story. The largest consumer of VRAM in real-world inference is the **KV Cache**.
+arcade around select models to showcase the information and the details that made these models.
 
-[IMPORTANT]
-====
-The KV Cache stores attention data for the context window of a conversation. Its size is directly proportional to the batch size and context length. This overhead can easily *double* your total VRAM requirement. A model needing 24GB for weights could easily require 48GB in a real application.
-====
 
-.Step 3: The Quantization Advantage
-This is the key to making powerful models run on affordable hardware. Quantization reduces the precision of the model's weights, drastically shrinking its size.
+== AI Specialists: Choosing the Right Model for the Job
 
-[TIP]
-====
-By using a quantized version of a model (e.g., INT8, INT4/GPTQ), you can reduce the baseline memory footprint by 50-75%. This frees up critical VRAM on the GPU to accommodate the KV Cache and other overhead, allowing a large model to run on a smaller, more cost-effective GPU.
-====
+    *   **Capability Spectrum:** Discuss the different "skills" of LLMs.
+        *   **Text Generation:** Explain models like **Mistral-Small-24B-Instruct-2501-FP8-dynamic** as conversational wizards designed for text-in, text-out tasks. This is your dedicated essay writer or chatbot.
+        *   **Multimodal Champions (Image-Text-to-Text):** Introduce models like **Qwen2.5-VL-3B-Instruct-quantized.w8a8** and **gemma-3-4b-it-quantized.w4a16**. Explain that these models can "see" images and "read" text inputs, then generate text outputs. They are perfect for tasks where the AI needs to understand both words and pictures, like interpreting charts or answering questions about documents. This is your AI detective who can analyze both visual evidence and written reports.
+    *   **Scale and Specialization:** Briefly discuss parameter counts and how they relate to model size and potential capability.
+        *   **Mistral-Small-24B-Instruct-2501-FP8-dynamic:** A substantial brain at **23.6 billion parameters**, quantized for efficiency. The robust all-rounder for textual tasks.
+        *   **Qwen2.5-VL-3B-Instruct-quantized.w8a8:** Nimble with **4.07 billion parameters**, a well-trained specialist in multimodal understanding.
+        *   **gemma-3-4b-it-quantized.w4a16:** Our project's most compact model at **1.61 billion parameters**, proving "sometimes good things come in small packages" [Previous Response].
+    *   **Model Card Deep Dive:** Suggest how the narration can walk through a "Model Card" (e.g.,) as a professional resume for an LLM, highlighting key sections like architecture, optimizations, capabilities, and performance [Previous Response].
 
-== Connecting VRAM to Infrastructure Cost
+5.  **"From Hub to Hosted: Deploying Your LLM Champion"**
+    *   **Practical Deployment:** Briefly touch upon the various ways Red Hat AI models can be deployed.
+        *   **Direct vLLM:** Show the simple Python examples for deploying with vLLM.
+        *   **Red Hat Ecosystem:** Narrate how these models integrate with Red Hat AI Inference Server, Red Hat Enterprise Linux AI (using `ilab`), and Red Hat Openshift AI (using KServe). This demonstrates the "Red Hat AI platform" for deploying generative AI models. This is like having a fully equipped "AI garage" with specialized tools for every kind of vehicle.
+    *   **Validation for Peace of Mind:** Reiterate that models are "validated by Red Hat AI", offering comprehensive benchmarking and accuracy evaluations, which means fewer headaches during deployment [Previous Response].
 
-Understanding the VRAM requirements allows you to estimate the annual infrastructure cost. Below are estimates for common GPU instances based on a 1-year commitment.
-
-.Annual Cloud Cost Estimates
-[options="header"]
-|===
-| VRAM per GPU | Example AWS Instance | Estimated Annual Cost | Notes
-| 24 GB        | `g6.2xlarge`         | *$5,000 - $7,000* | *Recommended starting point for PoCs*
-| 48 GB        | `g6e.2xlarge`        | $12,000 - $14,000      | Cost doubles from the 24GB tier
-| 192 GB       | `g6e.12xlarge`       | $55,000 - $65,000      | For multi-model serving or very large models
-| 640 GB       | `p5.48xlarge`        | $240,000+              | Enterprise scale (based on monthly cost)
-|===
-
-== Our Recommended Project Strategy
-
-For a typical customer Proof-of-Concept (PoC) with a limited budget, follow this strategic workflow.
-
-.Target the Sweet Spot
-Start by targeting the **24 GB VRAM** infrastructure (`g6.2xlarge`). This class of GPU offers the best performance-per-dollar and aligns with customer budgets for initial projects.
-
-.Search with Intent
-Filter your model search to those that provide **quantized versions**. A quantized 13B model can often outperform a non-quantized 7B model while fitting in the same 24GB memory budget.
-
-.Validate and Iterate
-Deploy your chosen model and benchmark its performance *and* real-world VRAM consumption. Be prepared to test different models to find the optimal balance of speed, accuracy, and cost for the customer's specific use case.
-
-== Red Hat Sizing Guide
-
-Intended to help provide *a model for estimations for sizing clusters for OpenShift AI* based on a few questions about the customers intended usage.
-
-Internal Only - http://red.ht/rhoai-sizing-guide[OpenShift AI Cluster sizing sheet]
-
-slack channel #help-rhoai-sizing-guide
-
+A comprehensive, insightful, and engaging understanding of Red Hat AI's offerings and their relevance to efficient LLM deployment. Good luck with the course!

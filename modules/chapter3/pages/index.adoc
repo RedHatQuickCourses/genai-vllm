@@ -1,2 +1,1 @@
-= Red Hat AI Model Repository
-
+= Cost based AI Model Selection

@@ -1,87 +1,41 @@
-= GPU VRAM Blueprint
-:toc:
-:sectnums:
-:icons: font
+= The Scenario
 
-_Estimating GPU Memory for Large Language Model Inference_
+=== The Customer: 
 
-This document serves as a quick reference guide for estimating the VRAM (GPU memory) required to run Large Language Models for inference.
+*"Innovatech Robotics,"* a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.
 
-== How Much VRAM for Model Weights?
+=== The Problem: 
 
-The first step in planning your hardware is calculating the VRAM needed to simply store the model's weights. The required memory is determined by the model's size (number of parameters) and its numerical precision. Using lower precision, like INT8 or INT4, can drastically reduce the memory footprint.
+Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.
 
-.Estimated VRAM for Model Weights by Precision
-[options="header"]
-|===
-| Model Size (Parameters) | FP16 / BF16 VRAM | INT8 VRAM | INT4 VRAM
+=== The Request: 
 
-| *1 Billion*
-| ~2 GB
-| ~1 GB
-| ~0.5 GB
+The CTO of Innovatech approaches you. "We've heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what's possible. We don't know where to start."
 
-| *3 Billion*
-| ~6 GB
-| ~3 GB
-| ~1.5 GB
+=== Your Role: 
 
-| *7 Billion*
-| ~14 GB
-| ~7 GB
-| ~3.5 GB
+You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.
 
-| *13 Billion*
-| ~26 GB
-| ~13 GB
-| ~6.5 GB
+=== Use Case Prioritization: 
 
-| *30 Billion*
-| ~60 GB
-| ~30 GB
-| ~15 GB
+You previously guided the team to brainstorm potential AI solutions on a whiteboard.
 
-| *65 Billion*
-| ~130 GB
-| ~65 GB
-| ~32.5 GB
-|===
 
-== Beyond Weights: The Real VRAM Consumers
+* Idea A: A chatbot for the public website to answer pre-sales questions. (Medium Impact, Medium Feasibility - data is scattered).
+* Idea B: An AI tool to help engineers write documentation faster. (Medium Impact, Low Feasibility - engineers see it as extra work).
+* Idea C: An internal tool to analyze incoming support tickets, categorize them, and suggest relevant documentation links for engineers to use. (High Impact, High Feasibility).
 
-Model weights are just the baseline. Real-world inference requires budgeting for several other critical components that consume significant VRAM.
+=== The Decision: 
 
-=== KV Cache
+Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.
 
-Memory Cost:: *+100% or More*
-Description:: This is memory used to store the attention keys and values for the tokens in the input sequence. The KV Cache is the *largest source of overhead* and its size grows linearly with the batch size and context length. For applications with long context windows or high batch throughput, the KV Cache can easily consume more memory than the model weights themselves.
 
-=== CUDA & System Overhead
+=== Outcome of Phase 1: 
 
-Memory Cost:: *+10-20%*
-Description:: This overhead includes the memory consumed by the CUDA kernels that perform the computations, the framework libraries (like PyTorch and vLLM), and various system buffers. This is a fixed cost you pay just for having the inference environment loaded on the GPU.
+The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.
 
-=== Model Activations
+=== Step-by-Step Execution:
 
-Memory Cost:: *+1-2%*
-Description:: These are the intermediate calculations that are stored during the model's forward pass. While the memory impact is much smaller than the KV Cache, it is a non-zero factor that contributes to the total VRAM load.
+Already a Red Hat customer, Innovatech has an OpenShift AI instance with 2 GPU worker nodes, each with an Nvidia L4 24GB accelerator. They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab. 
 
-== The Real-World VRAM Equation
-
-A more realistic way to think about your total memory requirement is with the following formula:
-
-[IMPORTANT]
-.Key Takeaway
-====
-A model's sticker price in VRAM is not the final cost. A 7B parameter model might list a ~14 GB requirement for its FP16 weights, but with a large context window for the KV Cache, the *actual VRAM requirement can easily exceed 24 GB*. Always profile your specific use case; don't just calculate based on weights.
-
-A simple mental model for total VRAM is:
-
-[source,text]
-----
-Total VRAM Needed ≈ (Model Weights VRAM) + (KV Cache VRAM) + (System Overhead)
-----
-====
-
----
-_vLLM Course Content | Built for Delivery Engineers & Consultants_ | with the help of Gemini
+We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun).

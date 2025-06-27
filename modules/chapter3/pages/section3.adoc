@@ -1,95 +1,70 @@
-= Course Module: Real-World Use Case - The Support Ticket Triage Assistant
+= Cost based AI Model Selection
+:toc: left
+:toclevels: 2
+:sectnums:
 
-Welcome to the hands-on portion of our course. In this series of modules, we will move from theory to practice by building a solution for a common customer scenario. As a delivery engineer or consultant, you will frequently be asked to demonstrate the value of AI quickly and efficiently. This use case is designed to equip you with the skills to do just that.
+A practical guide for Delivery Engineers and Consultants on balancing AI model performance, VRAM usage, and infrastructure cost based on this fictional use-case, real world requirements may vary.
 
-== 1. The Scenario: A Customer's Challenge
+== The VRAM Equation: Calculating Real-World GPU Needs
 
-Our customer, a growing enterprise software company, is facing a challenge in their support department. Their support engineers spend a significant amount of time on initial ticket triage: reading the ticket, categorizing it, searching for relevant knowledge base articles, and writing an initial summary. This manual process slows down response times and is a repetitive, low-value task for skilled engineers.
+Before selecting a model, you must understand its memory footprint. This goes beyond just the size of its weights.
 
-They believe an AI-powered assistant could accelerate this process but are hesitant to invest in a large-scale project without proof of its value and technical feasibility in their own environment.
+.Step 1: Baseline Model Weights
+The starting point is a simple rule of thumb: a model needs approximately twice its parameter count in VRAM to store its weights in standard FP16/BF16 precision.
+[source,text]
+----
+Formula: Model Parameters (in Billions) x 2 ≈ Required VRAM (in GB)
+Example: A 12B parameter model requires ~24 GB VRAM.
+----
 
-== 2. The Objective: A Proof-of-Concept (PoC)
+.Step 2: Accounting for Real-World Overhead
+Model weights are only part of the story. The largest consumer of VRAM in real-world inference is the **KV Cache**.
 
-Our goal is to design and deploy a **Support Ticket Triage Assistant** as a Proof-of-Concept. This PoC must satisfy two primary constraints:
+[IMPORTANT]
+====
+The KV Cache stores attention data for the context window of a conversation. Its size is directly proportional to the batch size and context length. This overhead can easily *double* your total VRAM requirement. A model needing 24GB for weights could easily require 48GB in a real application.
+====
 
-* **Prove Technical Feasibility:** Demonstrate that a Large Language Model (LLM) can be effectively deployed and integrated within their existing infrastructure to deliver tangible value.
-* **Minimize Initial Investment:** The entire PoC must be completed within a limited budget of **~$10,000**, covering cloud credits and approximately 2-3 weeks of focused engineering time.
+.Step 3: The Quantization Advantage
+This is the key to making powerful models run on affordable hardware. Quantization reduces the precision of the model's weights, drastically shrinking its size.
 
-== 3. The Solution: A Human-in-the-Loop MVP
+[TIP]
+====
+By using a quantized version of a model (e.g., INT8, INT4/GPTQ), you can reduce the baseline memory footprint by 50-75%. This frees up critical VRAM on the GPU to accommodate the KV Cache and other overhead, allowing a large model to run on a smaller, more cost-effective GPU.
+====
 
-To achieve the objective safely and build trust, we will architect a **Human-in-the-Loop** Minimum Viable Product (MVP). This approach ensures that the AI *assists* the support engineer rather than automating them out of the process.
+== Connecting VRAM to Infrastructure Cost
 
-.System Workflow
-image::workflow_diagram.png[System Workflow]
+Understanding the VRAM requirements allows you to estimate the annual infrastructure cost. Below are estimates for common GPU instances based on a 1-year commitment.
 
-Here's how it will function:
+.Annual Cloud Cost Estimates
+[options="header"]
+|===
+| VRAM per GPU | Example AWS Instance | Estimated Annual Cost | Notes
+| 24 GB        | `g6.4xlarge`         | *$7,000 - $8,000* | *Recommended starting point for PoCs*
+| 48 GB        | `g6e.2xlarge`        | $12,000 - $14,000      | Cost doubles from the 24GB tier
+| 192 GB       | `g6e.12xlarge`       | $55,000 - $65,000      | For multi-model serving or very large models
+| 640 GB       | `p5.48xlarge`        | $240,000+              | Enterprise scale (based on monthly cost)
+|===
 
-.   A customer submits a new support ticket in Jira.
-.   An application, triggered by the new ticket, sends the ticket's title and description to our AI service.
-.   Our vLLM-powered model processes the text and generates a structured JSON output containing:
-    ** A predicted `category` (e.g., "Billing," "Bug Report," "Feature Request").
-    ** A concise `summary` of the issue.
-    ** A list of suggested `knowledge_base_urls` for troubleshooting.
-.   The application posts this JSON payload as a *private comment* within the Jira ticket.
-.   The support engineer opens the ticket and immediately sees the AI-generated triage information, ready for validation and use.
+== Our Recommended Project Strategy
 
-This design provides immediate value by reducing manual work while keeping the engineer in full control of the final response to the customer.
+For a typical customer Proof-of-Concept (PoC) with a limited budget, follow this strategic workflow.
 
-== 4. Technical Environment & Constraints
+.Target the Sweet Spot
+Start by targeting the **24 GB VRAM** infrastructure (`g6.4xlarge`). This class of GPU offers the best performance-per-dollar and aligns with customer budgets for initial projects.
 
-A critical part of any engagement is working within the customer's existing technical landscape.
+.Search with Intent
+Filter your model search to those that provide **quantized versions**. A quantized 13B model can often outperform a non-quantized 7B model while fitting in the same 24GB memory budget.
 
-* **Platform:** The customer uses **Red Hat OpenShift AI**. Our solution must be deployable and manageable within this environment.
-* **Hardware:** They have allocated two compute nodes for this PoC, each equipped with an **NVIDIA A10G GPU** containing 24GB of VRAM.
-* **Model Sizing:** This hardware configuration imposes a constraint on model size. A common rule of thumb is that a model requires at least twice its parameter count in GPU memory for weights and KV cache.
-    * *Calculation:* `24GB VRAM per GPU`
-    * *Constraint:* To run efficiently on a single A10G, we should target models significantly smaller than 12B parameters.
-    * *Decision:* For this initial PoC, a smaller, fine-tuned model (e.g., in the 1B to 7B parameter range) is ideal. It will provide fast inference and can be highly effective when provided with good context from past ticket data.
+.Validate and Iterate
+Deploy your chosen model and benchmark its performance *and* real-world VRAM consumption. Be prepared to test different models to find the optimal balance of speed, accuracy, and cost for the customer's specific use case.
 
-== 5. Division of Responsibilities
+== Red Hat Sizing Guide
 
-Clear boundaries are key to a successful PoC.
+Intended to help provide *a model for estimations for sizing clusters for OpenShift AI* based on a few questions about the customers intended usage.
 
-* **Our Team (The vLLM Experts):**
-    * Select an appropriate open-source text-generation model.
-    * Optimize and deploy the model using **vLLM** on OpenShift AI to ensure high-throughput and low-latency inference.
-    * Provide a stable, documented API endpoint for the AI service.
-    * Focus on model performance, scalability, and deployment best practices.
+Internal Only - http://red.ht/rhoai-sizing-guide[OpenShift AI Cluster sizing sheet]
 
-* **The Customer's Team:**
-    * Develop the application logic that acts as the "glue."
-    * Handle the Jira integration: using the Jira API to monitor for new tickets (e.g., via webhooks) and to post the private comments.
-
-== 6. Next Steps: Model Selection
-
-With the requirements and architecture defined, our immediate next step is to identify the best candidate model for the job. We will begin by exploring the curated models available in the **Red Hat AI Model Library on Hugging Face** to find a suitable starting point for our Support Ticket Triage Assistant.
-
-'''
-```
-
-== Phase 2: Rapid Viability Assessment & PoC (The "How" and "If")
-
-Objective: Prove the "Support Ticket Triage Assistant" is technically feasible and will work in their environment, without over-investing.
-Budget Allocation: ~$10,000 (for cloud credits and 2-3 weeks of engineering time).
-
-Design the MVP (Human-in-the-Loop): Instead of full automation, you design a safer, more helpful MVP. The AI will not respond to customers directly. Instead, when a support engineer opens a ticket in Jira, the AI's analysis (category, suggested URL, and a draft summary) will automatically appear in a private comment field.
-
-
-Need a summarization model or text to text based model for text generation. 
-The actual model that could meet these requirements is pretty broad. 
-With our knowledge of the their existing hardware of two nodes with GPUs both A10Gs 24GB video memory means we could possible host a model up to ~12B parameters, working with calculation that a model requires 2x its parameters in GPU memory to operator and more for KV caching or other features. 
-With this assumption, we can expect to select a model with less than 12B parameters and for this project we could probably go with a really small model since we can use data from previous ticket help align the model or at least provide additional context for model queries.  
-
-Design would be something like a new ticket created in Jira for support,  an API that collects the data in json format and submits it to our AI model for summarization, categorization, and to determine the best links for additional information on the topic. 
-
-Model format the output as json and the application returns this to the jira application which post the summarization and links to urls within the comment field.
-
-What this group will deliver is an deploy AI model in OpenShift AI that provides and endpoint for the customer application that will query Jira, construct the prompt, query the AI model, collect the response, return the response to the application which will in turn post the response to Jira.
-
-The customer will be responsible for the application and Jira integration and we will focus on AI model selection, deployment, performance, along with safety and security coming in later course modules.
-
-We understand the requirements, the next step is to find and select a model as our first test candidate.
-
-To narrow down the model selection process, we are going to review a few of the models in the red hat ai model repository on huggingface. 
-
+slack channel #help-rhoai-sizing-guide
 
