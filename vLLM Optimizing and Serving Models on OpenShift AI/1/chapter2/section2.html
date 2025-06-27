@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>GPU VRAM Blueprint :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="section1.html">
+    <link rel="next" href="section3.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Red Hat AI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/page1.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">The Challenge</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/section2.html">The Scenario</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../chapter1/openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Red Hat AI Platform Solutions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Model Inference with OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Cost based AI Model Selection</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section2.html">GPU VRAM Blueprint</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Cost based AI Model Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">NVIDIA GPU Architectures</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter3/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section1.html">Red Hat AI: Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section2.html">Individual Model Analysis: Pre-Selected for This Course</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter4/index.html">vLLM, What is it ?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section2.html">Introduction to vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section1.html">vLLM Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">vLLM Serving Runtime on Red Hat OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/model_phases.html">Common Generative AI Model Variations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">Cost based AI Model Selection</a></li>
+    <li><a href="section2.html">GPU VRAM Blueprint</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">GPU VRAM Blueprint</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_how_much_vram_for_model_weights">1. How Much VRAM for Model Weights?</a></li>
+<li><a href="#_beyond_weights_the_real_vram_consumers">2. Beyond Weights: The Real VRAM Consumers</a>
+<ul class="sectlevel2">
+<li><a href="#_kv_cache">2.1. KV Cache</a></li>
+<li><a href="#_cuda_system_overhead">2.2. CUDA &amp; System Overhead</a></li>
+<li><a href="#_model_activations">2.3. Model Activations</a></li>
+</ul>
+</li>
+<li><a href="#_the_real_world_vram_equation">3. The Real-World VRAM Equation</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Estimating GPU Memory for Large Language Model Inference</em></p>
+</div>
+<div class="paragraph">
+<p>This document serves as a quick reference guide for estimating the VRAM (GPU memory) required to run Large Language Models for inference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_much_vram_for_model_weights"><a class="anchor" href="#_how_much_vram_for_model_weights"></a>1. How Much VRAM for Model Weights?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first step in planning your hardware is calculating the VRAM needed to simply store the model&#8217;s weights. The required memory is determined by the model&#8217;s size (number of parameters) and its numerical precision. Using lower precision, like INT8 or INT4, can drastically reduce the memory footprint.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Estimated VRAM for Model Weights by Precision</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Model Size (Parameters)</th>
+<th class="tableblock halign-left valign-top">FP16 / BF16 VRAM</th>
+<th class="tableblock halign-left valign-top">INT8 VRAM</th>
+<th class="tableblock halign-left valign-top">INT4 VRAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~2 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~1 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~0.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~6 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~3 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~1.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>7 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~14 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~7 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~3.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>13 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~26 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~13 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~6.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>30 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~60 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~30 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~15 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>65 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~130 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~65 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~32.5 GB</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_beyond_weights_the_real_vram_consumers"><a class="anchor" href="#_beyond_weights_the_real_vram_consumers"></a>2. Beyond Weights: The Real VRAM Consumers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Model weights are just the baseline. Real-world inference requires budgeting for several other critical components that consume significant VRAM.</p>
+</div>
+<div class="sect2">
+<h3 id="_kv_cache"><a class="anchor" href="#_kv_cache"></a>2.1. KV Cache</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Memory Cost</dt>
+<dd>
+<p><strong>+100% or More</strong></p>
+</dd>
+<dt class="hdlist1">Description</dt>
+<dd>
+<p>This is memory used to store the attention keys and values for the tokens in the input sequence. The KV Cache is the <strong>largest source of overhead</strong> and its size grows linearly with the batch size and context length. For applications with long context windows or high batch throughput, the KV Cache can easily consume more memory than the model weights themselves.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cuda_system_overhead"><a class="anchor" href="#_cuda_system_overhead"></a>2.2. CUDA &amp; System Overhead</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Memory Cost</dt>
+<dd>
+<p><strong>+10-20%</strong></p>
+</dd>
+<dt class="hdlist1">Description</dt>
+<dd>
+<p>This overhead includes the memory consumed by the CUDA kernels that perform the computations, the framework libraries (like PyTorch and vLLM), and various system buffers. This is a fixed cost you pay just for having the inference environment loaded on the GPU.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_model_activations"><a class="anchor" href="#_model_activations"></a>2.3. Model Activations</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Memory Cost</dt>
+<dd>
+<p><strong>+1-2%</strong></p>
+</dd>
+<dt class="hdlist1">Description</dt>
+<dd>
+<p>These are the intermediate calculations that are stored during the model&#8217;s forward pass. While the memory impact is much smaller than the KV Cache, it is a non-zero factor that contributes to the total VRAM load.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_real_world_vram_equation"><a class="anchor" href="#_the_real_world_vram_equation"></a>3. The Real-World VRAM Equation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A more realistic way to think about your total memory requirement is with the following formula:</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Key Takeaway</div>
+<div class="paragraph">
+<p>A model&#8217;s sticker price in VRAM is not the final cost. A 7B parameter model might list a ~14 GB requirement for its FP16 weights, but with a large context window for the KV Cache, the <strong>actual VRAM requirement can easily exceed 24 GB</strong>. Always profile your specific use case; don&#8217;t just calculate based on weights.</p>
+</div>
+<div class="paragraph">
+<p>A simple mental model for total VRAM is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Total VRAM Needed ≈ (Model Weights VRAM) + (KV Cache VRAM) + (System Overhead)</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="paragraph">
+<p><em>vLLM Course Content | Built for Delivery Engineers &amp; Consultants</em> | with the help of Gemini</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section1.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a></span>
+  <span class="next"><a href="section3.html">Cost based AI Model Selection</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

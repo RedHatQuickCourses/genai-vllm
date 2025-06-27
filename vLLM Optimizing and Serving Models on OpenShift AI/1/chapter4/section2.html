@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Introduction to vLLM :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section1.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Red Hat AI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/page1.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">The Challenge</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/section2.html">The Scenario</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../chapter1/openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Red Hat AI Platform Solutions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Model Inference with OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter2/index.html">Cost based AI Model Selection</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section2.html">GPU VRAM Blueprint</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section3.html">Cost based AI Model Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section4.html">NVIDIA GPU Architectures</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter3/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section1.html">Red Hat AI: Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section2.html">Individual Model Analysis: Pre-Selected for This Course</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter3/section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">vLLM, What is it ?</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section2.html">Introduction to vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">vLLM Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">vLLM Serving Runtime on Red Hat OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/model_phases.html">Common Generative AI Model Variations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">vLLM, What is it ?</a></li>
+    <li><a href="section2.html">Introduction to vLLM</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Introduction to vLLM</h1>
+<div class="sect1">
+<h2 id="_introduction_to_vllm"><a class="anchor" href="#_introduction_to_vllm"></a>Introduction to vLLM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>vLLM (Virtual Large Language Model) is a cutting-edge, open-source inference engine designed for high-throughput and memory-efficient serving of Large Language Models (LLMs). Originating from research at UC Berkeley, vLLM dramatically optimizes GPU memory management and accelerates inference, often delivering <strong>2-4x higher performance</strong> compared to traditional serving methods.</p>
+</div>
+<div class="paragraph">
+<p>The fundamental purpose of any model serving system is to make trained Machine Learning (ML) models accessible and usable within real-world applications and business processes. By exposing models via Application Programming Interfaces (APIs), typically REST or gRPC, serving systems allow various applications to consume model predictions without needing to host or manage their own copies of the model.</p>
+</div>
+<div class="paragraph">
+<p><strong>Key Differentiator:</strong> vLLM provides an <strong>OpenAI-compatible API</strong>, making it a powerful and flexible drop-in replacement for external services, enabling seamless integration into existing LLM application architectures.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_core_innovations_for_performance"><a class="anchor" href="#_core_innovations_for_performance"></a>Core Innovations for Performance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>vLLM achieves its significant performance gains through two primary, innovative techniques: PagedAttention and Continuous Batching.</p>
+</div>
+<div class="sect2">
+<h3 id="_pagedattention"><a class="anchor" href="#_pagedattention"></a>PagedAttention</h3>
+<div class="paragraph">
+<p>PagedAttention is the foundational innovation behind vLLM&#8217;s high-throughput and memory-efficient performance. It optimizes the management of the Key-Value (KV) cache, which is a significant memory bottleneck in LLM inference.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Memory Efficiency:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Divides the KV cache into fixed-size <strong>blocks</strong> and stores these blocks in non-contiguous memory, similar to how operating systems manage virtual memory.</p>
+</li>
+<li>
+<p>Significantly <strong>reduces memory waste</strong> by eliminating both internal (unused space within a sequence&#8217;s allocated memory) and external fragmentation (unusable small gaps between allocated memory blocks), which are common issues in traditional LLM serving systems.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Increased Throughput:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>By minimizing memory waste, PagedAttention makes the KV cache much more efficient, allowing the system to <strong>batch a larger number of requests</strong> concurrently on the GPU.</p>
+</li>
+<li>
+<p>Processing more requests together in a single batch leads to a substantial improvement in the overall throughput (requests and tokens per second) of the LLM serving system.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Flexible Memory Sharing:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enables the <strong>sharing of KV cache blocks</strong> across different sequences. This is particularly beneficial for:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Parallel Decoding:</strong> Sharing blocks within the same request (e.g., for beam search or speculative decoding).</p>
+</li>
+<li>
+<p><strong>Shared Prefixes:</strong> Efficiently handling multiple requests that start with the same prompt or initial tokens.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Advanced Decoding Support:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>The efficient and flexible memory management provided by PagedAttention makes it well-suited for supporting various advanced decoding scenarios, including parallel sampling, beam search, and handling shared prefixes in prompts.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_continuous_batching"><a class="anchor" href="#_continuous_batching"></a>Continuous Batching</h3>
+<div class="paragraph">
+<p>Continuous batching is a core technique that vLLM leverages to maximize GPU utilization and achieve high-throughput performance.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Traditional Batching Limitations:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Static Batching:</strong> Clients bundle queries and wait for the entire batch to complete before receiving any results. This can lead to latency issues and underutilized GPUs if batch sizes are fixed or requests are sparse.</p>
+</li>
+<li>
+<p><strong>Dynamic Batching (fixed-window):</strong> Server-side batching based on fixed time windows or predefined batch sizes, which can still lead to idle GPU time if requests don&#8217;t align with the windows or if a few long requests hold up the entire batch.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>vLLM&#8217;s Continuous Batching:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Dynamic Grouping:</strong> Continuously and dynamically groups <strong>new incoming requests</strong> with <strong>ongoing requests</strong> that have not yet completed processing.</p>
+</li>
+<li>
+<p><strong>Resource Optimization:</strong> The system dynamically adjusts the batch size based on the real-time availability of GPU memory and compute power.</p>
+</li>
+<li>
+<p><strong>Parallel Processing:</strong> This dynamic grouping allows the underlying language model to process parts of different requests in parallel, meaning it doesn&#8217;t have to wait for every request in a batch to finish before starting work on new ones.</p>
+</li>
+<li>
+<p><strong>Maximized GPU Utilization:</strong> By continuously adding new requests to the batch as resources become available, vLLM maintains a consistently high level of GPU utilization, which is crucial for achieving significant improvements in the number of requests and tokens served per second.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supported_model_architectures"><a class="anchor" href="#_supported_model_architectures"></a>Supported Model Architectures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>vLLM offers broad support for various types of large language models, encompassing their diverse applications.</p>
+</div>
+<div class="sect2">
+<h3 id="_text_to_text_models"><a class="anchor" href="#_text_to_text_models"></a>Text-to-Text Models</h3>
+<div class="paragraph">
+<p>These are the foundational LLMs, excelling at tasks involving natural language understanding and generation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Encoder-Decoder Models:</strong> (e.g., T5, BART) Take an input sequence and produce an output sequence. Well-suited for tasks like machine translation and summarization.</p>
+</li>
+<li>
+<p><strong>Causal Language Models:</strong> (e.g., Llama, Mistral, Falcon) Predict the next token in a sequence based on preceding tokens. The backbone for many text generation tasks, including chatbots, creative writing, and code generation.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multimodal_models_text_and_image_to_text"><a class="anchor" href="#_multimodal_models_text_and_image_to_text"></a>Multimodal Models (Text and Image to Text)</h3>
+<div class="paragraph">
+<p>Multimodal models are capable of processing and understanding information from multiple modalities, such as text and images. vLLM can serve these models when their output is text-based.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Image Captioning:</strong> Generating textual descriptions of images.</p>
+</li>
+<li>
+<p><strong>Visual Question Answering (VQA):</strong> Answering questions based on the content of an image.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_embedding_models"><a class="anchor" href="#_embedding_models"></a>Embedding Models</h3>
+<div class="paragraph">
+<p>Embedding models convert text or other data into dense vector representations (embeddings). These embeddings capture semantic meaning, enabling efficient comparison and retrieval.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Semantic Search:</strong> Finding documents or passages semantically similar to a query.</p>
+</li>
+<li>
+<p><strong>Recommendation Systems:</strong> Suggesting items based on embedding similarity to user preferences.</p>
+</li>
+<li>
+<p><strong>Clustering and Classification:</strong> Grouping or categorizing data points based on embedding similarity.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reward_models"><a class="anchor" href="#_reward_models"></a>Reward Models</h3>
+<div class="paragraph">
+<p>Reward models are trained to predict a scalar score reflecting the quality or desirability of an output, often used in Reinforcement Learning from Human Feedback (RLHF) to align LLMs with human preferences.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ranking Model Outputs:</strong> Ranking multiple generated responses based on quality.</p>
+</li>
+<li>
+<p><strong>Guiding Reinforcement Learning:</strong> Providing feedback signals to train language models to generate preferred outputs.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_specialized_architectures"><a class="anchor" href="#_specialized_architectures"></a>Specialized Architectures</h3>
+<div class="paragraph">
+<p>vLLM continuously adds support for emerging architectures, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Mamba Models:</strong> Represent a recent advancement in sequence modeling, offering an alternative to Transformer architectures, particularly for long-sequence tasks, via their Selective State Space (SSS) layer.</p>
+</li>
+<li>
+<p><strong>Mixture of Experts (MoE) Models:</strong> Architectures that route inputs to a subset of "expert" sub-networks, enabling very large models with efficient sparse activation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scaling_llm_inference_with_vllm"><a class="anchor" href="#_scaling_llm_inference_with_vllm"></a>Scaling LLM Inference with vLLM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Large Language Models often require significant computational resources. To overcome these limitations and achieve scalability, vLLM integrates with and leverages various distributed computing techniques.</p>
+</div>
+<div class="sect2">
+<h3 id="_distributed_inference_frameworks"><a class="anchor" href="#_distributed_inference_frameworks"></a>Distributed Inference Frameworks</h3>
+<div class="paragraph">
+<p>vLLM can orchestrate its operations across multiple nodes and GPUs using established distributed frameworks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ray:</strong> A powerful framework for building distributed applications, providing tools for managing distributed actors, task scheduling, and resource management. vLLM uses Ray to coordinate its distributed workers.</p>
+</li>
+<li>
+<p><strong>Multiprocessing:</strong> For simpler setups involving multiple GPUs within a single node, vLLM can also utilize Python&#8217;s built-in <code>multiprocessing</code> library to manage its distributed processes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parallelism_techniques"><a class="anchor" href="#_parallelism_techniques"></a>Parallelism Techniques</h3>
+<div class="paragraph">
+<p>vLLM employs various methods to parallelize computations across multiple devices, often in conjunction with model sharding (splitting the model across devices).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tensor Parallelism:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Concept:</strong> Shards individual model layers (e.g., weight matrices) across multiple GPUs <strong>within a node</strong>. Large tensor computations are distributed and executed in parallel.</p>
+</li>
+<li>
+<p><strong>Use Case:</strong> Typically used in single-node, multi-GPU configurations to fit very large layers into memory and accelerate their computation.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Pipeline Parallelism:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Concept:</strong> Splits the entire model into sequential <strong>stages</strong>, with each stage executed on a different device (GPU). Activations are passed between neighboring stages as data flows through the model.</p>
+</li>
+<li>
+<p><strong>Use Case:</strong> Employed when the entire model is too large to fit on a single device, often across multiple nodes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Data Parallelism (DP) with Data Parallel Attention:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Concept:</strong> Routes individual requests (data) to different vLLM engines running in parallel. For specific layers (like MoE layers), the data-parallel engines can collaborate, sharding experts across all workers (data parallel and tensor parallel).</p>
+</li>
+<li>
+<p><strong>Use Case:</strong> Particularly important for models with a small number of Key-Value (KV) Attention heads (e.g., DeepSeekV3, Qwen3), where traditional tensor parallelism might lead to wasteful KV Cache duplication. Data Parallelism allows vLLM to scale to a larger number of GPUs in such scenarios by distributing the input data rather than just the model layers.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Expert Parallelism (EP):</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Concept:</strong> Specialized optimization for Mixture-of-Experts (MoE) model architectures. vLLM efficiently manages the unique routing and computation needs of these models, where different "experts" (sub-networks) are activated based on the input.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_llm_optimization_and_compression"><a class="anchor" href="#_llm_optimization_and_compression"></a>LLM Optimization and Compression</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To further enhance inference speed and reduce memory footprint, LLMs can be optimized through various compression techniques. vLLM provides the infrastructure to efficiently serve these optimized models.</p>
+</div>
+<div class="sect2">
+<h3 id="_quantization"><a class="anchor" href="#_quantization"></a>Quantization</h3>
+<div class="paragraph">
+<p>Quantization is the process of reducing the numerical precision of model weights and/or activations, typically from floating-point numbers (e.g., FP32 or FP16) to lower-bit integers (e.g., INT8, INT4) or lower-precision floating-points (e.g., FP8).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Benefits of Quantization:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Faster Inference:</strong> Less precision requires less processing power to compute, leading to faster computations.</p>
+</li>
+<li>
+<p><strong>Reduced Model Size:</strong> Model size is reduced significantly (e.g., by 50% or more for INT4), making storage and transfer more efficient.</p>
+</li>
+<li>
+<p><strong>Lower Memory Footprint:</strong> Reduces the GPU memory needed to load and run the model, allowing larger models to fit or more models to be served concurrently.</p>
+</li>
+<li>
+<p><strong>Hardware Alignment:</strong> Model precision better aligns with specific GPU hardware features that accelerate lower-precision arithmetic.</p>
+</li>
+<li>
+<p><strong>Reduced Operating Costs:</strong> Smaller models are cheaper to store and run, reducing cloud inference costs.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>The Quantization Trade-off: Accuracy vs. Performance:</strong>
+The main trade-off in quantization is accuracy. Simplifying numerical precision inherently leads to some loss of information from the original model. The "art" of quantization lies in finding the optimal balance: simplifying enough to gain significant speed and size benefits without compromising model accuracy to an unacceptable degree.</p>
+</li>
+<li>
+<p><strong>Common Quantization Types:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>INT4:</strong> The smallest and potentially fastest precision. It offers the highest compression but carries the highest risk of impacting accuracy.</p>
+</li>
+<li>
+<p><strong>INT8:</strong> A common and well-balanced approach, offering good compression and speed-up with often manageable accuracy loss.</p>
+</li>
+<li>
+<p><strong>FP8:</strong> A lower-precision floating-point format that attempts to retain more decimal precision than integer types. It can offer better accuracy than INT8 in some cases, especially on newer hardware architectures that provide dedicated hardware support for FP8 computations (e.g., NVIDIA Ada Lovelace and Hopper GPUs).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Quantization Scope: Weights vs. Activations:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Weights (W):</strong> These are the fixed, learned parameters of the model, similar to the "ingredient amounts" in a recipe. They are determined during training and remain static during inference.</p>
+</li>
+<li>
+<p><strong>Activations (A):</strong> These are the dynamic, intermediate computations that change with each specific input, like the "measurements during baking."</p>
+</li>
+<li>
+<p><strong>Weight-Only Quantization (e.g., W4A16):</strong> Only the model weights are quantized to lower precision (e.g., 4-bit), while activations remain in a higher precision (e.g., 16-bit float). This primarily reduces model size and loading memory.</p>
+</li>
+<li>
+<p><strong>Weight and Activation (W&amp;A) Quantization (e.g., W8A8):</strong> Both weights and activations are quantized to lower precision (e.g., 8-bit). This offers maximum benefits in terms of memory reduction and computational speed-up, as the entire inference pipeline uses lower precision arithmetic.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+LLM Compressor, a tool integrated with the Red Hat OpenShift AI platform, supports various precisions, including INT4 (primarily for weights), INT8 (for both weights and activations), and FP8 (for both weights and activations). FP8 quantization, in particular, is optimized for NVIDIA&#8217;s newer Ada Lovelace and Hopper GPU architectures due to their dedicated hardware support for FP8 computations.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sparsification"><a class="anchor" href="#_sparsification"></a>Sparsification</h3>
+<div class="paragraph">
+<p>Sparsification is an optimization technique that reduces model size and computation by setting a significant number of model parameters (weights) to zero.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Mechanism:</strong> Values are set to 0, making the weight matrix "sparse."</p>
+</li>
+<li>
+<p><strong>Types:</strong> Can be <strong>structured</strong> (e.g., 2:4 sparsity, where two out of every four parameters are zero) or <strong>unstructured</strong>.</p>
+</li>
+<li>
+<p><strong>Hardware Acceleration:</strong> NVIDIA GPUs (Ampere architecture and newer) offer hardware acceleration for specific structured sparsity patterns (e.g., 2:4 sparse matrices), leading to significant performance gains.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hardware_compatibility"><a class="anchor" href="#_hardware_compatibility"></a>Hardware Compatibility</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>vLLM is designed to run efficiently on a range of hardware configurations.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">GPU (Accelerators)</th>
+<th class="tableblock halign-left valign-top">CPU</th>
+<th class="tableblock halign-left valign-top">Other AI Accelerators</th>
+<th class="tableblock halign-left valign-top">Operating System / Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVIDIA CUDA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intel/AMD x86</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Google TPU (experimental/community)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OS: Linux</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AMD ROCm (experimental/community)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARM AArch64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intel Gaudi (experimental/community)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python 3.9 - 3.12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intel XPU (experimental/community)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Apple Silicon (macOS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Neuron (experimental/community)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Various combinations of hardware may have additional installation and configuration requirements. Always refer to the official vLLM installation documentation: <a href="https://docs.vllm.ai/en/latest/getting_started/installation.html" target="_blank" rel="noopener">Official vLLM Documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enabling_advanced_llm_capabilities_toolfunction_calling"><a class="anchor" href="#_enabling_advanced_llm_capabilities_toolfunction_calling"></a>Enabling Advanced LLM Capabilities (Tool/Function Calling)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While vLLM is an inference engine and does not inherently provide the intelligence for generating tool calls or structured outputs, its core contribution is providing the <strong>highly efficient and scalable infrastructure</strong> to serve language models that <strong>are designed or prompted</strong> to perform these advanced tasks. This makes their practical use in applications feasible and performant.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tool/Function Calling:</strong> This involves a language model determining the need to interact with external tools, generating a structured call (including function name and parameters), and processing the tool&#8217;s result to formulate a final response. vLLM ensures the language model orchestrating this process is served efficiently and reliably.</p>
+</li>
+<li>
+<p><strong>Structured Outputs:</strong> This refers to a language model&#8217;s ability to generate responses in a specific, predefined format (e.g., JSON, XML, CSV). This is crucial for integrating LLMs with other systems and enabling automated downstream processing. vLLM provides the fast and reliable inference infrastructure for models adept at generating structured outputs.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Key Takeaway:</strong> The specific logic for generating function calls or structured outputs resides within the language model itself and is handled by your application code. vLLM&#8217;s role is to act as the high-performance server that enables these capable models to operate effectively, ensuring speed and efficiency in your applications utilizing these advanced features.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">vLLM, What is it ?</a></span>
+  <span class="next"><a href="section1.html">vLLM Runtime</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

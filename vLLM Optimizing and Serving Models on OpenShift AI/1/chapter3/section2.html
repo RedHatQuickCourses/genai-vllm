@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Individual Model Analysis: Pre-Selected for This Course :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="section1.html">
+    <link rel="next" href="section3.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Red Hat AI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/page1.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">The Challenge</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/section2.html">The Scenario</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../chapter1/openshift_ai_overview.html">Innovatech&#8217;s OpenShift AI Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">Red Hat AI Platform Solutions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Model Inference with OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter2/index.html">Cost based AI Model Selection</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section2.html">GPU VRAM Blueprint</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section3.html">Cost based AI Model Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section4.html">NVIDIA GPU Architectures</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Red Hat AI: Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section2.html">Individual Model Analysis: Pre-Selected for This Course</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter4/index.html">vLLM, What is it ?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section2.html">Introduction to vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section1.html">vLLM Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter4/section3.html">vLLM Serving Runtime on Red Hat OpenShift AI</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/model_phases.html">Common Generative AI Model Variations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">Red Hat AI Model Repository</a></li>
+    <li><a href="section2.html">Individual Model Analysis: Pre-Selected for This Course</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Individual Model Analysis: Pre-Selected for This Course</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, we will conduct a detailed analysis of the three generative AI models pre-selected for this course. These models are sourced from the Red Hat AI repository on Hugging Face, chosen for their comprehensive "Model Card" or "Model Overview" information, and their distinct characteristics relevant to various enterprise deployment scenarios with vLLM.</p>
+</div>
+<div class="paragraph">
+<p>Each analysis will cover the model&#8217;s architecture, scale, specific quantization strategy, capabilities, and key performance indicators, providing the necessary context for informed deployment decisions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_redhataimistral_small_24b_instruct_2501_fp8_dynamic"><a class="anchor" href="#_1_redhataimistral_small_24b_instruct_2501_fp8_dynamic"></a>1. RedHatAI/Mistral-Small-24B-Instruct-2501-FP8-dynamic</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Hugging Face Link:</strong> <a href="https://huggingface.co/RedHatAI/Mistral-Small-24B-Instruct-2501-FP8-dynamic" target="_blank" rel="noopener">RedHatAI/Mistral-Small-24B-Instruct-2501-FP8-dynamic</a></p>
+</li>
+<li>
+<p><strong>Model Architecture:</strong> This model is based on the highly regarded <code>Mistral-Small-24B-Instruct-2501</code> architecture from Mistral AI. It is an instruction-tuned, text-to-text transformer model known for its strong performance in instruction-following and general text generation tasks.</p>
+</li>
+<li>
+<p><strong>Scale:</strong> It is a substantial model featuring approximately <strong>23.6 billion parameters</strong>. This places it in the "small" (for LLMs) to "medium" category, offering a balance between performance and resource consumption.</p>
+</li>
+<li>
+<p><strong>Quantization Strategy (Efficiency):</strong></p>
+</li>
+<li>
+<p><strong>Type:</strong> FP8 (8-bit Floating Point) for both weights and activations (<code>FP8-dynamic</code>).</p>
+</li>
+<li>
+<p><strong>Implication:</strong> This optimization significantly reduces the model&#8217;s memory footprint and disk size by approximately 50% compared to its FP16 counterpart (reducing each parameter from 16 bits to 8 bits). FP8 quantization is particularly effective on modern NVIDIA GPU architectures (e.g., Ada Lovelace, Hopper, L4, H100) that feature dedicated Tensor Cores for accelerated FP8 computations, leading to substantial inference speedups while striving to maintain accuracy.</p>
+</li>
+<li>
+<p><strong>Capabilities:</strong></p>
+</li>
+<li>
+<p><strong>Modality:</strong> Text-to-Text. It processes text inputs and generates text outputs.</p>
+</li>
+<li>
+<p><strong>Use Cases:</strong> Primarily designed for general text generation, complex instruction following, and conversational AI scenarios. It excels in tasks requiring robust language understanding and generation, such as chatbots, content creation, and summarization.</p>
+</li>
+<li>
+<p><strong>Deployment Readiness:</strong> Explicitly optimized and ready for efficient inference using the vLLM backend. It supports deployment across the Red Hat AI product portfolio, including the Red Hat AI Inference Server, Red Hat Enterprise Linux AI (via <code>ilab</code>), and Red Hat OpenShift AI (via KServe).</p>
+</li>
+<li>
+<p><strong>Performance (Accuracy Recovery):</strong></p>
+</li>
+<li>
+<p><strong>OpenLLM Benchmark (v1):</strong> Achieved an impressive average score of 78.88, demonstrating a <strong>99.28% accuracy recovery</strong> compared to the unquantized model&#8217;s 79.45. Individual metrics (ARC-Challenge, GSM8K, HellaSwag, MMLU, TruthfulQA, Winogrande) showed minimal degradation.</p>
+</li>
+<li>
+<p><strong>OpenLLM Leaderboard (v2):</strong> Scored an average of 51.73, representing a <strong>98.68% recovery</strong> from the unquantized model&#8217;s 52.42. Note that results for Math-Hard, GPQA, and MUSR were excluded from recovery calculations due to near-random prediction accuracy in the unquantized baseline.</p>
+</li>
+<li>
+<p><strong>Overall:</strong> The high accuracy recovery rates across multiple benchmarks underscore the effectiveness of the FP8 quantization for this model, making it a strong candidate for production use where both performance and minimal accuracy impact are critical.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_redhataiqwen2_5_vl_3b_instruct_quantized_w8a8"><a class="anchor" href="#_2_redhataiqwen2_5_vl_3b_instruct_quantized_w8a8"></a>2. RedHatAI/Qwen2.5-VL-3B-Instruct-quantized.w8a8</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Hugging Face Link:</strong> <a href="https://huggingface.co/RedHatAI/Qwen2.5-VL-3B-Instruct-quantized.w8a8" target="_blank" rel="noopener">RedHatAI/Qwen2.5-VL-3B-Instruct-quantized.w8a8</a></p>
+</li>
+<li>
+<p><strong>Model Architecture:</strong> This model is a quantized version of the <code>Qwen/Qwen2.5-VL-3B-Instruct</code> architecture. The Qwen2.5-VL series are multimodal Large Vision-Language Models (LVLMs) developed by Alibaba Cloud, combining a Vision Transformer (ViT) encoder with a Qwen2.5-series LLM decoder to process both visual and textual information.</p>
+</li>
+<li>
+<p><strong>Scale:</strong> It is a relatively <strong>compact model</strong> with approximately <strong>4.07 billion parameters</strong>. Its smaller size makes it suitable for deployments with tighter memory constraints or when a higher number of concurrent models is required.</p>
+</li>
+<li>
+<p><strong>Quantization Strategy (Efficiency):</strong></p>
+</li>
+<li>
+<p><strong>Type:</strong> INT8 (8-bit Integer) for both weights and activations (<code>w8a8</code>).</p>
+</li>
+<li>
+<p><strong>Implication:</strong> This <code>w8a8</code> scheme, obtained using <code>llm-compressor</code> with a GPTQModifier, provides significant memory savings and computational speedups. Benchmarks indicate speedups of <strong>up to 1.33x in single-stream deployment</strong> and <strong>up to 1.37x in multi-stream asynchronous deployment</strong>, depending on hardware and specific use-case scenarios. It also demonstrates improved "Queries Per Dollar" (QPD) efficiency across various NVIDIA GPUs (e.g., A6000, A100, H100) for multimodal tasks. This makes it highly cost-effective for relevant workloads.</p>
+</li>
+<li>
+<p><strong>Capabilities:</strong></p>
+</li>
+<li>
+<p><strong>Modality:</strong> Image-Text-to-Text. This model is truly multimodal, capable of taking both vision (image) and text as input and generating text as output.</p>
+</li>
+<li>
+<p><strong>Use Cases:</strong> Excellently suited for a wide range of multimodal tasks including:</p>
+</li>
+<li>
+<p>Document Visual Question Answering (DocVQA)</p>
+</li>
+<li>
+<p>Visual Reasoning</p>
+</li>
+<li>
+<p>Image Captioning</p>
+</li>
+<li>
+<p>Chart Analysis</p>
+</li>
+<li>
+<p>General visual understanding and question answering.</p>
+</li>
+<li>
+<p><strong>Deployment Readiness:</strong> Optimized for efficient inference with vLLM version 0.5.2 or later, making it a strong choice for multimodal applications on Red Hat platforms.</p>
+</li>
+<li>
+<p><strong>Performance (Accuracy Recovery):</strong></p>
+</li>
+<li>
+<p><strong>Vision Tasks (MMMU, VQAv2, DocVQA, ChartQA, Mathvista):</strong> Achieved an impressive average score of 69.24, demonstrating a remarkable <strong>99.94% accuracy recovery</strong> compared to the original model&#8217;s 69.28. This indicates near-lossless quantization for visual understanding.</p>
+</li>
+<li>
+<p><strong>Text-based Tasks (MGSM, MMLU):</strong> Showed strong performance with MGSM scoring 41.98 (96.09% recovery) and MMLU scoring 64.83 (99.25% recovery).</p>
+</li>
+<li>
+<p><strong>Overall:</strong> The Qwen2.5-VL-3B-Instruct-quantized.w8a8 model stands out for its high accuracy retention across challenging multimodal benchmarks while offering substantial efficiency gains through INT8 quantization.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_redhataigemma_3_4b_it_quantized_w4a16"><a class="anchor" href="#_3_redhataigemma_3_4b_it_quantized_w4a16"></a>3. RedHatAI/gemma-3-4b-it-quantized.w4a16</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Hugging Face Link:</strong> <a href="https://huggingface.co/RedHatAI/gemma-3-4b-it-quantized.w4a16" target="_blank" rel="noopener">RedHatAI/gemma-3-4b-it-quantized.w4a16</a></p>
+</li>
+<li>
+<p><strong>Model Architecture:</strong> This model is a quantized variant of <code>google/gemma-3-4b-it</code>. Gemma models are a family of lightweight, state-of-the-art open models built by Google DeepMind. The <code>-it</code> suffix indicates it&#8217;s an instruction-tuned variant, optimized for dialogue and instruction following. It is also a multimodal model, capable of handling image and text inputs.</p>
+</li>
+<li>
+<p><strong>Scale:</strong> This is the <strong>smallest of the reviewed models</strong>, with approximately <strong>1.61 billion parameters</strong>. Its highly compact size makes it exceptionally suitable for resource-constrained environments, edge deployments, or scenarios where minimizing GPU memory usage is paramount.</p>
+</li>
+<li>
+<p><strong>Quantization Strategy (Efficiency):</strong></p>
+</li>
+<li>
+<p><strong>Type:</strong> INT4 (4-bit Integer) for weights (<code>w4</code>) and FP16 (16-bit Floating Point) for activations (<code>a16</code>).</p>
+</li>
+<li>
+<p><strong>Implication:</strong> This <code>w4a16</code> scheme, prepared using <code>llm-compressor</code> and GPTQModifier, provides the highest level of weight compression among the selected models, drastically reducing the model&#8217;s disk footprint and loading size. While activations remain at FP16 for better accuracy, the 4-bit weights contribute significantly to memory savings and potential throughput improvements, especially for workloads with low queries per second (QPS) and latency sensitivity. It is optimized for inference with vLLM version 0.8.0 or later.</p>
+</li>
+<li>
+<p><strong>Capabilities:</strong></p>
+</li>
+<li>
+<p><strong>Modality:</strong> Image-Text-to-Text. Similar to the Qwen model, it processes both image and text inputs to generate textual outputs.</p>
+</li>
+<li>
+<p><strong>Use Cases:</strong> Well-suited for multimodal applications where model size and efficiency are critical, such as visual question answering on devices with limited memory, or for batch processing where maximizing the number of concurrent models is desired. Its instruction-tuned nature also makes it capable of conversational tasks.</p>
+</li>
+<li>
+<p><strong>Performance (Accuracy Recovery):</strong></p>
+</li>
+<li>
+<p><strong>OpenLLM v1 Text Benchmark:</strong> Achieved an average score of 63.04%, showing a <strong>97.42% accuracy recovery</strong> from the original model&#8217;s 64.70%. This includes individual scores for ARC Challenge, GSM8K, Hellaswag, MMLU, TruthfulQA, and Winogrande.</p>
+</li>
+<li>
+<p><strong>Vision Evals (MMMU and ChartQA):</strong> Recorded an average score of 44.72%, demonstrating a <strong>98.86% accuracy recovery</strong>.</p>
+</li>
+<li>
+<p><strong>Overall:</strong> Despite its aggressive 4-bit weight quantization, the Gemma-3-4b-it-quantized.w4a16 model maintains a remarkably high accuracy recovery across both text and vision tasks, making it an excellent choice for highly efficient multimodal deployments.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_4_rationale_for_model_selection_in_this_course"><a class="anchor" href="#_4_rationale_for_model_selection_in_this_course"></a>4. Rationale for Model Selection in This Course</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The selection of these three specific models for hands-on activities in this course is based on a strategic rationale to provide a comprehensive and practical learning experience for delivery engineers and consultants:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Direct Alignment with vLLM Deployment Objectives:</strong> All three highlighted Red Hat AI models are explicitly designed, optimized, and validated for efficient inference using the vLLM backend. Red Hat AI even utilizes vLLM for inference serving as a core part of its model validation process, providing an extra layer of confidence in their compatibility and performance within a vLLM environment. This ensures that your lab experiences directly reflect real-world optimal deployment practices.</p>
+</li>
+<li>
+<p><strong>Prioritization of Efficiency via Diverse Quantization:</strong> These models collectively showcase the practical application and benefits of various advanced quantization techniques: FP8, INT8 (<code>w8a8</code>), and INT4 (<code>w4a16</code>). This diversity allows you to:</p>
+</li>
+<li>
+<p>Understand the trade-offs between different precision levels.</p>
+</li>
+<li>
+<p>Observe how these optimizations (reducing model size, disk footprint, and GPU memory requirements) directly contribute to cost-efficient deployments and improved "Queries Per Dollar" (QPD).</p>
+</li>
+<li>
+<p>Gain hands-on experience with models tailored for different hardware capabilities and performance requirements.</p>
+</li>
+<li>
+<p><strong>Demonstration of Diverse Capabilities and Scale:</strong></p>
+</li>
+<li>
+<p>The <code>Mistral-Small-24B-Instruct-2501-FP8-dynamic</code> represents a larger, text-only instruction-tuned model, ideal for robust general-purpose LLM applications.</p>
+</li>
+<li>
+<p>The <code>Qwen2.5-VL-3B-Instruct-quantized.w8a8</code> and `gemma-3-4b-it-quantized.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section1.html">Red Hat AI: Validated Models and Quantization Strategies</a></span>
+  <span class="next"><a href="section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
