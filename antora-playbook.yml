@@ -1,5 +1,5 @@
 site:
-  title: vLLM: Optimizing and Serving Models on OpenShift AI
+  title: vLLM Optimizing and Serving Models on OpenShift AI
   start_page: genai-vllm::index.adoc
 
 content:
