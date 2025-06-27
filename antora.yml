@@ -1,5 +1,5 @@
-name: vLLM: Optimizing and Serving Models on OpenShift AI
-title: vLLM: Optimizing and Serving Models on OpenShift AI
+name: vLLM Optimizing and Serving Models on OpenShift AI
+title: vLLM Optimizing and Serving Models on OpenShift AI
 version: 1
 nav:
 - modules/ROOT/nav.adoc
