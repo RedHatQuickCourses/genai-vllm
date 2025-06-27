@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Hat AI - Smart Model Selection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #e11d48, #f43f5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center p-8 mb-10 border-b border-gray-700">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white">Smart Model Selection</h1>
+            <p class="text-gray-400 mt-3 text-lg md:text-xl max-w-3xl mx-auto">Balancing AI Model Performance, VRAM Usage, and Infrastructure Cost</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <section>
+                <h2 class="text-3xl font-bold text-center text-white mb-10">The VRAM Equation: From Theory to Reality</h2>
+                <div class="bg-gray-800 border border-gray-700 rounded-2xl p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center">
+                        
+                        <div class="flex flex-col items-center">
+                            <h3 class="text-xl font-bold text-red-400 mb-2">STEP 1: Base Weights</h3>
+                            <p class="text-gray-400 h-16">A 12B parameter model (FP16) requires ~2x its size just to load.</p>
+                            <div class="w-full bg-gray-900 p-4 rounded-lg text-center mt-4">
+                               <p class="text-lg font-semibold text-white">12B Model</p>
+                               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto my-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3m6-7h3m-3 7h3m-3-4.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" /></svg>
+                               <div class="bg-red-600 text-white font-bold py-2 px-4 rounded-md text-2xl">≈ 24 GB</div>
+                               <p class="text-xs text-gray-500 mt-2">GPU VRAM Needed</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                           <h3 class="text-xl font-bold text-yellow-400 mb-2">STEP 2: Add Overhead</h3>
+                            <p class="text-gray-400 h-16">KV Cache, CUDA kernels, and context size can double the requirement.</p>
+                             <div class="w-full bg-gray-900 p-4 rounded-lg text-center mt-4">
+                               <p class="text-lg font-semibold text-white">12B Model + Overhead</p>
+                               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto my-3 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>
+                               <div class="bg-yellow-600 text-white font-bold py-2 px-4 rounded-md text-2xl">≈ 48 GB</div>
+                               <p class="text-xs text-gray-500 mt-2">GPU VRAM Needed</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <h3 class="text-xl font-bold text-green-400 mb-2">SOLUTION: Quantization</h3>
+                            <p class="text-gray-400 h-16">Quantizing reduces weight size, freeing up VRAM for overhead on the same GPU.</p>
+                             <div class="w-full bg-gray-900 p-4 rounded-lg text-center mt-4">
+                               <p class="text-lg font-semibold text-white">12B Model (Quantized)</p>
+                               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto my-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                               <div class="bg-green-600 text-white font-bold py-2 px-4 rounded-md text-2xl">Fits in 24 GB</div>
+                               <p class="text-xs text-gray-500 mt-2">Incl. Overhead</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="text-3xl font-bold text-center text-white mb-10">Connecting VRAM to Annual Infrastructure Cost</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+                    <div class="bg-gray-800 p-6 rounded-xl border-2 border-red-500 shadow-lg shadow-red-900/20 relative">
+                        <div class="absolute top-0 right-4 -mt-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED START</div>
+                        <h3 class="text-xl font-bold text-white">24 GB VRAM</h3>
+                        <p class="text-gray-400 font-mono">g6.2xlarge</p>
+                        <div class="text-4xl font-extrabold my-4 gradient-text">$5K - $7K</div>
+                        <p class="text-sm text-gray-500">per year (1-yr commit)</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h3 class="text-xl font-bold text-white">48 GB VRAM</h3>
+                        <p class="text-gray-400 font-mono">g6e.2xlarge</p>
+                        <div class="text-4xl font-extrabold my-4 text-gray-200">$12K - $14K</div>
+                        <p class="text-sm text-gray-500">per year (1-yr commit)</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h3 class="text-xl font-bold text-white">192 GB VRAM</h3>
+                        <p class="text-gray-400 font-mono">g6e.12xlarge</p>
+                        <div class="text-4xl font-extrabold my-4 text-gray-200">$55K - $65K</div>
+                        <p class="text-sm text-gray-500">per year (1-yr commit)</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h3 class="text-xl font-bold text-white">640 GB VRAM</h3>
+                        <p class="text-gray-400 font-mono">p5.48xlarge</p>
+                        <div class="text-4xl font-extrabold my-4 text-gray-200">$20K+</div>
+                        <p class="text-sm text-gray-500">per month (3-yr commit)</p>
+                    </div>
+
+                </div>
+            </section>
+            
+            <section>
+                 <h2 class="text-3xl font-bold text-center text-white mb-10">Our Recommended Project Strategy</h2>
+                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                     <div class="flex items-start space-x-4 bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                        <div class="flex-shrink-0 bg-red-600 h-12 w-12 rounded-lg flex items-center justify-center text-white font-extrabold text-2xl">1</div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Target the Sweet Spot</h3>
+                            <p class="text-gray-400 mt-1">Focus on the <span class="font-bold text-red-400">g6.2xlarge (24GB)</span> instance to maximize the customer's existing reserved instances and stay within a lean budget.</p>
+                        </div>
+                     </div>
+                     <div class="flex items-start space-x-4 bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                        <div class="flex-shrink-0 bg-red-600 h-12 w-12 rounded-lg flex items-center justify-center text-white font-extrabold text-2xl">2</div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Search with Intent</h3>
+                            <p class="text-gray-400 mt-1">Identify high-performing models that offer <span class="font-bold text-red-400">quantized versions</span> (e.g., INT4, W4A16, GPTQ) to ensure they fit our 24GB memory constraint.</p>
+                        </div>
+                     </div>
+                     <div class="flex items-start space-x-4 bg-gray-800/50 p-6 rounded-lg border border-gray-700">
+                        <div class="flex-shrink-0 bg-red-600 h-12 w-12 rounded-lg flex items-center justify-center text-white font-extrabold text-2xl">3</div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Validate and Iterate</h3>
+                            <p class="text-gray-400 mt-1">Deploy our chosen model, benchmark its performance against cost, and be prepared to swap models or instances to find the optimal solution.</p>
+                        </div>
+                     </div>
+                 </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 py-6 border-t border-gray-700">
+            <p class="text-gray-500">Red Hat AI Model Selection Guide</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
