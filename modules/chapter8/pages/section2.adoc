@@ -1,0 +1,75 @@
+= Mistral LLM Model Inference
+
+// video::llm_model_v3.mp4[width=640]
+
+== Let's Talk with the LLM
+
+The blue indicator on the left should now be located at the first input cell.  If you have not executed or run all the cells above, please do so now. 
+
+image::first_input.png[width=640]
+
+=== First Input
+
+The first input cell sent via the notebook to the Mistral model askes it to describe: *"Paris in 100 words or less".*  Go ahead and run this cell. 
+
+Immediately, green text is shown in the notebook, this is the entire prompt that is sent along with the single sentence question. There are three parts to the prompt:
+
+ . The System message which describes to the model how to consider and respond to the question
+ . The current conversation section, which describes the prompt or question to consider
+ . The response from Mistral Model, which is currently processing and will appear in black text
+ 
+
+It takes a few seconds for the OpenShift AI model to respond with the first words of the reply. The response answered the question in a well-considered informative paragraph that meets the requirement of less than 100 words in length. 
+
+image::first_input_response.png[width=800]
+
+
+=== Second Input
+
+The Second input - "Is there a River" - does not specify where the location is. Due to the conversation history being passed with the second input, there is no need to specify any additional information. Shown in the current conversation section below, notice the first input and the response was included with the second input. 
+
+image::second_input.png[width=800]
+
+== Second Example 
+
+Before we continue with the London example, we execute a cell to  change the conversation mode to non-verbose. This eliminates the context of the prompt displayed in the notebook to instead just show the model's reply. 
+
+We also execute a cell to clear memory, or the conversation history regarding Paris. 
+
+We did not disable the memory, or the verbosity of the conversation; we simply hid that section from being visible in the notebook.  
+
+Go ahead, run the second example cells and evaluate the responses from the model.
+
+image::second_example_response.png[width=800]
+
+== Experiment with Mistral
+
+There are multiple different types of large language models, while we can read about them, using them first hand is the best way to experience how they perform. 
+
+So now it's time to experiment on your own, or optionally continue to follow along with this guide.
+
+
+Add a few new cells to the bottom of the Notebook.
+
+image::experiment_setup.png[width=640]
+
+
+.  Experiment by copying the clear conversation cell text, paste the contents into one of the new cells  
+ . Next copy one of the input statements, replace the prompt / question for the model.  Then run or execute those cells to learn more about the models capabilities
+
+I used the following examples:
+
+ . Are you an AI model ?
+ . Tell me a joke please ?
+
+Then I asked one of my standard questions across models to determine it's knowledge of history: 
+
+*Was George Washington Married?*
+
+Why I ask this question is because several models say GW was married twice. I believed the first one, and this had me thinking several of the next models were wrong. It's critical that we evaluate models to determine their viability for business use cases.   The Mistral model was wrong in this instance.
+
+image::experiment1.png[width=800]
+
+Try clearing the memory again and asking more of your own questions to continue to experiment with the Mistral model. 
+
+When you're ready, move to the next section, where we evaluate a different large language model. 

@@ -1,0 +1,70 @@
+= Cost based AI Model Selection
+:toc: left
+:toclevels: 2
+:sectnums:
+
+A practical guide for Delivery Engineers and Consultants on balancing AI model performance, VRAM usage, and infrastructure cost based on this fictional use-case, real world requirements may vary.
+
+== The VRAM Equation: Calculating Real-World GPU Needs
+
+Before selecting a model, you must understand its memory footprint. This goes beyond just the size of its weights.
+
+.Step 1: Baseline Model Weights
+The starting point is a simple rule of thumb: a model needs approximately twice its parameter count in VRAM to store its weights in standard FP16/BF16 precision.
+[source,text]
+----
+Formula: Model Parameters (in Billions) x 2 ≈ Required VRAM (in GB)
+Example: A 12B parameter model requires ~24 GB VRAM.
+----
+
+.Step 2: Accounting for Real-World Overhead
+Model weights are only part of the story. The largest consumer of VRAM in real-world inference is the **KV Cache**.
+
+[IMPORTANT]
+====
+The KV Cache stores attention data for the context window of a conversation. Its size is directly proportional to the batch size and context length. This overhead can easily *double* your total VRAM requirement. A model needing 24GB for weights could easily require 48GB in a real application.
+====
+
+.Step 3: The Quantization Advantage
+This is the key to making powerful models run on affordable hardware. Quantization reduces the precision of the model's weights, drastically shrinking its size.
+
+[TIP]
+====
+By using a quantized version of a model (e.g., INT8, INT4/GPTQ), you can reduce the baseline memory footprint by 50-75%. This frees up critical VRAM on the GPU to accommodate the KV Cache and other overhead, allowing a large model to run on a smaller, more cost-effective GPU.
+====
+
+== Connecting VRAM to Infrastructure Cost
+
+Understanding the VRAM requirements allows you to estimate the annual infrastructure cost. Below are estimates for common GPU instances based on a 1-year commitment.
+
+.Annual Cloud Cost Estimates
+[options="header"]
+|===
+| VRAM per GPU | Example AWS Instance | Estimated Annual Cost | Notes
+| 24 GB        | `g6.4xlarge`         | *$7,000 - $8,000* | *Recommended starting point for PoCs*
+| 48 GB        | `g6e.2xlarge`        | $12,000 - $14,000      | Cost doubles from the 24GB tier
+| 192 GB       | `g6e.12xlarge`       | $55,000 - $65,000      | For multi-model serving or very large models
+| 640 GB       | `p5.48xlarge`        | $240,000+              | Enterprise scale (based on monthly cost)
+|===
+
+== Our Recommended Project Strategy
+
+For a typical customer Proof-of-Concept (PoC) with a limited budget, follow this strategic workflow.
+
+.Target the Sweet Spot
+Start by targeting the **24 GB VRAM** infrastructure (`g6.4xlarge`). This class of GPU offers the best performance-per-dollar and aligns with customer budgets for initial projects.
+
+.Search with Intent
+Filter your model search to those that provide **quantized versions**. A quantized 13B model can often outperform a non-quantized 7B model while fitting in the same 24GB memory budget.
+
+.Validate and Iterate
+Deploy your chosen model and benchmark its performance *and* real-world VRAM consumption. Be prepared to test different models to find the optimal balance of speed, accuracy, and cost for the customer's specific use case.
+
+== Red Hat Sizing Guide
+
+Intended to help provide *a model for estimations for sizing clusters for OpenShift AI* based on a few questions about the customers intended usage.
+
+Internal Only - http://red.ht/rhoai-sizing-guide[OpenShift AI Cluster sizing sheet]
+
+slack channel #help-rhoai-sizing-guide
+

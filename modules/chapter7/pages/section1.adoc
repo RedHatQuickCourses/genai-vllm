@@ -1,0 +1,92 @@
+= Creating OpenShift AI Resources - 1
+
+// video::llm_dsp_v3.mp4[width=640]
+
+== Model Serving Runtimes
+
+A model-serving runtime provides integration with a specified model server and the model frameworks that it supports. By default, Red Hat OpenShift AI includes the following model serving runtimes:
+
+
+ * *Multi-model*
+ ** OpenVINO Model Server
+ * *Single-model*
+ ** OpenVINO Model Server
+ ** Caikit Standalone ServingRuntime for KServe
+ ** Caikit ServingRuntime TGIS for KServe
+ ** vLLM NVIDIA GPU ServingRuntime for KServe
+ ** vLLM Intel Gaudi Accelerator ServingRuntime for KServe
+ ** vLLM AMD GPU ServingRuntime for KServe
+ ** vLLM CPU ServingRuntime for KServe
+ 
+However, if these runtimes do not meet your needs (if they don't support a particular model framework, for example), you might want to add your own custom runtimes.
+
+As an administrator, you can use the OpenShift AI interface to add and enable custom model-serving runtimes. You can then choose from your enabled runtimes when you create a new model server.
+
+
+This exercise will guide you through the steps necessary to deploy a custom Serving Runtime in order to serve a model using the Ollama Model Serving Framework.
+
+[NOTE]
+====
+While RHOAI supports the ability to add your own runtime, it is up to you to configure, adjust, and maintain your custom runtimes.
+====
+
+== Add The Ollama Custom Runtime
+
+.Animated - Add Ollama serving runtime
+image::ollama_runtime.gif[width=640]
+
+. Log in to RHOAI with a user who is part of the RHOAI admin group, for this lab we will be using the admin account. 
+
+. In the RHOAI Console, Navigate to the Settings menu, then select Serving Runtimes
+
+. *Select:* the *Add Serving Runtime* button
+
+. For the model serving platform runtime, *select: Single-Model Serving Platform*
+
+.  For API protocol this runtime supports, *select: REST*
+
+. *Click on: Start from scratch* in the window that opens up, paste the following YAML
++
+```yaml
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+labels:
+  opendatahub.io/dashboard: "true"
+metadata:
+  annotations:
+    openshift.io/display-name: Ollama
+  name: ollama
+spec:
+  builtInAdapter:
+    modelLoadingTimeoutMillis: 90000
+  containers:
+    - image: quay.io/rh-aiservices-bu/ollama-ubi9:0.1.45
+      env:
+        - name: OLLAMA_MODELS
+          value: /.ollama/models
+        - name: OLLAMA_HOST
+          value: 0.0.0.0
+        - name: OLLAMA_KEEP_ALIVE
+          value: '-1m'
+      name: kserve-container
+      ports:
+        - containerPort: 11434
+          name: http1
+          protocol: TCP
+  multiModel: false
+  supportedModelFormats:
+    - autoSelect: true
+      name: any
+```
+
+
+. After clicking the **Create** button at the bottom of the input area, you will see the new Ollama Runtime in the list. We can re-order the list as needed (the order chosen here is the order in which the users will see these choices).
+
+'''
+
+ 
+The next step is to create a *Data Connection* in our Data Science Project.  Before we can create our Data Connection, we will setup MinIO as our S3 compatible storage for this Lab. 
+
+Continue to the next section to deploy and configure Minio. 
+
+
