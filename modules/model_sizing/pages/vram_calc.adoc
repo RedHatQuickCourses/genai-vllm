@@ -1,9 +1,7 @@
 = GPU VRAM Blueprint
-:toc:
-:sectnums:
-:icons: font
 
-_Estimating GPU Memory for Large Language Model Inference_
+
+== Estimating GPU Memory for Large Language Model Inference_
 
 This document serves as a quick reference guide for estimating the VRAM (GPU memory) required to run Large Language Models for inference.
 
@@ -83,5 +81,30 @@ Total VRAM Needed ≈ (Model Weights VRAM) + (KV Cache VRAM) + (System Overhead)
 ----
 ====
 
----
-_vLLM Course Content | Built for Delivery Engineers & Consultants_ | with the help of Gemini
+
+== Understanding GPU Memory Allocation During Inference
+
+When running an AI model for inference, GPU memory is consumed by several components in addition to the model's weights. Understanding these is crucial for accurately provisioning hardware and optimizing performance.
+
+=== Model Weights
+
+This is the most straightforward component. It's the memory required to load the actual *parameters* of the neural network. The size is determined by the number of parameters and the precision used (e.g., a 7-billion-parameter model at half-precision (FP16) requires approximately 14 GB).
+
+=== Key-Value (KV) Cache
+
+For autoregressive models like transformers (the basis for most LLMs), the *Key-Value (KV) Cache* is a major memory consumer. To generate a new token, the model must consider the tokens that came before it. Instead of recomputing this context for every new token, the model stores intermediate calculations—the "keys" and "values" from the attention mechanism—in the KV cache.
+
+* *Why it's important:* It dramatically speeds up token generation after the initial prompt is processed.
+* *Memory Impact:* The size of the KV cache grows with the *sequence length* (prompt + generated tokens) and the *batch size* (number of simultaneous requests). For long contexts or high-volume services, the KV cache can often consume more memory than the model weights themselves.
+
+=== Activations
+
+Activations are the *intermediate outputs* of a model's layers as an input signal passes through the network. During inference, the GPU must hold the activations for the current input being processed. While these are transient and replaced with each new input, they still occupy a significant chunk of memory, especially for models with many layers or large hidden states.
+
+=== Framework and Execution Overhead
+
+Additional memory is used by the underlying software and hardware systems to manage the inference process. This includes:
+
+* *CUDA Context:* The NVIDIA driver and libraries require a certain amount of VRAM to initialize and manage the GPU.
+* *Inference Engine Buffers:* Frameworks like vLLM, TensorRT, or PyTorch allocate buffers to hold the input data, the final output, and other temporary tensors needed for computation.
+* *Memory Fragmentation:* Over time, memory can become fragmented, leaving small, unusable gaps between allocated blocks, which contributes to overall memory usage.

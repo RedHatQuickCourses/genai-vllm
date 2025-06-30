@@ -1,5 +1,4 @@
 = NVIDIA GPU Architectures
-
 ////
 :toc: left
 :toclevels: 2
@@ -7,7 +6,9 @@
 :icons: font
 ////
 
-== 4
+== GPU Architecture Showdown
+
+This section details the key features and improvements across NVIDIA's major datacenter-focused GPU architectures through 2025.
 
 .GPU Architecture Showdown
 [cols="^1,^2,>3,^2,^2,^2,^2,^1",options="header"]
@@ -41,23 +42,21 @@
 |FP32, FP16 (with INT8/FP8 on select models)
 |Since 2022
 
+|Blackwell
+|B100 / B200
+|Trillion-Parameter LLMs, Generative AI, Data Analytics
+|2nd Gen Transformer Engine, FP4 & FP6 Precision, Decompression Engine, Secure AI
+|~8-10 TB/s
+|NVLink 5 (Up to 1.8 TB/s per GPU)
+|FP32, FP16, FP8, FP6, FP4
+|Announced 2024
+
 |===
 
 [NOTE]
 ====
 The Ada Lovelace architecture bridges professional graphics with strong AI inference capabilities. Hopper and Blackwell are more sharply focused on large-scale, distributed AI and HPC workloads in the datacenter.
 ====
-
-=== Blackwell (e.g., B100, B200)
-
-*Architecture*:: NVIDIA Blackwell
-*Target Applications*:: Trillion-Parameter LLMs, Generative AI, Data Analytics
-*Key Innovations*:: 2nd Gen Transformer Engine, FP4 & FP6 Precision, Decompression Engine, Secure AI
-*Memory Bandwidth*:: ~8-10 TB/s
-*NVLink*:: NVLink 5 (Up to 1.8 TB/s per GPU)
-*Precision Support*:: FP32, FP16, FP8, FP6, FP4
-*Transistor Count*:: ~208 Billion (per B200 die)
-*Availability*:: Announced 2024
 
 == Growth in Power: Transistor Counts
 
@@ -83,3 +82,5 @@ The evolution across these architectures demonstrates a clear and intense focus 
 
 ---
 _Data based on publicly available information._
+
+
