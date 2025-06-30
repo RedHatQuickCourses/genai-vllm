@@ -1,46 +1,47 @@
 = NVIDIA GPU Architectures
+
+////
 :toc: left
 :toclevels: 2
 :sectnums:
 :icons: font
+////
 
-_Comparing key advancements in GPU technology from Ampere to Blackwell, driving AI and High-Performance Computing (HPC) forward._
+== 4
 
-== GPU Architecture Showdown
+.GPU Architecture Showdown
+[cols="^1,^2,>3,^2,^2,^2,^2,^1",options="header"]
+|===
+|Architecture |Example GPU |Target Applications |Key Innovations |Memory Bandwidth |NVLink |Precision Support |Availability
 
-This section details the key features and improvements across NVIDIA's major datacenter-focused GPU architectures.
+|Ampere
+|A100
+|AI Training & Inference, HPC
+|3rd Gen Tensor Cores, Multi-Instance GPU (MIG), Structural Sparsity
+|~1.5-2.0 TB/s
+|NVLink 3 (Up to 600 GB/s per GPU)
+|FP32, FP16, BF16, TF32
+|Since 2020
 
-=== Ampere (e.g., A100)
+|Hopper
+|H100
+|Large-Scale AI & HPC, Transformer Models
+|4th Gen Tensor Cores, Transformer Engine, FP8 Precision
+|~3.0-4.0 TB/s
+|NVLink 4 (Up to 900 GB/s per GPU)
+|FP32, FP16, FP8
+|Since 2022
 
-*Architecture*:: NVIDIA Ampere
-*Target Applications*:: AI Training & Inference, HPC
-*Key Innovations*:: 3rd Gen Tensor Cores, Multi-Instance GPU (MIG), Structural Sparsity
-*Memory Bandwidth*:: ~1.5-2.0 TB/s
-*NVLink*:: NVLink 3 (Up to 600 GB/s per GPU)
-*Precision Support*:: FP32, FP16, BF16, TF32
-*Transistor Count*:: ~54 Billion
-*Availability*:: Since 2020
+|Ada Lovelace
+|L40 / A6000
+|Professional Graphics, AI Inference, Content Creation
+|3rd Gen RT Cores, 4th Gen Tensor Cores, DLSS 3, AV1 Encode/Decode
+|Varies (e.g., L40 has ~864 GB/s)
+|N/A
+|FP32, FP16 (with INT8/FP8 on select models)
+|Since 2022
 
-=== Hopper (e.g., H100)
-
-*Architecture*:: NVIDIA Hopper
-*Target Applications*:: Large-Scale AI & HPC, Transformer Models
-*Key Innovations*:: 4th Gen Tensor Cores, Transformer Engine, FP8 Precision
-*Memory Bandwidth*:: ~3.0-4.0 TB/s
-*NVLink*:: NVLink 4 (Up to 900 GB/s per GPU)
-*Precision Support*:: FP32, FP16, FP8
-*Transistor Count*:: ~80 Billion
-*Availability*:: Since 2022
-
-=== Ada Lovelace (e.g., A6000, L40)
-
-*Architecture*:: NVIDIA Ada Lovelace
-*Target Applications*:: Professional Graphics, AI Inference, Content Creation
-*Key Innovations*:: 3rd Gen RT Cores, 4th Gen Tensor Cores, DLSS 3, AV1 Encode/Decode
-*Memory Bandwidth*:: Varies (e.g., L40 has ~864 GB/s)
-*Precision Support*:: FP32, FP16 (with INT8/FP8 on select models)
-*Transistor Count*:: ~76.3 Billion (AD102 Chip)
-*Availability*:: Since 2022
+|===
 
 [NOTE]
 ====

@@ -15,7 +15,3 @@ ui:
     url: ./ui-bundle/ui-bundle.zip
   supplemental_files: ./supplemental-ui
 
-
-antora:
-  extensions:
-    - '@antora/pdf-extension'
