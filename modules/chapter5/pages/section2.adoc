@@ -1,1 +1,45 @@
-= blank 2
+= 3.2. A Strategic Workflow for Cost-Effective Model Selection
+
+This section provides a practical, cost-driven guide for selecting an LLM. We will walk through a strategic workflow that balances model performance, VRAM usage, and infrastructure cost, a common challenge in customer engagements.
+
+==== Scenario: A Customer Proof-of-Concept (PoC)
+
+To make this tangible, let's use a common scenario:
+* **Customer Goal:** Build a chatbot to answer questions against their internal technical documentation.
+* **Key Requirement:** The model must be capable of reasoning and following instructions well.
+* **Constraint:** The initial PoC has a limited infrastructure budget, intended to prove value before scaling.
+
+Our job is to select the best possible model that can run effectively on cost-efficient hardware.
+
+==== Step 1: Connect VRAM Requirements to Infrastructure Cost
+
+From our VRAM Blueprint, we know that `Total VRAM ≈ Weights + KV Cache + Overhead`. Now, we map this technical requirement to a financial one. Below are cloud cost estimates for common GPU tiers, which will inform our hardware target.
+
+[TIP]
+The goal is to find the lowest-cost GPU tier that can still satisfy the memory requirements of a high-quality model, once optimized.
+
+.Annual Cloud GPU Cost Estimates (1-Year Commitment)
+[options="header"]
+|===
+| VRAM per GPU | Example GPU | Example AWS Instance | Est. Annual Cost (1-Yr) | Common Use Case
+
+| 24 GB
+| NVIDIA L4
+| `g6.4xlarge`
+| $7,000 - $9,000
+| *The PoC Sweet Spot.* Best performance-per-dollar for initial projects.
+
+| 48 GB
+| NVIDIA L40S
+| `g6e.8xlarge`
+| $15,000 - $20,000
+| Running larger models without quantization or for higher-throughput scenarios.
+
+| 80 GB
+| NVIDIA H100
+| `p5.8xlarge`
+| $45,000 - $55,000
+| High-performance production, fine-tuning, or serving very large models.
+
+| 640 GB
+|

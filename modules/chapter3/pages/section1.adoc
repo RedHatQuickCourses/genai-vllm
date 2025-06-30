@@ -2,13 +2,13 @@
 
 Welcome to the hands-on portion of our course. In this series of modules, we will move from theory to practice by building a solution for a common customer scenario. As a AI platform engineer or consultant, you will frequently be asked to demonstrate the value of AI quickly and efficiently. This use case is designed to equip you with the skills to do just that.
 
-== 1. The Scenario: A Customer's Challenge
+== The Scenario: A Customer's Challenge
 
 Our customer, a growing enterprise software company, is facing a challenge in their support department. Their support engineers spend a significant amount of time on initial ticket triage: reading the ticket, categorizing it, searching for relevant knowledge base articles, and writing an initial summary. This manual process slows down response times and is a repetitive, low-value task for skilled engineers.
 
 They believe an AI-powered assistant could accelerate this process but are hesitant to invest in a large-scale project without proof of its value and technical feasibility in their own environment.
 
-== 2. The Objective: A Proof-of-Concept (PoC)
+== The Objective: A Proof-of-Concept (PoC)
 
 Our goal is to design and deploy a **Support Ticket Triage Assistant** as a Proof-of-Concept. This PoC must satisfy two primary constraints:
 
