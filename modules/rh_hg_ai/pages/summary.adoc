@@ -1,4 +1,4 @@
-= Module Summary: From Curation to Confident Deployment
+= From Curation to Confident Deployment
 
 This module has provided a strategic guide to navigating the complex world of open-source model selection. We began by addressing the challenge of finding reliable, enterprise-ready models in a vast ecosystem. We then introduced the Red Hat AI Validated Model Repository as a curated solution that provides confidence, predictability, and cost-efficiency for your AI projects.
 

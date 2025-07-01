@@ -111,6 +111,8 @@ While Red Hat AI focuses on validated models, other models may also be available
 
 This final lesson guides you through the model collections and the criteria used to select them, empowering you to make smart choices for your own projects.
 
+////
+
 ==== Enterprise Selection Criteria
 
 The models in the validated collection are not chosen at random. They are selected based on criteria that reflect real-world enterprise constraints and goals, including:
@@ -118,6 +120,7 @@ The models in the validated collection are not chosen at random. They are select
 * **Performance on Cost-Effective Hardware:** Can the model run effectively on an NVIDIA L4 or A10G GPU (24GB VRAM)?
 * **Total Cost of Ownership (TCO):** Does the deployment align with a reasonable yearly infrastructure budget (e.g., < $75,000)?
 * **Demonstrated Business Impact:** Can the model solve tangible business problems, like improving developer productivity or automating customer support?
+////
 
 ==== Pre-Selected Models for This Course
 

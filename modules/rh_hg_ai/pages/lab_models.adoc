@@ -1,4 +1,4 @@
-= 4.4. In-Depth Analysis of Pre-Selected Course Models
+= Pre-Selected Course Models
 
 In this lesson, we will perform a detailed analysis of the three generative AI models pre-selected for this course from the Red Hat AI repository. Each profile covers the model's architecture, scale, quantization strategy, and validated performance, providing the context needed to make informed deployment decisions in the upcoming labs.
 
