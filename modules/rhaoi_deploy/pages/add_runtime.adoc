@@ -1,10 +1,10 @@
-= Creating OpenShift AI Resources - 1
+= vLLM Serving Runtime
 
 // video::llm_dsp_v3.mp4[width=640]
 
 == Model Serving Runtimes
 
-A model-serving runtime provides integration with a specified model server and the model frameworks that it supports. By default, Red Hat OpenShift AI includes the following model serving runtimes:
+A model-serving runtime provides integration with a specified model server and the model frameworks that it supports. By default, Red Hat OpenShift AI v2.21 includes the following model serving runtimes:
 
 
  * *Multi-model*
@@ -23,16 +23,19 @@ However, if these runtimes do not meet your needs (if they don't support a parti
 As an administrator, you can use the OpenShift AI interface to add and enable custom model-serving runtimes. You can then choose from your enabled runtimes when you create a new model server.
 
 
-This exercise will guide you through the steps necessary to deploy a custom Serving Runtime in order to serve a model using the Ollama Model Serving Framework.
+This exercise will guide you through the steps necessary to deploy a custom Serving Runtime in order to serve a model using the vLLM Serving Framework.
 
 [NOTE]
 ====
 While RHOAI supports the ability to add your own runtime, it is up to you to configure, adjust, and maintain your custom runtimes.
 ====
 
-== Add The Ollama Custom Runtime
+== Add The vLLM Custom Runtime
 
-.Animated - Add Ollama serving runtime
+[NOTE]
+If you are using OpenShift AI v2.21, then adding this runtime will fail as OpenShift AI already includes this exact version available. 
+
+.Animated - Add vLLM serving runtime
 image::ollama_runtime.gif[width=640]
 
 . Log in to RHOAI with a user who is part of the RHOAI admin group, for this lab we will be using the admin account. 
@@ -48,39 +51,43 @@ image::ollama_runtime.gif[width=640]
 . *Click on: Start from scratch* in the window that opens up, paste the following YAML
 +
 ```yaml
+# Filename: vllm-servingruntime.yaml
 apiVersion: serving.kserve.io/v1alpha1
 kind: ServingRuntime
-labels:
-  opendatahub.io/dashboard: "true"
 metadata:
-  annotations:
-    openshift.io/display-name: Ollama
-  name: ollama
+ name: vllm-cuda-runtime-example
+ annotations:
+   openshift.io/display-name: vLLM (NVIDIA GPU)
+   opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+ labels:
+   opendatahub.io/dashboard: 'true'
 spec:
-  builtInAdapter:
-    modelLoadingTimeoutMillis: 90000
-  containers:
-    - image: quay.io/rh-aiservices-bu/ollama-ubi9:0.1.45
-      env:
-        - name: OLLAMA_MODELS
-          value: /.ollama/models
-        - name: OLLAMA_HOST
-          value: 0.0.0.0
-        - name: OLLAMA_KEEP_ALIVE
-          value: '-1m'
-      name: kserve-container
-      ports:
-        - containerPort: 11434
-          name: http1
-          protocol: TCP
-  multiModel: false
-  supportedModelFormats:
-    - autoSelect: true
-      name: any
+ supportedModelFormats:
+   - name: vLLM
+     autoSelect: true
+ containers:
+   - name: kserve-container
+     image: quay.io/modh/vllm:rhoai-2.20-cuda
+     command: ["python", "-m", "vllm.entrypoints.openai.api_server"]
+     args:
+       - "--port=8080"
+       - "--model=/mnt/models"
+       - "--served-model-name={{.Name}}"
+     env:
+       - name: HF_HOME
+         value: /tmp/hf_home
+     ports:
+       - containerPort: 8080
+         protocol: TCP
+     resources:
+       requests:
+         nvidia.com/gpu: '1'
+       limits:
+         nvidia.com/gpu: '1'
 ```
 
 
-. After clicking the **Create** button at the bottom of the input area, you will see the new Ollama Runtime in the list. We can re-order the list as needed (the order chosen here is the order in which the users will see these choices).
+. After clicking the **Create** button at the bottom of the input area, you will see the new vllm-cuda-runtime-example in the list. We can re-order the list as needed (the order chosen here is the order in which the users will see these choices).
 
 '''
 

@@ -2,4 +2,3 @@
 ** xref:section4.adoc[]
 ** xref:section2.adoc[]
 ** xref:section3.adoc[]
-** xref:minios3.adoc[]
