@@ -1,0 +1,177 @@
+= Installing Red{nbsp}Hat OpenShift AI Using the Web Console
+
+*Red{nbsp}Hat OpenShift AI* is available as an operator via the OpenShift Operator Hub.  You will install the *Red{nbsp}Hat OpenShift AI operator* and dependencies using the OpenShift web console in this section.
+
+// video::openshiftai_operator.mp4[width=640]
+
+== Lab: Installation of Red{nbsp}Hat OpenShift AI
+
+IMPORTANT: The installation requires a user with the _cluster-admin_ role
+
+This exercise uses the Red Hat Demo Platform; specifically the OpenShift Container Cluster Platform Resource.  If you haven't already you'll need to launch the lab environment before continuing. 
+
+. Login to the Red Hat OpenShift using a user which has the _cluster-admin_ role assigned.
+
+. It’s sufficient to install all prerequisite operators with default settings, no additional configuration is necessary.
+
+. Navigate to **Operators** -> **OperatorHub** and search for each of the following Operators individually.  Click on the button or tile for each. In the pop up window that opens, ensure you select the latest version in the "*specified within instructions*" channel and click on **Install** to open the operator's installation view. For this lab you can skip the installation of the optional operators.
+
+[*] You do not have to wait for the previous Operator to complete before installing the next. For this lab you can skip the installation of the optional operators as there is no accelerator required.
+// Should this be a note?
+
+    * Red Hat OpenShift Serverless 
+
+    * Red Hat OpenShift Service Mesh
+
+    * Red Hat Authorino technical preview
+
+    * GPU Support
+
+    **  Node Feature Discovery Operator (optional)
+
+    **  NVIDIA GPU Operator (optional)
+
+
+This section will discuss the process for installing the dependent operators using the OpenShift Web Console.
+
+=== Installation of Red Hat OpenShift Serverless Operator
+
+The following section discusses installing the *Red{nbsp}Hat OpenShift Serverless* operator.
+
+.Animated - Operator Hub installation of Serverless Operator in OpenShift
+image::serverless_operator.gif[width=600]
+
+1. Login to Red{nbsp}Hat OpenShift using a user who has the _cluster-admin_ role assigned.
+
+2. Navigate to **Operators** -> **OperatorHub** and search for *Red{nbsp}Hat OpenShift Serverless*.
+
+3. Click on the *Red{nbsp}Hat OpenShift Serverless* operator. In the pop-up window, select the *stable* channel and the most recent version of the serverless operator. Click on **Install** to open the operator's installation view.
+
+
+4. In the `Install Operator` page, select the default values for all the fields and click *Install*.
+
+
+5. A window showing the installation progress will pop up.
+
+6. When the installation finishes the operator is ready to be used by *Red{nbsp}Hat OpenShift AI*.
+
+
+*Red{nbsp}Hat OpenShift Serverless* is now successfully installed.
+
+=== Installation of Red Hat OpenShift Service Mesh Operator
+
+The following section discusses installing the *Red{nbsp}Hat OpenShift Service Mesh* operator.
+
+.Animated - Operator Hub installation of Service Mesh Operator in OpenShift
+image::servicemesh_install.gif[width=600]
+
+1. Login to Red{nbsp}Hat OpenShift using a user who has the _cluster-admin_ role assigned.
+
+2. Navigate to **Operators** -> **OperatorHub** and search for *Red{nbsp}Hat OpenShift Service Mesh*.
+
+3. Click on the *Red{nbsp}Hat OpenShift Service Mesh* operator. In the pop-up window, select the *stable* channel and the most recent version of the server mesh operator. Click on **Install** to open the operator's installation view.
+
+4. In the `Install Operator` page, select the default values for all the fields and click *Install*.
+
+5. A window showing the installation progress will pop up.
+
+6. When the installation finishes the operator is ready to be used by *Red{nbsp}Hat OpenShift AI*.
+
+*Red{nbsp}Hat OpenShift Service Mesh* is now successfully installed.
+
+=== Installation of Red Hat Authorino Operator
+
+The following section discusses installing the *Red{nbsp}Hat - Authorino* operator.
+
+.Animated - Operator Hub installation of Authorino (tech preview) Operator in OpenShift
+image::authorino_install.gif[width=600]
+
+1. Login to Red{nbsp}Hat OpenShift using a user who has the _cluster-admin_ role assigned.
+
+2. Navigate to **Operators** -> **OperatorHub** and search for *Red{nbsp}Hat Authorino.
+
+3. Click on the *Red{nbsp}Hat Authorino* operator. In the pop-up window, select the *tech-preview-v1* channel and the most recent version of the serverless operator. Click on **Install** to open the operator's installation view.
+
+4. In the `Install Operator` page, select the default values for all the fields and click *Install*.
+
+5. A window showing the installation progress will pop-up.
+
+6. When the installation finishes the operator is ready to be used by *Red{nbsp}Hat OpenShift AI*.
+
+*Red{nbsp}Hat Authorino* is now successfully installed.
+
+
+[TIP]
+ 
+ Installing these Operators prior to the installation of the OpenShift AI Operator increases the speed in OpenShift AI acknowledging the availability of these components and adjusting the initial configuration to shift management of these components to OpenShift AI. 
+
+== Installation of Red Hat OpenShift AI Operator
+
+.Animated - Operator Hub installation of OpenShift AI Operator on OpenShift
+image::openshiftai_install_214.gif[width=600]
+
+* Navigate to **Operators** -> **OperatorHub** and search for *OpenShift AI*.
+
+
+. Click on the `Red{nbsp}Hat OpenShift AI` operator. In the pop-up window that opens, ensure you select the latest version in the *fast* channel. Any version equal to or greater than 2.14 and click on **Install** to open the operator's installation view.  
++
+
+. In the `Install Operator` page, leave all of the options as default and click on the *Install* button to start the installation.
+
+. The operator Installation progress window will pop up. The installation may take a couple of minutes.
+
+== Create OpenShift AI Data Science Cluster
+
+The next step is to create an OpenShift AI *Data Science Cluster (DSC)*.
+
+_A DataScienceCluster is the plan in the form of an YAML outline for Data Science Cluster API deployment. Manually editing the YAML configuration can adjust the settings of the OpenShift AI DSC._
+
+.Animated - Create Data Science Cluster to enable OpenShift AI on OpenShift
+image::dsc_install_214.gif[width=600]
+
+Return to the OpenShift Navigation Menu, Select Installed Operators, and click on the OpenShift AI Operator name to open the operator.
+
+ . *Select the option to create a Data Science Cluster.*
+
+ . *Click Create* to deploy the Data Science Cluster.  
+
+This takes ~5 minutes to complete, once the DSC becomes Ready, use the navigation menu at the top right to drop down the menu and select Red Hat OpenShift AI.  Use the same credentials as used log into OpenShift. 
+
+
+== OpenShift AI install Summary
+
+Congratulations, you have successfully completed the installation of OpenShift AI on an OpenShift Container Cluster. OpenShift AI is now running on a new Dashboard!
+
+
+  * We installed the required OpenShift AI Operators
+  ** Red Hat OpenShift Serverless 
+  ** Red Hat OpenShift ServiceMesh
+  ** Red Hat Authorino (technical preview)
+  ** OpenShift AI Operator
+
+
+
+== Create a Data Science Project 
+
+Navigate to the menu selector, located at the top right of the OCP dashboard.  Select the grid of squares, then select OpenShift AI.  At the login screen, use the OCP admin credentials to login to OpenShift AI. 
+
+.Animated - Create data science project from OpenShift AI dashboard
+image::data_science_project.gif[width=600]
+
+Explore the dashboard navigation menus to familiarize yourself with the options.
+
+Navigate to & select the Data Science Projects section.
+
+ . Select the Create Data Science Project button.
+
+ . Enter a name for your project, such as *ollama-model*.
+ .. (the animated example shows fraud-detection entered for the data science project, for this course use the *ollama-model* to follow along with rest of the labs)
+
+ . The resource name should be populated automatically.
+
+ . Optionally add a description to the data science project.
+
+ . Select Create.
+
+
+Once complete, you should be on the landing page of the "ollama-model" Data Science Project section of the OpenShift AI Console / Dashboard. 

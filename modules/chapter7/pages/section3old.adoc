@@ -1,0 +1,51 @@
+= Configure the OpenShift AI Data Science Cluster
+
+video::llm_dsc_v3.mp4[width=640]
+
+== Create OpenShift AI Data Science Cluster
+
+With our secrets in place, the next step is to create an OpenShift AI *Data Science Cluster*.
+
+_A DataScienceCluster is the plan in the form of an YAML outline for Data Science Cluster API deployment._
+
+Return to the OpenShift Navigation Menu, Select Installed Operators, and Click on the OpenShift AI Operator name to open the operator.
+
+ . *Select the Option to create a Data Science Cluster.*
+
+ . *Select the radial button to switch to the YAML view.*
+
+ . Find the section below in the YAML file, in the Kserve Section find the Serving/Certificate area; add the line: *secretName:* followed by the name of the secret name that we deployed in the istio-system project. In addition, change the type from *SelfSigned* to *Provided*. See below for the example.
+
+```yaml
+kserve:
+  managementState: Managed
+  serving:
+    ingressGateway:
+      certificate:
+        secretName: cert-manager-ingress-cert
+        type: Provided
+    managementState: Managed
+    name: knative-serving
+```
+image::dsc_cert_example.png[width=640]
+
+Once you have made those changes to the YAML file, *Click Create* to Deploy the Data Science Cluster.  
+
+image::dsc_deploy_complete.png[width=640]
+
+Single Model Serve Platform will now be deployed to expose ingress connections with the same certificate as OpenShift Routes. Endpoints will be accessible using TLS without having to ignore error messages or create special configurations.
+
+== OpenShift AI install summary
+
+Congratulations, you have successfully completed the installation of OpenShift AI on an OpenShift Container Cluster. OpenShift AI is now running on a new Dashboard!
+
+
+  * We installed the required OpenShift AI Operators
+  ** Red Hat OpenShift Serverless 
+  ** Red Hat OpenShift ServiceMesh
+  ** Red Hat Authorino (technical preview)
+  ** OpenShift AI Operator
+
+Additionally, we took this installation a step further by sharing TLS certificates from the OpenShift Cluster with OpenShift AI. 
+
+We will pick up working with the OpenShift AI UI in the next Chapter.

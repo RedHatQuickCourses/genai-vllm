@@ -1,0 +1,141 @@
+= vLLM
+
+////
+Preamble: Course Information
+[preamble]
+Audience:: AI Platform Engineers, ML Engineers, AI Consultants
+Level:: Intermediate
+Prerequisites:: Foundational knowledge of Large Language Models (LLMs), containerization (Docker), and REST APIs. Familiarity with GPU hardware is beneficial.
+Version:: 1.0
+////
+
+== Introduction to vLLM
+
+Welcome to the first module on virtual large language model (vLLM): Optimizing and Serving Models on OpenShift AI. In this section, we will establish what vLLM is, why it is a critical tool for production AI, and how it achieves its industry-leading performance.
+
+=== What is vLLM?
+
+vLLM is an open-source **inference engine** designed for serving Large Language Models (LLMs) with maximum speed and memory efficiency. Developed by researchers at UC Berkeley, vLLM is not a model itself, but a highly optimized library that runs LLMs, making them available for applications.
+
+Its primary goal is to solve the key challenges of LLM inference: high latency, low throughput, and demanding GPU memory requirements. By addressing these bottlenecks, vLLM enables organizations to serve more users, achieve faster response times, and lower the operational costs associated with running powerful AI models.
+
+.The Core Problem vLLM Solves
+****
+Serving LLMs is memory-intensive, primarily due to the **Key-Value (KV) Cache**. This cache stores intermediate attention data for each user's request. Traditional serving methods allocate large, contiguous blocks of memory for this cache, leading to significant waste and limiting the number of concurrent requests a single GPU can handle. vLLM's core innovations directly target this inefficiency.
+****
+
+=== Why vLLM? The Key Benefits
+
+For platform engineers and consultants, the choice of a serving engine has direct impacts on performance, cost, and maintainability. vLLM provides compelling advantages.
+
+ . High-Performance Throughput
+vLLM can increase the number of output tokens generated per second by **2-4x** compared to standard Hugging Face implementations, without any model architecture changes. This means a single GPU can serve significantly more users concurrently.
+
+ . Efficient Memory Management
+Through its core innovation, PagedAttention, vLLM drastically reduces the memory footprint of the KV Cache by up to **55%**. This allows you to:
+ ** Run larger models on the same GPU.
+ ** Fit more concurrent requests into memory, boosting throughput.
+ ** Reduce overall hardware costs.
+
+ . Seamless Integration with the OpenAI API
+vLLM provides an API server that is a **drop-in replacement** for the OpenAI API. This is a critical feature for adoption, as applications built using the `openai` client library can be pointed to a self-hosted vLLM endpoint with minimal to no code changes.
+
+[TIP]
+====
+The OpenAI-compatible API means you can develop applications against OpenAI's service and later migrate to a self-hosted, cost-effective vLLM instance without rewriting your application logic. This provides immense flexibility for prototyping and production deployment.
+====
+
+=== How to Use vLLM: A Conceptual Overview
+
+At a high level, using vLLM involves running it as a server process that loads a specific LLM into GPU memory and exposes it via an API endpoint.
+
+.Conceptual Workflow
+image::vllm-workflow.png[A diagram showing an application making an API call to the vLLM server, which processes the request on a GPU and returns a response.]
+
+ . How it Works in Practice
+You launch the vLLM server from the command line, specifying the model you want to serve.
+
+[source,bash]
+----
+# Example: Launching a server for the Llama-3-8B-Instruct model
+python -m vllm.entrypoints.openai.api_server \
+    --model meta-llama/Meta-Llama-3-8B-Instruct \
+    --host 0.0.0.0
+----
+
+Your application, which could be written in Python or any other language, then makes a standard HTTP request to the vLLM server, just as it would to the OpenAI API.
+
+[source,python]
+----
+# This code works with both the OpenAI API and a vLLM server
+import openai
+
+# Point the client to your local vLLM server
+client = openai.OpenAI(
+    api_key="vllm", # Can be any string for vLLM
+    base_url="http://localhost:8000/v1" # The vLLM server endpoint
+)
+
+completion = client.chat.completions.create(
+  model="meta-llama/Meta-Llama-3-8B-Instruct",
+  messages=[
+    {"role": "user", "content": "What is the capital of France?"}
+  ]
+)
+
+print(completion.choices[0].message.content)
+----
+
+=== Core Innovations: PagedAttention and Continuous Batching
+
+vLLM's performance gains are not magic; they are the result of two key engineering innovations that will be explored in depth in later modules.
+
+ . PagedAttention: Virtual Memory for the KV Cache
+PagedAttention is vLLM's solution to the KV Cache memory problem. It works by dividing the cache into non-contiguous, fixed-size blocks.
+
+ * *Analogy:* It operates just like virtual memory in an operating system. This approach eliminates memory fragmentation and waste, allowing the KV cache to be packed much more densely.
+ * *Practical Benefit:* This memory efficiency is the primary driver behind vLLM's ability to **batch more requests** together, which directly leads to higher throughput. It also enables efficient memory sharing for complex decoding strategies like parallel decoding.
+
+ . Continuous Batching: Maximizing GPU Utilization
+Continuous batching is a scheduling strategy that keeps the GPU constantly busy.
+
+ * *Traditional Batching:* In static batching, the server waits for a full batch of requests, processes them all, and then returns the results. This leads to idle GPU time if requests arrive unevenly.
+ * *vLLM's Approach:* The vLLM engine continuously adds new requests to the queue as soon as they arrive, and a scheduler dynamically creates batches on-the-fly as requests finish processing. This ensures the GPU is always working on the maximum possible number of sequences, maximizing utilization and throughput.
+
+=== Key Capabilities at a Glance
+
+vLLM is a feature-rich engine designed for modern AI workloads. We will cover these capabilities in detail throughout the course.
+
+==== Supported Models
+vLLM supports a vast and growing list of architectures, including:
+
+ * **Causal Language Models:** Llama, Mistral, Qwen, Gemma, etc.
+ * **Multimodal Models:** Models that process both text and images (e.g., LLaVA).
+ * **Mixture of Experts (MoE):** High-performance support for sparse models like Mixtral.
+
+==== Scaling & Distributed Inference
+vLLM is built to scale beyond a single GPU. It integrates with frameworks like Ray to orchestrate inference across multiple GPUs and nodes using standard parallelism techniques:
+
+ * **Tensor Parallelism:** Splits model layers across GPUs on a single machine.
+ * **Pipeline Parallelism:** Splits the entire model sequentially across multiple GPUs/machines.
+
+[NOTE]
+A dedicated module will cover advanced scaling strategies to serve very large models that do not fit on a single device.
+
+==== Model Optimization (Quantization)
+vLLM can serve models that have been compressed using quantization to reduce their memory footprint and accelerate computation.
+
+ * **What it is:** Quantization reduces the numerical precision of model weights (e.g., from 16-bit floats to 4-bit integers).
+ * **Why it matters:** Serving quantized models significantly lowers GPU memory usage and can dramatically reduce operational costs. vLLM supports popular quantization formats like AWQ, GPTQ, and FP8, making it possible to serve these highly efficient models.
+
+==== Hardware Compatibility
+vLLM is primarily optimized for **NVIDIA GPUs using CUDA**. Experimental support for AMD ROCm and other accelerators is in development. It runs on Linux and requires Python 3.9 or newer.
+
+==== Advanced Features
+While the core intelligence resides in the LLM, vLLM provides the high-performance backbone to enable advanced capabilities in production:
+
+ * **Tool/Function Calling:** Efficiently serves models fine-tuned to generate structured API calls to external tools.
+ * **Structured Outputs:** Reliably serves models capable of generating guaranteed-schema outputs (e.g., JSON), crucial for application integration.
+
+---
+// End of Module 1 Introduction

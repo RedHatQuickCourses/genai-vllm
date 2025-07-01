@@ -1,0 +1,86 @@
+= NVIDIA GPU Architecture
+////
+:toc: left
+:toclevels: 2
+:sectnums:
+:icons: font
+////
+
+== GPU Architecture Showdown
+
+This section details the key features and improvements across NVIDIA's major datacenter-focused GPU architectures through 2025.
+
+.GPU Architecture Showdown
+[cols="^1,^2,>3,^2,^2,^2,^2,^1",options="header"]
+|===
+|Architecture |Example GPU |Target Applications |Key Innovations |Memory Bandwidth |NVLink |Precision Support |Availability
+
+|Ampere
+|A100
+|AI Training & Inference, HPC
+|3rd Gen Tensor Cores, Multi-Instance GPU (MIG), Structural Sparsity
+|~1.5-2.0 TB/s
+|NVLink 3 (Up to 600 GB/s per GPU)
+|FP32, FP16, BF16, TF32
+|Since 2020
+
+|Hopper
+|H100
+|Large-Scale AI & HPC, Transformer Models
+|4th Gen Tensor Cores, Transformer Engine, FP8 Precision
+|~3.0-4.0 TB/s
+|NVLink 4 (Up to 900 GB/s per GPU)
+|FP32, FP16, FP8
+|Since 2022
+
+|Ada Lovelace
+|L40 / A6000
+|Professional Graphics, AI Inference, Content Creation
+|3rd Gen RT Cores, 4th Gen Tensor Cores, DLSS 3, AV1 Encode/Decode
+|Varies (e.g., L40 has ~864 GB/s)
+|N/A
+|FP32, FP16 (with INT8/FP8 on select models)
+|Since 2022
+
+|Blackwell
+|B100 / B200
+|Trillion-Parameter LLMs, Generative AI, Data Analytics
+|2nd Gen Transformer Engine, FP4 & FP6 Precision, Decompression Engine, Secure AI
+|~8-10 TB/s
+|NVLink 5 (Up to 1.8 TB/s per GPU)
+|FP32, FP16, FP8, FP6, FP4
+|Announced 2024
+
+|===
+
+[NOTE]
+====
+The Ada Lovelace architecture bridges professional graphics with strong AI inference capabilities. Hopper and Blackwell are more sharply focused on large-scale, distributed AI and HPC workloads in the datacenter.
+====
+
+== Growth in Power: Transistor Counts
+
+The massive increase in transistor density is a primary driver of the performance leap between generations.
+
+.Transistor Count Comparison
+[options="header"]
+|===
+| Architecture | Example GPU | Transistor Count (Billions)
+| Ampere | A100 | 54
+| Hopper | H100 | 80
+| Blackwell | B200 | 208
+|===
+
+== NVIDIA's Relentless AI Focus
+
+The evolution across these architectures demonstrates a clear and intense focus on accelerating AI workloads through specialized hardware and software.
+
+* The introduction of the *Transformer Engine* in Hopper, further enhanced in Blackwell, to dramatically speed up AI models.
+* Continuous improvements in *Tensor Core technology* across generations for superior matrix multiplication performance.
+* Support for new, *lower-precision formats like FP8, FP6, and FP4*, enabling faster computations and reduced memory footprints for AI.
+* Massive increases in *memory bandwidth and NVLink interconnect speed* to feed the increasingly powerful compute units and enable larger, more complex models.
+
+---
+_Data based on publicly available information._
+
+

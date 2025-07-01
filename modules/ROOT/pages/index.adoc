@@ -5,9 +5,9 @@
 
 Deploying large language models (LLMs) in a real-world enterprise environment comes with its unique set of challenges—from selecting the right model within budget constraints to ensuring seamless integration and robust performance. 
 
-This course is designed to provide you with the practical skills and knowledge to confidently deliver an AI initiative.
+This course is designed to provide you with the practical skills and knowledge to confidently deliver the platform for an AI initiative.
 
-Our mission is straightforward: to guide you through model selection from the Red Hat AI catalog, then serve that model on OpenShift AI for Inference, empowering you to demonstrate the tangible delivery of a functional AI engine for an application.
+Our mission is straightforward: to guide you through budget driven model selection from the Red Hat AI catalog, then serve that model on OpenShift AI for Inference, evaulute the performance for a given solution, empowering you to demonstrate the tangible delivery of a functional AI engine for an application.
 
 ==== Duration: 1-2 hours
 
@@ -16,8 +16,8 @@ Our mission is straightforward: to guide you through model selection from the Re
 On completing this course, you should be able to:
 
 * Select a capable model from the Red Hat AI Model Repository.
-* Deploy selected optimized model using OpenShift AI.
-* Query that model using RHOAI Workbench + Notebook.
+* Deploy multiple optimized models using OpenShift AI.
+* Query these models using RHOAI Workbench + Notebook.
 * Evaluation of model on standarized Question and Answers.
 
 == Prerequisites

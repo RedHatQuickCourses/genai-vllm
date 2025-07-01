@@ -1,0 +1,5 @@
+* xref:index.adoc[]
+** xref:gpu_arch.adoc[]
+** xref:gpu_cost.adoc[]
+** xref:vram_calc.adoc[]
+// ** xref:section1.adoc[]

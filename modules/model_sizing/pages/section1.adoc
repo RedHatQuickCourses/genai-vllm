@@ -1,0 +1,66 @@
+= Course Module: Real-World Use Case - The Support Ticket Triage Assistant
+
+Welcome to the hands-on portion of our course. In this series of modules, we will move from theory to practice by building a solution for a common customer scenario. As a AI platform engineer or consultant, you will frequently be asked to demonstrate the value of AI quickly and efficiently. This use case is designed to equip you with the skills to do just that.
+
+== The Scenario: A Customer's Challenge
+
+Our customer, a growing enterprise software company, is facing a challenge in their support department. Their support engineers spend a significant amount of time on initial ticket triage: reading the ticket, categorizing it, searching for relevant knowledge base articles, and writing an initial summary. This manual process slows down response times and is a repetitive, low-value task for skilled engineers.
+
+They believe an AI-powered assistant could accelerate this process but are hesitant to invest in a large-scale project without proof of its value and technical feasibility in their own environment.
+
+== The Objective: A Proof-of-Concept (PoC)
+
+Our goal is to design and deploy a **Support Ticket Triage Assistant** as a Proof-of-Concept. This PoC must satisfy two primary constraints:
+
+* **Prove Technical Feasibility:** Demonstrate that a Large Language Model (LLM) can be effectively deployed and integrated within their existing infrastructure to deliver tangible value.
+* **Minimize Initial Investment:** The entire PoC must be completed within a limited budget of **~$10,000**, covering cloud credits and approximately 2-3 weeks of focused engineering time.
+
+== 3. The Solution: A Human-in-the-Loop MVP
+
+To achieve the objective safely and build trust, we will architect a **Human-in-the-Loop** Minimum Viable Product (MVP). This approach ensures that the AI *assists* the support engineer rather than automating them out of the process.
+
+.System Workflow
+image::workflow_diagram.png[System Workflow]
+
+Here's how it will function:
+
+.   A customer submits a new support ticket in Jira.
+.   An application, triggered by the new ticket, sends the ticket's title and description to our AI service.
+.   Our vLLM-powered model processes the text and generates a structured JSON output containing:
+    ** A predicted `category` (e.g., "Billing," "Bug Report," "Feature Request").
+    ** A concise `summary` of the issue.
+    ** A list of suggested `knowledge_base_urls` for troubleshooting.
+.   The application posts this JSON payload as a *private comment* within the Jira ticket.
+.   The support engineer opens the ticket and immediately sees the AI-generated triage information, ready for validation and use.
+
+This design provides immediate value by reducing manual work while keeping the engineer in full control of the final response to the customer.
+
+== 4. Technical Environment & Constraints
+
+A critical part of any engagement is working within the customer's existing technical landscape.
+
+* **Platform:** The customer uses **Red Hat OpenShift AI**. Our solution must be deployable and manageable within this environment.
+* **Hardware:** They have allocated two compute nodes for this PoC, each equipped with an **NVIDIA A10G GPU** containing 24GB of VRAM.
+* **Model Sizing:** This hardware configuration imposes a constraint on model size. A common rule of thumb is that a model requires at least twice its parameter count in GPU memory for weights and KV cache.
+    * *Calculation:* `24GB VRAM per GPU`
+    * *Constraint:* To run efficiently on a single A10G, we should target models significantly smaller than 12B parameters.
+    * *Decision:* For this initial PoC, a smaller, fine-tuned model (e.g., in the 1B to 7B parameter range) is ideal. It will provide fast inference and can be highly effective when provided with good context from past ticket data.
+
+== 5. Division of Responsibilities
+
+Clear boundaries are key to a successful PoC.
+
+* **Our Team (The vLLM Experts):**
+    * Select an appropriate open-source text-generation model.
+    * Optimize and deploy the model using **vLLM** on OpenShift AI to ensure high-throughput and low-latency inference.
+    * Provide a stable, documented API endpoint for the AI service.
+    * Focus on model performance, scalability, and deployment best practices.
+
+* **The Customer's Team:**
+    * Develop the application logic that acts as the "glue."
+    * Handle the Jira integration: using the Jira API to monitor for new tickets (e.g., via webhooks) and to post the private comments.
+
+== 6. Next Steps: Model Selection
+
+With the requirements and architecture defined, our immediate next step is to identify the best candidate model for the job. We will begin by exploring the curated models available in the **Red Hat AI Model Library on Hugging Face** to find a suitable starting point for our Support Ticket Triage Assistant.
+

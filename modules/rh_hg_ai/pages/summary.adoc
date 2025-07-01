@@ -1,0 +1,39 @@
+= From Curation to Confident Deployment
+
+This module has provided a strategic guide to navigating the complex world of open-source model selection. We began by addressing the challenge of finding reliable, enterprise-ready models in a vast ecosystem. We then introduced the Red Hat AI Validated Model Repository as a curated solution that provides confidence, predictability, and cost-efficiency for your AI projects.
+
+Through in-depth analysis, we explored how Red Hat validates models, the critical role of quantization, and how to select a model based on its specific architecture, performance, and intended use case.
+
+=== Key Concepts Revisited
+
+Let's recap the core ideas from this module:
+
+* **The Value of Curation:** A curated repository like Red Hat AI's is not just a list of models; it's a solution to de-risk projects by providing models that have been pre-vetted for performance, accuracy, and enterprise readiness.
+
+* **Validation Breeds Confidence:** The rigorous validation process, using tools like `GuideLLM` and `LM Eval Harness`, provides the transparent data needed to make informed decisions and set realistic expectations for model performance on your target hardware.
+
+* **Quantization is the Key to Cost-Efficiency:** Reducing a model's precision is the most effective strategy for fitting powerful models onto cost-effective hardware. We explored the trade-offs between the main strategies: FP8, INT8, and INT4.
+
+* **A Hardware-Aware Strategy is Essential:** The most effective optimization strategies align the model's quantization with the GPU's native capabilities (e.g., leveraging FP8 support on Hopper, Ada, and Blackwell architectures).
+
+.Actionable Takeaways for Platform Engineers
+****
+As you approach your next AI deployment project, apply these practical lessons:
+
+* **Start with a Validated Repository:** Before diving into the thousands of models on Hugging Face, begin your search with a curated source like the Red Hat AI repository. This will save significant time and reduce the risk of choosing an unsuitable model.
+
+* **The "Model Card" is Your Best Friend:** The detailed analysis provided for each validated model is your primary decision-making tool. Use the benchmark data, especially the accuracy recovery scores, to understand the real-world trade-offs of using a quantized model.
+
+* **Match the Quantization to the Job:**
+    * **Need maximum speed with high accuracy on modern hardware?** Look for **FP8** models.
+    * **Need a solid balance of performance and savings on a wide range of GPUs?** **INT8** is a reliable choice.
+    * **Need to fit the largest possible model into a tight memory budget?** **INT4** provides the highest compression.
+
+* **Think in Terms of TCO (Total Cost of Ownership):** Use the performance and efficiency data from the validated models to justify your hardware selections and model choices to stakeholders. Frame your decisions around performance-per-dollar and "Queries Per Dollar" to demonstrate clear business value.
+****
+
+=== Next Steps: Hands-On Deployment and Evaluation
+
+You now have the theoretical foundation and analytical framework to select models with confidence. In the final module of this course, we will move into the hands-on labs.
+
+You will take the three models we analyzed—`Mistral-Small`, `Qwen2.5-VL`, and `gemma-3`—and deploy them using vLLM on OpenShift AI. This practical experience will allow you to see firsthand how their different scales, modalities, and quantization strategies behave in a live environment, solidifying the concepts learned throughout this course.
