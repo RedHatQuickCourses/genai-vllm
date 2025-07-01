@@ -1,32 +1,76 @@
-= Cost based AI Model Selection
+= Estimating GPU VRAM 
 
 
-== The VRAM Equation: Calculating Real-World GPU Needs
+== Cost-Aware Model and Hardware Selection
 
-Before selecting a model, you must understand its memory footprint. This goes beyond just the size of its weights.
+In the previous sections, we focused on the vLLM engine and its deployment on OpenShift AI. Now, we will shift our focus to the economics of AI infrastructure. This module will equip you with the knowledge to make cost-effective decisions by aligning LLM selection, compression techniques, and hardware choices.
 
-=== Step 1: Baseline Model Weights
-The starting point is a simple rule of thumb: a model needs approximately twice its parameter count in VRAM to store its weights in standard FP16/BF16 precision.
-[source,text]
-----
-Formula: Model Parameters (in Billions) x 2 ≈ Required VRAM (in GB)
-Example: A 12B parameter model requires ~24 GB VRAM.
-----
+=== The VRAM Blueprint: Estimating True Memory Costs
 
-=== Step 2: Accounting for Real-World Overhead
-Model weights are only part of the story. A large consumer of VRAM in real-world inference is the **KV Cache**.
+The first step in cost-effective deployment is accurately estimating your GPU memory (VRAM) requirements. Under-provisioning leads to out-of-memory errors and service downtime, while over-provisioning leads to idle, expensive hardware and wasted budget. This section provides a blueprint for calculating the *true* VRAM footprint of a model in production.
 
-[IMPORTANT]
-====
-The KV Cache stores attention data for the context window of a conversation. Its size is directly proportional to the batch size and context length. This overhead can easily *double* your total VRAM requirement. A model needing 24GB for weights could easily require 48GB in a real application.
-====
+=== The Baseline Cost: Model Weights
 
-=== Step 3: The Quantization Advantage
-This is the key to making powerful models run on affordable hardware. Quantization reduces the precision of the model's weights, drastically shrinking its size.
+The most straightforward VRAM cost is the space needed to load the model's parameters (weights). This is a function of two variables: the size of the model (in billions of parameters) and the numerical precision used to store each parameter.
+
+Using a lower-precision format via **quantization** is the most direct way to reduce this baseline memory cost.
+
+.Estimated VRAM for Model Weights by Precision
+[options="header"]
+|===
+| Model Size (Parameters) | FP16 / BF16 (16-bit) | INT8 (8-bit) | INT4 (4-bit)
+
+| *1 Billion* | ~2 GB | ~1 GB | ~0.5 GB
+| *3 Billion* | ~6 GB | ~3 GB | ~1.5 GB
+| *7 Billion* | ~14 GB | ~7 GB | ~3.5 GB
+| *13 Billion* | ~26 GB | ~13 GB | ~6.5 GB
+| *30 Billion* | ~60 GB | ~30 GB | ~15 GB
+| *70 Billion* | ~140 GB | ~70 GB | ~35 GB
+|===
+
+[NOTE]
+The calculation is simple: VRAM (GB) ≈ (Number of Parameters in Billions) x (Bits per Parameter / 8). A 7B model at FP16 is `7 * (16 / 8) = 14 GB`.
+
+=== The Hidden Costs: Beyond the Weights
+
+A common mistake is to select a GPU based only on the model weight VRAM. In a live production environment, several other components consume significant memory, and they must be factored into your budget.
+
+.VRAM Usage Components
+image::vram_components.png[A conceptual stacked bar chart showing that total VRAM is composed of a large block for Model Weights, an equally large or larger block for the KV Cache, and a smaller block for System Overhead.]
+
+=== 1. The KV Cache (The Memory Hog)
+The Key-Value (KV) Cache stores attention data for the sequence being processed. For modern LLMs, this is often the **largest and most volatile consumer of VRAM**. Its size is not fixed; it grows dynamically based on your workload.
+
+* **Key Drivers:** The size of the KV Cache is directly proportional to:
+    * **Batch Size:** The number of requests you process concurrently.
+    * **Context Length:** The number of tokens (input + output) in each request.
+* **Impact:** For applications with long context windows (e.g., document summarization) or high batch sizes, the KV Cache can easily consume **more VRAM than the model weights themselves**. A 14 GB model might require another 16 GB or more for its KV Cache under heavy load.
 
 [TIP]
+This is precisely the problem vLLM was designed to solve. Its core innovation, **PagedAttention**, drastically reduces the memory wasted by the KV Cache, allowing you to handle larger batches and longer contexts on the same GPU, directly improving your cost-performance ratio.
+
+=== 2. CUDA & System Overhead
+This is the fixed cost of doing business on a GPU. It includes memory consumed by the NVIDIA CUDA kernels, the core PyTorch and vLLM libraries, and various system buffers required to manage the computation.
+* **Estimated Cost:** Budget an additional *10-20%* of the model's weight VRAM for this overhead.
+
+=== 3. Model Activations
+These are the intermediate values calculated during the model's forward pass. While their memory impact is far smaller than the KV Cache, they are a non-zero factor in the total VRAM load.
+
+=== The Real-World VRAM Equation
+
+Therefore, a practical formula for estimating your total memory requirement looks like this:
+
+[source,text]
+----
+Total VRAM Needed ≈ (VRAM for Model Weights) + (VRAM for Max KV Cache) + (VRAM for System Overhead)
+----
+
+[IMPORTANT]
+.Don't Be Fooled by the "Sticker Price"
 ====
-By using a quantized version of a model (e.g., INT8, INT4/GPTQ), you can reduce the baseline memory footprint by 50-75%. This frees up critical VRAM on the GPU to accommodate the KV Cache and other overhead, allowing a large model to run on a smaller, more cost-effective GPU.
+A model's advertised size is not its final cost in production. A 13B parameter model might list a ~26 GB requirement for its FP16 weights, suggesting it could fit on a 32 GB GPU. However, with a large batch size and long context window for the KV Cache, the *actual VRAM requirement can easily exceed 40 GB*.
+
+**Golden Rule:** Always profile your specific use case with realistic batch sizes and context lengths. Never select hardware based solely on the VRAM needed for model weights.
 ====
 
 == Connecting VRAM to Infrastructure Cost

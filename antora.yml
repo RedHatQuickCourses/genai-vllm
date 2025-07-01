@@ -6,7 +6,6 @@ nav:
 - modules/vllm/nav.adoc
 - modules/model_sizing/nav.adoc
 - modules/rh_hg_ai/nav.adoc
-- modules/chapter5/nav.adoc
 - modules/chapter6/nav.adoc
 - modules/chapter7/nav.adoc
 - modules/chapter8/nav.adoc
