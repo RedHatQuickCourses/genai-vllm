@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MinIO S3: Compatible Storage Deployment :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="section3.html">
+    <link rel="next" href="../appendix/appendix.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM, What is it?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/rh_ai.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">vLLM on Red Hat OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">Summary: Key Takeaways and Next Steps</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">NVIDIA GPU Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/vram_calc.html">Cost-Effective Model Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">Generative AI Model Variations in Model Naming</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Pre-Selected Course Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/summary.html">From Curation to Confident Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter7/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter7/section1.html">Creating OpenShift AI Resources - 1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter7/section2.html">MinIO S3 Compatible Storage Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter7/section3.html">OpenShift AI Resources - 2</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter8/index.html">Jupyter Notebooks &amp; LLMs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter8/section1.html">Jupyter Notebooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter8/section2.html">Mistral LLM Model Inference</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter8/section3.html">Llama3 LLM Model Inference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">blank</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">blank</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="minios3.html">MinIO S3: Compatible Storage Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/model_phases.html">Common Generative AI Model Variations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">blank</a></li>
+    <li><a href="minios3.html">MinIO S3: Compatible Storage Deployment</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">MinIO S3: Compatible Storage Deployment</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_module_5_lab_1_setting_up_the_model_serving_environment">1. Module 5: Lab 1 - Setting Up the Model Serving Environment</a>
+<ul class="sectlevel2">
+<li><a href="#_5_1_deploying_s3_compatible_storage_with_minio">1.1. 5.1. Deploying S3-Compatible Storage with MinIO</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_module_5_lab_1_setting_up_the_model_serving_environment"><a class="anchor" href="#_module_5_lab_1_setting_up_the_model_serving_environment"></a>1. Module 5: Lab 1 - Setting Up the Model Serving Environment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to the first hands-on lab module. In this section, you will configure the necessary prerequisites within your OpenShift AI project to deploy and serve a large language model.</p>
+</div>
+<div class="sect2">
+<h3 id="_5_1_deploying_s3_compatible_storage_with_minio"><a class="anchor" href="#_5_1_deploying_s3_compatible_storage_with_minio"></a>1.1. 5.1. Deploying S3-Compatible Storage with MinIO</h3>
+<div class="paragraph">
+<p>The OpenShift AI model serving platform pulls model artifacts from an S3-compatible object store. Our first step is to deploy a self-contained object store directly into our data science project.</p>
+</div>
+<div class="paragraph">
+<p>For this lab, we will use <strong>MinIO</strong>, a high-performance, S3-compatible object store. This guide provides a streamlined method for deploying the community version of MinIO within our <code>Innovatech</code> data science project.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This deployment method is intended for lab and prototyping purposes only and should not be used in production environments. Red Hat does not provide commercial support for MinIO.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_minio_deployment_via_openshift_console"><a class="anchor" href="#_minio_deployment_via_openshift_console"></a>1.1.1. MinIO Deployment via OpenShift Console</h4>
+<div class="paragraph">
+<p>We will deploy MinIO and its required components by importing a single YAML file that defines all the necessary Kubernetes resources.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/minio_install.gif" alt="minio install" width="640">
+</div>
+<div class="title">Figure 1. Animated - MinIO Deployment Steps for OpenShift</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the <strong>Administrator</strong> perspective of the OpenShift Web Console, select the <code>+Add</code> action from the top navigation bar. This will open the <strong>Import YAML</strong> page.</p>
+</li>
+<li>
+<p>In the YAML editor window, paste the complete deployment code provided in the collapsible block below.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is highly recommended that you change the default <code>minio_root_user</code> and <code>minio_root_password</code> values in the <code>Secret</code> resource before deploying.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Ensure the target project is set to your data science project, <strong><code>Innovatech</code></strong>.</p>
+</li>
+<li>
+<p>Select the <strong>Create</strong> button to deploy the MinIO resources. The deployment will create a Persistent Volume Claim, a Secret, a Deployment, a Service, and two Routes for API and UI access.</p>
+</li>
+</ol>
+</div>
+<details>
+<summary class="title">Click to view and copy the MinIO Deployment YAML</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Defines a 40Gi persistent storage volume for MinIO.
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: minio-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 40Gi
+  volumeMode: Filesystem
+---
+# Defines the secret containing the root credentials for MinIO.
+# CHANGE THE DEFAULT VALUES HERE for better security.
+kind: Secret
+apiVersion: v1
+metadata:
+  name: minio-secret
+stringData:
+  minio_root_user: minio # Must be at least 3 characters
+  minio_root_password: minio321! # Must be at least 8 characters
+---
+# The main deployment for the MinIO server pod.
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: minio-pvc
+      containers:
+        - name: minio
+          image: quay.io/minio/minio:RELEASE.2023-06-19T19-52-50Z
+          args:
+            - server
+            - /data
+            - --console-address
+            - ':9090'
+          env:
+            - name: MINIO_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio_root_user
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio_root_password
+          ports:
+            - containerPort: 9000
+              protocol: TCP
+            - containerPort: 9090
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /data
+              subPath: minio
+          readinessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 30
+            periodSeconds: 5
+---
+# Exposes the MinIO deployment as a service within the cluster.
+kind: Service
+apiVersion: v1
+metadata:
+  name: minio-service
+spec:
+  ports:
+    - name: api
+      port: 9000
+      targetPort: 9000
+    - name: ui
+      port: 9090
+      targetPort: 9090
+  selector:
+    app: minio
+---
+# Creates a public route to the MinIO API service.
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: minio-api
+spec:
+  to:
+    kind: Service
+    name: minio-service
+  port:
+    targetPort: api
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+---
+# Creates a public route to the MinIO web console (UI).
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: minio-ui
+spec:
+  to:
+    kind: Service
+    name: minio-service
+  port:
+    targetPort: ui
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect</code></pre>
+</div>
+</div>
+</div>
+</details>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_minio_bucket_and_initial_file_setup"><a class="anchor" href="#_minio_bucket_and_initial_file_setup"></a>1.1.2. MinIO Bucket and Initial File Setup</h4>
+<div class="paragraph">
+<p>With the MinIO server running, we now need to configure the storage buckets where our models will reside.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/minio_setup.gif" alt="minio setup" width="640">
+</div>
+<div class="title">Figure 2. Animated - Accessing MinIO dashboard and Bucket creation</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the <strong>Administrator</strong> perspective, navigate to <strong>Networking &#8594; Routes</strong>. Ensure you have the <code>Innovatech</code> project selected.</p>
+</li>
+<li>
+<p>You will see two routes: <code>minio-api</code> and <code>minio-ui</code>. Select the URL for the <strong><code>minio-ui</code></strong> route to open the MinIO web console in a new browser tab.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you see an "Application is not available" message, wait a few moments and refresh the page, as the MinIO pod may still be starting.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Log in to the MinIO Console with the credentials you defined in the <code>minio-secret</code> resource (e.g., <code>minio</code> / <code>minio321!</code>).</p>
+</li>
+<li>
+<p>Once logged in, click <strong>Create Bucket</strong>. Create a bucket named <strong><code>models</code></strong>.</p>
+</li>
+<li>
+<p>Next, navigate into the <code>models</code> bucket by clicking its name in the <strong>Object Browser</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="sect4">
+<h5 id="_the_empty_file_requirement"><a class="anchor" href="#_the_empty_file_requirement"></a>The "Empty File" Requirement</h5>
+<div class="paragraph">
+<p>The OpenShift AI model serving platform validates a deployment by checking that the specified model directory in the object store exists and is not empty. Some runtimes, like the Ollama runtime we may use later, download their own models and don&#8217;t require pre-loaded artifacts. However, to satisfy the platform&#8217;s validation check, we must place at least one placeholder file in the target directory.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/minio_file_upload.gif" alt="minio file upload" width="640">
+</div>
+<div class="title">Figure 3. Animated - Upload emptyfile.txt to models/ollama</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inside the <code>models</code> bucket, click <strong>Create new path</strong>. Name the new path <strong><code>ollama</code></strong> and click <code>Save</code>.</p>
+</li>
+<li>
+<p>You will now be inside the <code>models/ollama/</code> path.</p>
+</li>
+<li>
+<p>Click the <strong>Upload</strong> button and select <strong>Upload file</strong>.</p>
+</li>
+<li>
+<p>Upload a placeholder file named <code>emptyfile.txt</code>. You can create a blank text file on your local machine for this purpose.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>With our S3-compatible storage deployed and our initial bucket structure configured, we are now ready to configure the other resources in the OpenShift AI platform.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section3.html">blank</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
