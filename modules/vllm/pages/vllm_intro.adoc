@@ -1,151 +1,141 @@
-= Integrating vLLM with OpenShift AI: The Serving Runtime
+= vLLM
 
-While you can run vLLM as a standalone server, its true power in an enterprise setting is realized when managed by a robust platform like **Red Hat OpenShift AI (RHOAI)**. To do this, we need to teach OpenShift AI *how* to run vLLM. This is accomplished by defining a **Serving Runtime**.
+////
+Preamble: Course Information
+[preamble]
+Audience:: AI Platform Engineers, ML Engineers, AI Consultants
+Level:: Intermediate
+Prerequisites:: Foundational knowledge of Large Language Models (LLMs), containerization (Docker), and REST APIs. Familiarity with GPU hardware is beneficial.
+Version:: 1.0
+////
 
-==== What is a Serving Runtime?
+== Introduction to vLLM
 
-In the context of OpenShift AI and its underlying model-serving framework (KServe), a Serving Runtime is a **reusable template or blueprint** that defines a specific environment for serving a model.
+Welcome to the first module on virtual large language model (vLLM): Optimizing and Serving Models on OpenShift AI. In this section, we will establish what vLLM is, why it is a critical tool for production AI, and how it achieves its industry-leading performance.
 
-Think of it as a standardized recipe for deploying a model server. Instead of configuring a container image, startup commands, and resource requests for every single model, you define them once in a runtime. When you deploy a model, you simply tell OpenShift AI: "Use this runtime."
+=== What is vLLM?
 
-This abstraction is a core MLOps principle. It separates the *model artifact* (the "what") from the *serving environment* (the "how"), leading to standardized, repeatable, and maintainable deployments.
+vLLM is an open-source **inference engine** designed for serving Large Language Models (LLMs) with maximum speed and memory efficiency. Developed by researchers at UC Berkeley, vLLM is not a model itself, but a highly optimized library that runs LLMs, making them available for applications.
 
-A Serving Runtime specifies critical information, such as:
+Its primary goal is to solve the key challenges of LLM inference: high latency, low throughput, and demanding GPU memory requirements. By addressing these bottlenecks, vLLM enables organizations to serve more users, achieve faster response times, and lower the operational costs associated with running powerful AI models.
 
- * The **container image** that contains the model server (e.g., the official vLLM image).
- * The **command and arguments** needed to start the server and load a model.
- * **Hardware requirements**, especially the need for specific accelerators like NVIDIA GPUs.
- * **Network ports** and paths for inference requests and metrics collection (Prometheus).
- * **Supported model formats** that the runtime can handle.
+.The Core Problem vLLM Solves
+****
+Serving LLMs is memory-intensive, primarily due to the **Key-Value (KV) Cache**. This cache stores intermediate attention data for each user's request. Traditional serving methods allocate large, contiguous blocks of memory for this cache, leading to significant waste and limiting the number of concurrent requests a single GPU can handle. vLLM's core innovations directly target this inefficiency.
+****
 
-==== The vLLM Serving Runtime for Red Hat OpenShift AI
+=== Why vLLM? The Key Benefits
 
-The OpenShift AI single-model serving stack can use vLLM as a high-performance alternative to other runtimes like Caikit+TGIS. By creating a vLLM `ServingRuntime`, you make it a first-class citizen in the RHOAI model deployment workflow.
+For platform engineers and consultants, the choice of a serving engine has direct impacts on performance, cost, and maintainability. vLLM provides compelling advantages.
 
-[IMPORTANT]
-====
-*GPU Requirement*
+ . High-Performance Throughput
+vLLM can increase the number of output tokens generated per second by **2-4x** compared to standard Hugging Face implementations, without any model architecture changes. This means a single GPU can serve significantly more users concurrently.
 
-The standard vLLM runtime is built on CUDA kernels for maximum performance. Therefore, a **GPU is required** on the OpenShift worker nodes where the model will be deployed. An experimental CPU version exists with limitations, but for production use cases targeted by this course, we will focus on GPU-based serving.
-====
+ . Efficient Memory Management
+Through its core innovation, PagedAttention, vLLM drastically reduces the memory footprint of the KV Cache by up to **55%**. This allows you to:
+ ** Run larger models on the same GPU.
+ ** Fit more concurrent requests into memory, boosting throughput.
+ ** Reduce overall hardware costs.
 
-==== Anatomy of the `vllm-runtime.yaml`
-
-To register vLLM with OpenShift AI, an administrator applies a YAML file defining the `ServingRuntime` resource. Let's break down an example to understand its key components.
-
-.vLLM ServingRuntime for NVIDIA GPUs
-[%collapsible]
-====
-[source,yaml,linenums]
-----
-# Filename: vllm-servingruntime.yaml
-apiVersion: serving.kserve.io/v1alpha1
-kind: ServingRuntime
-metadata:
- name: vllm-cuda-runtime-example
- annotations:
-   openshift.io/display-name: vLLM (NVIDIA GPU)
-   opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
- labels:
-   opendatahub.io/dashboard: 'true'
-spec:
- supportedModelFormats:
-   - name: vLLM
-     autoSelect: true
- containers:
-   - name: kserve-container
-     image: quay.io/modh/vllm:rhoai-2.20-cuda
-     command: ["python", "-m", "vllm.entrypoints.openai.api_server"]
-     args:
-       - "--port=8080"
-       - "--model=/mnt/models"
-       - "--served-model-name={{.Name}}"
-     env:
-       - name: HF_HOME
-         value: /tmp/hf_home
-     ports:
-       - containerPort: 8080
-         protocol: TCP
-     resources:
-       requests:
-         nvidia.com/gpu: '1'
-       limits:
-         nvidia.com/gpu: '1'
-----
-====
-
-.Key Fields Explained
-[cols="1,3"]
-|===
-|Field (Line #) | Description
-
-|`metadata.name` (4)
-|A unique name for the runtime within the namespace.
-
-|`metadata.annotations` (5-7)
-|Crucial for UI integration. `openshift.io/display-name` sets the friendly name shown in the OpenShift AI dashboard. `opendatahub.io/recommended-accelerators` signals to the platform that this runtime requires an `nvidia.com/gpu`.
-
-|`spec.supportedModelFormats` (11-13)
-|Declares which model formats this runtime supports. `autoSelect: true` allows OpenShift AI to automatically pick this runtime for compatible models.
-
-|`spec.containers.image` (15)
-|The specific container image to run. Here, it points to an official image for vLLM on RHOAI. For AMD GPUs, this would be a ROCm image.
-
-|`spec.containers.args` (17-19)
-|The command-line arguments passed to the vLLM server at startup.
-*`--port=8080`*: Exposes the server on this port.
-*`--model=/mnt/models`*: This is critical. It tells vLLM to load the model from the `/mnt/models` directory, which is the standard location where OpenShift AI's serving platform mounts model data.
-*`--served-model-name={{.Name}}`*: A template variable that passes the deployed model's name to the server.
-
-|`spec.containers.resources` (25-29)
-|Defines the resource requests and limits. Requesting and limiting `nvidia.com/gpu: '1'` ensures the pod is scheduled on a GPU-equipped node and is allocated one GPU.
-|===
-
-==== Installation and Deployment Workflow
-
-Once the `ServingRuntime` is defined, the workflow for a platform engineer or data scientist is straightforward.
-
-.Step 1: Register the Runtime (Admin Task)
-An administrator with cluster privileges must first install the necessary OpenShift AI components (like the single-model serving stack). Then, they can add the vLLM runtime:
-
-1.  Navigate to the OpenShift AI Dashboard.
-2.  Go to **Settings -> Serving runtimes**.
-3.  Click **Add serving runtime** and choose `Single model serving platform`.
-4.  Paste the content of the `vllm-servingruntime.yaml` file into the editor and click `Create`.
-
-The "vLLM (NVIDIA GPU)" runtime will now be available for selection when users deploy models.
-
-.Step 2: Deploy a Model (User Task)
-With the runtime available, a user can deploy a compatible model:
-
-1.  Ensure your model files (e.g., from Hugging Face) are located in an S3-compatible object storage bucket.
-2.  In your OpenShift AI project, create a **Data Connection** that points to this bucket.
-3.  From the project dashboard, click **Deploy model**.
-4.  Fill in the model name, select the `vLLM (NVIDIA GPU)` serving runtime, and point to the data connection and specific model path.
-5.  Configure the number of replicas and ensure a **GPU is requested** in the resource configuration.
-
-OpenShift AI will then automatically provision a pod using the vLLM runtime, pull the model from object storage into the pod's `/mnt/models` directory, and start the vLLM server.
-
-.Step 3: Interact with the Endpoint
-Once the model is running, the dashboard provides an inference endpoint URL. Because the runtime exposes an **OpenAI-compatible API**, you can interact with it using standard tools.
+ . Seamless Integration with the OpenAI API
+vLLM provides an API server that is a **drop-in replacement** for the OpenAI API. This is a critical feature for adoption, as applications built using the `openai` client library can be pointed to a self-hosted vLLM endpoint with minimal to no code changes.
 
 [TIP]
 ====
-vLLM provides a full Swagger UI for API exploration and direct interaction. Simply add `/docs` to the end of your inference endpoint URL (e.g., `https://your-model-endpoint/docs`) to access it. This is an excellent way to test the model without writing any code.
+The OpenAI-compatible API means you can develop applications against OpenAI's service and later migrate to a self-hosted, cost-effective vLLM instance without rewriting your application logic. This provides immense flexibility for prototyping and production deployment.
 ====
 
-A simple `curl` request would look like this:
+=== How to Use vLLM: A Conceptual Overview
+
+At a high level, using vLLM involves running it as a server process that loads a specific LLM into GPU memory and exposes it via an API endpoint.
+
+.Conceptual Workflow
+image::vllm-workflow.png[A diagram showing an application making an API call to the vLLM server, which processes the request on a GPU and returns a response.]
+
+ . How it Works in Practice
+You launch the vLLM server from the command line, specifying the model you want to serve.
 
 [source,bash]
 ----
-# Replace with your actual endpoint and model name
-export ENDPOINT_URL="https://your-model-endpoint/v1/chat/completions"
-export MODEL_NAME="meta-llama/Meta-Llama-3-8B-Instruct"
-
-curl -X POST "$ENDPOINT_URL" \
--H "Content-Type: application/json" \
--d '{
-  "model": "'"$MODEL_NAME"'",
-  "messages": [{"role": "user", "content": "What are the benefits of using a serving runtime?"}]
-}'
+# Example: Launching a server for the Llama-3-8B-Instruct model
+python -m vllm.entrypoints.openai.api_server \
+    --model meta-llama/Meta-Llama-3-8B-Instruct \
+    --host 0.0.0.0
 ----
+
+Your application, which could be written in Python or any other language, then makes a standard HTTP request to the vLLM server, just as it would to the OpenAI API.
+
+[source,python]
+----
+# This code works with both the OpenAI API and a vLLM server
+import openai
+
+# Point the client to your local vLLM server
+client = openai.OpenAI(
+    api_key="vllm", # Can be any string for vLLM
+    base_url="http://localhost:8000/v1" # The vLLM server endpoint
+)
+
+completion = client.chat.completions.create(
+  model="meta-llama/Meta-Llama-3-8B-Instruct",
+  messages=[
+    {"role": "user", "content": "What is the capital of France?"}
+  ]
+)
+
+print(completion.choices[0].message.content)
+----
+
+=== Core Innovations: PagedAttention and Continuous Batching
+
+vLLM's performance gains are not magic; they are the result of two key engineering innovations that will be explored in depth in later modules.
+
+ . PagedAttention: Virtual Memory for the KV Cache
+PagedAttention is vLLM's solution to the KV Cache memory problem. It works by dividing the cache into non-contiguous, fixed-size blocks.
+
+ * *Analogy:* It operates just like virtual memory in an operating system. This approach eliminates memory fragmentation and waste, allowing the KV cache to be packed much more densely.
+ * *Practical Benefit:* This memory efficiency is the primary driver behind vLLM's ability to **batch more requests** together, which directly leads to higher throughput. It also enables efficient memory sharing for complex decoding strategies like parallel decoding.
+
+ . Continuous Batching: Maximizing GPU Utilization
+Continuous batching is a scheduling strategy that keeps the GPU constantly busy.
+
+ * *Traditional Batching:* In static batching, the server waits for a full batch of requests, processes them all, and then returns the results. This leads to idle GPU time if requests arrive unevenly.
+ * *vLLM's Approach:* The vLLM engine continuously adds new requests to the queue as soon as they arrive, and a scheduler dynamically creates batches on-the-fly as requests finish processing. This ensures the GPU is always working on the maximum possible number of sequences, maximizing utilization and throughput.
+
+=== Key Capabilities at a Glance
+
+vLLM is a feature-rich engine designed for modern AI workloads. We will cover these capabilities in detail throughout the course.
+
+==== Supported Models
+vLLM supports a vast and growing list of architectures, including:
+
+ * **Causal Language Models:** Llama, Mistral, Qwen, Gemma, etc.
+ * **Multimodal Models:** Models that process both text and images (e.g., LLaVA).
+ * **Mixture of Experts (MoE):** High-performance support for sparse models like Mixtral.
+
+==== Scaling & Distributed Inference
+vLLM is built to scale beyond a single GPU. It integrates with frameworks like Ray to orchestrate inference across multiple GPUs and nodes using standard parallelism techniques:
+
+ * **Tensor Parallelism:** Splits model layers across GPUs on a single machine.
+ * **Pipeline Parallelism:** Splits the entire model sequentially across multiple GPUs/machines.
+
+[NOTE]
+A dedicated module will cover advanced scaling strategies to serve very large models that do not fit on a single device.
+
+==== Model Optimization (Quantization)
+vLLM can serve models that have been compressed using quantization to reduce their memory footprint and accelerate computation.
+
+ * **What it is:** Quantization reduces the numerical precision of model weights (e.g., from 16-bit floats to 4-bit integers).
+ * **Why it matters:** Serving quantized models significantly lowers GPU memory usage and can dramatically reduce operational costs. vLLM supports popular quantization formats like AWQ, GPTQ, and FP8, making it possible to serve these highly efficient models.
+
+==== Hardware Compatibility
+vLLM is primarily optimized for **NVIDIA GPUs using CUDA**. Experimental support for AMD ROCm and other accelerators is in development. It runs on Linux and requires Python 3.9 or newer.
+
+==== Advanced Features
+While the core intelligence resides in the LLM, vLLM provides the high-performance backbone to enable advanced capabilities in production:
+
+ * **Tool/Function Calling:** Efficiently serves models fine-tuned to generate structured API calls to external tools.
+ * **Structured Outputs:** Reliably serves models capable of generating guaranteed-schema outputs (e.g., JSON), crucial for application integration.
+
+---
+// End of Module 1 Introduction
