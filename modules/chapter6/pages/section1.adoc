@@ -1,25 +1,14 @@
-= Course: High-Performance LLM Serving with vLLM
-:toc:
-:toclevels: 2
-:sectnums:
-
-== Module 4: The Curated Model Repository
-
-=== Introduction: From the "Wild West" to a Validated Ecosystem
-
-Welcome to Module 4. In previous modules, we learned how to serve models efficiently with vLLM and how to select hardware based on cost and performance features. Now, we address a critical question: **Which model should you choose?**
+= Validated Models and Quantization Strategies
 
 The open-source AI landscape, particularly on platforms like Hugging Face, can feel like the "Wild West"—a vast space with thousands of models, making it difficult to know which ones are performant, accurate, or ready for enterprise use.
 
 This module introduces the **Red Hat AI Validated Model Repository**, a curated ecosystem designed to solve this problem. You will learn how to leverage this resource to de-risk your projects, accelerate deployment, and make informed decisions based on transparent, rigorous testing.
 
+We will specifically focus on understanding the significance of model quantization and how Red Hat AI offers various quantized formats to optimize LLM inference for enterprise environments.
+
 ---
 
-=== 4.1. The Red Hat AI Validated Model Program
-
-This first lesson explains the "why" behind the Red Hat AI initiative and the tangible benefits of using a validated model.
-
-==== The Open-Source AI Initiative
+=== The Red Hat AI Validated Model Program
 
 The Red Hat AI repository on Hugging Face is an open-source initiative born from a deep collaboration between IBM and Red Hat. Its mission is to bridge the gap between cutting-edge research and robust production deployments by providing open, accessible, and community-driven AI solutions.
 
@@ -48,9 +37,9 @@ Red Hat's validation process uses industry-standard open-source tooling to ensur
 
 ---
 
-=== 4.2. A Deep Dive into Quantization Strategies
+=== A Deep Dive into Quantization Strategies
 
-This lesson focuses on quantization, the core optimization technique used for the models in the Red Hat AI repository.
+Model quantization is a critical optimization technique that plays a central role in Red Hat AI’s validated model collection. It involves reducing the numerical precision of model weights and/or activations, typically from higher-precision floating-point formats (e.g., FP32 or FP16) to lower-bit representations (e.g., FP8, INT8, INT4).
 
 ==== Understanding the Naming Convention
 
@@ -93,9 +82,32 @@ No single quantization level is best for every situation. The key is to balance 
 [TIP]
 As discussed in the previous module, your quantization choice should be **hardware-aware**. If your target is an H100 or L40S GPU, an `FP8` quantized model is the most strategic choice as you are leveraging a feature the hardware was specifically designed to accelerate.
 
+
+== v1.0 Collection of Red Hat AI Validated Models
+
+This initial collection features leading third-party generative AI models rigorously validated for efficient use across the Red Hat AI Product Portfolio. Each model listed below has associated configurations for various quantization levels (e.g., `w4a16` for 4-bit weights and 16-bit activations, `w8a8` for 8-bit weights and 8-bit activations, or `FP8-dynamic` for dynamic FP8 quantization).
+
+* Gemma-3 Quantized
+* Whisper Quantized (Note: Whisper is typically an ASR model, but its text-generation component is relevant)
+* Llama 4 Quantized
+* Qwen3 Quantized
+* Mistral Small-3.1 Instruct Quantized
+* Phi-4 Quantized
+* Llama 3.3 70B Instruct Quantized
+* Qwen 2.5 Quantized
+* Granite Quantized
+
+[NOTE]
+The specific quantization scheme (e.g., `w4a16`, `w8a8`, `FP8-dynamic`) for each model is typically indicated in its full name or metadata within the Red Hat AI Hugging Face repository. These notations signify the precision used for weights (w) and activations (a), or the dynamic FP8 method.
+
+==== Availability and Selection Criteria
+
+While Red Hat AI focuses on validated models, other models may also be available in the repository but have not undergone the full validation process. For practical deployment in this course, we will focus on specific pre-selected models from the validated collection.
+
 ---
 
-=== 4.3. Navigating and Selecting a Validated Model
+==== Navigating and Selecting a Validated Model
+
 
 This final lesson guides you through the model collections and the criteria used to select them, empowering you to make smart choices for your own projects.
 

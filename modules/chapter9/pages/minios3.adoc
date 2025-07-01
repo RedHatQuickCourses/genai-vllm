@@ -1,4 +1,4 @@
-= Course: High-Performance LLM Serving with vLLM
+= MinIO S3: Compatible Storage Deployment
 :toc:
 :toclevels: 2
 :sectnums:

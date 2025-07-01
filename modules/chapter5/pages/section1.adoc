@@ -1,7 +1,5 @@
-= Course: High-Performance LLM Serving with vLLM
-:toc: left
-:toclevels: 2
-:sectnums:
+= Estimating GPU VRAM 
+
 
 == Module 3: Cost-Aware Model and Hardware Selection
 
