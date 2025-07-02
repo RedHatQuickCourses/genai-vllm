@@ -1,0 +1,191 @@
+= Project and Data Connection Setup
+
+Now that our lab environment is running an updated version of Red Hat OpenShift AI, the next step is to configure a project. This project will serve as our workspace and contain all the resources we create, including data connections and model servers.
+
+We will proceed through the following key steps:
+
+. Create a Data Science Project to house our work.
+. Deploy a MinIO instance to act as our S3-compatible object storage.
+. Configure storage buckets within MinIO for our models and pipelines.
+. Create Data Connections in OpenShift AI to link our project to the MinIO buckets.
+. Initialize the Data Science Pipeline server.
+
+---
+
+== Step 1: Create a Data Science Project
+
+In OpenShift AI, a project is the fundamental organizational unit that provides a boundary for your resources. It is equivalent to a Kubernetes namespace and allows for user access control and resource allocation, enabling a self-service MLOps workflow.
+
+After logging into the Red Hat OpenShift AI dashboard:
+
+1.  Select **Data Science Projects** from the left navigation menu.
+2.  Click **Create data science project**.
+3.  Enter a **Name** for your project. For example, `vllm-lab` or as shown in the example below `Innovatech`.
+    
+[NOTE]
+It is a best practice to use lowercase letters and hyphens for project names, avoiding spaces or uppercase characters.
+
+4.  Optionally, provide a *Description*.
+5.  Click **Create**.
+
+
+== Step 2: Deploy S3 Compatible Storage (MinIO)
+
+Our project needs a place to store large files like trained models and pipeline artifacts. For this lab, we will deploy MinIO, a high-performance, S3-compatible object store, directly into our OpenShift cluster.
+
+[WARNING]
+====
+This deployment uses the community version of MinIO and is intended for lab and prototyping purposes only. It should not be used in a production environment. Red Hat does not provide support for MinIO.
+====
+
+To deploy MinIO, we will use the OpenShift web console to import a YAML configuration file.
+
+. From the OpenShift console dashboard (not the OpenShift AI dashboard), select the project you just created (e.g., `vllm-lab`) from the project dropdown menu.
+. Click the **+ Add** icon in the top navigation bar.
+. On the **Import YAML** screen, paste the entire MinIO deployment configuration provided below.
+. Click **Create** to deploy all the MinIO resources.
+
+.Click to view and copy the MinIO deployment code.
+[%collapsible]
+====
+```yaml
+# --- Start of MinIO Deployment YAML ---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: minio-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 40Gi
+  volumeMode: Filesystem
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: minio-secret
+stringData:
+  # It is recommended to change these default values
+  minio_root_user: minio
+  minio_root_password: minio321!
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: minio-pvc
+      containers:
+        - name: minio
+          image: quay.io/minio/minio:RELEASE.2023-06-19T19-52-50Z
+          args:
+            - server
+            - /data
+            - '--console-address'
+            - ':9090'
+          env:
+            - name: MINIO_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio_root_user
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio_root_password
+          ports:
+            - containerPort: 9000
+              protocol: TCP
+            - containerPort: 9090
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /data
+              subPath: minio
+          resources: {}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: minio-service
+spec:
+  ports:
+    - name: api
+      port: 9000
+      targetPort: 9000
+    - name: ui
+      port: 9090
+      targetPort: 9090
+  selector:
+    app: minio
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: minio-api
+spec:
+  to:
+    kind: Service
+    name: minio-service
+  port:
+    targetPort: api
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: minio-ui
+spec:
+  to:
+    kind: Service
+    name: minio-service
+  port:
+    targetPort: ui
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+# --- End of MinIO Deployment YAML ---
+
+=== Interactive Demo: Project, Deployment, and Data Connection Walkthrough
+
+The following interactive demonstration will walk you through the process of:
+1.  Creating a Data Science Project using the RHOAI dashboard.
+2.  Deploy MinIO on OpenShift as the S3 storage solution.
+3.  Log into the MinIO UI and create storage buckets. 
+4.  Create new data connections for models and pipelines storage buckets.
+5.  Setup a pipeline server in the data science project. 
+
+Follow the on-screen prompts in the demo to complete the upgrade process.
+
+++++
+<iframe
+  src="https://demo.arcade.software/upbkf0tsF1xerzXGmWsC?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Once the upgrade is complete, your Red Hat OpenShift AI instance will be ready for the next steps in our lab.
