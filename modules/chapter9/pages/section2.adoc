@@ -1,1 +1,39 @@
-= blank
+= vLLM Serving Runtime Lab: The Setup Strikes Back!
+
+Before we dive into the awesome world of deploying large language models with vLLM, we need to build our playground. This section will guide you through setting up the essential components for our lab: a self-managed Red Hat OpenShift AI environment and the powerhouse behind our GPU acceleration, the NVIDIA GPU Operator. 🚀
+
+== Laying the Foundation: OpenShift AI (Self-Managed)
+
+First things first, we need a robust platform to host our AI workloads. Red Hat OpenShift AI provides a comprehensive and scalable environment for building, deploying, and managing AI-powered applications. For this course, we're going with the self-managed version to give you a real-world, hands-on experience.
+
+=== The Operator Orchestra: Key Dependencies
+
+Think of OpenShift Operators as the roadies for our rockstar AI platform. They handle the installation, updates, and lifecycle management of the software we need. To get OpenShift AI up and running, we'll need to make sure a few key "musicians" are in place.
+
+The primary operator we'll interact with is the **Red Hat OpenShift AI Operator**. This operator is the conductor of our orchestra, responsible for deploying and configuring the core components of OpenShift AI.
+
+During the installation of the Red Hat OpenShift AI Operator, it will automatically pull in most of its dependencies. However, to enable the single-model serving platform which we'll be using with vLLM, you'll need to ensure the following operators are also installed and running smoothly. Don't worry, the OpenShift AI operator can often handle this for you!
+
+* **OpenShift Service Mesh Operator**: This provides a uniform way to connect, manage, and secure microservices. It's crucial for how our model serving components will communicate.
+* **OpenShift Serverless Operator**: This enables us to run applications that can scale down to zero when not in use, which is fantastic for efficient resource management in our lab.
+
+You can typically install these from the **OperatorHub** in the OpenShift web console. Just search for their names and follow the installation prompts. It's as easy as adding a new app to your phone! 📱
+
+== Unleashing the Power: NVIDIA GPU Operator
+
+To get the blistering inference speeds we're after with vLLM, we need to give our models access to some serious hardware. That's where NVIDIA GPUs come in. The **NVIDIA GPU Operator** is the magic wand that makes our OpenShift cluster aware of and able to utilize these powerful accelerators.
+
+This operator automates the management of all the necessary NVIDIA software components, including the drivers, container runtime, and more. Essentially, it takes the headache out of configuring GPU nodes in a Kubernetes environment.
+
+=== Installing the Green Machine 🟢
+
+Here's a high-level overview of how you'll get the NVIDIA GPU Operator installed:
+
+.   **From the OperatorHub**: Just like with our other operators, the easiest way to install the NVIDIA GPU Operator is through the OpenShift OperatorHub.
+.   **Create a `ClusterPolicy`**: Once the operator is installed, you'll need to create a `ClusterPolicy` custom resource. This tells the operator to go ahead and configure the GPU nodes. The default settings are usually a great starting point.
+
+With these components in place, your OpenShift AI environment will be primed and ready for you to start deploying and experimenting with vLLM.
+
+'''
+
+Now that we have our stage set, the next act involves creating a *Data Connection* in our Data Science Project. Before we can do that, we need a place to store our models. Let's move on to setting up MinIO, our S3-compatible object storage for this lab.

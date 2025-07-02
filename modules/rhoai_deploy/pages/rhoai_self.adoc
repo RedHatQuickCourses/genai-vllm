@@ -1,8 +1,6 @@
-= Lab Environment Setup
+= Optional - RHOAI Self-Managed 
 
 Before proceeding with vLLM model deployment, it is necessary to prepare the lab environment. This section provides an overview of the setup for a self-managed Red Hat OpenShift AI instance, including the required dependent operators and the components for NVIDIA GPU hardware acceleration.
-
----
 
 == Red Hat OpenShift AI Installation
 
@@ -17,9 +15,13 @@ For the single-model serving capabilities used in this course, the following ope
 * **OpenShift Service Mesh Operator**: Provides essential networking capabilities for secure and reliable communication between model serving microservices.
 * **OpenShift Serverless Operator**: Enables efficient resource utilization by allowing serving pods to scale based on demand, including scaling down to zero.
 
-These operators are available for installation from the **OperatorHub** within the OpenShift web console.
+[NOTE]
+while OpenShift AI can deploy and serve models without Authorino, it's a required component specifically for the use case of providing secure, external access to those models.
 
----
+* **Red Hat Authorino Operator**: Provides protection for deployed models through token-based authentication and authorization, enabling secure external access.
+
+
+These operators are available for installation from the **OperatorHub** within the OpenShift web console.
 
 == NVIDIA GPU Hardware Acceleration
 
@@ -43,10 +45,44 @@ The installation process for enabling GPU support follows this order:
 .   **Install the NVIDIA GPU Operator**: Once NFD is running, install the NVIDIA GPU Operator from the OperatorHub.
 .   **Create a `ClusterPolicy`**: After the NVIDIA operator is installed, create a `ClusterPolicy` custom resource. This CR instructs the operator to begin the configuration of the GPU worker nodes. The default configuration is generally sufficient for standard lab environments.
 
+
+== Create the Data Science Cluster
+
+After the Red Hat OpenShift AI Operator is installed, you must create a **Data Science Cluster (DSC)** to deploy the platform's services.
+
+A `DataScienceCluster` is a Custom Resource that defines the configuration for your OpenShift AI instance. By editing its YAML manifest (often named `dsc.yaml`), you can control which components are managed by the operator and customize their settings.
+
+For this lab, we will create a default instance.
+
+.   Navigate to the **Installed Operators** section in the OpenShift console.
+.   Click on the **Red Hat OpenShift AI** operator.
+.   Select the **Data Science Cluster** tab.
+.   Click **Create DataScienceCluster**.
+.   Accept the default configuration by clicking **Create**.
+
+The deployment process will take approximately 5-10 minutes. Once the `Ready` status is shown for the DSC, you can access the **Red Hat OpenShift AI** dashboard from the application launcher in the OpenShift console's top bar.
+
+
+
+== Arcade Interactive Experience - Installation of RHOAI v2.18
+
+
+++++
+<iframe 
+  src="https://demo.arcade.software/lie2H2wlw0aDEaR7Q4D5?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+
+
+---
+
 With these foundational components configured, the OpenShift AI environment is prepared for deploying models with the vLLM serving runtime.
-
-'''
-
-The next step is to create a *Data Connection* in our Data Science Project. Before we can create our Data Connection, we will set up MinIO as our S3 compatible storage for this Lab.
-
-Continue to the next section to deploy and configure MinIO.
