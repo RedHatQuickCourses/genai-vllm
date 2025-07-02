@@ -1,8 +1,6 @@
 = Lab Environment Setup
 
-Before proceeding with vLLM model deployment, it is necessary to prepare the lab environment. This section provides an overview of the setup for a self-managed Red Hat OpenShift AI instance, including the required dependent operators and the components for NVIDIA GPU hardware acceleration.
-
----
+Before proceeding with vLLM model deployment, it is necessary to prepare the lab environment. This section provides an overview of the setup for a self-managed Red Hat OpenShift AI instance, including the required dependent operators and the NVIDIA GPU Operator for hardware acceleration.
 
 == Red Hat OpenShift AI Installation
 
@@ -19,29 +17,17 @@ For the single-model serving capabilities used in this course, the following ope
 
 These operators are available for installation from the **OperatorHub** within the OpenShift web console.
 
----
+== NVIDIA GPU Operator for Hardware Acceleration
 
-== NVIDIA GPU Hardware Acceleration
+To achieve high-performance model inference with vLLM, access to NVIDIA GPUs is required. The **NVIDIA GPU Operator** automates the complex process of configuring GPU-enabled nodes in the OpenShift cluster. It manages all necessary NVIDIA software components, including drivers and the container runtime, simplifying the use of GPUs for AI workloads.
 
-To achieve high-performance model inference with vLLM, access to NVIDIA GPUs is required. Enabling GPU support in OpenShift involves two key operators that work together.
+=== NVIDIA Operator Installation
 
-=== Prerequisite: Node Feature Discovery Operator
+The installation process for the NVIDIA GPU Operator can be summarized in these steps:
 
-Before installing the main GPU operator, the **Node Feature Discovery (NFD) Operator** must be installed and running.
+.   **Install from OperatorHub**: Locate and install the Node Feature Discovery operator from the OpenShift OperatorHub.  
 
-The role of the NFD Operator is to detect hardware features and configurations across all nodes in the cluster. It then applies labels to each node based on the discovered hardware, such as the presence of a specific PCI device like an NVIDIA GPU. This labeling is what allows the NVIDIA GPU Operator to identify which nodes it needs to manage.
-
-=== NVIDIA GPU Operator
-
-With the NFD Operator in place, you can then install the **NVIDIA GPU Operator**. This operator automates the complex process of configuring the GPU-enabled nodes that were previously identified and labeled by NFD. It manages all necessary NVIDIA software components, including drivers and the container runtime, simplifying the use of GPUs for AI workloads.
-
-=== Installation Sequence
-
-The installation process for enabling GPU support follows this order:
-
-.   **Install the Node Feature Discovery Operator**: From the OperatorHub, install the NFD Operator first. After installation, you must create an instance of the `NodeFeatureDiscovery` custom resource (CR) to initiate the node scanning and labeling process.
-.   **Install the NVIDIA GPU Operator**: Once NFD is running, install the NVIDIA GPU Operator from the OperatorHub.
-.   **Create a `ClusterPolicy`**: After the NVIDIA operator is installed, create a `ClusterPolicy` custom resource. This CR instructs the operator to begin the configuration of the GPU worker nodes. The default configuration is generally sufficient for standard lab environments.
+.   **Create a `ClusterPolicy`**: After the operator is installed, a `ClusterPolicy` custom resource (CR) must be created. This CR instructs the operator to begin the configuration of the GPU worker nodes. The default configuration provided by the operator is sufficient for most use cases.
 
 With these foundational components configured, the OpenShift AI environment is prepared for deploying models with the vLLM serving runtime.
 

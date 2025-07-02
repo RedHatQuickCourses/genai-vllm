@@ -1,6 +1,7 @@
 * xref:index.adoc[]
 // ** xref:rhoai_review.adoc[]
 ** xref:rhoai_self.adoc[]
+** xref:rhoai_221.adoc[]
 ** xref:add_runtime.adoc[]
 ** xref:minio_s3.adoc[]
 ** xref:section3.adoc[]
