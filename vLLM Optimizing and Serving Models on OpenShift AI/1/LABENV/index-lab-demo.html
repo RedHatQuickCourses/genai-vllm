@@ -114,16 +114,31 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter7/index.html">OpenShift AI Configuration</a>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter7/section1.html">Creating OpenShift AI Resources - 1</a>
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter7/section2.html">MinIO S3 Compatible Storage Setup</a>
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter7/section3.html">OpenShift AI Resources - 2</a>
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/section7.html">Using the AI Model for Summarization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
   </li>
 </ul>
   </li>
@@ -133,16 +148,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter8/index.html">Jupyter Notebooks &amp; LLMs</a>
+    <a class="nav-link" href="../rhoai_query/index.html">Jupyter Notebooks &amp; LLMs</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter8/section1.html">Jupyter Notebooks</a>
+    <a class="nav-link" href="../rhoai_query/section1.html">Jupyter Notebooks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter8/section2.html">Mistral LLM Model Inference</a>
+    <a class="nav-link" href="../rhoai_query/section2.html">Mistral LLM Model Inference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter8/section3.html">Llama3 LLM Model Inference</a>
+    <a class="nav-link" href="../rhoai_query/section3.html">Llama3 LLM Model Inference</a>
   </li>
 </ul>
   </li>
@@ -163,9 +178,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter9/section3.html">blank</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/minios3.html">MinIO S3: Compatible Storage Deployment</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -176,9 +188,6 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/model_phases.html">Common Generative AI Model Variations</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
   </li>
@@ -275,8 +284,13 @@
 </li>
 </ol>
 </div>
-<div class="exampleblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p><strong>RHOAI on OCP on AWS with NVIDIA GPUs</strong></p>
 </div>
@@ -287,40 +301,12 @@
 <p>It includes two worker nodes each with an NVIDIA L4 GPU (24GB each), offering capacity for both model training and inference. For example, you can attach one GPU to a Workbench (Jupyter Notebook) for development and utilize the other for model serving.</p>
 </div>
 <div class="paragraph">
-<p><strong>Author&#8217;s Note:</strong> Please note that this environment requires you to download your chosen model to local storage and then upload it to a manually deployed S3-compatible storage, for model serving to function.</p>
+<p><strong>Author&#8217;s comment:</strong> Please note that this environment requires you to download your chosen model to local storage and then upload it to a manually deployed S3-compatible storage, for model serving to function.</p>
 </div>
+</td>
+</tr>
+</table>
 </div>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><strong>LB2959 - Optimizing LLMs for inference with vLLM on RHEL AI &amp; Red Hat OpenShift AI</strong></p>
-</div>
-<div class="paragraph">
-<p>This lab environment provides a pre-configured setup ideal for immediate use. It includes S3-compatible storage with an AI model already pre-uploaded to the <code>models/base-model</code> directory. Data connections are also pre-configured, enabling immediate model deployment.</p>
-</div>
-<div class="paragraph">
-<p>This environment includes lab examples with:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A notebook to query the AI model once it&#8217;s available for inference.</p>
-</li>
-<li>
-<p>A notebook to quantize the model into various precisions.</p>
-</li>
-<li>
-<p>A notebook for model evaluation.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Author&#8217;s Note:</strong> This lab served as the foundation for this course. However, this course utilizes different models, notebooks, and applications to showcase specific use cases relevant to AI model delivery, rather than compression and optimizaiton strategies.</p>
-</div>
-</div>
-</div>
-<hr>
 <div class="sect2">
 <h3 id="_follow_the_steps_below_to_deploy_your_chosen_environment"><a class="anchor" href="#_follow_the_steps_below_to_deploy_your_chosen_environment"></a>Follow the steps below to deploy your chosen environment.</h3>
 <div class="olist arabic">
