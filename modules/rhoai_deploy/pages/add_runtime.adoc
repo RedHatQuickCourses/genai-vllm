@@ -1,6 +1,4 @@
 
-
-
 = vLLM Serving Runtime
 
 // video::llm_dsp_v3.mp4[width=640]
@@ -15,11 +13,12 @@ A model-serving runtime provides integration with a specified model server and t
  * *Single-model*
  ** OpenVINO Model Server
  ** Caikit Standalone ServingRuntime for KServe
- ** Caikit ServingRuntime TGIS for KServe
+ ** Caikit TGIS ServingRuntime  for KServe
  ** vLLM NVIDIA GPU ServingRuntime for KServe
  ** vLLM Intel Gaudi Accelerator ServingRuntime for KServe
  ** vLLM AMD GPU ServingRuntime for KServe
  ** vLLM CPU ServingRuntime for KServe
+ ** Hugging Face Detector ServingRuntime for KServe
  
 However, if these runtimes do not meet your needs (if they don't support a particular model framework, for example), you might want to add your own custom runtimes.
 

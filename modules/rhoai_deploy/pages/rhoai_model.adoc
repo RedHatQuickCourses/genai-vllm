@@ -1,0 +1,82 @@
+= Deploy Granite LLM on RHOAI
+
+
+In the previous segment we uploaded the granite model to our S3 Storage. 
+
+Now it's time to deploy that model in our workbench 
+
+Let's head to the OpenShift AI Dashboard, in our Data Science Project, select the Models tab of our bench.  There are two options Single Model Serving and Multi-Model Serving. 
+
+We are going use the Single Model Serving Option.   
+
+In order to deploy our model we'll need to specific a details 
+
+1. first is " model deployment name" :  This example uses granite for the deployment name. 
+
+[NOTE]
+It's important to note that this name is the name of the model service that will be exposed. 
+if you connect to the model, it will be known as granite only, not the full model name. 
+
+2. the second dropdown option is for serving runtime available.  
+
+select the vLLM NVIDIA GPU servingRuntime Kserve - 
+
+The framework should be auto populated with vLLM for this runtime, other runtimes have a few options available. 
+
+3. third option is to set the the number of model replcias for this deployment. 
+
+Due the video card requirment, keep this set to one. 
+
+4. next selection is for the model size
+
+These are T-shift size, in Small, Medium, Large, or custom
+
+For our lab choose the the large option, even though the walkthrough below will show medium.
+
+5. Is a checkbox, that say's "make deployed model available through an external route".
+
+check this box, which is automicmailly select the box to require token authenication. 
+
+it will also show a new option for a service account, set to the default-name.  Optionally change this to be the model name, just to keep logs and metrics easier to track. 
+
+6. The next step is to select the source model location. 
+
+first select from existing data connection, or add a new connection.   once the connection has been added, then we can specific the subdirectory where model files reside. 
+
+7 finally we can add additional serving runtime arguments to execute when loading the model for inference. 
+
+click deploy
+
+
+Model deploy can take some time as large model files are copied from s3 into the container before they can even be started. 
+
+=== Interactive Demo: vLLM, OpenShift AI, Granite LLM Inference
+
+The following interactive demonstration will walk you through the process of:
+1.  Deploy an LLM using the Single Model Serving option in OpenShift AI Workbench
+2.  Configure properites needed to deploy a model. 
+3.  Optionally create a token service account for external model access.
+
+Follow the on-screen prompts in the demo to complete the model deployment. 
+
+
+++++
+<iframe 
+  src="https://demo.arcade.software/lie2H2wlw0aDEaR7Q4D5?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+
+
+
+
+
+

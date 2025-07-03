@@ -73,5 +73,33 @@ d.  Select the corresponding model folder you cloned onto your local machine to 
 .   **Qwen 1.5 (0.5 Billion parameters)**
 +
 ```bash
-git clone --depth=1 [https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat](https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat)
+git clone --depth=1 [https://huggingface.co/RedHatAI/granite-3.1-2b-instruct-FP8-dynamic](https://huggingface.co/RedHatAI/granite-3.1-2b-instruct-FP8-dynamic)
+```
+
+== Interactive Demo: Project, Deployment, and Data Connection Walkthrough
+
+The following interactive demonstration will walk you through the process of:
+
+ .  Create a subdirectory named Granite, upload the granite model files.
+ .  Creating a Workbench in OpenShift AI. 
+ .  Select the appropriate notebook image, size, and data connections.
+ 
+Follow the on-screen prompts in the demo to complete configuiration process.
+
+++++
+<iframe
+  src="https://demo.arcade.software/o95APuRqMKhyFEkEFXhf?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+
+
 
