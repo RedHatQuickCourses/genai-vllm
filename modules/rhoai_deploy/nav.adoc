@@ -6,6 +6,6 @@
 ** xref:rhoai_bench.adoc[]
 ** xref:rhoai_model.adoc[]
 // ** xref:minio_s3.adoc[]
-** xref:section6.adoc[]
+** xref:rhoai_query.adoc[]
 ** xref:section7.adoc[]
 ** xref:add_runtime.adoc[]

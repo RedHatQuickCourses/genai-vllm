@@ -163,7 +163,7 @@ spec:
     insecureEdgeTerminationPolicy: Redirect
 # --- End of MinIO Deployment YAML ---
 ====
-
+```
 
 == Interactive Demo: Project, Deployment, and Data Connection Walkthrough
 
@@ -191,4 +191,4 @@ Follow the on-screen prompts in the demo to complete configuiration process.
 </iframe>
 ++++
 
-Once the upgrade is complete, your Red Hat OpenShift AI instance will be ready for the next steps in our lab.
+
