@@ -1,0 +1,77 @@
+= Creating the AI Workbench and Preparing Models
+
+With our project and data connections configured, it's time to create our primary development environment: the **Red Hat OpenShift AI Workbench**. We will then download several open-source Large Language Models (LLMs) and upload them to our MinIO S3 bucket, preparing them for deployment.
+
+---
+
+== Part 1: Configure and Launch the Workbench
+
+The workbench provides a fully containerized and interactive data science environment, with JupyterLab as its core component. Here, we will select the right tools, compute resources, and storage connections to build and test our vLLM deployments.
+
+1.  From your Data Science Project dashboard, click **Create workbench**.
+
+2.  **Name:** Provide a descriptive name for your workbench, for example, `vllm-workbench`.
+
+3.  **Notebook image:** This is the container image that defines your development environment. It includes the operating system, drivers, and pre-installed libraries.
+    * Scroll through the list of available images. You will see options like Standard Python, PyTorch, and TensorFlow.
+    * For this lab, it is essential to select an image with NVIDIA GPU support. Choose the **CUDA** notebook image (e.g., `CUDA - 12.3.2`). This image includes the necessary NVIDIA drivers to communicate with the GPU accelerator.
+
+4.  **Container size:** Select the amount of CPU and Memory allocated to your workbench.
+    * The default sizes are Small, Medium, and Large. For this lab, a **Small** or **Medium** instance is sufficient.
+    * (Example: Small - 2 CPU, 8 GB RAM; Medium - 4 CPU, 16 GB RAM)
+
+5.  **Accelerator:** This is where you attach a physical GPU.
+    * Click the **Select an accelerator** dropdown.
+    * Select **NVIDIA GPU**, and ensure the number of accelerators is set to **1**.
+
+6.  **Data Connections:** Connect the workbench to the S3 storage we configured earlier.
+    * Check the box for the **models-storage** data connection. This will mount our `models` bucket inside the workbench, making it easy to access.
+
+7.  **Cluster storage:** This is the persistent storage for your workbench's home directory. Leave the default settings to create a new persistent volume. This ensures your work is saved even if you stop and restart the workbench.
+
+8.  Review your selections and click **Create workbench**.
+
+The workbench will now begin to provision. This process can take several minutes. While it is starting, we can proceed with the next part of our setup.
+
+
+
+
+---
+
+
+
+== Part 2: Download and Upload AI Models
+
+When we deploy a model server in OpenShift AI, the most common method is to have it download the model files directly from an S3-compatible storage location. We will now download several LLMs from Hugging Face and upload them to our MinIO `models` bucket.
+
+=== Step A: Download Models from Hugging Face
+
+On your local computer, create a directory for your models. The easiest way to download a model from Hugging Face is using `git`.
+
+[TIP]
+====
+To save time and disk space, you can perform a "shallow clone" which downloads the latest version without the entire version history. Use the `--depth=1` flag with your `git clone` command.
+====
+
+Open a terminal on your local machine and clone the following models. These are relatively small models suitable for a lab environment.
+
+=== Step B: Upload Models to MinIO
+
+It is a best practice—and often a requirement—that model files reside in a subdirectory within your storage bucket, not in the root. We will create a folder for each model.
+
+Log back into the MinIO UI dashboard.
+
+Navigate to the models bucket.
+
+For each model you downloaded, perform the following actions:
+a.  Click Create new path and create a subdirectory named after the model (e.g., Qwen1.5-0.5B-Chat).
+b.  Navigate into the newly created path.
+c.  Click the Upload button and select Upload folder.
+d.  Select the corresponding model folder you cloned onto your local machine to upload all of its contents.
+
+
+.   **Qwen 1.5 (0.5 Billion parameters)**
++
+```bash
+git clone --depth=1 [https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat](https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat)
+
