@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cost based AI Model Selection :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM, What is it?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/rh_ai.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">vLLM on Red Hat OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">Summary: Key Takeaways and Next Steps</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gpu_arch.html">NVIDIA GPU Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vram_calc.html">Cost-Effective Model Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">Generative AI Model Variations in Model Naming</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Pre-Selected Course Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/summary.html">From Curation to Confident Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/section7.html">Using the AI Model for Summarization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_query/index.html">Jupyter Notebooks &amp; LLMs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_query/section1.html">Jupyter Notebooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_query/section2.html">Mistral LLM Model Inference</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_query/section3.html">Llama3 LLM Model Inference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter9/index.html">blank</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section4.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section2.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section3.html">blank</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="gpu_cost_v1.html">Cost based AI Model Selection</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Cost based AI Model Selection</h1>
+<div class="sect1">
+<h2 id="_the_vram_equation_calculating_real_world_gpu_needs"><a class="anchor" href="#_the_vram_equation_calculating_real_world_gpu_needs"></a>The VRAM Equation: Calculating Real-World GPU Needs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before selecting a model, you must understand its memory footprint. This goes beyond just the size of its weights.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_baseline_model_weights"><a class="anchor" href="#_step_1_baseline_model_weights"></a>Step 1: Baseline Model Weights</h3>
+<div class="paragraph">
+<p>The starting point is a simple rule of thumb: a model needs approximately twice its parameter count in VRAM to store its weights in standard FP16/BF16 precision.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Formula: Model Parameters (in Billions) x 2 ≈ Required VRAM (in GB)
+Example: A 12B parameter model requires ~24 GB VRAM.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_accounting_for_real_world_overhead"><a class="anchor" href="#_step_2_accounting_for_real_world_overhead"></a>Step 2: Accounting for Real-World Overhead</h3>
+<div class="paragraph">
+<p>Model weights are only part of the story. A large consumer of VRAM in real-world inference is the <strong>KV Cache</strong>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The KV Cache stores attention data for the context window of a conversation. Its size is directly proportional to the batch size and context length. This overhead can easily <strong>double</strong> your total VRAM requirement. A model needing 24GB for weights could easily require 48GB in a real application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_the_quantization_advantage"><a class="anchor" href="#_step_3_the_quantization_advantage"></a>Step 3: The Quantization Advantage</h3>
+<div class="paragraph">
+<p>This is the key to making powerful models run on affordable hardware. Quantization reduces the precision of the model&#8217;s weights, drastically shrinking its size.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>By using a quantized version of a model (e.g., INT8, INT4/GPTQ), you can reduce the baseline memory footprint by 50-75%. This frees up critical VRAM on the GPU to accommodate the KV Cache and other overhead, allowing a large model to run on a smaller, more cost-effective GPU.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_connecting_vram_to_infrastructure_cost"><a class="anchor" href="#_connecting_vram_to_infrastructure_cost"></a>Connecting VRAM to Infrastructure Cost</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Understanding the VRAM requirements allows you to estimate the annual infrastructure cost. Below are estimates for common GPU instances based on a 1-year commitment.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Annual Cloud Cost Estimates</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">VRAM per GPUs</th>
+<th class="tableblock halign-left valign-top">Example AWS Instance</th>
+<th class="tableblock halign-left valign-top">Estimated Annual Cost</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>g6.4xlarge</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>$7,000 - $8,000</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Recommended starting point for PoCs</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">48 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>g6e.2xlarge</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$12,000 - $14,000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cost doubles from the 24GB tier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192 GB (4x48)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>g6e.12xlarge</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$55,000 - $65,000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For multi-model serving or very large models</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640 GB (8x80)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>p5.48xlarge</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$240,000+</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enterprise scale (based on monthly cost)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_our_recommended_project_strategy"><a class="anchor" href="#_our_recommended_project_strategy"></a>Our Recommended Project Strategy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For a typical customer Proof-of-Concept (PoC) with a limited budget, follow this strategic workflow.</p>
+</div>
+<div class="paragraph">
+<div class="title">Target the Sweet Spot</div>
+<p>Start by targeting the <strong>24 GB VRAM</strong> infrastructure (<code>g6.4xlarge</code>). This class of GPU offers the best performance-per-dollar and aligns with customer budgets for initial projects.</p>
+</div>
+<div class="paragraph">
+<div class="title">Search with Intent</div>
+<p>Filter your model search to those that provide <strong>quantized versions</strong>. A quantized 13B model can often outperform a non-quantized 7B model while fitting in the same 24GB memory budget.</p>
+</div>
+<div class="paragraph">
+<div class="title">Validate and Iterate</div>
+<p>Deploy your chosen model and benchmark its performance <strong>and</strong> real-world VRAM consumption. Be prepared to test different models to find the optimal balance of speed, accuracy, and cost for the customer&#8217;s specific use case.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_red_hat_sizing_guide"><a class="anchor" href="#_red_hat_sizing_guide"></a>Red Hat Sizing Guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Intended to help provide <strong>a model for estimations for sizing clusters for OpenShift AI</strong> based on a few questions about the customers intended usage.</p>
+</div>
+<div class="paragraph">
+<p>Internal Only - <a href="http://red.ht/rhoai-sizing-guide">OpenShift AI Cluster sizing sheet</a></p>
+</div>
+<div class="paragraph">
+<p>slack channel #help-rhoai-sizing-guide</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

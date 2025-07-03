@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NVIDIA GPU Architecture :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="gpu_cost.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM, What is it?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/rh_ai.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">vLLM on Red Hat OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">Summary: Key Takeaways and Next Steps</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="gpu_arch.html">NVIDIA GPU Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vram_calc.html">Cost-Effective Model Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">Generative AI Model Variations in Model Naming</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Pre-Selected Course Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/summary.html">From Curation to Confident Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/section7.html">Using the AI Model for Summarization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_query/index.html">Jupyter Notebooks &amp; LLMs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_query/section1.html">Jupyter Notebooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_query/section2.html">Mistral LLM Model Inference</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_query/section3.html">Llama3 LLM Model Inference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter9/index.html">blank</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section4.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section2.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section3.html">blank</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">GPU Architecture and Model Sizing</a></li>
+    <li><a href="gpu_arch.html">NVIDIA GPU Architecture</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">NVIDIA GPU Architecture</h1>
+<div class="sect1">
+<h2 id="_gpu_architecture_showdown"><a class="anchor" href="#_gpu_architecture_showdown"></a>GPU Architecture Showdown</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A more advanced step in cost optimization is to align your model&#8217;s compression strategy with the specialized hardware features of the GPU it will run on. Deploying a generic model on advanced hardware is like driving a race car in first gear—you are leaving a massive amount of performance and cost-savings on the table.</p>
+</div>
+<div class="paragraph">
+<p>This section details the key AI-centric advancements in recent NVIDIA GPU architectures and explains how to leverage them.</p>
+</div>
+<div class="sect3">
+<h4 id="_datacenter_gpu_evolution_at_a_glance"><a class="anchor" href="#_datacenter_gpu_evolution_at_a_glance"></a>Datacenter GPU Evolution at a Glance</h4>
+<div class="paragraph">
+<p>While NVIDIA releases many GPUs, datacenter AI workloads have been driven by a clear architectural evolution from Ampere to Hopper to Blackwell. Each generation introduced specialized hardware specifically to accelerate AI.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Key AI Feature Comparison Across Architectures</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature</th>
+<th class="tableblock halign-left valign-top">Ampere (e.g., A100)</th>
+<th class="tableblock halign-left valign-top">Hopper (e.g., H100)</th>
+<th class="tableblock halign-left valign-top">Blackwell (e.g., B100/B200)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Key AI Innovation</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3rd Gen Tensor Cores, Structural Sparsity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Transformer Engine</strong>, 4th Gen Tensor Cores</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2nd Gen Transformer Engine</strong>, Decompression Engine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>New Precision Support</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TF32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>FP8</strong> (8-bit Floating Point)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>FP4 &amp; FP6</strong> (4/6-bit Floating Point)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Memory Bandwidth</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~2.0 TB/s (HBM2e)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~3.3 TB/s (HBM3)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~8.0 TB/s (HBM3e)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Practical Implication</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Excellent at FP16/BF16. Good baseline for standard models.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Game-changer for LLMs.</strong> Automatically boosts Transformer models and FP8 provides near-INT8 speed with better accuracy.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Built for trillion-parameter models. Enables extreme low-bit quantization (FP4) for unprecedented speed and density.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <strong>Ada Lovelace</strong> architecture (e.g., L4, L40S GPUs) is also important for inference. It incorporates the 4th Gen Tensor Cores from Hopper, making it highly efficient for AI, but it is positioned as a more general-purpose accelerator for graphics and inference rather than a specialized, large-scale training and HPC chip like Hopper or Blackwell.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_leverage_key_hardware_features_for_cost_savings"><a class="anchor" href="#_leverage_key_hardware_features_for_cost_savings"></a>Leverage Key Hardware Features for Cost Savings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Knowing these features exist is one thing; exploiting them is another. Here is what you, as a platform engineer, need to focus on.</p>
+</div>
+<div class="sect2">
+<h3 id="_1_the_transformer_engine_an_automatic_speed_boost"><a class="anchor" href="#_1_the_transformer_engine_an_automatic_speed_boost"></a>1. The Transformer Engine: An Automatic Speed Boost</h3>
+<div class="paragraph">
+<p>Found in <strong>Hopper and Blackwell</strong>, the Transformer Engine is a hardware and software combination that automatically and dynamically uses mixed-precision calculations for Transformer-based models (which includes virtually all modern LLMs).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>How it Works:</strong> It intelligently casts layers to FP8 for speed and then back to FP16 for accuracy where needed, without requiring manual changes to the model code.</p>
+</li>
+<li>
+<p><strong>Your Action:</strong> When deploying on H100 or newer GPUs, using the Transformer Engine is essentially a "free" performance upgrade. Ensure your serving framework (like vLLM) is configured to leverage it. This can reduce latency and increase throughput, allowing you to serve more users on the same hardware.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_lower_precision_math_the_core_of_cost_efficiency"><a class="anchor" href="#_2_lower_precision_math_the_core_of_cost_efficiency"></a>2. Lower-Precision Math: The Core of Cost Efficiency</h3>
+<div class="paragraph">
+<p>As shown in the table, each new architecture has introduced support for lower-bit-width numerical formats. Aligning your quantization strategy with what the hardware can natively accelerate is critical.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ampere (A100):</strong> While it doesn&#8217;t have FP8, it excels at standard <code>FP16</code> and <code>BF16</code> math. It also introduced <strong>Structural Sparsity</strong>, a feature that can double throughput if your model has been pruned in a specific 2:4 sparse pattern.</p>
+</li>
+<li>
+<p><strong>Hopper (H100):</strong> The introduction of <strong>FP8</strong> is a massive deal. An FP8-quantized model offers a compelling balance: the speed benefits are close to INT8, but as a floating-point format, it retains a larger dynamic range, which generally preserves model accuracy better than integer quantization.</p>
+</li>
+<li>
+<p><strong>Blackwell (B100/B200):</strong> The new <strong>FP4</strong> and <strong>FP6</strong> support will enable serving massive models with a fraction of the memory footprint and significantly faster computation.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>The Strategic Takeaway:</strong> Your quantization strategy should not be generic; it should be hardware-aware.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If deploying on <strong>Hopper or newer</strong>, you should strongly prefer using <strong>FP8 quantization</strong>. It is hardware-accelerated and offers a superior trade-off between speed and accuracy.</p>
+</li>
+<li>
+<p>If deploying on <strong>Ampere</strong>, focus on standard <code>BF16</code> or explore structurally sparse models for a performance boost.</p>
+</li>
+<li>
+<p>Running a simple <code>FP16</code> model on a Blackwell GPU would be a massive waste of its potential. You would be ignoring the hardware&#8217;s most powerful and efficient features.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_high_bandwidth_memory_hbm_and_nvlink"><a class="anchor" href="#_3_high_bandwidth_memory_hbm_and_nvlink"></a>3. High-Bandwidth Memory (HBM) and NVLink</h3>
+<div class="paragraph">
+<p>The massive increases in memory bandwidth and the speed of the GPU-to-GPU interconnect (NVLink) are what prevent the powerful compute cores from "starving" for data.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Your Action:</strong> While you don&#8217;t directly configure HBM, recognize that this is why newer GPUs can achieve lower latency. It also makes multi-GPU setups (using Tensor Parallelism in vLLM) more viable, as the GPUs can communicate with each other much faster without creating a bottleneck.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">GPU Architecture and Model Sizing</a></span>
+  <span class="next"><a href="gpu_cost.html">Estimating GPU VRAM</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
