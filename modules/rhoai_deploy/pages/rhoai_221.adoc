@@ -1,0 +1,48 @@
+= Lab Environment Customization
+
+Welcome to the hands-on portion of the course. This section details the first steps required to configure your personal lab environment for deploying models with vLLM.
+
+[IMPORTANT]
+.Lab Environment Deployment Time
+====
+The lab environment used for this course takes approximately **1.5 to 2 hours** to deploy. It is highly recommended that you requested your environment *before* starting this section to avoid a lengthy delay.
+
+*If you have not yet requested your lab environment, please do so now.* The provisioning system will send you an email notification once it is ready.
+
+* If you prefer to wait for your environment, you can proceed with the reference material.
+* If you wish to continue without a hands-on lab, this course includes interactive demos that provide a visual walkthrough of the required steps.
+====
+
+
+== Upgrading Red Hat OpenShift AI
+
+The provided lab environment comes with a pre-installed version of Red Hat OpenShift AI. However, to work with the features and performance of a more recent vLLM runtime, we first need to upgrade the platform to a newer version.
+
+The installed version is based on OpenShift AI 4.18 and includes an older vLLM runtime. Our goal is to upgrade to **Red Hat OpenShift AI v2.21 or later**, which provides vLLM runtime version 0.9.01 (as of July 2025), bringing it closer to the latest community releases and ensuring better compatibility.
+
+The upgrade process is handled by updating the "subscription channel" for the Red Hat OpenShift AI Operator. This tells the operator to pull down and install a newer version of the platform.
+
+=== Interactive Demo: Logging In and Upgrading OpenShift AI
+
+The following interactive demonstration will walk you through the process of:
+1.  Logging into the OpenShift Cluster.
+2.  Navigating to the Installed Operators.
+3.  Changing the subscription settings for the OpenShift AI Operator to initiate the upgrade.
+
+Follow the on-screen prompts in the demo to complete the upgrade process.
+
+++++
+<iframe
+  src="https://demo.arcade.software/upbkf0tsF1xerzXGmWsC?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Once the upgrade is complete, your Red Hat OpenShift AI instance will be ready for the next steps in our lab.

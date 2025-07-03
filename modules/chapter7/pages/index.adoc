@@ -1,7 +1,0 @@
-= OpenShift AI Configuration
-
-This chapter assumes you have an OpenShift AI environment that's already up and running. If you haven't set up your environment yet, please refer to [link to setup instructions].
-
-In this section, we'll cover several key steps: configuring MinIO, our S3 compatible storage, creating a data connections, establishing a pipeline server, adding a workbench, and finally, serving a model using vLLM runtime for Kserve. We'll utilize the Single Model Serving Platform to deliver our model, then use the workbench notebook to query the model using a github repository. 
-
-Let's begin!

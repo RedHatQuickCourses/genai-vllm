@@ -23,7 +23,7 @@ This section guides you through selecting and launching a suitable lab environme
 . **Log in** to the xref:#RHDP-Portal-Links[RHDP portal].
 . **Search** for one of the following catalog entries:
 
-[OPTION 1]
+[NOTE]
 ====
 
 *RHOAI on OCP on AWS with NVIDIA GPUs*
@@ -32,26 +32,9 @@ This option provides a flexible OpenShift and OpenShift AI environment that can 
   
 It includes two worker nodes each with an NVIDIA L4 GPU (24GB each), offering capacity for both model training and inference. For example, you can attach one GPU to a Workbench (Jupyter Notebook) for development and utilize the other for model serving.
   
-*Author's Note:* Please note that this environment requires you to download your chosen model to local storage and then upload it to a manually deployed S3-compatible storage, for model serving to function.  
+*Author's comment:* Please note that this environment requires you to download your chosen model to local storage and then upload it to a manually deployed S3-compatible storage, for model serving to function.  
 ====
 
-[OPTION 2]
-====
-
-*LB2959 - Optimizing LLMs for inference with vLLM on RHEL AI & Red Hat OpenShift AI*
-
-This lab environment provides a pre-configured setup ideal for immediate use. It includes S3-compatible storage with an AI model already pre-uploaded to the `models/base-model` directory. Data connections are also pre-configured, enabling immediate model deployment.
-  
-This environment includes lab examples with:
-  
-  * A notebook to query the AI model once it's available for inference.
-  * A notebook to quantize the model into various precisions.
-  * A notebook for model evaluation.
-  
-*Author's Note:* This lab served as the foundation for this course. However, this course utilizes different models, notebooks, and applications to showcase specific use cases relevant to AI model delivery, rather than compression and optimizaiton strategies. 
-====
-
-'''
 
 === Follow the steps below to deploy your chosen environment.
 
