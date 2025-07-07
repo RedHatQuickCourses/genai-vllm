@@ -1,4 +1,4 @@
-= vLLM: Model Selection and Deployment
+= vLLM: Optimizing and Serving Models on OpenShift AI
 :navtitle: Home
 
 == Introduction
