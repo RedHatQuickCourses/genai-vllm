@@ -52,3 +52,12 @@ This course features a series of interactive experiences designed to provide a h
 </iframe>
 ++++
 ====
+
+////
+Preamble: Course Information
+[preamble]
+Audience:: AI Platform Engineers, ML Engineers, AI Consultants
+Level:: Intermediate
+Prerequisites:: Foundational knowledge of Large Language Models (LLMs), containerization (Docker), and REST APIs. Familiarity with GPU hardware is beneficial.
+Version:: 1.0
+////

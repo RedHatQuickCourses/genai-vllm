@@ -1,15 +1,18 @@
 = Integrating vLLM with OpenShift AI: The Serving Runtime
 
-While you can run vLLM as a standalone server, its true power in an enterprise setting is realized when managed by a robust platform like **Red Hat OpenShift AI (RHOAI)**. To do this, we need to teach OpenShift AI *how* to run vLLM. This is accomplished by defining a **Serving Runtime**.
+This section focuses on the fundamental concept of a Serving Runtime, particularly the vLLM Serving Runtime, which is crucial for a delivery engineer to understand for configuration and troubleshooting.
 
-==== What is a Serving Runtime?
+
+== What is a Serving Runtime?
 
 In the context of OpenShift AI and its underlying model-serving framework (KServe), a Serving Runtime is a **reusable template or blueprint** that defines a specific environment for serving a model.
 
+
 Think of it as a standardized recipe for deploying a model server. Instead of configuring a container image, startup commands, and resource requests for every single model, you define them once in a runtime. When you deploy a model, you simply tell OpenShift AI: "Use this runtime."
 
-This abstraction is a core MLOps principle. It separates the *model artifact* (the "what") from the *serving environment* (the "how"), leading to standardized, repeatable, and maintainable deployments.
+This abstraction is a *core MLOps principle*. It separates the *model artifact* (the "what") from the *serving environment* (the "how"), leading to standardized, repeatable, and maintainable deployments.
 
+****
 A Serving Runtime specifies critical information, such as:
 
  * The **container image** that contains the model server (e.g., the official vLLM image).
@@ -17,21 +20,23 @@ A Serving Runtime specifies critical information, such as:
  * **Hardware requirements**, especially the need for specific accelerators like NVIDIA GPUs.
  * **Network ports** and paths for inference requests and metrics collection (Prometheus).
  * **Supported model formats** that the runtime can handle.
+****
 
-==== The vLLM Serving Runtime for Red Hat OpenShift AI
 
-The OpenShift AI single-model serving stack can use vLLM as a high-performance alternative to other runtimes like Caikit+TGIS. By creating a vLLM `ServingRuntime`, you make it a first-class citizen in the RHOAI model deployment workflow.
+== The vLLM Serving Runtime for Red Hat OpenShift AI
+
+By creating a vLLM ServingRuntime, vLLM becomes a first-class citizen in the RHOAI model deployment workflow, serving as a high-performance alternative to other runtimes like Caikit+TGIS.
 
 [IMPORTANT]
 ====
 *GPU Requirement*
 
-The standard vLLM runtime is built on CUDA kernels for maximum performance. Therefore, a **GPU is required** on the OpenShift worker nodes where the model will be deployed. An experimental CPU version exists with limitations, but for production use cases targeted by this course, we will focus on GPU-based serving.
+The standard vLLM runtime is built on CUDA kernels for maximum performance, making a GPU mandatory on the OpenShift AI worker nodes where the model will be deployed. While an experimental CPU version exists, production use cases focus exclusively on GPU-based serving.
 ====
 
-==== Anatomy of the `vllm-runtime.yaml`
+=== Anatomy of the `vllm-runtime.yaml`
 
-To register vLLM with OpenShift AI, an administrator applies a YAML file defining the `ServingRuntime` resource. Let's break down an example to understand its key components.
+To register vLLM with OpenShift AI, an administrator applies a YAML file defining the ServingRuntime resource. Understanding the fields within this YAML is critical for customizing, optimizing, and troubleshooting LLM serving environments. Let's break down an example to understand its key components.
 
 .vLLM ServingRuntime for NVIDIA GPUs
 [%collapsible]
@@ -101,51 +106,3 @@ spec:
 |Defines the resource requests and limits. Requesting and limiting `nvidia.com/gpu: '1'` ensures the pod is scheduled on a GPU-equipped node and is allocated one GPU.
 |===
 
-==== Installation and Deployment Workflow
-
-Once the `ServingRuntime` is defined, the workflow for a platform engineer or data scientist is straightforward.
-
-.Step 1: Register the Runtime (Admin Task)
-An administrator with cluster privileges must first install the necessary OpenShift AI components (like the single-model serving stack). Then, they can add the vLLM runtime:
-
-1.  Navigate to the OpenShift AI Dashboard.
-2.  Go to **Settings -> Serving runtimes**.
-3.  Click **Add serving runtime** and choose `Single model serving platform`.
-4.  Paste the content of the `vllm-servingruntime.yaml` file into the editor and click `Create`.
-
-The "vLLM (NVIDIA GPU)" runtime will now be available for selection when users deploy models.
-
-.Step 2: Deploy a Model (User Task)
-With the runtime available, a user can deploy a compatible model:
-
-1.  Ensure your model files (e.g., from Hugging Face) are located in an S3-compatible object storage bucket.
-2.  In your OpenShift AI project, create a **Data Connection** that points to this bucket.
-3.  From the project dashboard, click **Deploy model**.
-4.  Fill in the model name, select the `vLLM (NVIDIA GPU)` serving runtime, and point to the data connection and specific model path.
-5.  Configure the number of replicas and ensure a **GPU is requested** in the resource configuration.
-
-OpenShift AI will then automatically provision a pod using the vLLM runtime, pull the model from object storage into the pod's `/mnt/models` directory, and start the vLLM server.
-
-.Step 3: Interact with the Endpoint
-Once the model is running, the dashboard provides an inference endpoint URL. Because the runtime exposes an **OpenAI-compatible API**, you can interact with it using standard tools.
-
-[TIP]
-====
-vLLM provides a full Swagger UI for API exploration and direct interaction. Simply add `/docs` to the end of your inference endpoint URL (e.g., `https://your-model-endpoint/docs`) to access it. This is an excellent way to test the model without writing any code.
-====
-
-A simple `curl` request would look like this:
-
-[source,bash]
-----
-# Replace with your actual endpoint and model name
-export ENDPOINT_URL="https://your-model-endpoint/v1/chat/completions"
-export MODEL_NAME="meta-llama/Meta-Llama-3-8B-Instruct"
-
-curl -X POST "$ENDPOINT_URL" \
--H "Content-Type: application/json" \
--d '{
-  "model": "'"$MODEL_NAME"'",
-  "messages": [{"role": "user", "content": "What are the benefits of using a serving runtime?"}]
-}'
-----

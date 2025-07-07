@@ -1,0 +1,22 @@
+= vLLM Technical Deep Dive and Advanced Capabilities
+
+This section explores vLLM's underlying innovations and advanced features, providing a deeper understanding for engineers optimizing performance and considering complex deployments.
+
+== Core Innovations for Performance
+
+vLLM's performance gains stem from two key engineering innovations:
+
+ * *PagedAttention:* This is vLLM’s solution to the KV Cache memory problem, operating like virtual memory in an operating system. It divides the cache into non-contiguous, fixed-size blocks, which eliminates memory fragmentation and waste, allowing the KV cache to be packed much more densely. This memory efficiency drives vLLM's ability to batch more requests, leading directly to higher throughput, and enables efficient memory sharing for decoding strategies.
+
+ * *Continuous Batching:* This is a scheduling strategy that keeps the GPU constantly busy. Unlike traditional static batching which waits for a full batch, vLLM continuously adds new requests to the queue as they arrive, with a scheduler dynamically creating batches on-the-fly. This ensures the GPU is always processing the maximum possible number of sequences, maximizing utilization and throughput.
+
+== Key Capabilities at a Glance: 
+ 
+vLLM is a feature-rich engine designed for modern AI workloads:
+
+ * *Supported Models:* Supports a vast and growing list of architectures, including Causal Language Models (Llama, Mistral, Qwen, Gemma), Multimodal Models (LLaVA), and Mixture of Experts (MoE) models like Mixtral.
+ * *Scaling & Distributed Inference:* Built to scale beyond a single GPU, integrating with frameworks like Ray to orchestrate inference across multiple GPUs and nodes. It supports standard parallelism techniques like Tensor Parallelism (splitting model layers across GPUs) and Pipeline Parallelism (splitting the entire model sequentially across multiple GPUs/machines).
+* *Model Optimization (Quantization):* vLLM can serve models compressed using quantization, which reduces their numerical precision (e.g., from 16-bit floats to 4-bit integers). This significantly lowers GPU memory usage and can dramatically reduce operational costs. vLLM supports popular quantization formats like AWQ, GPTQ, and FP8.
+ * *Hardware Compatibility:* Primarily optimized for NVIDIA GPUs using CUDA. Experimental support for AMD ROCm and other accelerators is in development. It runs on Linux and requires Python 3.9 or newer.
+ * *Advanced Features:* Provides the high-performance backbone for advanced production capabilities such as Tool/Function Calling (models generating structured API calls) and Structured Outputs (models generating guaranteed-schema outputs like JSON).
+
