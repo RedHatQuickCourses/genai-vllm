@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>GPU VRAM Blueprint :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM, What is it?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/rh_ai.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">vLLM on Red Hat OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">Summary: Key Takeaways and Next Steps</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gpu_arch.html">NVIDIA GPU Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vram_calc.html">Cost-Effective Model Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">Generative AI Model Variations in Model Naming</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Pre-Selected Course Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/summary.html">From Curation to Confident Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="vram_calc_v1.html">GPU VRAM Blueprint</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">GPU VRAM Blueprint</h1>
+<div class="sect1">
+<h2 id="_estimating_gpu_memory_for_large_language_model_inference"><a class="anchor" href="#_estimating_gpu_memory_for_large_language_model_inference"></a>Estimating GPU Memory for Large Language Model Inference_</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document serves as a quick reference guide for estimating the VRAM (GPU memory) required to run Large Language Models for inference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_much_vram_for_model_weights"><a class="anchor" href="#_how_much_vram_for_model_weights"></a>How Much VRAM for Model Weights?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first step in planning your hardware is calculating the VRAM needed to simply store the model&#8217;s weights. The required memory is determined by the model&#8217;s size (number of parameters) and its numerical precision. Using lower precision, like INT8 or INT4, can drastically reduce the memory footprint.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Estimated VRAM for Model Weights by Precision</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Model Size (Parameters)</th>
+<th class="tableblock halign-left valign-top">FP16 / BF16 VRAM</th>
+<th class="tableblock halign-left valign-top">INT8 VRAM</th>
+<th class="tableblock halign-left valign-top">INT4 VRAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~2 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~1 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~0.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~6 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~3 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~1.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>7 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~14 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~7 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~3.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>13 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~26 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~13 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~6.5 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>30 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~60 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~30 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~15 GB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>65 Billion</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~130 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~65 GB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~32.5 GB</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_beyond_weights_the_real_vram_consumers"><a class="anchor" href="#_beyond_weights_the_real_vram_consumers"></a>Beyond Weights: The Real VRAM Consumers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Model weights are just the baseline. Real-world inference requires budgeting for several other critical components that consume significant VRAM.</p>
+</div>
+<div class="sect2">
+<h3 id="_kv_cache"><a class="anchor" href="#_kv_cache"></a>KV Cache</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Memory Cost</dt>
+<dd>
+<p><strong>+100% or More</strong></p>
+</dd>
+<dt class="hdlist1">Description</dt>
+<dd>
+<p>This is memory used to store the attention keys and values for the tokens in the input sequence. The KV Cache is the <strong>largest source of overhead</strong> and its size grows linearly with the batch size and context length. For applications with long context windows or high batch throughput, the KV Cache can easily consume more memory than the model weights themselves.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cuda_system_overhead"><a class="anchor" href="#_cuda_system_overhead"></a>CUDA &amp; System Overhead</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Memory Cost</dt>
+<dd>
+<p><strong>+10-20%</strong></p>
+</dd>
+<dt class="hdlist1">Description</dt>
+<dd>
+<p>This overhead includes the memory consumed by the CUDA kernels that perform the computations, the framework libraries (like PyTorch and vLLM), and various system buffers. This is a fixed cost you pay just for having the inference environment loaded on the GPU.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_model_activations"><a class="anchor" href="#_model_activations"></a>Model Activations</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Memory Cost</dt>
+<dd>
+<p><strong>+1-2%</strong></p>
+</dd>
+<dt class="hdlist1">Description</dt>
+<dd>
+<p>These are the intermediate calculations that are stored during the model&#8217;s forward pass. While the memory impact is much smaller than the KV Cache, it is a non-zero factor that contributes to the total VRAM load.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_real_world_vram_equation"><a class="anchor" href="#_the_real_world_vram_equation"></a>The Real-World VRAM Equation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A more realistic way to think about your total memory requirement is with the following formula:</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Key Takeaway</div>
+<div class="paragraph">
+<p>A model&#8217;s sticker price in VRAM is not the final cost. A 7B parameter model might list a ~14 GB requirement for its FP16 weights, but with a large context window for the KV Cache, the <strong>actual VRAM requirement can easily exceed 24 GB</strong>. Always profile your specific use case; don&#8217;t just calculate based on weights.</p>
+</div>
+<div class="paragraph">
+<p>A simple mental model for total VRAM is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Total VRAM Needed ≈ (Model Weights VRAM) + (KV Cache VRAM) + (System Overhead)</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understanding_gpu_memory_allocation_during_inference"><a class="anchor" href="#_understanding_gpu_memory_allocation_during_inference"></a>Understanding GPU Memory Allocation During Inference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When running an AI model for inference, GPU memory is consumed by several components in addition to the model&#8217;s weights. Understanding these is crucial for accurately provisioning hardware and optimizing performance.</p>
+</div>
+<div class="sect2">
+<h3 id="_model_weights"><a class="anchor" href="#_model_weights"></a>Model Weights</h3>
+<div class="paragraph">
+<p>This is the most straightforward component. It&#8217;s the memory required to load the actual <strong>parameters</strong> of the neural network. The size is determined by the number of parameters and the precision used (e.g., a 7-billion-parameter model at half-precision (FP16) requires approximately 14 GB).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_key_value_kv_cache"><a class="anchor" href="#_key_value_kv_cache"></a>Key-Value (KV) Cache</h3>
+<div class="paragraph">
+<p>For autoregressive models like transformers (the basis for most LLMs), the <strong>Key-Value (KV) Cache</strong> is a major memory consumer. To generate a new token, the model must consider the tokens that came before it. Instead of recomputing this context for every new token, the model stores intermediate calculations—the "keys" and "values" from the attention mechanism—in the KV cache.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Why it&#8217;s important:</strong> It dramatically speeds up token generation after the initial prompt is processed.</p>
+</li>
+<li>
+<p><strong>Memory Impact:</strong> The size of the KV cache grows with the <strong>sequence length</strong> (prompt + generated tokens) and the <strong>batch size</strong> (number of simultaneous requests). For long contexts or high-volume services, the KV cache can often consume more memory than the model weights themselves.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_activations"><a class="anchor" href="#_activations"></a>Activations</h3>
+<div class="paragraph">
+<p>Activations are the <strong>intermediate outputs</strong> of a model&#8217;s layers as an input signal passes through the network. During inference, the GPU must hold the activations for the current input being processed. While these are transient and replaced with each new input, they still occupy a significant chunk of memory, especially for models with many layers or large hidden states.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_framework_and_execution_overhead"><a class="anchor" href="#_framework_and_execution_overhead"></a>Framework and Execution Overhead</h3>
+<div class="paragraph">
+<p>Additional memory is used by the underlying software and hardware systems to manage the inference process. This includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>CUDA Context:</strong> The NVIDIA driver and libraries require a certain amount of VRAM to initialize and manage the GPU.</p>
+</li>
+<li>
+<p><strong>Inference Engine Buffers:</strong> Frameworks like vLLM, TensorRT, or PyTorch allocate buffers to hold the input data, the final output, and other temporary tensors needed for computation.</p>
+</li>
+<li>
+<p><strong>Memory Fragmentation:</strong> Over time, memory can become fragmented, leaving small, unusable gaps between allocated blocks, which contributes to overall memory usage.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
