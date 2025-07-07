@@ -1,7 +1,0 @@
-= Jupyter Notebooks & LLMs
-
-This chapter begins with running and  configured OpenShift AI environment. If you don't already have your environment running, head over to OpenShift AI Initialization.  
-
-In section, we will explore using the Jupyter Notebook from our workbench to infer data from the Mistral and Llama3 Large Language Models. While less technical than previous sections of this hands-on course, there are some steps to download the Model when updating our notebook with an inference endpoints that requires code modifications. 
-
-Let's get started!

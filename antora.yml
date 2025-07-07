@@ -7,7 +7,5 @@ nav:
 - modules/model_sizing/nav.adoc
 - modules/rh_hg_ai/nav.adoc
 - modules/rhoai_deploy/nav.adoc
-- modules/rhoai_query/nav.adoc
-- modules/chapter9/nav.adoc
 - modules/appendix/nav.adoc
 - modules/LABENV/nav.adoc
