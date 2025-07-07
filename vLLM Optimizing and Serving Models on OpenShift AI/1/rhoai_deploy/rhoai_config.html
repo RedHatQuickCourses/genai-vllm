@@ -129,54 +129,16 @@
     <a class="nav-link" href="rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rhoai_model.html">Deploy Granite LLM on RHOAI</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section7.html">Using the AI Model for Summarization</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="add_runtime.html">vLLM Serving Runtime</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rhoai_query/index.html">Jupyter Notebooks &amp; LLMs</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rhoai_query/section1.html">Jupyter Notebooks</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rhoai_query/section2.html">Mistral LLM Model Inference</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rhoai_query/section3.html">Llama3 LLM Model Inference</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
+    <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
 </ul>
   </li>
@@ -487,23 +449,38 @@ spec:
 </div>
 </div>
 </details>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">== Interactive Demo: Project, Deployment, and Data Connection Walkthrough
-
-The following interactive demonstration will walk you through the process of:
-
- .  Creating a Data Science Project using the RHOAI dashboard.
- . Deploy MinIO on OpenShift as the S3 storage solution.
- .  Log into the MinIO UI and create storage buckets.
- .  Create new data connections for models and pipelines storage buckets.
- .  Setup a pipeline server in the data science project.
-
-Follow the on-screen prompts in the demo to complete configuiration process.
-
-++++
-&lt;iframe
-  src="https://demo.arcade.software/zXaporBqhNRPEkU7H47z?embed&amp;embed_mobile=inline&amp;embed_desktop=inline&amp;show_copy_link=true"
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interactive_demo_project_deployment_and_data_connection_walkthrough"><a class="anchor" href="#_interactive_demo_project_deployment_and_data_connection_walkthrough"></a>Interactive Demo: Project, Deployment, and Data Connection Walkthrough</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following interactive demonstration will walk you through the process of:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Creating a Data Science Project using the RHOAI dashboard.</p>
+</li>
+<li>
+<p>Deploy MinIO on OpenShift as the S3 storage solution.</p>
+</li>
+<li>
+<p>Log into the MinIO UI and create storage buckets.</p>
+</li>
+<li>
+<p>Create new data connections for models and pipelines storage buckets.</p>
+</li>
+<li>
+<p>Setup a pipeline server in the data science project.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Follow the on-screen prompts in the demo to complete configuiration process.</p>
+</div>
+<iframe
+  src="https://demo.arcade.software/zXaporBqhNRPEkU7H47z?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%"
   height="600px"
   frameborder="0"
@@ -511,11 +488,8 @@ Follow the on-screen prompts in the demo to complete configuiration process.
   webkitallowfullscreen
   mozallowfullscreen
   allow="clipboard-write"
-  muted&gt;
-&lt;/iframe&gt;
-++++</code></pre>
-</div>
-</div>
+  muted>
+</iframe>
 </div>
 </div>
 <nav class="pagination">

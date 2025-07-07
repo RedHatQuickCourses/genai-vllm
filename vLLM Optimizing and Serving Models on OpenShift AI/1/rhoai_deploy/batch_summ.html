@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Optional - RHOAI Self-Managed :: vLLM Optimizing and Serving Models on OpenShift AI</title>
-    <link rel="prev" href="index.html">
-    <link rel="next" href="rhoai_221.html">
+    <title>Using the AI Model for Batch Summarization :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="rhoai_query.html">
+    <link rel="next" href="../appendix/appendix.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -116,7 +116,7 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">OpenShift AI Configuration</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rhoai_self.html">Optional - RHOAI Self-Managed</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -137,7 +137,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
 </ul>
@@ -202,7 +202,7 @@
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
     <li><a href="index.html">OpenShift AI Configuration</a></li>
-    <li><a href="rhoai_self.html">Optional - RHOAI Self-Managed</a></li>
+    <li><a href="batch_summ.html">Using the AI Model for Batch Summarization</a></li>
   </ul>
 </nav>
 </div>
@@ -211,146 +211,183 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Optional - RHOAI Self-Managed</h1>
+<h1 class="page">Using the AI Model for Batch Summarization</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before proceeding with vLLM model deployment, it is necessary to prepare the lab environment. This section provides an overview of the setup for a self-managed Red Hat OpenShift AI instance, including the required dependent operators and the components for NVIDIA GPU hardware acceleration.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_red_hat_openshift_ai_installation"><a class="anchor" href="#_red_hat_openshift_ai_installation"></a>Red Hat OpenShift AI Installation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The foundation of our lab is a self-managed instance of Red Hat OpenShift AI. This platform provides the core services for deploying and managing machine learning models. A self-managed installation offers a comprehensive, hands-on understanding of the platform&#8217;s architecture.</p>
-</div>
-<div class="sect2">
-<h3 id="_required_operators"><a class="anchor" href="#_required_operators"></a>Required Operators</h3>
-<div class="paragraph">
-<p>OpenShift Operators are a fundamental component for managing the lifecycle of applications within the cluster. The installation of the primary <strong>Red Hat OpenShift AI Operator</strong> orchestrates the deployment of the platform.</p>
+<p>In this hands-on lab, you will use the OpenShift AI workbench and a Jupyter environment to perform a practical, real-world task: summarizing support tickets. This demonstrates how a Large Language Model (LLM) can be used in a batch-processing workflow to increase efficiency and speed up analysis.</p>
 </div>
 <div class="paragraph">
-<p>For the single-model serving capabilities used in this course, the following operators must also be present in the cluster. While the OpenShift AI operator often manages these dependencies, it is important to verify their installation.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>OpenShift Service Mesh Operator</strong>: Provides essential networking capabilities for secure and reliable communication between model serving microservices.</p>
-</li>
-<li>
-<p><strong>OpenShift Serverless Operator</strong>: Enables efficient resource utilization by allowing serving pods to scale based on demand, including scaling down to zero.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-while OpenShift AI can deploy and serve models without Authorino, it&#8217;s a required component specifically for the use case of providing secure, external access to those models.
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Red Hat Authorino Operator</strong>: Provides protection for deployed models through token-based authentication and authorization, enabling secure external access.</p>
-</li>
-</ul>
+<p>Within the Jupyter environment, you should have already cloned the <code>genai-apps</code> git repository. For this lab, you&#8217;ll navigate to the <code>genai-vllm</code> directory and open the <code>batch_summarize_query.ipynb</code> notebook.</p>
 </div>
 <div class="paragraph">
-<p>These operators are available for installation from the <strong>OperatorHub</strong> within the OpenShift web console.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_nvidia_gpu_hardware_acceleration"><a class="anchor" href="#_nvidia_gpu_hardware_acceleration"></a>NVIDIA GPU Hardware Acceleration</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To achieve high-performance model inference with vLLM, access to NVIDIA GPUs is required. Enabling GPU support in OpenShift involves two key operators that work together.</p>
-</div>
-<div class="sect2">
-<h3 id="_prerequisite_node_feature_discovery_operator"><a class="anchor" href="#_prerequisite_node_feature_discovery_operator"></a>Prerequisite: Node Feature Discovery Operator</h3>
-<div class="paragraph">
-<p>Before installing the main GPU operator, the <strong>Node Feature Discovery (NFD) Operator</strong> must be installed and running.</p>
-</div>
-<div class="paragraph">
-<p>The role of the NFD Operator is to detect hardware features and configurations across all nodes in the cluster. It then applies labels to each node based on the discovered hardware, such as the presence of a specific PCI device like an NVIDIA GPU. This labeling is what allows the NVIDIA GPU Operator to identify which nodes it needs to manage.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_nvidia_gpu_operator"><a class="anchor" href="#_nvidia_gpu_operator"></a>NVIDIA GPU Operator</h3>
-<div class="paragraph">
-<p>With the NFD Operator in place, you can then install the <strong>NVIDIA GPU Operator</strong>. This operator automates the complex process of configuring the GPU-enabled nodes that were previously identified and labeled by NFD. It manages all necessary NVIDIA software components, including drivers and the container runtime, simplifying the use of GPUs for AI workloads.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_installation_sequence"><a class="anchor" href="#_installation_sequence"></a>Installation Sequence</h3>
-<div class="paragraph">
-<p>The installation process for enabling GPU support follows this order:</p>
+<p>This notebook simulates a scenario where you have a folder of support tickets in JSON format. You&#8217;ll use your deployed model to automatically:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Install the Node Feature Discovery Operator</strong>: From the OperatorHub, install the NFD Operator first. After installation, you must create an instance of the <code>NodeFeatureDiscovery</code> custom resource (CR) to initiate the node scanning and labeling process.</p>
+<p>Read each ticket.</p>
 </li>
 <li>
-<p><strong>Install the NVIDIA GPU Operator</strong>: Once NFD is running, install the NVIDIA GPU Operator from the OperatorHub.</p>
+<p>Generate a concise, one-sentence summary of the issue.</p>
 </li>
 <li>
-<p><strong>Create a <code>ClusterPolicy</code></strong>: After the NVIDIA operator is installed, create a <code>ClusterPolicy</code> custom resource. This CR instructs the operator to begin the configuration of the GPU worker nodes. The default configuration is generally sufficient for standard lab environments.</p>
+<p>Suggest potential troubleshooting steps.</p>
+</li>
+<li>
+<p>Save this analysis to a new summary file.</p>
 </li>
 </ol>
 </div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_install_required_libraries"><a class="anchor" href="#_step_1_install_required_libraries"></a>Step 1: Install Required Libraries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first code cell ensures that the necessary Python packages are installed in your workbench environment. It uses the <code>%pip</code> command to install <strong>langchain-openai</strong>, which helps in interacting with the model, and <strong>httpx</strong>, which handles the underlying API requests.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_imports_and_configuration"><a class="anchor" href="#_step_2_imports_and_configuration"></a>Step 2: Imports and Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The next cell imports the required libraries and, most importantly, configures the connection to your deployed model. <strong>This is the primary section you will need to edit.</strong></p>
+</div>
+<div class="sect2">
+<h3 id="_action_required_configure_connection_variables"><a class="anchor" href="#_action_required_configure_connection_variables"></a>Action Required: Configure Connection Variables</h3>
+<div class="paragraph">
+<p>To connect to your model, you must provide three key pieces of information. This design allows you to easily reuse the notebook to test and compare the summarization capabilities of different models using the same set of sample tickets.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>BASE_URL</code>: Set this to the <strong>Inference endpoint</strong> URL from your model&#8217;s deployment page.</p>
+</li>
+<li>
+<p><code>API_KEY</code>: Set this to the <strong>Authentication Token</strong> for your deployed model.</p>
+</li>
+<li>
+<p><code>MODEL_NAME</code>: Set this to the name you gave your deployment in OpenShift AI (e.g., "granite-model").</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># --- ❗ACTION REQUIRED: REPLACE VALUES BELOW ❗---
+
+# Model and Connection Details
+MODEL_NAME = "granite" # The name of your model deployment
+BASE_URL = "https://your-model-inference-url.apps.cluster.com/v1" # Replace with your Inference Endpoint
+API_KEY = "sha256~your-long-authentication-token" # Replace with your Authentication Token
+
+# -----------------------------------------------------
+
+# Directory and File Handling Configuration
+INPUT_FOLDER = "support_tickets"
+# This is the key in the JSON file that contains the main ticket text.
+JSON_TICKET_KEY = "issue_description"</code></pre>
+</div>
+</div>
+<hr>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_the_data_science_cluster"><a class="anchor" href="#_create_the_data_science_cluster"></a>Create the Data Science Cluster</h2>
+<h2 id="_step_3_prepare_sample_data"><a class="anchor" href="#_step_3_prepare_sample_data"></a>Step 3: Prepare Sample Data</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After the Red Hat OpenShift AI Operator is installed, you must create a <strong>Data Science Cluster (DSC)</strong> to deploy the platform&#8217;s services.</p>
+<p>This cell makes the lab self-contained by programmatically creating a <code>support_tickets</code> directory and populating it with two sample tickets in <code>.json</code> format. While the provided git repository contains 15 tickets, this cell overwrites the first two as a demonstration.</p>
 </div>
 <div class="paragraph">
-<p>A <code>DataScienceCluster</code> is a Custom Resource that defines the configuration for your OpenShift AI instance. By editing its YAML manifest (often named <code>dsc.yaml</code>), you can control which components are managed by the operator and customize their settings.</p>
+<p>This serves as a useful example of how data can be generated or prepared directly within a notebook for testing purposes.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_4_initialize_the_llm_client"><a class="anchor" href="#_step_4_initialize_the_llm_client"></a>Step 4: Initialize the LLM Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This cell takes the configuration variables you set in Step 2 and creates the <code>ChatOpenAI</code> client. Note the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>temperature=0.1</code></strong>: A low temperature encourages the model to provide more factual and deterministic responses, which is ideal for a support context.</p>
+</li>
+<li>
+<p><strong><code>http_client=httpx.Client(verify=False)</code></strong>: This setting disables SSL verification and is often necessary for lab environments that use self-signed certificates.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_5_define_the_core_processing_function"><a class="anchor" href="#_step_5_define_the_core_processing_function"></a>Step 5: Define the Core Processing Function</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This cell contains the <code>analyze_and_summarize_ticket</code> function, which is the "brains" of the operation. This is where the <strong>prompt engineering</strong> happens.</p>
 </div>
 <div class="paragraph">
-<p>For this lab, we will create a default instance.</p>
+<p>The prompt is a multi-line string that gives the LLM its persona ("You are a senior support engineer") and a clear, structured set of tasks:
+1. Provide a one-sentence summary.
+2. List potential troubleshooting steps.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_6_run_the_batch_process"><a class="anchor" href="#_step_6_run_the_batch_process"></a>Step 6: Run the Batch Process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This cell executes the main processing loop. When run, the code will:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Navigate to the <strong>Installed Operators</strong> section in the OpenShift console.</p>
+<p>Find all <code>.json</code> files in the <code>support_tickets</code> directory.</p>
 </li>
 <li>
-<p>Click on the <strong>Red Hat OpenShift AI</strong> operator.</p>
+<p>Loop through each file, printing its name as it processes.</p>
 </li>
 <li>
-<p>Select the <strong>Data Science Cluster</strong> tab.</p>
+<p>Call the analysis function from Step 5 for each ticket.</p>
 </li>
 <li>
-<p>Click <strong>Create DataScienceCluster</strong>.</p>
-</li>
-<li>
-<p>Accept the default configuration by clicking <strong>Create</strong>.</p>
+<p>Save the model&#8217;s response to a new <code>_summary.txt</code> file in the same directory.</p>
 </li>
 </ol>
 </div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_7_verify_the_output"><a class="anchor" href="#_step_7_verify_the_output"></a>Step 7: Verify the Output</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The deployment process will take approximately 5-10 minutes. Once the <code>Ready</code> status is shown for the DSC, you can access the <strong>Red Hat OpenShift AI</strong> dashboard from the application launcher in the OpenShift console&#8217;s top bar.</p>
+<p>The final cell is for verification. It lists the contents of the <code>support_tickets</code> directory so you can see the newly created summary files. It then prints the content of the first summary file (<code>ticket_001_summary.txt</code>) to confirm that the entire workflow was successful.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_arcade_interactive_experience_installation_of_rhoai_v2_18"><a class="anchor" href="#_arcade_interactive_experience_installation_of_rhoai_v2_18"></a>Arcade Interactive Experience - Installation of RHOAI v2.18</h2>
+<h2 id="_interactive_demo_query_a_machine_learning_model_from_a_jupyter_notebook"><a class="anchor" href="#_interactive_demo_query_a_machine_learning_model_from_a_jupyter_notebook"></a>Interactive Demo: Query a Machine Learning Model from a Jupyter Notebook</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The following interactive demonstration will walk you through the process of:
+1.  Simulating summarization of support tickets use case
+3.  Replace URL ENDPOINT, MODEL_NAME, and API TOKEN in the example notebook.
+4.  Experimentation with various prompts to see how the model responds.</p>
+</div>
+<div class="paragraph">
+<p>Follow the on-screen prompts in the demo to complete the model deployment.</p>
+</div>
 <iframe
-  src="https://demo.arcade.software/lie2H2wlw0aDEaR7Q4D5?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  src="https://demo.arcade.software/kfx35IMXnxrklUUmNwlT?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%"
   height="600px"
   frameborder="0"
@@ -360,15 +397,11 @@ while OpenShift AI can deploy and serve models without Authorino, it&#8217;s a r
   allow="clipboard-write"
   muted>
 </iframe>
-<hr>
-<div class="paragraph">
-<p>With these foundational components configured, the OpenShift AI environment is prepared for deploying models with the vLLM serving runtime.</p>
-</div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">OpenShift AI Configuration</a></span>
-  <span class="next"><a href="rhoai_221.html">Lab Environment Customization</a></span>
+  <span class="prev"><a href="rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
 </nav>
 </article>
   </div>

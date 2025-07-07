@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>vLLM Serving Runtime :: vLLM Optimizing and Serving Models on OpenShift AI</title>
-    <link rel="prev" href="section7.html">
-    <link rel="next" href="../rhoai_query/index.html">
+    <link rel="prev" href="rhoai_bench.html">
+    <link rel="next" href="rhoai_model.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -128,6 +128,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
   </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="add_runtime.html">vLLM Serving Runtime</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rhoai_model.html">Deploy Granite LLM on RHOAI</a>
   </li>
@@ -135,48 +138,7 @@
     <a class="nav-link" href="rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section7.html">Using the AI Model for Summarization</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="add_runtime.html">vLLM Serving Runtime</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rhoai_query/index.html">Jupyter Notebooks &amp; LLMs</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rhoai_query/section1.html">Jupyter Notebooks</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rhoai_query/section2.html">Mistral LLM Model Inference</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rhoai_query/section3.html">Llama3 LLM Model Inference</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
+    <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
 </ul>
   </li>
@@ -250,11 +212,21 @@
 </aside>
 <article class="doc">
 <h1 class="page">vLLM Serving Runtime</h1>
-<div class="sect1">
-<h2 id="_model_serving_runtimes"><a class="anchor" href="#_model_serving_runtimes"></a>Model Serving Runtimes</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A model-serving runtime provides integration with a specified model server and the model frameworks that it supports. By default, Red Hat OpenShift AI v2.21 includes the following model serving runtimes:</p>
+<p>A model-serving runtime provides the necessary integration between Red Hat OpenShift AI and a specific model server. Before deploying our model, we must ensure the <strong>vLLM NVIDIA GPU ServingRuntime</strong> is available in our environment.</p>
+</div>
+<div class="paragraph">
+<p>This page outlines the runtimes included in a recent version of OpenShift AI and provides instructions to add the vLLM runtime manually if you are using an older version.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_default_model_serving_runtimes"><a class="anchor" href="#_default_model_serving_runtimes"></a>Default Model Serving Runtimes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, a modern version of Red Hat OpenShift AI (like v2.21) includes several powerful runtimes out-of-the-box:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -279,7 +251,7 @@
 <p>Caikit Standalone ServingRuntime for KServe</p>
 </li>
 <li>
-<p>Caikit TGIS ServingRuntime  for KServe</p>
+<p>Caikit TGIS ServingRuntime for KServe</p>
 </li>
 <li>
 <p>vLLM NVIDIA GPU ServingRuntime for KServe</p>
@@ -293,22 +265,13 @@
 <li>
 <p>vLLM CPU ServingRuntime for KServe</p>
 </li>
-<li>
-<p>Hugging Face Detector ServingRuntime for KServe</p>
-</li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>However, if these runtimes do not meet your needs (if they don&#8217;t support a particular model framework, for example), you might want to add your own custom runtimes.</p>
-</div>
-<div class="paragraph">
-<p>As an administrator, you can use the OpenShift AI interface to add and enable custom model-serving runtimes. You can then choose from your enabled runtimes when you create a new model server.</p>
-</div>
-<div class="paragraph">
-<p>This exercise will guide you through the steps necessary to deploy a custom Serving Runtime in order to serve a model using the vLLM Serving Framework.</p>
+<p>If the <strong>vLLM NVIDIA GPU ServingRuntime for KServe</strong> is already available when you go to deploy a model, you do not need to complete the following exercise and can proceed to the next section.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -318,7 +281,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>While RHOAI supports the ability to add your own runtime, it is up to you to configure, adjust, and maintain your custom runtimes.</p>
+<p>While OpenShift AI supports the ability to add your own runtime, you are responsible for configuring, adjusting, and maintaining any custom runtimes you deploy.</p>
 </div>
 </td>
 </tr>
@@ -327,46 +290,60 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_the_vllm_custom_runtime"><a class="anchor" href="#_add_the_vllm_custom_runtime"></a>Add The vLLM Custom Runtime</h2>
+<h2 id="_exercise_add_the_vllm_custom_runtime"><a class="anchor" href="#_exercise_add_the_vllm_custom_runtime"></a>Exercise: Add the vLLM Custom Runtime</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
+<div class="paragraph">
+<p>If your environment does not include the vLLM runtime by default, this exercise will guide you through the steps to add it as a custom runtime.</p>
+</div>
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If you are using OpenShift AI v2.21, then adding this runtime will fail as OpenShift AI already includes this exact version available.
+<div class="paragraph">
+<p>If you are using OpenShift AI v2.21 or newer, adding this runtime using the exact name below will fail, as it is already built-in. This exercise is intended for older versions.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/ollama_runtime.gif" alt="ollama runtime" width="640">
-</div>
-<div class="title">Figure 1. Animated - Add vLLM serving runtime</div>
-</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Log in to RHOAI with a user who is part of the RHOAI admin group, for this lab we will be using the admin account.</p>
+<p>Log in to the OpenShift AI dashboard with an administrator account.</p>
 </li>
 <li>
-<p>In the RHOAI Console, Navigate to the Settings menu, then select Serving Runtimes</p>
+<p>In the left navigation menu, navigate to <strong>Settings</strong> &#8594; <strong>Serving runtimes</strong>.</p>
 </li>
 <li>
-<p><strong>Select:</strong> the <strong>Add Serving Runtime</strong> button</p>
+<p>Click the <strong>Add serving runtime</strong> button.</p>
 </li>
 <li>
-<p>For the model serving platform runtime, <strong>select: Single-Model Serving Platform</strong></p>
+<p>On the "Add model-serving runtime" page, make the following selections:</p>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Model-serving platform:</strong> Select <strong>Single-model serving platform</strong>.</p>
 </li>
 <li>
-<p>For API protocol this runtime supports, <strong>select: REST</strong></p>
+<p><strong>API protocol:</strong> Select <strong>REST</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </li>
 <li>
-<p><strong>Click on: Start from scratch</strong> in the window that opens up, paste the following YAML</p>
+<p>Click the <strong>Start from scratch</strong> radio button.</p>
+</li>
+<li>
+<p>In the YAML editor that appears, paste the following configuration:</p>
 <div class="listingblock">
+<div class="title">vllm-servingruntime.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Filename: vllm-servingruntime.yaml
 apiVersion: serving.kserve.io/v1alpha1
@@ -405,22 +382,25 @@ spec:
 </div>
 </li>
 <li>
-<p>After clicking the <strong>Create</strong> button at the bottom of the input area, you will see the new vllm-cuda-runtime-example in the list. We can re-order the list as needed (the order chosen here is the order in which the users will see these choices).</p>
+<p>After pasting the YAML, click the <strong>Create</strong> button.</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>You will now see the new <strong>vLLM (NVIDIA GPU)</strong> runtime in the list of available serving runtimes.</p>
+</div>
 <hr>
 <div class="paragraph">
-<p>The next step is to create a <strong>Data Connection</strong> in our Data Science Project.  Before we can create our Data Connection, we will setup MinIO as our S3 compatible storage for this Lab.</p>
+<p>With the vLLM runtime now available in your cluster, the next step is to configure a storage location for our models. We will use MinIO, an S3-compatible object store, for this lab.</p>
 </div>
 <div class="paragraph">
-<p>Continue to the next section to deploy and configure Minio.</p>
+<p>Continue to the next section to deploy and configure MinIO.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section7.html">Using the AI Model for Summarization</a></span>
-  <span class="next"><a href="../rhoai_query/index.html">Jupyter Notebooks &amp; LLMs</a></span>
+  <span class="prev"><a href="rhoai_bench.html">Creating the AI Workbench and Preparing Models</a></span>
+  <span class="next"><a href="rhoai_model.html">Deploy Granite LLM on RHOAI</a></span>
 </nav>
 </article>
   </div>
