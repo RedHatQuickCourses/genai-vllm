@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Llama3 LLM Model Inference :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="section2.html">
+    <link rel="next" href="../appendix/appendix.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="vLLM Optimizing and Serving Models on OpenShift AI" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM, What is it?</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/rh_ai.html">Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">vLLM on Red Hat OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">Summary: Key Takeaways and Next Steps</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">NVIDIA GPU Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/vram_calc.html">Cost-Effective Model Selection</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">Generative AI Model Variations in Model Naming</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Pre-Selected Course Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/summary.html">From Curation to Confident Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Jupyter Notebooks &amp; LLMs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Jupyter Notebooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">Mistral LLM Model Inference</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section3.html">Llama3 LLM Model Inference</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">Jupyter Notebooks &amp; LLMs</a></li>
+    <li><a href="section3.html">Llama3 LLM Model Inference</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Llama3 LLM Model Inference</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Ollama Model Runtime we deployed using the Single Model Serving Platform in OpenShift AI is a framework that can host various large language models. You can view the available models in <a href="https://ollama.com/library">the ollama library here.</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_switch_to_the_llama3_large_language_model"><a class="anchor" href="#_lab_switch_to_the_llama3_large_language_model"></a>Lab: Switch to the Llama3 large language model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Meta Llama 3, a family of models developed by Meta Inc. are new state-of-the-art , available in both 8B and 70B parameter sizes (pre-trained or instruction-tuned).</p>
+</div>
+<div class="paragraph">
+<p>Llama 3 instruction-tuned models are fine-tuned and optimized for dialogue/chat use cases and outperform many of the available open-source chat models on common benchmarks.</p>
+</div>
+<div class="paragraph">
+<p>In this Lab, we experiment with a quantized version of the base Llama3 model</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_delete_existing_deployed_model"><a class="anchor" href="#_delete_existing_deployed_model"></a>Delete existing deployed model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Return to the OpenShift AI Dashboard and ollama-model workbench</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Head to the Model section of the workbench</p>
+</li>
+<li>
+<p>To the right of the ollama-mistral model there are three stacked dots, select the dots, then delete from the menu</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/model_deletion.png" alt="model deletion" width="640">
+</div>
+</div>
+</li>
+<li>
+<p>You need to type in the <strong>ollama-mistral</strong> model name to confirm the deletion.</p>
+</li>
+<li>
+<p>No need to wait, continue onto the next section.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_the_model_server"><a class="anchor" href="#_creating_the_model_server"></a>Creating The Model Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the ollama-model WorkBench Dashboard in the ollama-model project, navigate to the <strong>Models</strong> section, and select Deploy Model.</p>
+</div>
+<div class="paragraph">
+<p><strong>Create the model server with the following values:</strong></p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Model name: <code>ollama-llama3</code></p>
+</li>
+<li>
+<p>Serving Runtime: <code>Ollama</code></p>
+</li>
+<li>
+<p>Model framework: <code>Any</code></p>
+</li>
+<li>
+<p>Model Server Size: <code>Medium</code></p>
+</li>
+<li>
+<p>Model location data connection: <code>models</code></p>
+</li>
+<li>
+<p>Model location path: <code>/ollama</code></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/deploy_llama3_model.png" alt="deploy llama3 model" width="640">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/deploy_llama3_model2.png" alt="deploy llama3 model2" width="640">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After clicking the <strong>Deploy</strong> button at the bottom of the form, the model is added to our <strong>Models &amp; Model Server list</strong>.  When the model is available, the inference endpoint will populate &amp; the status will indicate a green checkmark.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/copy_llama3_endpoint.png" alt="copy llama3 endpoint" width="640">
+</div>
+</div>
+<div class="paragraph">
+<p>Copy the <strong>Inference endpoint</strong> for the newly deployed model, we need to replace the original inference endpoints used in our notebook&#8217;s top two cells.</p>
+</div>
+<div class="sect2">
+<h3 id="_update_the_inference_endpoints_change_the_model_name"><a class="anchor" href="#_update_the_inference_endpoints_change_the_model_name"></a>Update the inference endpoints &amp; change the model name</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Return to the jupyter notebook</p>
+</li>
+<li>
+<p>Replace the both previous inference endpoints with the ollama-llama3 endpoint url.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/llama3_url.png" alt="llama3 url" width="800">
+</div>
+</div>
+</li>
+<li>
+<p>In the python code cell, or first cell under <strong>set the inference server url heading.</strong> We need to change the name of the large language model in the json_data section from "mistral" to <strong>"llama3"</strong></p>
+</li>
+<li>
+<p>The final edit we need to change is to rename mistal to llama3 in the <strong>create the llm instance</strong> cell</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/llama3_llm.png" alt="llama3 llm" width="400">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_execute_the_cells_again"><a class="anchor" href="#_execute_the_cells_again"></a>Execute the cells again</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>We can now start executing the code in the cells, beginning from the top at Set inference server cell.  Click to the left of the cell to activate the orange indicator next to the cell.  Orange indicates the cell code has been modified, blue will still highlight for unmodified cells.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>You will again receive the message about an unverified HTTPs request. This is because we didn’t use authentication for this application.</p>
+</li>
+<li>
+<p>The <strong>llama3</strong> model files are now being downloaded to the Ollama Framework.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Continue executing the cells in the notebook.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When you arrive at the "Let&#8217;s Talk" cells, re-read the mistral responses before executing the cells as answers will replaced with the llama3 responses.</p>
+</div>
+<div class="paragraph">
+<p>When you reach the bottom of the notebook, feel free to experiment with the Llama3 model by creating your own more complex prompts.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_experiment_with_llama3"><a class="anchor" href="#_experiment_with_llama3"></a>Experiment with Llama3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Instead of editing the questions try experimenting with system prompt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>edit the <strong>create the prompt</strong> cell system message to alter the personality of the large language model responses.  Instruct the model to:  use humor, respond like I&#8217;m five years old, or perhaps like an historian.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Try adjusting the top_p, temperature, repeat penalty values in the <strong>"create an LLM instance"</strong>  cell</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Edit the <strong>create the LLM instance</strong> cell to adjust the values set for the model tuning parameters to explore the difference in answers.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Deploy a different large language model</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Vist the <a href="https://ollama.com/library">Ollama Model Library</a> and deploy a new model on your own. Perhaps the <strong>granite-code</strong> model from IBM for code intelligence.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once you complete your learning, don&#8217;t forget to return to Red Hat Demo Hub to stop the environment if you plan to return. Delete the environment when you&#8217;re finished.</p>
+</div>
+<div class="paragraph">
+<p>Thanks for completing this course!</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section2.html">Mistral LLM Model Inference</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
