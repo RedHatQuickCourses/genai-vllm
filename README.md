@@ -1,60 +1,74 @@
-## Getting started with a new training content repository
+## vLLM on OpenShift AI Course
 
-- Open the [course-starter-template](https://github.com/RedHatQuickCourses/course-starter-template)
+Welcome to the vLLM on OpenShift AI course! This repository contains the instructional materials and lab exercises for deploying and managing large language models (LLMs) with vLLM on the Red Hat OpenShift AI platform. This course is designed for AI platform engineers and consultants who are focused on delivering AI incubator projects and production-ready services.
 
-- Click on `Use This template` button and select `Create a new repository` option.
+The content is authored in AsciiDoc and organized using Antora to create a user-friendly and interactive learning experience on our website.
 
-![use-this-template.png](./images/use-this-template.png)
+-----
 
-- On `Create a new repository` page, Select the options as highlighted in the below image and then click `Create repository` button at the bottom of the page.
+## Course Overview
 
-![create-new-repo.png](./images/create-new-repo.png)
+This course provides a comprehensive guide to leveraging vLLM for efficient LLM serving on OpenShift AI. You will learn the core concepts of vLLM, including its key features like PagedAttention and continuous batching, and how these translate to significant performance improvements and cost savings in your AI/ML workloads.
 
-- Clone this repository on your local system:
-```
-git clone git@github.com:RedHatQuickCourses/my-training-repository.git
-```
-NOTE: Use your repository url in the above command.
+Through a combination of theoretical lessons and hands-on labs, you will gain practical experience in deploying and managing LLMs on OpenShift AI using vLLM.
 
-- Go in to the course repository directory and initialize the course.
-``` 
-cd my-training-repository/
-sh course-init.sh --type bfx --lab demo
-```
-NOTE: If you are using Mac, use *zsh* in place of *sh* in the above command.
+-----
 
-Sample output:
-```
-Initializing my-training-repository . . . done
+## Target Audience
 
-Please replace the specified strings in the files below and commit the changes before proceeding with the course development.
-antora.yml:title: REPLACE Course Title
-```
+  * **AI Platform Engineers:** Professionals responsible for building and maintaining the infrastructure for AI/ML model deployment and serving.
+  * **AI/ML Consultants:** Consultants working with customers to design and implement AI solutions, from proof-of-concept to production.
 
-- Edit the files prompted by course initialization script.
+-----
 
-- Commit the changes done by course initialization script and your manual edits.
-```
- git status 
- git add -A; git commit -m "course initialization"
- git push origin main 
-```
+## Learning Objectives
 
-- Browse your git repository url 
+Upon completion of this course, you will be able to:
 
-- On your github repo page, on left hand side pane, click on settings gear icon near `About` heading.
+  * Understand the architecture and core features of vLLM.
+  * Articulate the benefits of using vLLM for LLM inference, such as increased throughput and reduced latency.
+  * Deploy and configure the vLLM serving runtime on OpenShift AI.
+  * Serve various open-source LLMs using the vLLM server.
+  * Interact with deployed LLMs through an OpenAI-compatible API.
+  * Performance test LLM services effectively on OpenShift AI using GuideLLM
 
-- Click `Use your GitHub Pages website` option to select (checked) it and then click `Save changes` button.
+-----
 
-![github-pages-setting](./images/github-pages-setting.png)
+## Course Structure
 
-- You should now see the link to access the rendered content within that same block.
+The course materials are organized into modules, each covering a specific aspect of using vLLM on OpenShift AI. The content is structured for a seamless learning path, from foundational concepts to advanced deployment strategies.
 
-![quickcourse-rendered-url](./images/quickcourse-rendered-url.png)
+All course documentation is written in AsciiDoc and built into a static website using Antora.
 
-FIXME: highlight the relevant area on images.
+### To build the documentation locally:
 
-**SEE ALSO**
+1.  Clone this repository:
+    ```bash
+    git clone <repository-url>
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd <project-directory>
+    ```
+3.  Ensure you have Node.js and Antora installed. If not, follow the instructions on the [Antora website](https://antora.org/).
+4.  Build the site:
+    ```bash
+    antora antora-playbook.yml
+    ```
+5.  The generated documentation will be in the `build/site` directory.
 
-- [Development using devspace](./DEVSPACE.md)
-- [Guideline for editing your content](./USAGEGUIDE.adoc)
+-----
+
+## Labs
+
+The hands-on labs are a crucial component of this course. You will find detailed instructions and all necessary files within the `genai-apps repository` for the respective modules. These labs will guide you through the practical steps of deploying and interacting with LLMs using vLLM on an OpenShift AI environment.
+
+-----
+
+## Contributing
+
+We welcome contributions to improve this course\! If you find any issues, have suggestions for improvements, or would like to add new content, please feel free to open an issue or submit a pull request.
+
+-----
+
+We hope you find this course valuable in your journey to mastering LLM deployment with vLLM on OpenShift AI. Let's get started\!
