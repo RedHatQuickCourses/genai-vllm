@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: genai-vllm
+  name: REPLACEREPONAME-dev
   displayName: RHOAI Quick Course
   description: RHOAI Quick Course published using Antora
   icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg

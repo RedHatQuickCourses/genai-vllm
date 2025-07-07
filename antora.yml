@@ -1,4 +1,4 @@
-name: vLLM Optimizing and Serving Models on OpenShift AI
+name: genai-vllm
 title: vLLM Optimizing and Serving Models on OpenShift AI
 version: 1
 nav:
