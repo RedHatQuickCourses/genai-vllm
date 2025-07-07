@@ -162,20 +162,25 @@ spec:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
 # --- End of MinIO Deployment YAML ---
-====
 ```
+====
+
+
+
 
 == Interactive Demo: Project, Deployment, and Data Connection Walkthrough
 
 The following interactive demonstration will walk you through the process of:
 
  .  Creating a Data Science Project using the RHOAI dashboard.
- . Deploy MinIO on OpenShift as the S3 storage solution.
+ .  Deploy MinIO on OpenShift as the S3 storage solution.
  .  Log into the MinIO UI and create storage buckets. 
  .  Create new data connections for models and pipelines storage buckets.
  .  Setup a pipeline server in the data science project. 
 
 Follow the on-screen prompts in the demo to complete configuiration process.
+
+
 
 ++++
 <iframe

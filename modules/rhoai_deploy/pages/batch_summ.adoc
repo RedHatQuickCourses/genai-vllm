@@ -1,0 +1,111 @@
+= Using the AI Model for Batch Summarization
+
+In this hands-on lab, you will use the OpenShift AI workbench and a Jupyter environment to perform a practical, real-world task: summarizing support tickets. This demonstrates how a Large Language Model (LLM) can be used in a batch-processing workflow to increase efficiency and speed up analysis.
+
+Within the Jupyter environment, you should have already cloned the `genai-apps` git repository. For this lab, you'll navigate to the `genai-vllm` directory and open the `batch_summarize_query.ipynb` notebook.
+
+This notebook simulates a scenario where you have a folder of support tickets in JSON format. You'll use your deployed model to automatically:
+
+. Read each ticket.
+. Generate a concise, one-sentence summary of the issue.
+. Suggest potential troubleshooting steps.
+. Save this analysis to a new summary file.
+
+---
+== Step 1: Install Required Libraries
+
+The first code cell ensures that the necessary Python packages are installed in your workbench environment. It uses the `%pip` command to install **langchain-openai**, which helps in interacting with the model, and **httpx**, which handles the underlying API requests.
+
+---
+== Step 2: Imports and Configuration
+
+The next cell imports the required libraries and, most importantly, configures the connection to your deployed model. **This is the primary section you will need to edit.**
+
+=== Action Required: Configure Connection Variables
+
+To connect to your model, you must provide three key pieces of information. This design allows you to easily reuse the notebook to test and compare the summarization capabilities of different models using the same set of sample tickets.
+
+* `BASE_URL`: Set this to the **Inference endpoint** URL from your model's deployment page.
+* `API_KEY`: Set this to the **Authentication Token** for your deployed model.
+* `MODEL_NAME`: Set this to the name you gave your deployment in OpenShift AI (e.g., "granite-model").
+
+[source,python]
+----
+# --- ❗ACTION REQUIRED: REPLACE VALUES BELOW ❗---
+
+# Model and Connection Details
+MODEL_NAME = "granite" # The name of your model deployment
+BASE_URL = "https://your-model-inference-url.apps.cluster.com/v1" # Replace with your Inference Endpoint
+API_KEY = "sha256~your-long-authentication-token" # Replace with your Authentication Token
+
+# -----------------------------------------------------
+
+# Directory and File Handling Configuration
+INPUT_FOLDER = "support_tickets"
+# This is the key in the JSON file that contains the main ticket text.
+JSON_TICKET_KEY = "issue_description"
+----
+
+---
+== Step 3: Prepare Sample Data
+
+This cell makes the lab self-contained by programmatically creating a `support_tickets` directory and populating it with two sample tickets in `.json` format. While the provided git repository contains 15 tickets, this cell overwrites the first two as a demonstration.
+
+This serves as a useful example of how data can be generated or prepared directly within a notebook for testing purposes.
+
+---
+== Step 4: Initialize the LLM Client
+
+This cell takes the configuration variables you set in Step 2 and creates the `ChatOpenAI` client. Note the following parameters:
+
+* **`temperature=0.1`**: A low temperature encourages the model to provide more factual and deterministic responses, which is ideal for a support context.
+* **`http_client=httpx.Client(verify=False)`**: This setting disables SSL verification and is often necessary for lab environments that use self-signed certificates.
+
+---
+== Step 5: Define the Core Processing Function
+
+This cell contains the `analyze_and_summarize_ticket` function, which is the "brains" of the operation. This is where the **prompt engineering** happens.
+
+The prompt is a multi-line string that gives the LLM its persona ("You are a senior support engineer") and a clear, structured set of tasks:
+1. Provide a one-sentence summary.
+2. List potential troubleshooting steps.
+
+---
+== Step 6: Run the Batch Process
+
+This cell executes the main processing loop. When run, the code will:
+
+1. Find all `.json` files in the `support_tickets` directory.
+2. Loop through each file, printing its name as it processes.
+3. Call the analysis function from Step 5 for each ticket.
+4. Save the model's response to a new `_summary.txt` file in the same directory.
+
+---
+== Step 7: Verify the Output
+
+The final cell is for verification. It lists the contents of the `support_tickets` directory so you can see the newly created summary files. It then prints the content of the first summary file (`ticket_001_summary.txt`) to confirm that the entire workflow was successful.
+
+
+== Interactive Demo: Query a Machine Learning Model from a Jupyter Notebook
+
+The following interactive demonstration will walk you through the process of:
+1.  Simulating summarization of support tickets use case
+3.  Replace URL ENDPOINT, MODEL_NAME, and API TOKEN in the example notebook.
+4.  Experimentation with various prompts to see how the model responds.
+
+Follow the on-screen prompts in the demo to complete the model deployment. 
+
+
+++++
+<iframe 
+  src="https://demo.arcade.software/kfx35IMXnxrklUUmNwlT?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
