@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Intro Quantization Strategies :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="model_types.html">
+    <link rel="next" href="lab_models.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-vllm" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM and Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">vLLM Technical Deep Dive and Advanced Capabilities</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model_types.html">The Red Hat AI Validated Model Repository</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="val_models.html">Intro Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="lab_models.html">Granite Models</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Performance Benchmarking with GuideLLM</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">Red Hat AI Model Repository</a></li>
+    <li><a href="val_models.html">Intro Quantization Strategies</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Intro Quantization Strategies</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quantization Strategies for Cost-Effective AI Deployment</p>
+</div>
+<div class="paragraph">
+<p>Model selection and deployment on OpenShift AI are heavily influenced by <strong>quantization strategies</strong>, which are central to optimizing LLM inference, especially in enterprise environments where cost-efficiency is paramount.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_quantization_and_why_is_it_important"><a class="anchor" href="#_what_is_quantization_and_why_is_it_important"></a>What is Quantization and Why is it Important?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Quantization is a critical optimization technique</strong> that involves <strong>reducing the numerical precision of model weights and/or activations</strong>. Typically, this means converting from higher-precision floating-point formats (like FP32 or FP16) to lower-bit representations (such as FP8, INT8, or INT4).</p>
+</div>
+<div class="paragraph">
+<p>Its core importance lies in its ability to <strong>fit powerful models onto cost-effective hardware</strong> by significantly reducing memory footprint and potentially increasing inference speed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understanding_quantization_naming_conventions"><a class="anchor" href="#_understanding_quantization_naming_conventions"></a>Understanding Quantization Naming Conventions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When navigating the Red Hat AI repository, you will encounter standardized suffixes in model names that indicate their quantization precision:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>.w4a16</code></strong>: This denotes that the model&#8217;s <strong>w</strong>eights are quantized to 4-bit integers, while the <strong>a</strong>ctivations (in-flight calculations) are processed at 16-bit precision (FP16/BF16). This is a common "weight-only" quantization scheme.</p>
+</li>
+<li>
+<p><strong><code>.w8a8</code></strong>: Both the model&#8217;s <strong>w</strong>eights and <strong>a</strong>ctivations are processed at 8-bit integer precision.</p>
+</li>
+<li>
+<p><strong><code>.FP8</code> or <code>.FP8-dynamic</code></strong>: The model leverages the 8-bit floating-point format, often with dynamic scaling to maintain accuracy.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_performance_vs_accuracy_trade_off_and_hardware_alignment"><a class="anchor" href="#_performance_vs_accuracy_trade_off_and_hardware_alignment"></a>Performance vs. Accuracy Trade-Off and Hardware Alignment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There is no single "best" quantization level; the optimal choice depends on balancing performance, accuracy, and cost for a specific use case. A <strong>hardware-aware strategy is essential</strong> to align the model’s quantization with the GPU’s native capabilities. This strategic alignment allows for the efficient use of both <strong>existing hardware or newly acquired hardware</strong> for on-premises deployments, which directly contributes to a lower Total Cost of Ownership.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s a breakdown of common quantization strategies and their implications:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Quantization Strategy Comparison</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Precision</th>
+<th class="tableblock halign-left valign-top">Best For</th>
+<th class="tableblock halign-left valign-top">Hardware Alignment</th>
+<th class="tableblock halign-left valign-top">Accuracy Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>FP16 / BF16</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest accuracy, baseline performance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All modern GPUs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Lowest (None)</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>FP8</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excellent balance of speed and accuracy.</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Natively accelerated on <strong>Hopper (H100), Ada (L4/L40S), and Blackwell (B100)</strong> GPUs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Low.</strong> Generally preserves accuracy better than integer formats.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>INT8</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good speed and memory savings on a wide range of hardware.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Widely supported, but most performant on GPUs with INT8 Tensor Cores.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Medium.</strong> Can cause accuracy degradation in some models; requires testing.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>INT4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maximum memory reduction.</strong> Fitting large models on smaller GPUs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All modern GPUs, but performance benefits depend on efficient software implementation (e.g., via vLLM).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Highest.</strong> Requires advanced quantization techniques (like AWQ/GPTQ) to mitigate accuracy loss.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_total_cost_of_ownership_tco_considerations"><a class="anchor" href="#_total_cost_of_ownership_tco_considerations"></a>Total Cost of Ownership (TCO) Considerations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For AI platform delivery engineers, it&#8217;s crucial to think in terms of TCO. By leveraging the performance and efficiency data provided with validated models, you can <strong>justify hardware selections and model choices to stakeholders</strong>. Framing decisions around "performance-per-dollar" and "Queries Per Dollar" clearly demonstrates the business value of optimized deployments.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="model_types.html">The Red Hat AI Validated Model Repository</a></span>
+  <span class="next"><a href="lab_models.html">Granite Models</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

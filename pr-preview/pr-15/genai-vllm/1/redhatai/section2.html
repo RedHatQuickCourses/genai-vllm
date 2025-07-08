@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>The Scenario :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-vllm" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM and Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">vLLM Technical Deep Dive and Advanced Capabilities</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">The Red Hat AI Validated Model Repository</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Intro Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Granite Models</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Performance Benchmarking with GuideLLM</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="section2.html">The Scenario</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">The Scenario</h1>
+<div class="sect2">
+<h3 id="_the_customer"><a class="anchor" href="#_the_customer"></a>The Customer:</h3>
+<div class="paragraph">
+<p><strong>"Innovatech Robotics,"</strong> a mid-sized B2B company that manufactures and sells specialized robots for warehouse automation. They have around 150 employees.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_problem"><a class="anchor" href="#_the_problem"></a>The Problem:</h3>
+<div class="paragraph">
+<p>Innovatech has a small, highly-skilled technical support team (8 engineers). These expensive engineers spend an estimated 30-40% of their day handling repetitive, low-level customer support tickets (e.g., "How do I reset the controller?," "Where is the documentation for API v2.3?"). This slows down their ability to work on complex, high-value problems.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_request"><a class="anchor" href="#_the_request"></a>The Request:</h3>
+<div class="paragraph">
+<p>The CTO of Innovatech approaches you. "We&#8217;ve heard about Generative AI and we think it can make our support team more efficient. We have a project budget of $75,000 for the first year to see what&#8217;s possible. We don&#8217;t know where to start."</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_your_role"><a class="anchor" href="#_your_role"></a>Your Role:</h3>
+<div class="paragraph">
+<p>You are the Delivery Professional, tasked with guiding Innovatech from this vague idea to a successful, budget-aligned AI implementation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_case_prioritization"><a class="anchor" href="#_use_case_prioritization"></a>Use Case Prioritization:</h3>
+<div class="paragraph">
+<p>You previously guided the team to brainstorm potential AI solutions on a whiteboard.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Idea A: A chatbot for the public website to answer pre-sales questions. (Medium Impact, Medium Feasibility - data is scattered).</p>
+</li>
+<li>
+<p>Idea B: An AI tool to help engineers write documentation faster. (Medium Impact, Low Feasibility - engineers see it as extra work).</p>
+</li>
+<li>
+<p>Idea C: An internal tool to analyze incoming support tickets, categorize them, and suggest relevant documentation links for engineers to use. (High Impact, High Feasibility).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_decision"><a class="anchor" href="#_the_decision"></a>The Decision:</h3>
+<div class="paragraph">
+<p>Using an Impact vs. Feasibility matrix, the choice becomes obvious. Idea C, the "Support Ticket Triage Assistant," offers the highest immediate value by freeing up skilled engineers and leverages their existing, high-quality data. You document this as the primary use case for the project.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_outcome_of_phase_1"><a class="anchor" href="#_outcome_of_phase_1"></a>Outcome of Phase 1:</h3>
+<div class="paragraph">
+<p>The Innovatech team is aligned and excited. They have moved from a fuzzy concept to a concrete, agreed-upon problem to solve.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_by_step_execution"><a class="anchor" href="#_step_by_step_execution"></a>Step-by-Step Execution:</h3>
+<div class="paragraph">
+<p>Already a Red Hat customer, Innovatech has an OpenShift AI instance with 2 GPU worker nodes, each with an Nvidia L4 24GB accelerator. They were previously using the cluster for another AI initiaves but have since stop using this environment. This may vary depending the lab environment selected, these resources can be found in this lab.</p>
+</div>
+<div class="paragraph">
+<p>We may need to investigate this cluster to determine if there if any resources are being consumed and if any departments are using them. (dun dun dun).</p>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
