@@ -3,10 +3,8 @@ title: vLLM Optimizing and Serving Models on OpenShift AI
 version: 1
 nav:
 - modules/ROOT/nav.adoc
+- modules/LABENV/nav.adoc
 - modules/vllm/nav.adoc
 - modules/model_sizing/nav.adoc
 - modules/rh_hg_ai/nav.adoc
 - modules/rhoai_deploy/nav.adoc
-- modules/appendix/nav.adoc
-- modules/LABENV/nav.adoc
-- modules/chapter9/nav.adoc
