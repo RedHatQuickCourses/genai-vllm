@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Arcade Interactive Experience - Granite Model Evaluation with GuideLLM :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <title>Performance Benchmarking with GuideLLM :: vLLM Optimizing and Serving Models on OpenShift AI</title>
     <link rel="prev" href="batch_summ.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -147,7 +147,7 @@
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
+    <a class="nav-link" href="guide_llm.html">Performance Benchmarking with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -183,7 +183,7 @@
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
     <li><a href="index.html">OpenShift AI Configuration</a></li>
-    <li><a href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a></li>
+    <li><a href="guide_llm.html">Performance Benchmarking with GuideLLM</a></li>
   </ul>
 </nav>
 </div>
@@ -192,8 +192,276 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</h1>
+<h1 class="page">Performance Benchmarking with GuideLLM</h1>
 <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This lab will guide you through the process of running performance benchmarks on your deployed Large Language Model. We will use <code>guidellm</code>, a library designed to stress-test LLM endpoints to measure key performance indicators like throughput and latency under various loads.</p>
+</div>
+<div class="paragraph">
+<p>Understanding these metrics is crucial for determining how well your model will perform in a real-world application and for making decisions about resource allocation.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_install_dependencies"><a class="anchor" href="#_step_1_install_dependencies"></a>Step 1: Install Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, we need to install <code>guidellm</code> and other Python libraries required for data manipulation and visualization.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Install GuideLLM from its GitHub repository
+%pip install -q git+https://github.com/neuralmagic/guidellm.git
+
+# Install extra requirements for the playbook
+%pip install -q ipywidgets matplotlib seaborn pandas</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the packages installed, let&#8217;s import the necessary tools for our script.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># FIXME: These imports should come from guidellm.benchmark in the future
+from guidellm.benchmark.entrypoints import benchmark_with_scenario
+from guidellm.benchmark.scenario import GenerativeTextScenario
+
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+from IPython.display import JSON
+
+# Set a consistent visual style for our plots
+sns.set_style("darkgrid")</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_configure_the_benchmark_scenario"><a class="anchor" href="#_step_2_configure_the_benchmark_scenario"></a>Step 2: Configure the Benchmark Scenario</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this step, we&#8217;ll set up all the configuration variables for our benchmark run. This is done by creating a <code>GenerativeTextScenario</code> object that defines the load, duration, and data for the test.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Action Required</div>
+<div class="paragraph">
+<p>You must replace the placeholder value for <code>target</code> below with the <strong>Inference endpoint</strong> URL from your model&#8217;s details page in OpenShift AI.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">scenario = GenerativeTextScenario(
+    # The hostname of our model server <i class="conum" data-value="1"></i><b>(1)</b>
+    target="https://granite-innovatech.apps.cluster-xwmgb.xwmgb.sandbox664.opentlc.com",
+
+    # The name of the model we wish to test <i class="conum" data-value="2"></i><b>(2)</b>
+    model="granite",
+
+    # The Hugging Face model ID for the tokenizer <i class="conum" data-value="3"></i><b>(3)</b>
+    processor="ibm-granite/granite-3.3-2b-instruct",
+
+    # Configure our load pattern to test with multiple levels of concurrent users <i class="conum" data-value="4"></i><b>(4)</b>
+    rate_type="concurrent",
+    rate=[1, 2, 4, 16, 64],
+
+    # For each rate, run a 30-second benchmark <i class="conum" data-value="5"></i><b>(5)</b>
+    max_seconds=30,
+    max_requests=None,
+
+    # Configure the synthetic dataset generator <i class="conum" data-value="6"></i><b>(6)</b>
+    data="prompt_tokens=256,prompt_tokens_stdev=32,output_tokens=128",
+)
+
+# Display our scenario configuration as a JSON object to verify it
+JSON(scenario.model_dump())</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>target</strong>: The full inference endpoint URL for your deployed model.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>model</strong>: The name you gave your deployment in OpenShift AI (e.g., <code>granite</code>).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>processor</strong>: The full Hugging Face model ID (e.g., <code>ibm-granite/granite-3.3-2b-instruct</code>). This is needed to download the correct tokenizer.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><strong>rate</strong>: In <code>concurrent</code> mode, this is the number of simultaneous users sending requests. We will run a separate test for each value in the list.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><strong>max_seconds</strong>: The duration for each benchmark run.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td><strong>data</strong>: Defines the characteristics of the test data. Here, we are generating prompts with a mean of 256 tokens and requesting exactly 128 tokens in the response.</td>
+</tr>
+</table>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_run_the_benchmark"><a class="anchor" href="#_step_3_run_the_benchmark"></a>Step 3: Run the Benchmark</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the scenario defined, executing the benchmark is a single command. This function will iterate through the <code>rate</code> list from our configuration, running one test for each concurrency level.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># FIXME: output_path and output_extras should default to None
+results, _ = await benchmark_with_scenario(
+    scenario,
+    output_path=None,
+    output_extras=None
+)</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_4_analyze_the_results"><a class="anchor" href="#_step_4_analyze_the_results"></a>Step 4: Analyze the Results</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>results</code> object contains detailed statistics for each benchmark run. We&#8217;ll first process this data into a Pandas DataFrame for easier analysis and plotting.</p>
+</div>
+<div class="sect2">
+<h3 id="_process_raw_data"><a class="anchor" href="#_process_raw_data"></a>Process Raw Data</h3>
+<div class="paragraph">
+<p>This code extracts the most important metrics—like requests, latency, and throughput—and organizes them into a structured table.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">rows = []
+for bench in results.benchmarks:
+    rows.append({
+        # Number of virtual concurrent users (our rate variable)
+        "concurrency": bench.args.strategy.streams,
+
+        # Number of requests by their status at the end of the test
+        "requests_successful": bench.run_stats.requests_made.successful,
+        "requests_incomplete": bench.run_stats.requests_made.incomplete,
+        "requests_failed": bench.run_stats.requests_made.errored,
+
+        # Latency metrics
+        "ttft_median": bench.metrics.time_to_first_token_ms.successful.median,
+        "ttft_p99": bench.metrics.time_to_first_token_ms.successful.percentiles.p99,
+        "itl_median": bench.metrics.inter_token_latency_ms.successful.median,
+        "itl_p99": bench.metrics.inter_token_latency_ms.successful.percentiles.p99,
+        "e2e_median": bench.metrics.request_latency.successful.median,
+        "e2e_p99": bench.metrics.request_latency.successful.percentiles.p99,
+
+        # Throughput metrics
+        "output_throughput": bench.metrics.output_tokens_per_second.successful.mean,
+        "request_throughput": bench.metrics.requests_per_second.successful.mean,
+    })
+
+df = pd.DataFrame(rows)
+df</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_analyze_throughput"><a class="anchor" href="#_analyze_throughput"></a>Analyze Throughput</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The atomic unit of work for an LLM is a <strong>token</strong>. Therefore, when benchmarking LLMs, <strong>tokens per second</strong> is a more reliable measure of throughput than requests per second. Our synthetic data uses a fixed output length, so the results are directly comparable across different concurrency levels.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s plot the output token throughput against the number of concurrent users. We expect to see throughput increase with concurrency until the model server reaches its saturation point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">fig = sns.lineplot(df, x="concurrency", y="output_throughput", marker='o')
+fig.set(
+    title="Output Token Throughput (higher is better) vs. Concurrent Users",
+    xlabel="Concurrency",
+    ylabel="Mean Output Tokens Per Second",
+)
+plt.show()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_analyze_latency"><a class="anchor" href="#_analyze_latency"></a>Analyze Latency</h3>
+<div class="paragraph">
+<p>Most LLM runtimes stream tokens back to the client. We measure latency in three ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Time To First Token (TTFT):</strong> Time from sending the request to receiving the first token.</p>
+</li>
+<li>
+<p><strong>Inter-Token Latency (ITL):</strong> The delay between each subsequent token.</p>
+</li>
+<li>
+<p><strong>End-to-End Latency:</strong> The total time for the entire request.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s plot these latency metrics to see how they change as we increase the load.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Make a grid of latency metrics vs Concurrency
+fig, axes = plt.subplots(3, 2, figsize=(14, 10))
+fig.suptitle("Latency (lower is better) vs. Concurrent Users")
+
+# Plot each latency metric
+for ax, metric in zip(axes.flat, ["ttft_median", "ttft_p99", "itl_median", "itl_p99", "e2e_median", "e2e_p99"]):
+    f = sns.lineplot(df, ax=ax, x="concurrency", y=metric, marker="o")
+    f.set(xlabel="Concurrency", ylabel="")
+
+# Set titles and labels
+for ax, col in zip(axes[0], ["Median", "99th Percentile"]):
+    ax.set_title(col)
+
+for ax, row in zip(axes[:,0], ["Time To First Token (ms)", "Inter-Token Latency (ms)", "Request Latency (sec)"]):
+    ax.set_ylabel(row, size='large')
+
+fig.show()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By analyzing these charts, you can determine the optimal load for your model, identify performance bottlenecks, and make informed decisions about scaling your AI service.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_arcade_interactive_experience_granite_model_evaluation_with_guidellm"><a class="anchor" href="#_arcade_interactive_experience_granite_model_evaluation_with_guidellm"></a>Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</h2>
 <div class="sectionbody">
 <iframe
   src="https://demo.arcade.software/ZpmsZStb7UTrvRO2pwEI?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
@@ -206,12 +474,6 @@
   allow="clipboard-write"
   muted>
 </iframe>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_work_in_progress_page"><a class="anchor" href="#_work_in_progress_page"></a>Work in Progress Page</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 <nav class="pagination">

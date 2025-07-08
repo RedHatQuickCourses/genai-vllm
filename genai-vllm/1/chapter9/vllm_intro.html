@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Project and Data Connection Setup :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <title>Model Selection: Why We Chose Granite :: vLLM Optimizing and Serving Models on OpenShift AI</title>
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -146,7 +146,7 @@
     <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
+    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Performance Benchmarking with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -181,7 +181,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
-    <li><a href="vllm_intro.html">Project and Data Connection Setup</a></li>
+    <li><a href="vllm_intro.html">Model Selection: Why We Chose Granite</a></li>
   </ul>
 </nav>
 </div>
@@ -190,239 +190,166 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Project and Data Connection Setup</h1>
+<h1 class="page">Model Selection: Why We Chose Granite</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the OpenShift AI environment updated and configured, the next logical step is to establish the workspace and storage mechanisms for AI assets.</p>
+<p>Welcome to the Granite family of models. This page explains what Granite models are, why the <code>Granite-3.3-2B-instruct</code> model was selected for this course, and how it fits into the broader ecosystem of enterprise-ready AI.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_a_data_science_project"><a class="anchor" href="#_create_a_data_science_project"></a>Create a Data Science Project</h2>
+<h2 id="_what_are_granite_models"><a class="anchor" href="#_what_are_granite_models"></a>What are Granite Models?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The project serves as the <strong>fundamental organizational unit</strong> for Openshift AI resources, equivalent to a Kubernetes namespace. It enables user access control and resource allocation, fostering a self-service MLOps workflow. Project names should ideally use lowercase letters and hyphens.</p>
+<p><strong>Granite</strong> is a series of large language models (LLMs) created by IBM specifically for enterprise applications. Unlike some other models, the Granite family is built with the needs of businesses at the forefront, emphasizing trust, transparency, and practical application.</p>
 </div>
 <div class="paragraph">
-<p>After logging into the Red Hat OpenShift AI dashboard:</p>
+<p>What truly sets Granite models apart for enterprise use are two key factors:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Select <strong>Data Science Projects</strong> from the left navigation menu.</p>
-</li>
-<li>
-<p>Click <strong>Create data science project</strong>.</p>
-</li>
-<li>
-<p>Enter a <strong>Name</strong> for your project. For example, <code>vllm-lab</code> or as shown in the example below <code>Innovatech</code>.</p>
-</li>
-<li>
-<p>Enter an optional description for the project</p>
-</li>
-<li>
-<p>Click or select <strong>"create".</strong></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deploy_s3_compatible_storage_minio"><a class="anchor" href="#_deploy_s3_compatible_storage_minio"></a>Deploy S3-Compatible Storage (MinIO):</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Large files, such as trained models and pipeline artifacts, require dedicated storage. MinIO, a high-performance S3-compatible object store, is deployed directly into the OpenShift cluster for lab and prototyping purposes.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This deployment uses the community version of MinIO and is intended for lab and prototyping purposes only. It should not be used in a production environment. Red Hat does not provide support for MinIO.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>To deploy MinIO, we will use the OpenShift web console to import a YAML configuration file.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>From the OpenShift console dashboard (not the OpenShift AI dashboard), select the project you just created (e.g., <code>vllm-lab</code>) from the project dropdown menu.</p>
-</li>
-<li>
-<p>Click the <strong>+ Add</strong> icon in the top navigation bar.</p>
-</li>
-<li>
-<p>On the <strong>Import YAML</strong> screen, paste the entire MinIO deployment configuration provided below.</p>
-</li>
-<li>
-<p>Click <strong>Create</strong> to deploy all the MinIO resources.</p>
-</li>
-</ol>
-</div>
-<details>
-<summary class="title">Click to view and copy the MinIO deployment code.</summary>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># --- Start of MinIO Deployment YAML ---
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: minio-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 40Gi
-  volumeMode: Filesystem
----
-kind: Secret
-apiVersion: v1
-metadata:
-  name: minio-secret
-stringData:
-  # It is recommended to change these default values
-  minio_root_user: minio
-  minio_root_password: minio321!
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  name: minio
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: minio
-  template:
-    metadata:
-      labels:
-        app: minio
-    spec:
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: minio-pvc
-      containers:
-        - name: minio
-          image: quay.io/minio/minio:RELEASE.2023-06-19T19-52-50Z
-          args:
-            - server
-            - /data
-            - '--console-address'
-            - ':9090'
-          env:
-            - name: MINIO_ROOT_USER
-              valueFrom:
-                secretKeyRef:
-                  name: minio-secret
-                  key: minio_root_user
-            - name: MINIO_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: minio-secret
-                  key: minio_root_password
-          ports:
-            - containerPort: 9000
-              protocol: TCP
-            - containerPort: 9090
-              protocol: TCP
-          volumeMounts:
-            - name: data
-              mountPath: /data
-              subPath: minio
-          resources: {}
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: minio-service
-spec:
-  ports:
-    - name: api
-      port: 9000
-      targetPort: 9000
-    - name: ui
-      port: 9090
-      targetPort: 9090
-  selector:
-    app: minio
----
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: minio-api
-spec:
-  to:
-    kind: Service
-    name: minio-service
-  port:
-    targetPort: api
-  tls:
-    termination: edge
-    insecureEdgeTerminationPolicy: Redirect
----
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: minio-ui
-spec:
-  to:
-    kind: Service
-    name: minio-service
-  port:
-    targetPort: ui
-  tls:
-    termination: edge
-    insecureEdgeTerminationPolicy: Redirect
-# --- End of MinIO Deployment YAML ---</code></pre>
-</div>
-</div>
-</div>
-</details>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_final_steps"><a class="anchor" href="#_final_steps"></a>Final Steps</h2>
-<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Configure Storage Buckets</strong>: Within MinIO, it&#8217;s a required practice to create specific subdirectories (e.g., <code>models</code> bucket) for model files, rather than storing them in the root.</p>
+<p><strong>Open and Assured</strong>: The models are open-sourced under the <strong>Apache 2.0 license</strong>. This allows developers to freely experiment, modify, and deploy the models in their own environments—a critical feature for organizations handling sensitive data that cannot rely on external services.</p>
 </li>
 <li>
-<p><strong>Create Data Connections</strong>: These connections link your OpenShift AI project to your MinIO buckets, making it easy for workbenches and model servers to access stored data.</p>
-</li>
-<li>
-<p><strong>Initialize Pipeline Server</strong>: A pipeline server is set up to support data science pipelines within the project.</p>
+<p><strong>Transparent Training Data</strong>: IBM discloses the data used to train the models, building a foundation of trust and making them more suitable and auditable for enterprise environments.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interactive_demo_project_deployment_and_data_connection_walkthrough"><a class="anchor" href="#_interactive_demo_project_deployment_and_data_connection_walkthrough"></a>Interactive Demo: Project, Deployment, and Data Connection Walkthrough</h2>
+<h2 id="_the_granite_family_a_model_for_every_need"><a class="anchor" href="#_the_granite_family_a_model_for_every_need"></a>The Granite Family: A Model for Every Need</h2>
 <div class="sectionbody">
-<iframe
-  src="https://demo.arcade.software/zXaporBqhNRPEkU7H47z?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-  width="100%"
-  height="600px"
-  frameborder="0"
-  allowfullscreen
-  webkitallowfullscreen
-  mozallowfullscreen
-  allow="clipboard-write"
-  muted>
-</iframe>
+<div class="paragraph">
+<p>Granite is not a single model but a diverse suite designed for various enterprise tasks. This ecosystem approach means you can select the right tool for the job.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Granite Language Models</strong></dt>
+<dd>
+<p>Base and instruction-tuned models with strong reasoning capabilities, ideal for agentic workflows, Retrieval-Augmented Generation (RAG), summarization, and content generation.</p>
+</dd>
+<dt class="hdlist1"><strong>Granite Vision Models</strong></dt>
+<dd>
+<p>Specialized models for document and image understanding across a range of file types and resolutions.</p>
+</dd>
+<dt class="hdlist1"><strong>Granite Speech Models</strong></dt>
+<dd>
+<p>Compact and efficient models for high-performance transcription and translation tasks.</p>
+</dd>
+<dt class="hdlist1"><strong>Granite for Time Series</strong></dt>
+<dd>
+<p>Lightweight, pre-trained models for time-series forecasting, optimized to run efficiently on various hardware.</p>
+</dd>
+<dt class="hdlist1"><strong>Granite Guardian</strong></dt>
+<dd>
+<p>A safety-focused model designed to mitigate risks and safeguard AI applications by screening for harmful content in both user prompts and LLM responses.</p>
+</dd>
+<dt class="hdlist1"><strong>Granite for Geospatial Data</strong></dt>
+<dd>
+<p>A foundational model created in partnership with NASA, built on large-scale satellite and remote sensing data.</p>
+</dd>
+<dt class="hdlist1"><strong>Granite Embedding Models</strong></dt>
+<dd>
+<p>Models designed to enhance the understanding of user intent, crucial for improving the relevance of information in search and RAG applications.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_our_course_model_a_deep_dive_into_granite_3_3_2b_instruct"><a class="anchor" href="#_our_course_model_a_deep_dive_into_granite_3_3_2b_instruct"></a>Our Course Model: A Deep Dive into Granite-3.3-2B-Instruct</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The primary model used throughout this course is <code>ibm-granite/granite-3.3-2b-instruct</code>. It represents a perfect balance of modern features, manageable size, and robust performance for our learning objectives.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Model Snapshot</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developers</strong>: Granite Team, IBM</p>
+</li>
+<li>
+<p><strong>Release Date</strong>: April 16th, 2025</p>
+</li>
+<li>
+<p><strong>License</strong>: Apache 2.0</p>
+</li>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/ibm-granite/granite-3.3-language-models">ibm-granite/granite-3.3-language-models</a></p>
+</li>
+<li>
+<p><strong>Context Length</strong>: 128,000 tokens</p>
+</li>
+<li>
+<p><strong>Supported Languages</strong>: Excellent in English, with support for German, Spanish, French, Japanese, and more.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a <strong>2-billion parameter</strong> instruction-following model fine-tuned for enhanced reasoning. It supports structured outputs using <code>&lt;think&gt;</code> and <code>&lt;response&gt;</code> tags, which provides a clear separation between the model&#8217;s internal "thought process" and the final answer, a valuable feature for debugging and creating reliable AI agents.</p>
+</div>
+<div class="sect2">
+<h3 id="_key_capabilities"><a class="anchor" href="#_key_capabilities"></a>Key Capabilities</h3>
+<div class="paragraph">
+<p>The model is designed for a wide range of enterprise tasks, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Retrieval Augmented Generation (RAG)</p>
+</li>
+<li>
+<p>Question-Answering and Summarization</p>
+</li>
+<li>
+<p>Text classification and extraction</p>
+</li>
+<li>
+<p>Code generation and function-calling</p>
+</li>
+<li>
+<p>Long-context tasks (e.g., summarizing long documents or meetings)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_selection_story_a_practical_choice_for_this_course"><a class="anchor" href="#_the_selection_story_a_practical_choice_for_this_course"></a>The Selection Story: A Practical Choice for This Course</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choosing the right model for a course involves balancing performance, accessibility, and relevance to real-world engineering challenges. Here’s why <code>Granite-3.3-2B-instruct</code> was the ideal choice:</p>
+</div>
+<div class="paragraph">
+<div class="title">A Forward-Looking Foundation</div>
+<p>The selection process began with a key technical goal in mind: <strong>quantization</strong>. We needed a full-sized base model that was powerful enough to be useful but small enough to be a practical candidate for a future lab on model optimization. At 2 billion parameters, it hits this sweet spot perfectly.</p>
+</div>
+<div class="paragraph">
+<div class="title">The Sweet Spot of Performance and Resources</div>
+<p>For AI platform engineers, resource management is critical. A major advantage of this model is its ability to deliver exceptional performance within a manageable resource footprint. Paired with its huge <strong>128K context window</strong>, it allows for sophisticated, long-document analysis while fitting comfortably on a standard <strong>24GB GPU</strong>, a common hardware profile in enterprise labs.</p>
+</div>
+<div class="paragraph">
+<div class="title">Exceeding Expectations</div>
+<p>Throughout the development of this course, the model consistently provided accurate answers and demonstrated impressive capabilities. While extensive benchmarks against every available model weren&#8217;t performed, its performance for a model of its size far exceeded all initial expectations.</p>
+</div>
+<div class="sect2">
+<h3 id="_looking_ahead_the_evolution_of_granite"><a class="anchor" href="#_looking_ahead_the_evolution_of_granite"></a>Looking Ahead: The Evolution of Granite</h3>
+<div class="paragraph">
+<p>The world of AI moves fast, and the Granite 4 models are now available. Future iterations of this course may incorporate these newer models. This presents an exciting opportunity to create a lab focused on <strong>comparing generational improvements</strong>, allowing students to benchmark the gains in performance, efficiency, and capability from one model generation to the next—a common and valuable task in enterprise AI.</p>
+</div>
+</div>
 </div>
 </div>
 </article>
