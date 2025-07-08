@@ -56,7 +56,8 @@ vLLM's *PagedAttention* is designed to drastically reduce KV Cache memory waste,
 
 === 2. CUDA & System Overhead
 This is the fixed cost of doing business on a GPU. It includes memory consumed by the NVIDIA CUDA kernels, the core PyTorch and vLLM libraries, and various system buffers required to manage the computation.
-* **Estimated Cost:** Budget an additional *10-20%* of the model's weight VRAM for this overhead.
+
+ * **Estimated Cost:** Budget an additional *10-20%* of the model's weight VRAM for this overhead.
 
 === 3. Model Activations
 These are the intermediate values calculated during the model's forward pass. While their memory impact is far smaller than the KV Cache, they are a non-zero factor.

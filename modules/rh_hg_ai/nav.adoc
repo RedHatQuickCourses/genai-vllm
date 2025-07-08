@@ -2,5 +2,4 @@
 ** xref:model_types.adoc[]
 ** xref:val_models.adoc[]
 ** xref:lab_models.adoc[]
-** xref:summary.adoc[]
 // ** xref:section3.adoc[]

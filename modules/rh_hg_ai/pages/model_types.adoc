@@ -1,77 +1,54 @@
-= Generative AI Model Variations in Model Naming
+= The Red Hat AI Validated Model Repository
 
-Welcome to the next chapter of our course on model inference with vLLM. Before we dive into the Red Hat AI model repository on Hugging Face, it's crucial to understand the common variations you'll encounter in model names. These suffixes and descriptors aren't arbitrary; they signify the model's training, capabilities, and intended use case. This page will demystify these common variations.
+The open-source AI landscape, particularly on platforms like Hugging Face, presents a vast and often challenging environment due to the sheer number of available models, making it difficult to discern which are performant, accurate, or truly ready for enterprise use. To address this complexity, the **Red Hat AI Validated Model Repository** emerges as a curated ecosystem designed to streamline model selection and deployment.
 
-The generative AI landscape is filled with a diverse set of models, each optimized for specific tasks. Understanding their lineage helps in selecting the right tool for the job.
+== What is the Red Hat AI Validated Model Repository?
 
-== 1. Base Models
+It is an open-source initiative stemming from a deep collaboration between IBM and Red Hat. Its primary mission is to **bridge the gap between cutting-edge research and robust production deployments** by offering open, accessible, and community-driven AI solutions. Far from being just a list of models, it functions as a strategic solution to **de-risk AI projects** by providing models that have been pre-vetted for performance, accuracy, and overall enterprise readiness.
 
-*What it is*::
-A **base model**, often called a "foundational model," is the result of the initial, resource-intensive pre-training phase. It's an LLM trained on a vast and general corpus of text and code, forming the foundation from which more specialized models are derived.
 
-*Key Characteristics*::
-* **Broad, Unstructured Knowledge:** Possesses extensive general knowledge from its training data.
-* **Next-Token Prediction:** Its fundamental function is to predict the next token in a sequence. It doesn't inherently understand "instructions" or "dialogue."
-* **Unrefined Output:** Interacting with a raw base model can be unpredictable. Its output is a continuation of the input prompt based on patterns learned during training, not necessarily a direct or helpful answer.
+== Why Use a Validated Model?
 
-*Analogy*::
-Think of a base model as a massive, raw database of human language. It contains the information, but there's no query engine or user-friendly interface to retrieve and structure that information in a helpful way.
+For AI platform delivery engineers, utilizing models from this repository offers significant advantages:
 
----
+[IMPORTANT]
+.Key Benefits of Using a Validated Model
+****
+* **Reduces Guesswork:** Provides reliable performance expectations and recommended deployment settings, eliminating the need for extensive trial-and-error.
+* **Ensures Enterprise Readiness:** Validates that models perform well under load using enterprise-grade tools like vLLM.
+* **Optimizes for Cost:** Offers clear guidance on pairing models with the right hardware, maximizing inference efficiency and lowering Total Cost of Ownership (TCO).
+* **Provides Flexibility:** Offers a range of popular models in various optimized formats to meet diverse project requirements.
+****
 
-== 2. Instruct (Instruction-Tuned) Models
 
-*What it is*::
-An **instruct model** is a base model that has undergone a second training phase known as instruction fine-tuning. This process, often called "alignment," trains the model on a curated dataset of `(instruction, response)` pairs. This phase frequently uses techniques like Reinforcement Learning with Human Feedback (RLHF) to align the model's outputs with human preferences for helpfulness and safety.
 
-*Key Characteristics*::
-* **Instruction Following:** Its primary strength is understanding and executing specific user commands.
-* **Helpful Assistant Persona:** It's trained to behave like a cooperative assistant, providing direct answers to questions.
-* **Improved Safety and Predictability:** The alignment process makes the model more reliable and less likely to generate undesirable content compared to its base version. Most public-facing chatbots (like ChatGPT, Gemini, and Claude) are instruction-tuned models.
+== The Rigorous Validation Process
 
-*Analogy*::
-The raw database now has a powerful query engine and an API. You can submit a specific query (an instruction), and it returns a structured, relevant, and helpful response.
+The confidence in Red Hat's validated models stems from a rigorous and transparent validation process that employs industry-standard open-source tooling, ensuring reproducibility of results. The key tools involved are:
 
----
+ *   **GuideLLM**: A powerful benchmarking tool used for capacity planning. It simulates real-world traffic to assess a model’s throughput, latency, and resource utilization across different hardware configurations.
+ *   **Language Model Evaluation Harness (LM Eval Harness)**: This is the industry standard for **accuracy evaluation**. It measures a model’s reasoning and generalization capabilities across a wide range of academic benchmarks.
+ *   **vLLM**: This specific inference engine is used during the performance validation itself, ensuring that the benchmarks reflect the performance achievable when deploying with vLLM on OpenShift AI.
 
-== 3. Chat Models
+This thorough validation process provides the transparent data necessary for making informed decisions and setting realistic expectations for model performance on target hardware.
 
-*What it is*::
-A **chat model** is a specialized type of instruct model that is further optimized for multi-turn dialogue. While most instruct models can handle a conversational back-and-forth, chat models are explicitly fine-tuned to maintain context over longer interactions, leading to more coherent and natural-feeling conversations.
+== v1.0 Collection of Red Hat AI Validated Models
 
-*Key Characteristics*::
-* **Dialogue Coherence:** Excels at tracking the conversational history to inform its next response.
-* **Contextual Awareness:** Superior ability to handle follow-up questions, clarifications, and references to earlier points in the conversation.
-* **Enhanced User Experience:** Provides a more seamless and intuitive conversational flow.
+This initial collection features leading third-party generative AI models rigorously validated for efficient use across the Red Hat AI Product Portfolio. Each model listed below has associated configurations for various quantization levels (e.g., `w4a16` for 4-bit weights and 16-bit activations, `w8a8` for 8-bit weights and 8-bit activations, or `FP8-dynamic` for dynamic FP8 quantization).
 
-*Analogy*::
-This is a stateful API. It not only responds to your current query but also remembers all your previous queries within the same session, allowing for a continuous and context-aware interaction.
+* Gemma-3 Quantized
+* Whisper Quantized (Note: Whisper is typically an ASR model, but its text-generation component is relevant)
+* Llama 4 Quantized
+* Qwen3 Quantized
+* Mistral Small-3.1 Instruct Quantized
+* Phi-4 Quantized
+* Llama 3.3 70B Instruct Quantized
+* Qwen 2.5 Quantized
+* Granite Quantized
 
----
+[NOTE]
+The specific quantization scheme (e.g., `w4a16`, `w8a8`, `FP8-dynamic`) for each model is typically indicated in its full name or metadata within the Red Hat AI Hugging Face repository. These notations signify the precision used for weights (w) and activations (a), or the dynamic FP8 method.
 
-== 4. Code Models
+==== Availability and Selection Criteria
 
-*What it is*::
-A **code model** is a specialized LLM focused on software development tasks. It is either pre-trained from the ground up on a massive corpus of public source code or is a base model that has been extensively fine-tuned on code-specific datasets.
-
-*Key Characteristics*::
-* **Programming Expertise:** Designed for code generation, completion, debugging, and explanation.
-* **Syntactic and Semantic Understanding:** Possesses a deep grasp of programming language syntax, libraries, APIs, and common software architecture patterns. While a general instruct model can generate simple code, a dedicated code model produces more accurate, efficient, and idiomatic results.
-
-*Analogy*::
-This is a highly specialized technical database and query engine built exclusively for developers. It's staffed by an expert programmer who can not only find information but also write and debug complex code.
-
----
-
-== 5. Task-Specific Fine-Tuned Models (e.g., Summarization)
-
-*What it is*::
-Beyond general-purpose tuning, models can be fine-tuned for highly specific tasks. A **summarization model** is a prime example, trained on a dataset of long-form documents paired with their high-quality, concise summaries. This same principle applies to other tasks like translation, sentiment analysis, or classification.
-
-*Key Characteristics*::
-* **Domain Expertise:** Highly proficient at its one specific function (e.g., condensing large texts into short, accurate summaries).
-* **Superior Performance:** For its designated task, it will almost always outperform a general-purpose instruct model.
-* **Abstractive Power:** A specialized summarization model is often better at *abstractive* summarization (generating new sentences to convey the core meaning) rather than purely *extractive* summarization (copying key sentences from the source).
-
-*Analogy*::
-This is a dedicated microservice. Instead of a general-purpose API that can do many things, this is a highly optimized endpoint designed for a single, specific function, like generating a "TL;DR" for a long article. It does one thing, and it does it exceptionally well.
+While Red Hat AI focuses on validated models, other models may also be available in the repository but have not undergone the full validation process. For practical deployment in this course, we will focus on specific pre-selected models from the validated collection.
