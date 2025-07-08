@@ -1,89 +1,14 @@
-= Pre-Selected Course Models
+= Granite Models
 
-In this lesson, we will perform a detailed analysis of the three generative AI models pre-selected for this course from the Red Hat AI repository. Each profile covers the model's architecture, scale, quantization strategy, and validated performance, providing the context needed to make informed deployment decisions in the upcoming labs.
+WORK IN PROGRESS PAGE> 
 
-==== Why These Three Models? The Rationale
+The primary model used in this course in the IBM/Granite-3.3-2B-instruct.
 
-The selection of these specific models is strategic, designed to give you a comprehensive and practical learning experience. They were chosen to showcase diversity across three key axes:
+Small size
 
-* **Diverse Capabilities & Scale:** We have a larger, text-only model for general-purpose tasks (`Mistral-Small`) and two smaller, multimodal models (`Qwen` and `Gemma`) for vision-language tasks, demonstrating how to choose a model that fits the problem domain.
-* **Diverse Quantization Strategies:** The models represent the three core quantization techniques: **FP8**, **INT8 (`w8a8`)**, and **INT4 (`w4a16`)**. This allows you to directly compare their performance and understand the trade-offs between precision levels.
-* **Direct vLLM Deployment Readiness:** All three models are explicitly validated and optimized for high-performance inference with vLLM. This provides confidence that your lab experience will directly reflect best practices for real-world deployment.
+performance
 
-==== At a Glance: Model Comparison
+does the job but need to compare to more models. 
 
-This table provides a high-level summary of the models we will analyze.
 
-.Pre-Selected Model Comparison
-[options="header"]
-|===
-| Model Name | Scale (Parameters) | Modality | Quantization Strategy
 
-| `Mistral-Small-24B-Instruct`
-| ~23.6 Billion
-| Text-to-Text
-| **FP8** (Dynamic)
-
-| `Qwen2.5-VL-3B-Instruct`
-| ~4.1 Billion
-| Image+Text-to-Text
-| **INT8** (w8a8)
-
-| `gemma-3-4b-it`
-| ~1.6 Billion
-| Image+Text-to-Text
-| **INT4** (w4a16)
-|===
-
----
-
-==== Model Profile 1: `RedHatAI/Mistral-Small-24B-Instruct-2501-FP8-dynamic`
-
-* **Profile:** A powerful, mid-scale, text-only model ideal for robust instruction-following and general-purpose conversational AI.
-* **Hugging Face Link:** https://huggingface.co/RedHatAI/Mistral-Small-24B-Instruct-2501-FP8-dynamic[RedHatAI/Mistral-Small-24B-Instruct-2501-FP8-dynamic, window=_blank]
-
-.Details
-[%collapsible]
-====
-* **Architecture:** Based on the `Mistral-Small-24B-Instruct-2501` architecture, this is an instruction-tuned transformer known for strong performance in general text generation.
-* **Quantization (FP8):** The `FP8-dynamic` quantization reduces the memory footprint by ~50% compared to FP16. This strategy is highly effective on modern NVIDIA GPUs (L4, H100, etc.) with dedicated FP8 Tensor Cores, leading to significant inference speedups.
-* **Capabilities:** As a **Text-to-Text** model, it excels at chatbots, content creation, summarization, and complex instruction-following tasks. It is explicitly optimized for vLLM and ready for deployment across the Red Hat AI portfolio.
-* **Performance:** The model demonstrates **excellent accuracy recovery** after quantization.
-    * **OpenLLM v1 Benchmark:** Achieved a **99.28%** accuracy recovery.
-    * **OpenLLM v2 Benchmark:** Achieved a **98.68%** accuracy recovery.
-    * **Implication:** The minimal accuracy loss makes this FP8 model a prime candidate for production use where both high performance and high fidelity are critical.
-====
-
-==== Model Profile 2: `RedHatAI/Qwen2.5-VL-3B-Instruct-quantized.w8a8`
-
-* **Profile:** A compact, efficient, and highly accurate multimodal model for vision-language tasks like document analysis and visual reasoning.
-* **Hugging Face Link:** https://huggingface.co/RedHatAI/Qwen2.5-VL-3B-Instruct-quantized.w8a8[RedHatAI/Qwen2.5-VL-3B-Instruct-quantized.w8a8, window=_blank]
-
-.Details
-[%collapsible]
-====
-* **Architecture:** A quantized version of the `Qwen/Qwen2.5-VL-3B-Instruct`, which combines a Vision Transformer (ViT) with an LLM decoder.
-* **Quantization (INT8):** The `w8a8` (weights and activations at 8-bit integer) scheme provides significant memory savings and speedups of **up to 1.37x** in multi-stream deployments. This directly improves cost-efficiency ("Queries Per Dollar").
-* **Capabilities:** As a **multimodal** model, it is designed for Document Visual Question Answering (DocVQA), chart analysis, image captioning, and general visual reasoning.
-* **Performance:** The model shows **near-lossless accuracy recovery**.
-    * **Vision Tasks (MMMU, DocVQA, etc.):** Achieved a remarkable **99.94%** accuracy recovery.
-    * **Text Tasks (MMLU):** Showed a strong **99.25%** accuracy recovery.
-    * **Implication:** This model is an outstanding choice for multimodal applications, offering substantial efficiency gains with virtually no compromise on its visual understanding capabilities.
-====
-
-==== Model Profile 3: `RedHatAI/gemma-3-4b-it-quantized.w4a16`
-
-* **Profile:** An ultra-lightweight multimodal model offering the highest memory savings, perfect for resource-constrained environments or batch processing.
-* **Hugging Face Link:** https://huggingface.co/RedHatAI/gemma-3-4b-it-quantized.w4a16[RedHatAI/gemma-3-4b-it-quantized.w4a16, window=_blank]
-
-.Details
-[%collapsible]
-====
-* **Architecture:** A quantized variant of `google/gemma-3-4b-it`, a state-of-the-art open model from Google DeepMind. It is also a multimodal model optimized for dialogue.
-* **Quantization (INT4):** The `w4a16` scheme provides the **highest level of weight compression**. While activations remain at 16-bit for accuracy, the 4-bit weights drastically reduce the model's disk and VRAM footprint.
-* **Capabilities:** As a **multimodal** model, it is well-suited for visual Q&A on devices with limited memory or for maximizing the number of models that can be run concurrently on a single GPU.
-* **Performance:** Despite the aggressive 4-bit quantization, it maintains high accuracy.
-    * **OpenLLM v1 Text Benchmark:** Achieved a **97.42%** accuracy recovery.
-    * **Vision Evals (MMMU, ChartQA):** Maintained a **98.86%** accuracy recovery.
-    * **Implication:** This model is an excellent choice when minimizing memory usage is the absolute top priority, proving that even aggressively compressed models can retain high fidelity.
-====
