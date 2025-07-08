@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Integrating vLLM with OpenShift AI: The Serving Runtime :: vLLM Optimizing and Serving Models on OpenShift AI</title>
-    <link rel="prev" href="rh_ai.html">
+    <link rel="prev" href="vllm_intro.html">
     <link rel="next" href="vllm_deploy.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -48,22 +48,19 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">vLLM, What is it?</a>
+    <a class="nav-link" href="index.html">vLLM Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="vllm_intro.html">vLLM</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="rh_ai.html">Red Hat AI Platforms</a>
+    <a class="nav-link" href="vllm_intro.html">vLLM and Red Hat AI Platforms</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="vllm_deploy.html">vLLM on Red Hat OpenShift AI</a>
+    <a class="nav-link" href="vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="vllm_concl.html">Summary: Key Takeaways and Next Steps</a>
+    <a class="nav-link" href="vllm_concl.html">vLLM Technical Deep Dive and Advanced Capabilities</a>
   </li>
 </ul>
   </li>
@@ -76,13 +73,10 @@
     <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../model_sizing/gpu_arch.html">NVIDIA GPU Architecture</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../model_sizing/vram_calc.html">Cost-Effective Model Selection</a>
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a>
   </li>
 </ul>
   </li>
@@ -173,6 +167,28 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter9/index.html">blank</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section4.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section2.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section3.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/vllm_intro.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -202,7 +218,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
-    <li><a href="index.html">vLLM, What is it?</a></li>
+    <li><a href="index.html">vLLM Overview</a></li>
     <li><a href="vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a></li>
   </ul>
 </nav>
@@ -216,12 +232,13 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>While you can run vLLM as a standalone server, its true power in an enterprise setting is realized when managed by a robust platform like <strong>Red Hat OpenShift AI (RHOAI)</strong>. To do this, we need to teach OpenShift AI <strong>how</strong> to run vLLM. This is accomplished by defining a <strong>Serving Runtime</strong>.</p>
+<p>This section focuses on the fundamental concept of a Serving Runtime, particularly the vLLM Serving Runtime, which is crucial for a delivery engineer to understand for configuration and troubleshooting.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_what_is_a_serving_runtime"><a class="anchor" href="#_what_is_a_serving_runtime"></a>What is a Serving Runtime?</h4>
+<div class="sect1">
+<h2 id="_what_is_a_serving_runtime"><a class="anchor" href="#_what_is_a_serving_runtime"></a>What is a Serving Runtime?</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>In the context of OpenShift AI and its underlying model-serving framework (KServe), a Serving Runtime is a <strong>reusable template or blueprint</strong> that defines a specific environment for serving a model.</p>
 </div>
@@ -229,8 +246,10 @@
 <p>Think of it as a standardized recipe for deploying a model server. Instead of configuring a container image, startup commands, and resource requests for every single model, you define them once in a runtime. When you deploy a model, you simply tell OpenShift AI: "Use this runtime."</p>
 </div>
 <div class="paragraph">
-<p>This abstraction is a core MLOps principle. It separates the <strong>model artifact</strong> (the "what") from the <strong>serving environment</strong> (the "how"), leading to standardized, repeatable, and maintainable deployments.</p>
+<p>This abstraction is a <strong>core MLOps principle</strong>. It separates the <strong>model artifact</strong> (the "what") from the <strong>serving environment</strong> (the "how"), leading to standardized, repeatable, and maintainable deployments.</p>
 </div>
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
 <p>A Serving Runtime specifies critical information, such as:</p>
 </div>
@@ -254,10 +273,14 @@
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_the_vllm_serving_runtime_for_red_hat_openshift_ai"><a class="anchor" href="#_the_vllm_serving_runtime_for_red_hat_openshift_ai"></a>The vLLM Serving Runtime for Red Hat OpenShift AI</h4>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_vllm_serving_runtime_for_red_hat_openshift_ai"><a class="anchor" href="#_the_vllm_serving_runtime_for_red_hat_openshift_ai"></a>The vLLM Serving Runtime for Red Hat OpenShift AI</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The OpenShift AI single-model serving stack can use vLLM as a high-performance alternative to other runtimes like Caikit+TGIS. By creating a vLLM <code>ServingRuntime</code>, you make it a first-class citizen in the RHOAI model deployment workflow.</p>
+<p>By creating a vLLM ServingRuntime, vLLM becomes a first-class citizen in the RHOAI model deployment workflow, serving as a high-performance alternative to other runtimes like Caikit+TGIS.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -270,17 +293,16 @@
 <p><strong>GPU Requirement</strong></p>
 </div>
 <div class="paragraph">
-<p>The standard vLLM runtime is built on CUDA kernels for maximum performance. Therefore, a <strong>GPU is required</strong> on the OpenShift worker nodes where the model will be deployed. An experimental CPU version exists with limitations, but for production use cases targeted by this course, we will focus on GPU-based serving.</p>
+<p>The standard vLLM runtime is built on CUDA kernels for maximum performance, making a GPU mandatory on the OpenShift AI worker nodes where the model will be deployed. While an experimental CPU version exists, production use cases focus exclusively on GPU-based serving.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_anatomy_of_the_vllm_runtime_yaml"><a class="anchor" href="#_anatomy_of_the_vllm_runtime_yaml"></a>Anatomy of the <code>vllm-runtime.yaml</code></h4>
+<div class="sect2">
+<h3 id="_anatomy_of_the_vllm_runtime_yaml"><a class="anchor" href="#_anatomy_of_the_vllm_runtime_yaml"></a>Anatomy of the <code>vllm-runtime.yaml</code></h3>
 <div class="paragraph">
-<p>To register vLLM with OpenShift AI, an administrator applies a YAML file defining the <code>ServingRuntime</code> resource. Let&#8217;s break down an example to understand its key components.</p>
+<p>To register vLLM with OpenShift AI, an administrator applies a YAML file defining the ServingRuntime resource. Understanding the fields within this YAML is critical for customizing, optimizing, and troubleshooting LLM serving environments. Let&#8217;s break down an example to understand its key components.</p>
 </div>
 <details>
 <summary class="title">vLLM ServingRuntime for NVIDIA GPUs</summary>
@@ -367,99 +389,11 @@ spec:
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_installation_and_deployment_workflow"><a class="anchor" href="#_installation_and_deployment_workflow"></a>Installation and Deployment Workflow</h4>
-<div class="paragraph">
-<p>Once the <code>ServingRuntime</code> is defined, the workflow for a platform engineer or data scientist is straightforward.</p>
-</div>
-<div class="paragraph">
-<div class="title">Step 1: Register the Runtime (Admin Task)</div>
-<p>An administrator with cluster privileges must first install the necessary OpenShift AI components (like the single-model serving stack). Then, they can add the vLLM runtime:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Navigate to the OpenShift AI Dashboard.</p>
-</li>
-<li>
-<p>Go to <strong>Settings &#8594; Serving runtimes</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Add serving runtime</strong> and choose <code>Single model serving platform</code>.</p>
-</li>
-<li>
-<p>Paste the content of the <code>vllm-servingruntime.yaml</code> file into the editor and click <code>Create</code>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The "vLLM (NVIDIA GPU)" runtime will now be available for selection when users deploy models.</p>
-</div>
-<div class="paragraph">
-<div class="title">Step 2: Deploy a Model (User Task)</div>
-<p>With the runtime available, a user can deploy a compatible model:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Ensure your model files (e.g., from Hugging Face) are located in an S3-compatible object storage bucket.</p>
-</li>
-<li>
-<p>In your OpenShift AI project, create a <strong>Data Connection</strong> that points to this bucket.</p>
-</li>
-<li>
-<p>From the project dashboard, click <strong>Deploy model</strong>.</p>
-</li>
-<li>
-<p>Fill in the model name, select the <code>vLLM (NVIDIA GPU)</code> serving runtime, and point to the data connection and specific model path.</p>
-</li>
-<li>
-<p>Configure the number of replicas and ensure a <strong>GPU is requested</strong> in the resource configuration.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>OpenShift AI will then automatically provision a pod using the vLLM runtime, pull the model from object storage into the pod&#8217;s <code>/mnt/models</code> directory, and start the vLLM server.</p>
-</div>
-<div class="paragraph">
-<div class="title">Step 3: Interact with the Endpoint</div>
-<p>Once the model is running, the dashboard provides an inference endpoint URL. Because the runtime exposes an <strong>OpenAI-compatible API</strong>, you can interact with it using standard tools.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>vLLM provides a full Swagger UI for API exploration and direct interaction. Simply add <code>/docs</code> to the end of your inference endpoint URL (e.g., <code><a href="https://your-model-endpoint/docs" class="bare">https://your-model-endpoint/docs</a></code>) to access it. This is an excellent way to test the model without writing any code.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A simple <code>curl</code> request would look like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Replace with your actual endpoint and model name
-export ENDPOINT_URL="https://your-model-endpoint/v1/chat/completions"
-export MODEL_NAME="meta-llama/Meta-Llama-3-8B-Instruct"
-
-curl -X POST "$ENDPOINT_URL" \
--H "Content-Type: application/json" \
--d '{
-  "model": "'"$MODEL_NAME"'",
-  "messages": [{"role": "user", "content": "What are the benefits of using a serving runtime?"}]
-}'</code></pre>
-</div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="rh_ai.html">Red Hat AI Platforms</a></span>
-  <span class="next"><a href="vllm_deploy.html">vLLM on Red Hat OpenShift AI</a></span>
+  <span class="prev"><a href="vllm_intro.html">vLLM and Red Hat AI Platforms</a></span>
+  <span class="next"><a href="vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a></span>
 </nav>
 </article>
   </div>

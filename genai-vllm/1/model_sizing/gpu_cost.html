@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Estimating GPU VRAM :: vLLM Optimizing and Serving Models on OpenShift AI</title>
-    <link rel="prev" href="gpu_arch.html">
-    <link rel="next" href="vram_calc.html">
+    <link rel="prev" href="index.html">
+    <link rel="next" href="gpu_arch.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -48,22 +48,19 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../vllm/index.html">vLLM, What is it?</a>
+    <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../vllm/rh_ai.html">Red Hat AI Platforms</a>
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM and Red Hat AI Platforms</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../vllm/vllm_deploy.html">vLLM on Red Hat OpenShift AI</a>
+    <a class="nav-link" href="../vllm/vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../vllm/vllm_concl.html">Summary: Key Takeaways and Next Steps</a>
+    <a class="nav-link" href="../vllm/vllm_concl.html">vLLM Technical Deep Dive and Advanced Capabilities</a>
   </li>
 </ul>
   </li>
@@ -75,14 +72,11 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">GPU Architecture and Model Sizing</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="gpu_arch.html">NVIDIA GPU Architecture</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="gpu_cost.html">Estimating GPU VRAM</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="vram_calc.html">Cost-Effective Model Selection</a>
+    <a class="nav-link" href="gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a>
   </li>
 </ul>
   </li>
@@ -173,6 +167,28 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter9/index.html">blank</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section4.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section2.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section3.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/vllm_intro.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -219,19 +235,45 @@
 <div class="paragraph">
 <p>In the previous sections, we focused on the vLLM engine and its deployment on OpenShift AI. Now, we will shift our focus to the economics of AI infrastructure. This module will equip you with the knowledge to make cost-effective decisions by aligning LLM selection, compression techniques, and hardware choices.</p>
 </div>
-<div class="sect2">
-<h3 id="_the_vram_blueprint_estimating_true_memory_costs"><a class="anchor" href="#_the_vram_blueprint_estimating_true_memory_costs"></a>The VRAM Blueprint: Estimating True Memory Costs</h3>
-<div class="paragraph">
-<p>The first step in cost-effective deployment is accurately estimating your GPU memory (VRAM) requirements. Under-provisioning leads to out-of-memory errors and service downtime, while over-provisioning leads to idle, expensive hardware and wasted budget. This section provides a blueprint for calculating the <strong>true</strong> VRAM footprint of a model in production.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_the_baseline_cost_model_weights"><a class="anchor" href="#_the_baseline_cost_model_weights"></a>The Baseline Cost: Model Weights</h3>
+<div class="sect1">
+<h2 id="_understanding_gpu_vram_the_true_cost_blueprint"><a class="anchor" href="#_understanding_gpu_vram_the_true_cost_blueprint"></a>Understanding GPU VRAM: The True Cost Blueprint</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The most straightforward VRAM cost is the space needed to load the model&#8217;s parameters (weights). This is a function of two variables: the size of the model (in billions of parameters) and the numerical precision used to store each parameter.</p>
+<p>The "sticker price" of a model (its parameter count) is not its final cost in production. You must consider all components that consume VRAM.</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Model Weights (The Baseline Cost)</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>This is the memory needed to load the model&#8217;s parameters.</p>
+</li>
+<li>
+<p>It&#8217;s a function of the model size (billions of parameters) and the numerical precision used to store each parameter.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Calculation:</strong> VRAM (GB) ≈ (Number of Parameters in Billions) x (Bits per Parameter / 8).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Example:</strong> A 7 Billion parameter model at FP16 (16 bits per parameter) requires 7 * (16 / 8) = 14 GB of VRAM for its weights.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
-<p>Using a lower-precision format via <strong>quantization</strong> is the most direct way to reduce this baseline memory cost.</p>
+<p><strong>Quantization</strong> (using a lower-precision format like INT8 or INT4 instead of FP16/BF16) is the <strong>most direct way to reduce this baseline memory cost</strong>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Estimated VRAM for Model Weights by Precision</caption>
@@ -288,30 +330,15 @@
 </tr>
 </tbody>
 </table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The calculation is simple: VRAM (GB) ≈ (Number of Parameters in Billions) x (Bits per Parameter / 8). A 7B model at FP16 is <code>7 * (16 / 8) = 14 GB</code>.
-</td>
-</tr>
-</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_the_hidden_costs_beyond_the_weights"><a class="anchor" href="#_the_hidden_costs_beyond_the_weights"></a>The Hidden Costs: Beyond the Weights</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_hidden_costs_beyond_the_weights"><a class="anchor" href="#_the_hidden_costs_beyond_the_weights"></a>The Hidden Costs: Beyond the Weights</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>A common mistake is to select a GPU based only on the model weight VRAM. In a live production environment, several other components consume significant memory, and they must be factored into your budget.</p>
-</div>
-<div class="imageblock unresolved">
-<div class="content">
-<img src="vram_components.png" alt="A conceptual stacked bar chart showing that total VRAM is composed of a large block for Model Weights" width="an equally large or larger block for the KV Cache" height="and a smaller block for System Overhead.">
-</div>
-<div class="title">Figure 1. VRAM Usage Components</div>
-</div>
+<p>A common mistake is to select a GPU based solely on model weight VRAM. Several other significant memory consumers must be factored in for a live production environment.</p>
 </div>
 <div class="sect2">
 <h3 id="_1_the_kv_cache_the_memory_hog"><a class="anchor" href="#_1_the_kv_cache_the_memory_hog"></a>1. The KV Cache (The Memory Hog)</h3>
@@ -322,12 +349,16 @@ The calculation is simple: VRAM (GB) ≈ (Number of Parameters in Billions) x (B
 <ul>
 <li>
 <p><strong>Key Drivers:</strong> The size of the KV Cache is directly proportional to:</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><strong>Batch Size:</strong> The number of requests you process concurrently.</p>
 </li>
 <li>
 <p><strong>Context Length:</strong> The number of tokens (input + output) in each request.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><strong>Impact:</strong> For applications with long context windows (e.g., document summarization) or high batch sizes, the KV Cache can easily consume <strong>more VRAM than the model weights themselves</strong>. A 14 GB model might require another 16 GB or more for its KV Cache under heavy load.</p>
@@ -341,7 +372,7 @@ The calculation is simple: VRAM (GB) ≈ (Number of Parameters in Billions) x (B
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-This is precisely the problem vLLM was designed to solve. Its core innovation, <strong>PagedAttention</strong>, drastically reduces the memory wasted by the KV Cache, allowing you to handle larger batches and longer contexts on the same GPU, directly improving your cost-performance ratio.
+vLLM&#8217;s <strong>PagedAttention</strong> is designed to drastically reduce KV Cache memory waste, allowing for larger batches and longer contexts on the same GPU, directly improving cost-performance.
 </td>
 </tr>
 </table>
@@ -357,11 +388,14 @@ This is precisely the problem vLLM was designed to solve. Its core innovation, <
 <div class="sect2">
 <h3 id="_3_model_activations"><a class="anchor" href="#_3_model_activations"></a>3. Model Activations</h3>
 <div class="paragraph">
-<p>These are the intermediate values calculated during the model&#8217;s forward pass. While their memory impact is far smaller than the KV Cache, they are a non-zero factor in the total VRAM load.</p>
+<p>These are the intermediate values calculated during the model&#8217;s forward pass. While their memory impact is far smaller than the KV Cache, they are a non-zero factor.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_the_real_world_vram_equation"><a class="anchor" href="#_the_real_world_vram_equation"></a>The Real-World VRAM Equation</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_real_world_vram_equation"><a class="anchor" href="#_the_real_world_vram_equation"></a>The Real-World VRAM Equation</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Therefore, a practical formula for estimating your total memory requirement looks like this:</p>
 </div>
@@ -390,12 +424,11 @@ This is precisely the problem vLLM was designed to solve. Its core innovation, <
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
 <h2 id="_connecting_vram_to_infrastructure_cost"><a class="anchor" href="#_connecting_vram_to_infrastructure_cost"></a>Connecting VRAM to Infrastructure Cost</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Understanding the VRAM requirements allows you to estimate the annual infrastructure cost. Below are estimates for common GPU instances based on a 1-year commitment.</p>
+<p>Once you understand VRAM requirements, you can estimate the annual infrastructure cost. For customer Proof-of-Concept (PoC) projects with limited budgets, a strategic workflow is recommended.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. Annual Cloud Cost Estimates</caption>
@@ -418,13 +451,13 @@ This is precisely the problem vLLM was designed to solve. Its core innovation, <
 <td class="tableblock halign-left valign-top"><p class="tableblock">24 GB</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>g6.4xlarge</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>$7,000 - $8,000</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Recommended starting point for PoCs</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good performance-per-dollar for initial projects</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">48 GB</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>g6e.2xlarge</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">$12,000 - $14,000</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cost doubles from the 24GB tier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For larger models without quantization or higher-throughput scenarios</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">192 GB (4x48)</p></td>
@@ -443,22 +476,26 @@ This is precisely the problem vLLM was designed to solve. Its core innovation, <
 </div>
 </div>
 <div class="sect1">
-<h2 id="_our_recommended_project_strategy"><a class="anchor" href="#_our_recommended_project_strategy"></a>Our Recommended Project Strategy</h2>
+<h2 id="_once_upon_a_project_on_a_budget_strategy"><a class="anchor" href="#_once_upon_a_project_on_a_budget_strategy"></a>Once upon a Project on a Budget Strategy</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For a typical customer Proof-of-Concept (PoC) with a limited budget, follow this strategic workflow.</p>
+<p>For a customer Proof-of-Concept (PoC) with a limited budget, up to ~1000 tokens per second.</p>
 </div>
-<div class="paragraph">
-<div class="title">Target the Sweet Spot</div>
-<p>Start by targeting the <strong>24 GB VRAM</strong> infrastructure (<code>g6.4xlarge</code>). This class of GPU offers the best performance-per-dollar and aligns with customer budgets for initial projects.</p>
-</div>
-<div class="paragraph">
-<div class="title">Search with Intent</div>
-<p>Filter your model search to those that provide <strong>quantized versions</strong>. A quantized 13B model can often outperform a non-quantized 7B model while fitting in the same 24GB memory budget.</p>
-</div>
-<div class="paragraph">
-<div class="title">Validate and Iterate</div>
-<p>Deploy your chosen model and benchmark its performance <strong>and</strong> real-world VRAM consumption. Be prepared to test different models to find the optimal balance of speed, accuracy, and cost for the customer&#8217;s specific use case.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Target the Sweet Spot:</strong>
+Start by targeting the <strong>24 GB VRAM</strong> infrastructure (<code>g6.4xlarge</code>). This class of GPU offers the good performance-per-dollar and could align with customer budgets for <strong>inference only</strong> projects.</p>
+</li>
+<li>
+<p><strong>Optimized (Quantized) Models:</strong>
+Filter your model search to those that provide <strong>quantized versions</strong>. A quantized 13B model can often outperform a non-quantized 7B model while fitting in the same 24GB memory budget.</p>
+</li>
+<li>
+<p><strong>Validate and Iterate:</strong>
+Deploy your chosen model and benchmark its performance <strong>and</strong> real-world VRAM consumption. Be prepared to test different models to find the optimal balance of speed, accuracy, and cost for the customer&#8217;s specific use case.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -477,8 +514,8 @@ This is precisely the problem vLLM was designed to solve. Its core innovation, <
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="gpu_arch.html">NVIDIA GPU Architecture</a></span>
-  <span class="next"><a href="vram_calc.html">Cost-Effective Model Selection</a></span>
+  <span class="prev"><a href="index.html">GPU Architecture and Model Sizing</a></span>
+  <span class="next"><a href="gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a></span>
 </nav>
 </article>
   </div>
