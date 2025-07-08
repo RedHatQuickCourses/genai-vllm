@@ -1,45 +1,24 @@
-= Cost-Effective Model Selection
+= Summary for AI Platform Delivery Engineers: Actionable Insights
 
-This section provides a practical, cost-driven guide for selecting an LLM. We will walk through a strategic workflow that balances model performance, VRAM usage, and infrastructure cost, a common challenge in customer engagements.
+As an AI platform delivery engineer, your success in deploying LLMs cost-effectively on OpenShift AI hinges on:
 
-==== Scenario: A Customer Proof-of-Concept (PoC)
+==  **Accurate VRAM Planning:** 
 
-To make this tangible, let's use a common scenario:
-* **Customer Goal:** Build a chatbot to answer questions against their internal technical documentation.
-* **Key Requirement:** The model must be capable of reasoning and following instructions well.
-* **Constraint:** The initial PoC has a limited infrastructure budget, intended to prove value before scaling.
+Don't just consider model weights. **Factor in the KV Cache, system overhead, and activations** to get a true VRAM estimate. The KV cache, driven by batch size and context length, can easily exceed model weights, making **vLLM's PagedAttention a critical technology**.
 
-Our job is to select the best possible model that can run effectively on cost-efficient hardware.
 
-==== Step 1: Connect VRAM Requirements to Infrastructure Cost
+==   **Cost-Aware Hardware Selection:** 
 
-From our VRAM Blueprint, we know that `Total VRAM ≈ Weights + KV Cache + Overhead`. Now, we map this technical requirement to a financial one. Below are cloud cost estimates for common GPU tiers, which will inform our hardware target.
+For PoCs, **target the 24 GB VRAM GPU tier** (e.g., L4, g6.4xlarge) as the sweet spot for performance-per-dollar.
 
-[TIP]
-The goal is to find the lowest-cost GPU tier that can still satisfy the memory requirements of a high-quality model, once optimized.
+==   **Prioritize Quantized Models:** 
 
-.Annual Cloud GPU Cost Estimates (1-Year Commitment)
-[options="header"]
-|===
-| VRAM per GPU | Example GPU | Example AWS Instance | Est. Annual Cost (1-Yr) | Common Use Case
+Actively **seek out and test quantized versions of LLMs**. A quantized 13B model can be more cost-effective than a non-quantized 7B model.
 
-| 24 GB
-| NVIDIA L4
-| `g6.4xlarge`
-| $7,000 - $9,000
-| *The PoC Sweet Spot.* Best performance-per-dollar for initial projects.
+==  **Leverage GPU Architecture Features:**
+    **   If using **Hopper (H100) or Blackwell (B100/B200) GPUs, ensure your serving framework (like vLLM) utilizes the Transformer Engine** for automatic performance boosts.
+    **   **Align your quantization strategy with the GPU's native precision support.** For Hopper/Blackwell, **strongly prefer FP8 quantization**. For Ampere, focus on BF16 or structural sparsity.
+    **   Understand that HBM and NVLink are key enablers for low latency and efficient multi-GPU deployments.
 
-| 48 GB
-| NVIDIA L40S
-| `g6e.8xlarge`
-| $15,000 - $20,000
-| Running larger models without quantization or for higher-throughput scenarios.
 
-| 80 GB
-| NVIDIA H100
-| `p5.8xlarge`
-| $45,000 - $55,000
-| High-performance production, fine-tuning, or serving very large models.
-
-| 640 GB
-|
+**Always Profile:** The **"Golden Rule"** is to **profile your specific use case** with realistic loads to validate VRAM consumption and performance.
