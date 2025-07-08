@@ -26,7 +26,7 @@ For AI platform delivery engineers managing their own Red Hat OpenShift AI insta
 These operators are available from the OpenShift `OperatorHub`. While the OpenShift AI operator often manages these dependencies, **verification of their installation is prior to the installation of OpenShift AI Operator is advised**.
 
 
-== Arcade Interactive Experience - Installation of RHOAI v2.18
+== Arcade Interactive Experience
 
 
 ++++

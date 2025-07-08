@@ -1,4 +1,4 @@
-= Arcade Interactive Experience - Installation of RHOAI v2.18
+= Arcade Interactive Experience - Granite Model Evaluation with GuideLLM
 
 
 ++++
