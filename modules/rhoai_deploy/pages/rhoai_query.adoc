@@ -9,12 +9,12 @@ With our Granite model successfully deployed and running, the final step is to v
 To connect to our model, we need two key pieces of information: its unique URL (the inference endpoint) and a security token for authentication.
 
 1.  Navigate to your Data Science Project dashboard and select the **Models and model servers** page.
-2.  Locate your `granite-model` deployment. You should see a green checkmark with a **Running** status.
-3.  Click on the deployment name, **granite-model**, to open its details page.
+2.  Locate your `granite` or `your-deployment-name` deployment. You should see a green checkmark with a **Running** status.
+3.  Click on the deployment name, **granite**, to open its details page.
 4.  **Find the Inference Endpoint:** Near the top of the details page, locate the **Inference endpoint** URL. This is the external address for your model. Copy this URL to a temporary text file.
 5.  **Find the Authentication Token:** Scroll down to the **Authentication** section. Click the **copy icon** to copy the long security token to your clipboard and paste it into your text file.
 
-We now have the two credentials needed to query our model.
+We now have the three credentials needed to query our model.
 
 ---
 
@@ -22,8 +22,8 @@ We now have the two credentials needed to query our model.
 
 Now, let's launch the Jupyter environment we created earlier.
 
-1.  Navigate to the **Workbenches** tab in your project.
-2.  Find your `vllm-workbench` and click the **Launch** icon (the arrow pointing out of a box).
+1.  Navigate to the **Workbench** tab in your project.
+2.  Find `Innovatech` or `your-workbench-name` and click the **Launch** icon (the arrow pointing out of a box).
 
 [IMPORTANT]
 ====
@@ -33,12 +33,13 @@ You may be prompted to log in and authorize the workbench to access OpenShift AI
 Once the JupyterLab interface loads:
 
 .   **Clone the Git Repository:** We need to download the sample notebooks.
-    a.  Go to the `File` menu and select `New -> Terminal`.
-    b.  In the new terminal window, run the following command to clone the example files:
-    +
-    ```bash
-    git clone [https://github.com/RedHatQuickCourses/genai-apps.git](https://github.com/RedHatQuickCourses/genai-apps.git)
-    ```
+    ..  Go to the `lefthand menu bar` and select the Git icon
+    ..  From this list, select clone repository.
+    ..  In the pop up window paste the following git repository URL.
+
+```bash
+git clone https://github.com/RedHatQuickCourses/genai-apps.git
+```
 
 .   **Open the Notebook:**
     a.  Using the file browser on the left, navigate into the newly created `genai-apps` folder, and then into the `vllm-rhoai` subdirectory.
@@ -60,8 +61,8 @@ The first cell uses `%pip` to install the `langchain-openai` library, which help
 This is the most important step. We need to replace the placeholder values in the second cell with the credentials we copied earlier.
 
 .   **VLLM_API_URL**: Replace the placeholder URL with the **Inference endpoint** you copied from the model details page.
-.   **VLLM_API_KEY**: Replace the `your-token-here` placeholder with the **Authentication Token** you copied.
-.   **MODEL_NAME**: The code defaults to `mistralai/Mistral-7B-v0.1`. Replace this with the name of our deployment: `granite-model`.
+.   **VLLM_API_KEY**: Replace the `sha256~token-here` placeholder with the **Authentication Token** you copied.
+.   **MODEL_NAME**: The code defaults to `granite`. Replace this with the name of our deployment.
 
 Your configured cell should look similar to this:
 
@@ -69,19 +70,14 @@ Your configured cell should look similar to this:
 # Configure the connection to the vLLM server
 VLLM_API_URL = "https://granite-model-vllm-lab.apps.cluster-domain.com/v1"
 VLLM_API_KEY = "sha256~AbcDeFgHiJkLmNoPqRsTuVwXyZ..."
-MODEL_NAME = "granite-model"
+MODEL_NAME = "granite"
 ```
 
+*Execute the cells to send test queries and observe model responses.*
+
+---
 
 == Interactive Demo: Query a Machine Learning Model from a Jupyter Notebook
-
-The following interactive demonstration will walk you through the process of:
-1.  lauching a Jupyter Server instance
-2.  Cloning a git repository of sample files
-3.  Replace URL ENDPOINT, MODEL_NAME, and API TOKEN in the example notebook.
-4.  Experimentation with various prompts to see how the model responds.
-
-Follow the on-screen prompts in the demo to complete the model deployment. 
 
 
 ++++

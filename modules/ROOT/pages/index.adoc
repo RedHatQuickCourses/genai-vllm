@@ -34,12 +34,12 @@ This course features a series of interactive experiences designed to provide a h
 
 [NOTE]
 ====
-.Quick interactive introduction to using and customizing your Workbench (recommended)
+.Quick interactive experience example, enabling Nvidia NIM on OpenShift AI  (optional)
 
 (This Interactive demo.)
 ++++
 <iframe 
-  src="https://demo.arcade.software/0ttb9MxpcNxWhaF1e49W?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  src="https://demo.arcade.software/Ny9x31AbeGxSYW21ht05?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%" 
   height="600px" 
   frameborder="0" 
@@ -54,7 +54,6 @@ This course features a series of interactive experiences designed to provide a h
 
 ////
 Preamble: Course Information
-[preamble]
 Audience:: AI Platform Engineers, ML Engineers, AI Consultants
 Level:: Intermediate
 Prerequisites:: Foundational knowledge of Large Language Models (LLMs), containerization (Docker), and REST APIs. Familiarity with GPU hardware is beneficial.

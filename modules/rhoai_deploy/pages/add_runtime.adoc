@@ -1,12 +1,12 @@
 = vLLM Serving Runtime
 
-A model-serving runtime provides the necessary integration between Red Hat OpenShift AI and a specific model server. Before deploying our model, we must ensure the **vLLM NVIDIA GPU ServingRuntime** is available in our environment.
+Before deploying any model, ensuring the correct serving runtime is available is paramount. The **vLLM NVIDIA GPU ServingRuntime** is the necessary integration between Red Hat OpenShift AI and the model inference.
 
 This page outlines the runtimes included in a recent version of OpenShift AI and provides instructions to add the vLLM runtime manually if you are using an older version.
 
-== Default Model Serving Runtimes
+== Model Serving Runtimes
 
-By default, a modern version of Red Hat OpenShift AI (like v2.21) includes several powerful runtimes out-of-the-box:
+Red Hat OpenShift AI (like v2.21) includes several powerful runtimes out-of-the-box:
 
 * *Multi-model*
 ** OpenVINO Model Server
@@ -19,7 +19,12 @@ By default, a modern version of Red Hat OpenShift AI (like v2.21) includes sever
 ** vLLM AMD GPU ServingRuntime for KServe
 ** vLLM CPU ServingRuntime for KServe
 
-If the **vLLM NVIDIA GPU ServingRuntime for KServe** is already available when you go to deploy a model, you do not need to complete the following exercise and can proceed to the next section.
+If the **vLLM NVIDIA GPU ServingRuntime for KServe** is already available, manual configuration is unnecessary.
+
+=== Adding Custom Runtimes: 
+
+If an older version of OpenShift AI is used and vLLM is not default, it can be added as a custom runtime through the OpenShift AI dashboard's `Settings` -> `Serving runtimes`.
+
 
 [NOTE]
 ====
@@ -96,6 +101,4 @@ You will now see the new *vLLM (NVIDIA GPU)* runtime in the list of available se
 
 '''
 
-With the vLLM runtime now available in your cluster, the next step is to configure a storage location for our models. We will use MinIO, an S3-compatible object store, for this lab.
-
-Continue to the next section to deploy and configure MinIO.
+Continue to the next section to deploy.
