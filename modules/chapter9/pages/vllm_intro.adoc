@@ -1,0 +1,71 @@
+= Optimizing with NVIDIA GPU Architecture
+
+A more advanced step in cost optimization involves aligning your model’s compression strategy with the specialized hardware features of the GPU it will run on. Deploying a generic model on advanced hardware means you are leaving significant performance and cost-savings on the table.
+
+This section details the key AI-centric advancements in recent NVIDIA GPU architectures and explains how to leverage them.
+
+== Datacenter GPU Evolution at a Glance
+
+NVIDIA's datacenter AI GPU evolution (Ampere, Hopper, Blackwell) introduced specialized hardware features to accelerate AI. 
+
+.Key AI Feature Comparison Across Architectures
+[options="header"]
+|===
+| Feature | Ampere (e.g., A100) | Hopper (e.g., H100) | Blackwell (e.g., B100/B200)
+
+| **Key AI Innovation**
+| 3rd Gen Tensor Cores, Structural Sparsity
+| **Transformer Engine**, 4th Gen Tensor Cores
+| **2nd Gen Transformer Engine**, Decompression Engine
+
+| **New Precision Support**
+| TF32
+| **FP8** (8-bit Floating Point)
+| **FP4 & FP6** (4/6-bit Floating Point)
+
+| **Memory Bandwidth**
+| ~2.0 TB/s (HBM2e)
+| ~3.3 TB/s (HBM3)
+| ~8.0 TB/s (HBM3e)
+
+| **Practical Implication**
+| Excellent at FP16/BF16. Good baseline for standard models.
+| *Game-changer for LLMs.* Automatically boosts Transformer models and FP8 provides near-INT8 speed with better accuracy.
+| Built for trillion-parameter models. Enables extreme low-bit quantization (FP4) for unprecedented speed and density.
+|===
+
+[NOTE]
+The **Ada Lovelace** architecture (e.g., L4, L40S GPUs) is also important for inference, incorporating 4th Gen Tensor Cores from Hopper, making it efficient for AI as a general-purpose accelerator.
+
+
+
+== Leverage Key Hardware Features for Cost Savings
+
+Knowing these features exist is one thing; exploiting them is another. Here is what you, as a platform engineer, need to focus on.
+
+=== 1. The Transformer Engine: An Automatic Speed Boost
+Found in **Hopper and Blackwell**, the Transformer Engine is a hardware and software combination that automatically and dynamically uses mixed-precision calculations for Transformer-based models (which includes virtually all modern LLMs).
+
+* **How it Works:** It intelligently casts layers to FP8 for speed and then back to FP16 for accuracy where needed, without requiring manual changes to the model code.
+* **Your Action:** When deploying on H100 or newer GPUs, using the Transformer Engine is essentially a "free" performance upgrade. Ensure your serving framework (like vLLM) is configured to leverage it. This can reduce latency and increase throughput, allowing you to serve more users on the same hardware.
+
+=== 2. Lower-Precision Math: The Core of Cost Efficiency
+As shown in the table, each new architecture has introduced support for lower-bit-width numerical formats. Aligning your quantization strategy with what the hardware can natively accelerate is important.
+
+* **Ampere (A100):** While it doesn't have FP8 support, it excels at standard `FP16` and `BF16` math. It also introduced **Structural Sparsity**, which can double throughput if your model has been pruned in a specific 2:4 sparse pattern.
+* **Hopper (H100):** The introduction of **FP8** is a massive deal. An FP8-quantized model offers a compelling balance: the speed benefits are close to INT8, but as a floating-point format, it retains a larger dynamic range, which generally preserves model accuracy better than integer quantization.
+* **Blackwell (B100/B200):** The new **FP4** and **FP6** support will enable serving massive models with a fraction of the memory footprint and significantly faster computation.
+
+[IMPORTANT]
+====
+**The Strategic Takeaway:** Your quantization strategy should not be generic; it should be hardware-aware.
+
+* If deploying on **Hopper or newer**, you should strongly prefer using **FP8 quantization**. It is hardware-accelerated and offers a superior trade-off between speed and accuracy.
+* If deploying on **Ampere**, focus on standard `BF16` or explore structurally sparse models for a performance boost.
+* Running a simple `FP16` model on a Blackwell GPU would be a massive waste of its potential. You would be ignoring the hardware's most powerful and efficient features.
+====
+
+== 3. High-Bandwidth Memory (HBM) and NVLink
+The massive increases in memory bandwidth and the speed of the GPU-to-GPU interconnect (NVLink) are what prevent the powerful compute cores from "starving" for data.
+
+While you don't directly configure HBM, recognize that this is why newer GPUs can achieve lower latency. It also makes multi-GPU setups (using Tensor Parallelism in vLLM) more viable, as the GPUs can communicate with each other much faster without creating a bottleneck.

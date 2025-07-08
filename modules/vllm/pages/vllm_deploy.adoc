@@ -1,19 +1,29 @@
-= vLLM on Red Hat OpenShift AI
+= Deploying and Interacting with Models on OpenShift AI
 
-Now that we understand what a Serving Runtime is, let's walk through the practical considerations for deploying a Large Language Model using our vLLM runtime on Red Hat OpenShift AI. This module covers the end-to-end workflow, from resource planning to interacting with the final API endpoint.
+This page details the practical, step-by-step workflow for deploying and interacting with models, emphasizing resource allocation which is vital for delivery engineers.
 
-== The Deployment Workflow at a Glance
 
-The process of taking a model and making it live with the vLLM runtime on OpenShift AI can be broken down into four main stages:
+== The Model Deployment Workflow (End-to-End):
 
-. **Choose the Compute Target:** Decide whether to deploy on a GPU (for production) or a CPU (for specific, non-performant use cases).
-. **Prepare Model Artifacts:** Place the model files in an S3-compatible object storage bucket that OpenShift AI can access.
-. **Deploy via the Dashboard:** Use the OpenShift AI interface to configure the deployment, selecting the vLLM runtime and allocating the necessary resources.
-. **Test and Integrate:** Verify the deployment using the built-in API documentation and integrate it into applications using the OpenAI-compatible endpoint.
+ . *Register the Runtime (Admin Task):* 
+An administrator with cluster privileges must first install necessary OpenShift AI components. Then, they add the vLLM runtime by navigating to the OpenShift AI Dashboard, going to Settings → Serving runtimes, clicking Add serving runtime, choosing Single model serving platform, and pasting the vllm-servingruntime.yaml content. The "vLLM (NVIDIA GPU)" runtime will then be available.
 
-We will now explore the key considerations for each of these stages.
+ . *Prepare Model Artifacts:* Model files (e.g., from Hugging Face) must be located in an S3-compatible object storage bucket that OpenShift AI can access. A Data Connection pointing to this bucket must be created in the OpenShift AI project.
 
-=== Consideration 1: Choosing the Right Compute Target (GPU vs. CPU)
+ . *Deploy a Model (User Task):*
+ .. From the OpenShift AI project dashboard, click Deploy model.
+ .. Fill in the model name, select the vLLM (NVIDIA GPU) serving runtime, and point to the data connection and specific model path.
+ .. Critical Resource Allocation: This is the most critical step for successful deployment.
+ ... GPU VRAM (Video RAM): This is the memory on the GPU itself. The entire model and its KV Cache must fit into VRAM. If insufficient VRAM is allocated, the model will fail to load. For example, a 7B parameter model in FP16 requires approximately 14 GB of VRAM.
+System RAM: Used by the operating system and for pre-loading operations before the model is transferred to the GPU. Allocate a healthy amount of system RAM (e.g., 16 GB or more) to prevent unexpected pod crashes and ensure stability during startup.
+ .. Configure the number of replicas and ensure a GPU is requested in the resource configuration.
+ .. OpenShift AI will then automatically provision a pod using the vLLM runtime, pull the model from object storage into the pod’s /mnt/models directory, and start the vLLM server.
+
+
+[]
+====
+
+*Choosing the Right Compute Target (GPU vs. CPU)*
 
 Your first decision is where the model will run. While vLLM can operate in both environments, they serve very different purposes.
 
@@ -24,7 +34,7 @@ Your first decision is where the model will run. While vLLM can operate in both 
 | CPU-Only vLLM (Niche Use Cases)
 
 | **Hardware Requirement**
-| NVIDIA GPU is **mandatory**.
+| (NVIDIA) GPU is **mandatory**.
 | Runs on standard x86 CPUs.
 
 | **Performance**
@@ -36,28 +46,6 @@ Your first decision is where the model will run. While vLLM can operate in both 
 | Limited data type support. It primarily works with `FP32` and `BF16`, and will automatically convert `FP16` models, which can affect performance and accuracy.
 |===
 
-[TIP]
-====
-For any production, pre-production, or performance-sensitive workload, **always use the GPU-accelerated runtime**. The CPU runtime should be reserved for scenarios where GPU resources are completely unavailable or for quick functional testing where performance is not a factor.
-====
-
-=== Consideration 2: The Model Deployment Process
-
-Deploying the model involves telling OpenShift AI where to find the model files and how to configure the vLLM server to run them.
-
-==== Step 1: Stage Model Files in Object Storage
-The OpenShift AI model serving platform is designed to pull model artifacts from an S3-compatible object store. Before starting a deployment, ensure your model files are uploaded to a bucket and that you have a `Data Connection` configured in your OpenShift AI project to access it.
-
-==== Step 2: Deploy from the OpenShift AI Dashboard
-With the `vLLM ServingRuntime` registered by an administrator (as covered in Module 1), the deployment process is straightforward:
-
-1. Navigate to your project in the OpenShift AI dashboard and click **Deploy model**.
-2. Select the **vLLM (NVIDIA GPU)** runtime you intend to use.
-3. Point to the **Data Connection** and the specific path within the bucket where your model files are located.
-
-==== Step 3: Critical Resource Allocation
-This is the most critical step for a successful deployment. You must allocate enough memory for the model to load and run.
-
 [IMPORTANT]
 .VRAM vs. System RAM
 ****
@@ -66,17 +54,20 @@ This is the most critical step for a successful deployment. You must allocate en
 * **System RAM:** This is the standard server memory. While the model runs on the GPU, system RAM is still used by the operating system and for pre-loading operations before the model is transferred to the GPU. Always allocate a healthy amount of system RAM (e.g., 16 GB or more) to prevent unexpected pod crashes.
 ****
 
-=== Consideration 3: Interacting with the Deployed Model
+====
+
+
+== Interacting with the Deployed Model:
 
 A key advantage of the vLLM runtime is its built-in, **OpenAI-compatible API**. This design choice dramatically simplifies integration, as any application or tool built to communicate with OpenAI's API can be pointed to your self-hosted vLLM endpoint with minimal changes.
 
-==== Interactive Testing with the Swagger UI
+=== Interactive Testing with the Swagger UI
 The easiest way to test your deployed model is through the built-in Swagger UI, which provides interactive API documentation. You can see all available endpoints, view their parameters, and even send test requests directly from your browser.
 
 * **How to Access:** Simply take the inference endpoint URL provided by the OpenShift AI dashboard and append `/docs` to it.
 * **URL:** `https://<your-model-endpoint-url>/docs`
 
-==== Programmatic Integration
+=== Programmatic Integration
 For application development, you can use standard HTTP clients or libraries like `openai-python`. The vLLM server implements the core OpenAI endpoints:
 
 * `/v1/chat/completions`: For interacting with conversational or instruction-tuned models.
@@ -103,4 +94,5 @@ EOF
 ----
 
 [NOTE]
-For more advanced use cases, such as integrating vLLM with frameworks like LangChain, you can find detailed examples and notebooks in the official vLLM and OpenShift AI documentation. The key is to configure your client to use your model's inference endpoint as the `base_url`.
+For more advanced use cases, such as integrating vLLM with frameworks like LangChain, you can find  example notebooks in this courses Github Apps repository and in OpenShift AI documentation. The key is to configure your client to use your model's inference endpoint as the `base_url`.  
+

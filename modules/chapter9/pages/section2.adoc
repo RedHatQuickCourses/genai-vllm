@@ -1,0 +1,115 @@
+= Estimating GPU VRAM 
+
+
+== Cost-Aware Model and Hardware Selection
+
+In the previous sections, we focused on the vLLM engine and its deployment on OpenShift AI. Now, we will shift our focus to the economics of AI infrastructure. This module will equip you with the knowledge to make cost-effective decisions by aligning LLM selection, compression techniques, and hardware choices.
+
+== Understanding GPU VRAM: The True Cost Blueprint
+
+The "sticker price" of a model (its parameter count) is not its final cost in production. You must consider all components that consume VRAM.
+
+*   **Model Weights (The Baseline Cost)**
+    **   This is the memory needed to load the model's parameters.
+    **   It's a function of the model size (billions of parameters) and the numerical precision used to store each parameter.
+    *   **Calculation:** VRAM (GB) ≈ (Number of Parameters in Billions) x (Bits per Parameter / 8).
+        **   *Example:* A 7 Billion parameter model at FP16 (16 bits per parameter) requires 7 * (16 / 8) = 14 GB of VRAM for its weights.
+
+
+
+
+[]
+====
+*Quantization* (using a lower-precision format like INT8 or INT4 instead of FP16/BF16) is the **most direct way to reduce this baseline memory cost**.
+
+.Estimated VRAM for Model Weights by Precision
+[options="header"]
+|===
+| Model Size (Parameters) | FP16 / BF16 (16-bit) | INT8 (8-bit) | INT4 (4-bit)
+
+| *1 Billion* | ~2 GB | ~1 GB | ~0.5 GB
+| *3 Billion* | ~6 GB | ~3 GB | ~1.5 GB
+| *7 Billion* | ~14 GB | ~7 GB | ~3.5 GB
+| *13 Billion* | ~26 GB | ~13 GB | ~6.5 GB
+| *30 Billion* | ~60 GB | ~30 GB | ~15 GB
+| *70 Billion* | ~140 GB | ~70 GB | ~35 GB
+|===
+====
+
+
+
+== The Hidden Costs: Beyond the Weights
+
+A common mistake is to select a GPU based solely on model weight VRAM. Several other significant memory consumers must be factored in for a live production environment.
+
+
+=== 1. The KV Cache (The Memory Hog)
+The Key-Value (KV) Cache stores attention data for the sequence being processed. For modern LLMs, this is often the **largest and most volatile consumer of VRAM**. Its size is not fixed; it grows dynamically based on your workload.
+
+* **Key Drivers:** The size of the KV Cache is directly proportional to:
+    ** **Batch Size:** The number of requests you process concurrently.
+    ** **Context Length:** The number of tokens (input + output) in each request.
+* **Impact:** For applications with long context windows (e.g., document summarization) or high batch sizes, the KV Cache can easily consume **more VRAM than the model weights themselves**. A 14 GB model might require another 16 GB or more for its KV Cache under heavy load.
+
+[TIP]
+vLLM's *PagedAttention* is designed to drastically reduce KV Cache memory waste, allowing for larger batches and longer contexts on the same GPU, directly improving cost-performance.
+
+=== 2. CUDA & System Overhead
+This is the fixed cost of doing business on a GPU. It includes memory consumed by the NVIDIA CUDA kernels, the core PyTorch and vLLM libraries, and various system buffers required to manage the computation.
+* **Estimated Cost:** Budget an additional *10-20%* of the model's weight VRAM for this overhead.
+
+=== 3. Model Activations
+These are the intermediate values calculated during the model's forward pass. While their memory impact is far smaller than the KV Cache, they are a non-zero factor.
+
+== The Real-World VRAM Equation
+
+Therefore, a practical formula for estimating your total memory requirement looks like this:
+
+[source,text]
+----
+Total VRAM Needed ≈ (VRAM for Model Weights) + (VRAM for Max KV Cache) + (VRAM for System Overhead)
+----
+
+[IMPORTANT]
+.Don't Be Fooled by the "Sticker Price"
+====
+A model's advertised size is not its final cost in production. A 13B parameter model might list a ~26 GB requirement for its FP16 weights, suggesting it could fit on a 32 GB GPU. However, with a large batch size and long context window for the KV Cache, the *actual VRAM requirement can easily exceed 40 GB*.
+
+**Golden Rule:** Always profile your specific use case with realistic batch sizes and context lengths. Never select hardware based solely on the VRAM needed for model weights.
+====
+
+== Connecting VRAM to Infrastructure Cost
+
+Once you understand VRAM requirements, you can estimate the annual infrastructure cost. For customer Proof-of-Concept (PoC) projects with limited budgets, a strategic workflow is recommended.
+
+.Annual Cloud Cost Estimates
+[options="header"]
+|===
+| VRAM per GPUs | Example AWS Instance | Estimated Annual Cost | Notes
+| 24 GB        | `g6.4xlarge`         | *$7,000 - $8,000* | Good performance-per-dollar for initial projects
+| 48 GB        | `g6e.2xlarge`        | $12,000 - $14,000      | For larger models without quantization or higher-throughput scenarios
+| 192 GB (4x48)     | `g6e.12xlarge`       | $55,000 - $65,000      | For multi-model serving or very large models
+| 640 GB (8x80)     | `p5.48xlarge`        | $240,000+              | Enterprise scale (based on monthly cost)
+|===
+
+== Once upon a Project on a Budget Strategy
+
+For a customer Proof-of-Concept (PoC) with a limited budget, up to ~1000 tokens per second.
+
+ . *Target the Sweet Spot:*
+Start by targeting the **24 GB VRAM** infrastructure (`g6.4xlarge`). This class of GPU offers the good performance-per-dollar and could align with customer budgets for *inference only* projects.
+
+ . *Optimized (Quantized) Models:*
+Filter your model search to those that provide **quantized versions**. A quantized 13B model can often outperform a non-quantized 7B model while fitting in the same 24GB memory budget.
+
+ . *Validate and Iterate:*
+Deploy your chosen model and benchmark its performance *and* real-world VRAM consumption. Be prepared to test different models to find the optimal balance of speed, accuracy, and cost for the customer's specific use case.
+
+== Red Hat Sizing Guide
+
+Intended to help provide *a model for estimations for sizing clusters for OpenShift AI* based on a few questions about the customers intended usage.
+
+Internal Only - http://red.ht/rhoai-sizing-guide[OpenShift AI Cluster sizing sheet]
+
+slack channel #help-rhoai-sizing-guide
+
