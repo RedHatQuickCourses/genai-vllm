@@ -89,16 +89,13 @@
     <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rh_hg_ai/model_types.html">Generative AI Model Variations in Model Naming</a>
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">The Red Hat AI Validated Model Repository</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rh_hg_ai/val_models.html">Validated Models and Quantization Strategies</a>
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Pre-Selected Course Models</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rh_hg_ai/summary.html">From Curation to Confident Deployment</a>
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Granite Models</a>
   </li>
 </ul>
   </li>
@@ -177,13 +174,13 @@
     <a class="nav-link" href="../chapter9/section4.html">blank</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Estimating GPU VRAM</a>
+    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter9/section3.html">blank</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">Optimizing with NVIDIA GPU Architecture</a>
+    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
   </li>
 </ul>
   </li>
@@ -381,8 +378,14 @@ vLLM&#8217;s <strong>PagedAttention</strong> is designed to drastically reduce K
 <div class="sect2">
 <h3 id="_2_cuda_system_overhead"><a class="anchor" href="#_2_cuda_system_overhead"></a>2. CUDA &amp; System Overhead</h3>
 <div class="paragraph">
-<p>This is the fixed cost of doing business on a GPU. It includes memory consumed by the NVIDIA CUDA kernels, the core PyTorch and vLLM libraries, and various system buffers required to manage the computation.
-* <strong>Estimated Cost:</strong> Budget an additional <strong>10-20%</strong> of the model&#8217;s weight VRAM for this overhead.</p>
+<p>This is the fixed cost of doing business on a GPU. It includes memory consumed by the NVIDIA CUDA kernels, the core PyTorch and vLLM libraries, and various system buffers required to manage the computation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Estimated Cost:</strong> Budget an additional <strong>10-20%</strong> of the model&#8217;s weight VRAM for this overhead.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">

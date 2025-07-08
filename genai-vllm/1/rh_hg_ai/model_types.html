@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Generative AI Model Variations in Model Naming :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <title>The Red Hat AI Validated Model Repository :: vLLM Optimizing and Serving Models on OpenShift AI</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="val_models.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -89,16 +89,13 @@
     <a class="nav-link" href="index.html">Red Hat AI Model Repository</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="model_types.html">Generative AI Model Variations in Model Naming</a>
+    <a class="nav-link" href="model_types.html">The Red Hat AI Validated Model Repository</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="val_models.html">Validated Models and Quantization Strategies</a>
+    <a class="nav-link" href="val_models.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="lab_models.html">Pre-Selected Course Models</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="summary.html">From Curation to Confident Deployment</a>
+    <a class="nav-link" href="lab_models.html">Granite Models</a>
   </li>
 </ul>
   </li>
@@ -177,13 +174,13 @@
     <a class="nav-link" href="../chapter9/section4.html">blank</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Estimating GPU VRAM</a>
+    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter9/section3.html">blank</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">Optimizing with NVIDIA GPU Architecture</a>
+    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
   </li>
 </ul>
   </li>
@@ -219,7 +216,7 @@
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
     <li><a href="index.html">Red Hat AI Model Repository</a></li>
-    <li><a href="model_types.html">Generative AI Model Variations in Model Naming</a></li>
+    <li><a href="model_types.html">The Red Hat AI Validated Model Repository</a></li>
   </ul>
 </nav>
 </div>
@@ -228,186 +225,135 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Generative AI Model Variations in Model Naming</h1>
+<h1 class="page">The Red Hat AI Validated Model Repository</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Welcome to the next chapter of our course on model inference with vLLM. Before we dive into the Red Hat AI model repository on Hugging Face, it&#8217;s crucial to understand the common variations you&#8217;ll encounter in model names. These suffixes and descriptors aren&#8217;t arbitrary; they signify the model&#8217;s training, capabilities, and intended use case. This page will demystify these common variations.</p>
+<p>The open-source AI landscape, particularly on platforms like Hugging Face, presents a vast and often challenging environment due to the sheer number of available models, making it difficult to discern which are performant, accurate, or truly ready for enterprise use. To address this complexity, the <strong>Red Hat AI Validated Model Repository</strong> emerges as a curated ecosystem designed to streamline model selection and deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_the_red_hat_ai_validated_model_repository"><a class="anchor" href="#_what_is_the_red_hat_ai_validated_model_repository"></a>What is the Red Hat AI Validated Model Repository?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is an open-source initiative stemming from a deep collaboration between IBM and Red Hat. Its primary mission is to <strong>bridge the gap between cutting-edge research and robust production deployments</strong> by offering open, accessible, and community-driven AI solutions. Far from being just a list of models, it functions as a strategic solution to <strong>de-risk AI projects</strong> by providing models that have been pre-vetted for performance, accuracy, and overall enterprise readiness.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_use_a_validated_model"><a class="anchor" href="#_why_use_a_validated_model"></a>Why Use a Validated Model?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For AI platform delivery engineers, utilizing models from this repository offers significant advantages:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Key Benefits of Using a Validated Model</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Reduces Guesswork:</strong> Provides reliable performance expectations and recommended deployment settings, eliminating the need for extensive trial-and-error.</p>
+</li>
+<li>
+<p><strong>Ensures Enterprise Readiness:</strong> Validates that models perform well under load using enterprise-grade tools like vLLM.</p>
+</li>
+<li>
+<p><strong>Optimizes for Cost:</strong> Offers clear guidance on pairing models with the right hardware, maximizing inference efficiency and lowering Total Cost of Ownership (TCO).</p>
+</li>
+<li>
+<p><strong>Provides Flexibility:</strong> Offers a range of popular models in various optimized formats to meet diverse project requirements.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_rigorous_validation_process"><a class="anchor" href="#_the_rigorous_validation_process"></a>The Rigorous Validation Process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The confidence in Red Hat&#8217;s validated models stems from a rigorous and transparent validation process that employs industry-standard open-source tooling, ensuring reproducibility of results. The key tools involved are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GuideLLM</strong>: A powerful benchmarking tool used for capacity planning. It simulates real-world traffic to assess a model’s throughput, latency, and resource utilization across different hardware configurations.</p>
+</li>
+<li>
+<p><strong>Language Model Evaluation Harness (LM Eval Harness)</strong>: This is the industry standard for <strong>accuracy evaluation</strong>. It measures a model’s reasoning and generalization capabilities across a wide range of academic benchmarks.</p>
+</li>
+<li>
+<p><strong>vLLM</strong>: This specific inference engine is used during the performance validation itself, ensuring that the benchmarks reflect the performance achievable when deploying with vLLM on OpenShift AI.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The generative AI landscape is filled with a diverse set of models, each optimized for specific tasks. Understanding their lineage helps in selecting the right tool for the job.</p>
+<p>This thorough validation process provides the transparent data necessary for making informed decisions and setting realistic expectations for model performance on target hardware.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_1_base_models"><a class="anchor" href="#_1_base_models"></a>1. Base Models</h2>
+<h2 id="_v1_0_collection_of_red_hat_ai_validated_models"><a class="anchor" href="#_v1_0_collection_of_red_hat_ai_validated_models"></a>v1.0 Collection of Red Hat AI Validated Models</h2>
 <div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>What it is</strong></dt>
-<dd>
-<p>A <strong>base model</strong>, often called a "foundational model," is the result of the initial, resource-intensive pre-training phase. It&#8217;s an LLM trained on a vast and general corpus of text and code, forming the foundation from which more specialized models are derived.</p>
-</dd>
-<dt class="hdlist1"><strong>Key Characteristics</strong></dt>
-<dd>
+<div class="paragraph">
+<p>This initial collection features leading third-party generative AI models rigorously validated for efficient use across the Red Hat AI Product Portfolio. Each model listed below has associated configurations for various quantization levels (e.g., <code>w4a16</code> for 4-bit weights and 16-bit activations, <code>w8a8</code> for 8-bit weights and 8-bit activations, or <code>FP8-dynamic</code> for dynamic FP8 quantization).</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Broad, Unstructured Knowledge:</strong> Possesses extensive general knowledge from its training data.</p>
+<p>Gemma-3 Quantized</p>
 </li>
 <li>
-<p><strong>Next-Token Prediction:</strong> Its fundamental function is to predict the next token in a sequence. It doesn&#8217;t inherently understand "instructions" or "dialogue."</p>
+<p>Whisper Quantized (Note: Whisper is typically an ASR model, but its text-generation component is relevant)</p>
 </li>
 <li>
-<p><strong>Unrefined Output:</strong> Interacting with a raw base model can be unpredictable. Its output is a continuation of the input prompt based on patterns learned during training, not necessarily a direct or helpful answer.</p>
+<p>Llama 4 Quantized</p>
+</li>
+<li>
+<p>Qwen3 Quantized</p>
+</li>
+<li>
+<p>Mistral Small-3.1 Instruct Quantized</p>
+</li>
+<li>
+<p>Phi-4 Quantized</p>
+</li>
+<li>
+<p>Llama 3.3 70B Instruct Quantized</p>
+</li>
+<li>
+<p>Qwen 2.5 Quantized</p>
+</li>
+<li>
+<p>Granite Quantized</p>
 </li>
 </ul>
 </div>
-</dd>
-<dt class="hdlist1"><strong>Analogy</strong></dt>
-<dd>
-<p>Think of a base model as a massive, raw database of human language. It contains the information, but there&#8217;s no query engine or user-friendly interface to retrieve and structure that information in a helpful way.</p>
-</dd>
-</dl>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The specific quantization scheme (e.g., <code>w4a16</code>, <code>w8a8</code>, <code>FP8-dynamic</code>) for each model is typically indicated in its full name or metadata within the Red Hat AI Hugging Face repository. These notations signify the precision used for weights (w) and activations (a), or the dynamic FP8 method.
+</td>
+</tr>
+</table>
 </div>
-<hr>
+<div class="sect3">
+<h4 id="_availability_and_selection_criteria"><a class="anchor" href="#_availability_and_selection_criteria"></a>Availability and Selection Criteria</h4>
+<div class="paragraph">
+<p>While Red Hat AI focuses on validated models, other models may also be available in the repository but have not undergone the full validation process. For practical deployment in this course, we will focus on specific pre-selected models from the validated collection.</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_2_instruct_instruction_tuned_models"><a class="anchor" href="#_2_instruct_instruction_tuned_models"></a>2. Instruct (Instruction-Tuned) Models</h2>
-<div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>What it is</strong></dt>
-<dd>
-<p>An <strong>instruct model</strong> is a base model that has undergone a second training phase known as instruction fine-tuning. This process, often called "alignment," trains the model on a curated dataset of <code>(instruction, response)</code> pairs. This phase frequently uses techniques like Reinforcement Learning with Human Feedback (RLHF) to align the model&#8217;s outputs with human preferences for helpfulness and safety.</p>
-</dd>
-<dt class="hdlist1"><strong>Key Characteristics</strong></dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Instruction Following:</strong> Its primary strength is understanding and executing specific user commands.</p>
-</li>
-<li>
-<p><strong>Helpful Assistant Persona:</strong> It&#8217;s trained to behave like a cooperative assistant, providing direct answers to questions.</p>
-</li>
-<li>
-<p><strong>Improved Safety and Predictability:</strong> The alignment process makes the model more reliable and less likely to generate undesirable content compared to its base version. Most public-facing chatbots (like ChatGPT, Gemini, and Claude) are instruction-tuned models.</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1"><strong>Analogy</strong></dt>
-<dd>
-<p>The raw database now has a powerful query engine and an API. You can submit a specific query (an instruction), and it returns a structured, relevant, and helpful response.</p>
-</dd>
-</dl>
-</div>
-<hr>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_3_chat_models"><a class="anchor" href="#_3_chat_models"></a>3. Chat Models</h2>
-<div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>What it is</strong></dt>
-<dd>
-<p>A <strong>chat model</strong> is a specialized type of instruct model that is further optimized for multi-turn dialogue. While most instruct models can handle a conversational back-and-forth, chat models are explicitly fine-tuned to maintain context over longer interactions, leading to more coherent and natural-feeling conversations.</p>
-</dd>
-<dt class="hdlist1"><strong>Key Characteristics</strong></dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Dialogue Coherence:</strong> Excels at tracking the conversational history to inform its next response.</p>
-</li>
-<li>
-<p><strong>Contextual Awareness:</strong> Superior ability to handle follow-up questions, clarifications, and references to earlier points in the conversation.</p>
-</li>
-<li>
-<p><strong>Enhanced User Experience:</strong> Provides a more seamless and intuitive conversational flow.</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1"><strong>Analogy</strong></dt>
-<dd>
-<p>This is a stateful API. It not only responds to your current query but also remembers all your previous queries within the same session, allowing for a continuous and context-aware interaction.</p>
-</dd>
-</dl>
-</div>
-<hr>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_code_models"><a class="anchor" href="#_4_code_models"></a>4. Code Models</h2>
-<div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>What it is</strong></dt>
-<dd>
-<p>A <strong>code model</strong> is a specialized LLM focused on software development tasks. It is either pre-trained from the ground up on a massive corpus of public source code or is a base model that has been extensively fine-tuned on code-specific datasets.</p>
-</dd>
-<dt class="hdlist1"><strong>Key Characteristics</strong></dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Programming Expertise:</strong> Designed for code generation, completion, debugging, and explanation.</p>
-</li>
-<li>
-<p><strong>Syntactic and Semantic Understanding:</strong> Possesses a deep grasp of programming language syntax, libraries, APIs, and common software architecture patterns. While a general instruct model can generate simple code, a dedicated code model produces more accurate, efficient, and idiomatic results.</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1"><strong>Analogy</strong></dt>
-<dd>
-<p>This is a highly specialized technical database and query engine built exclusively for developers. It&#8217;s staffed by an expert programmer who can not only find information but also write and debug complex code.</p>
-</dd>
-</dl>
-</div>
-<hr>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_5_task_specific_fine_tuned_models_e_g_summarization"><a class="anchor" href="#_5_task_specific_fine_tuned_models_e_g_summarization"></a>5. Task-Specific Fine-Tuned Models (e.g., Summarization)</h2>
-<div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>What it is</strong></dt>
-<dd>
-<p>Beyond general-purpose tuning, models can be fine-tuned for highly specific tasks. A <strong>summarization model</strong> is a prime example, trained on a dataset of long-form documents paired with their high-quality, concise summaries. This same principle applies to other tasks like translation, sentiment analysis, or classification.</p>
-</dd>
-<dt class="hdlist1"><strong>Key Characteristics</strong></dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Domain Expertise:</strong> Highly proficient at its one specific function (e.g., condensing large texts into short, accurate summaries).</p>
-</li>
-<li>
-<p><strong>Superior Performance:</strong> For its designated task, it will almost always outperform a general-purpose instruct model.</p>
-</li>
-<li>
-<p><strong>Abstractive Power:</strong> A specialized summarization model is often better at <strong>abstractive</strong> summarization (generating new sentences to convey the core meaning) rather than purely <strong>extractive</strong> summarization (copying key sentences from the source).</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1"><strong>Analogy</strong></dt>
-<dd>
-<p>This is a dedicated microservice. Instead of a general-purpose API that can do many things, this is a highly optimized endpoint designed for a single, specific function, like generating a "TL;DR" for a long article. It does one thing, and it does it exceptionally well.</p>
-</dd>
-</dl>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Red Hat AI Model Repository</a></span>
-  <span class="next"><a href="val_models.html">Validated Models and Quantization Strategies</a></span>
+  <span class="next"><a href="val_models.html">Intro Quantization Strategies</a></span>
 </nav>
 </article>
   </div>

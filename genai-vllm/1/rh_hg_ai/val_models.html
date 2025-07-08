@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Validated Models and Quantization Strategies :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <title>Intro Quantization Strategies :: vLLM Optimizing and Serving Models on OpenShift AI</title>
     <link rel="prev" href="model_types.html">
     <link rel="next" href="lab_models.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -89,16 +89,13 @@
     <a class="nav-link" href="index.html">Red Hat AI Model Repository</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model_types.html">Generative AI Model Variations in Model Naming</a>
+    <a class="nav-link" href="model_types.html">The Red Hat AI Validated Model Repository</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="val_models.html">Validated Models and Quantization Strategies</a>
+    <a class="nav-link" href="val_models.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="lab_models.html">Pre-Selected Course Models</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="summary.html">From Curation to Confident Deployment</a>
+    <a class="nav-link" href="lab_models.html">Granite Models</a>
   </li>
 </ul>
   </li>
@@ -177,13 +174,13 @@
     <a class="nav-link" href="../chapter9/section4.html">blank</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Estimating GPU VRAM</a>
+    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter9/section3.html">blank</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">Optimizing with NVIDIA GPU Architecture</a>
+    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
   </li>
 </ul>
   </li>
@@ -219,7 +216,7 @@
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
     <li><a href="index.html">Red Hat AI Model Repository</a></li>
-    <li><a href="val_models.html">Validated Models and Quantization Strategies</a></li>
+    <li><a href="val_models.html">Intro Quantization Strategies</a></li>
   </ul>
 </nav>
 </div>
@@ -228,105 +225,57 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Validated Models and Quantization Strategies</h1>
+<h1 class="page">Intro Quantization Strategies</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The open-source AI landscape, particularly on platforms like Hugging Face, can feel like the "Wild West"—a vast space with thousands of models, making it difficult to know which ones are performant, accurate, or ready for enterprise use.</p>
+<p>Quantization Strategies for Cost-Effective AI Deployment</p>
 </div>
 <div class="paragraph">
-<p>This module introduces the <strong>Red Hat AI Validated Model Repository</strong>, a curated ecosystem designed to solve this problem. You will learn how to leverage this resource to de-risk your projects, accelerate deployment, and make informed decisions based on transparent, rigorous testing.</p>
+<p>Model selection and deployment on OpenShift AI are heavily influenced by <strong>quantization strategies</strong>, which are central to optimizing LLM inference, especially in enterprise environments where cost-efficiency is paramount.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_quantization_and_why_is_it_important"><a class="anchor" href="#_what_is_quantization_and_why_is_it_important"></a>What is Quantization and Why is it Important?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Quantization is a critical optimization technique</strong> that involves <strong>reducing the numerical precision of model weights and/or activations</strong>. Typically, this means converting from higher-precision floating-point formats (like FP32 or FP16) to lower-bit representations (such as FP8, INT8, or INT4).</p>
 </div>
 <div class="paragraph">
-<p>We will specifically focus on understanding the significance of model quantization and how Red Hat AI offers various quantized formats to optimize LLM inference for enterprise environments.</p>
-</div>
-<hr>
+<p>Its core importance lies in its ability to <strong>fit powerful models onto cost-effective hardware</strong> by significantly reducing memory footprint and potentially increasing inference speed.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_the_red_hat_ai_validated_model_program"><a class="anchor" href="#_the_red_hat_ai_validated_model_program"></a>The Red Hat AI Validated Model Program</h3>
+</div>
+<div class="sect1">
+<h2 id="_understanding_quantization_naming_conventions"><a class="anchor" href="#_understanding_quantization_naming_conventions"></a>Understanding Quantization Naming Conventions</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The Red Hat AI repository on Hugging Face is an open-source initiative born from a deep collaboration between IBM and Red Hat. Its mission is to bridge the gap between cutting-edge research and robust production deployments by providing open, accessible, and community-driven AI solutions.</p>
+<p>When navigating the Red Hat AI repository, you will encounter standardized suffixes in model names that indicate their quantization precision:</p>
 </div>
-<div class="paragraph">
-<p>By sharing models, research, and validated configurations, the program empowers you to deploy high-performance AI at scale with confidence.</p>
-</div>
-<div class="sect3">
-<h4 id="_why_use_a_validated_model"><a class="anchor" href="#_why_use_a_validated_model"></a>Why Use a Validated Model?</h4>
-<div class="paragraph">
-<p>A "validated model" from the Red Hat AI repository is more than just a pre-trained LLM. It&#8217;s a model that has been meticulously assessed through comprehensive testing, providing critical insights into its real-world behavior.</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Key Benefits of Using a Validated Model</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Reduces Guesswork:</strong> Provides reliable performance expectations and recommended deployment settings, eliminating the need for extensive trial-and-error.</p>
+<p><strong><code>.w4a16</code></strong>: This denotes that the model&#8217;s <strong>w</strong>eights are quantized to 4-bit integers, while the <strong>a</strong>ctivations (in-flight calculations) are processed at 16-bit precision (FP16/BF16). This is a common "weight-only" quantization scheme.</p>
 </li>
 <li>
-<p><strong>Ensures Enterprise Readiness:</strong> Validates that models perform well under load using enterprise-grade tools like vLLM.</p>
+<p><strong><code>.w8a8</code></strong>: Both the model&#8217;s <strong>w</strong>eights and <strong>a</strong>ctivations are processed at 8-bit integer precision.</p>
 </li>
 <li>
-<p><strong>Optimizes for Cost:</strong> Offers clear guidance on pairing models with the right hardware, maximizing inference efficiency and lowering Total Cost of Ownership (TCO).</p>
-</li>
-<li>
-<p><strong>Provides Flexibility:</strong> Offers a range of popular models in various optimized formats to meet diverse project requirements.</p>
+<p><strong><code>.FP8</code> or <code>.FP8-dynamic</code></strong>: The model leverages the 8-bit floating-point format, often with dynamic scaling to maintain accuracy.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_the_validation_process"><a class="anchor" href="#_the_validation_process"></a>The Validation Process</h4>
+<div class="sect1">
+<h2 id="_performance_vs_accuracy_trade_off_and_hardware_alignment"><a class="anchor" href="#_performance_vs_accuracy_trade_off_and_hardware_alignment"></a>Performance vs. Accuracy Trade-Off and Hardware Alignment</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Red Hat&#8217;s validation process uses industry-standard open-source tooling to ensure the results are transparent and reproducible:</p>
+<p>There is no single "best" quantization level; the optimal choice depends on balancing performance, accuracy, and cost for a specific use case. A <strong>hardware-aware strategy is essential</strong> to align the model’s quantization with the GPU’s native capabilities. This strategic alignment allows for the efficient use of both <strong>existing hardware or newly acquired hardware</strong> for on-premises deployments, which directly contributes to a lower Total Cost of Ownership.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>GuideLLM</code>:</strong> A powerful benchmarking tool used for capacity planning. It simulates real-world traffic to assess a model&#8217;s throughput, latency, and resource utilization on various hardware setups.</p>
-</li>
-<li>
-<p><strong><code>Language Model Evaluation Harness</code> (LM Eval Harness):</strong> The industry standard for accuracy evaluation. It measures a model&#8217;s reasoning and generalization capabilities across a wide range of academic benchmarks.</p>
-</li>
-<li>
-<p><strong><code>vLLM</code>:</strong> The inference engine used during performance validation. This ensures that the published benchmarks reflect the performance you can expect when deploying with the tools taught in this course.</p>
-</li>
-</ul>
-</div>
-<hr>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_a_deep_dive_into_quantization_strategies"><a class="anchor" href="#_a_deep_dive_into_quantization_strategies"></a>A Deep Dive into Quantization Strategies</h3>
 <div class="paragraph">
-<p>Model quantization is a critical optimization technique that plays a central role in Red Hat AI’s validated model collection. It involves reducing the numerical precision of model weights and/or activations, typically from higher-precision floating-point formats (e.g., FP32 or FP16) to lower-bit representations (e.g., FP8, INT8, INT4).</p>
-</div>
-<div class="sect3">
-<h4 id="_understanding_the_naming_convention"><a class="anchor" href="#_understanding_the_naming_convention"></a>Understanding the Naming Convention</h4>
-<div class="paragraph">
-<p>When Browse the repository, you will see suffixes like <code>.w4a16</code> or <code>.FP8-dynamic</code>. This is a standardized shorthand that tells you the precision of the model&#8217;s <strong>weights (w)</strong> and <strong>activations (a)</strong>.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>w4a16</code></strong>: The model&#8217;s <strong>w</strong>eights are quantized to 4-bit integers, and the <strong>a</strong>ctivations (the in-flight calculations) are processed at 16-bit precision (FP16/BF16). This is a very common "weight-only" quantization scheme.</p>
-</li>
-<li>
-<p><strong><code>w8a8</code></strong>: Both weights and activations are processed at 8-bit integer precision.</p>
-</li>
-<li>
-<p><strong><code>FP8</code> or <code>FP8-dynamic</code></strong>: The model leverages the 8-bit floating-point format, often with dynamic scaling to maintain accuracy.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_the_performance_vs_accuracy_trade_off"><a class="anchor" href="#_the_performance_vs_accuracy_trade_off"></a>The Performance vs. Accuracy Trade-Off</h4>
-<div class="paragraph">
-<p>No single quantization level is best for every situation. The key is to balance performance, accuracy, and cost for your specific use case.</p>
+<p>Here&#8217;s a breakdown of common quantization strategies and their implications:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Quantization Strategy Comparison</caption>
@@ -371,115 +320,19 @@
 </tr>
 </tbody>
 </table>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-As discussed in the previous module, your quantization choice should be <strong>hardware-aware</strong>. If your target is an H100 or L40S GPU, an <code>FP8</code> quantized model is the most strategic choice as you are leveraging a feature the hardware was specifically designed to accelerate.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_v1_0_collection_of_red_hat_ai_validated_models"><a class="anchor" href="#_v1_0_collection_of_red_hat_ai_validated_models"></a>v1.0 Collection of Red Hat AI Validated Models</h2>
+<h2 id="_total_cost_of_ownership_tco_considerations"><a class="anchor" href="#_total_cost_of_ownership_tco_considerations"></a>Total Cost of Ownership (TCO) Considerations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This initial collection features leading third-party generative AI models rigorously validated for efficient use across the Red Hat AI Product Portfolio. Each model listed below has associated configurations for various quantization levels (e.g., <code>w4a16</code> for 4-bit weights and 16-bit activations, <code>w8a8</code> for 8-bit weights and 8-bit activations, or <code>FP8-dynamic</code> for dynamic FP8 quantization).</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Gemma-3 Quantized</p>
-</li>
-<li>
-<p>Whisper Quantized (Note: Whisper is typically an ASR model, but its text-generation component is relevant)</p>
-</li>
-<li>
-<p>Llama 4 Quantized</p>
-</li>
-<li>
-<p>Qwen3 Quantized</p>
-</li>
-<li>
-<p>Mistral Small-3.1 Instruct Quantized</p>
-</li>
-<li>
-<p>Phi-4 Quantized</p>
-</li>
-<li>
-<p>Llama 3.3 70B Instruct Quantized</p>
-</li>
-<li>
-<p>Qwen 2.5 Quantized</p>
-</li>
-<li>
-<p>Granite Quantized</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The specific quantization scheme (e.g., <code>w4a16</code>, <code>w8a8</code>, <code>FP8-dynamic</code>) for each model is typically indicated in its full name or metadata within the Red Hat AI Hugging Face repository. These notations signify the precision used for weights (w) and activations (a), or the dynamic FP8 method.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_availability_and_selection_criteria"><a class="anchor" href="#_availability_and_selection_criteria"></a>Availability and Selection Criteria</h4>
-<div class="paragraph">
-<p>While Red Hat AI focuses on validated models, other models may also be available in the repository but have not undergone the full validation process. For practical deployment in this course, we will focus on specific pre-selected models from the validated collection.</p>
-</div>
-<hr>
-</div>
-<div class="sect3">
-<h4 id="_navigating_and_selecting_a_validated_model"><a class="anchor" href="#_navigating_and_selecting_a_validated_model"></a>Navigating and Selecting a Validated Model</h4>
-<div class="paragraph">
-<p>This final lesson guides you through the model collections and the criteria used to select them, empowering you to make smart choices for your own projects.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_pre_selected_models_for_this_course"><a class="anchor" href="#_pre_selected_models_for_this_course"></a>Pre-Selected Models for This Course</h4>
-<div class="paragraph">
-<p>For the hands-on labs in this course, we have pre-selected a representative sample from the Red Hat AI validated repository. These models showcase different sizes, architectures, and quantization strategies, giving you a broad range of experience.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>RedHatAI/Mistral-7B-Instruct-v0.3-quantized.w4a16</code></p>
-</li>
-<li>
-<p><code>RedHatAI/Qwen2-7B-Instruct-quantized.w8a8</code></p>
-</li>
-<li>
-<p><code>RedHatAI/gemma-2-9b-it-quantized.FP8-dynamic</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These models provide a perfect starting point for exploring the trade-offs between a 4-bit weight quantized model, a full 8-bit model, and a modern FP8 model.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h4>
-<div class="paragraph">
-<p>In the following labs, we will dive deep into these three models. You will deploy each one using vLLM on OpenShift AI, benchmark their performance, and evaluate their outputs, giving you the practical experience needed to select the right model for your next project.</p>
-</div>
+<p>For AI platform delivery engineers, it&#8217;s crucial to think in terms of TCO. By leveraging the performance and efficiency data provided with validated models, you can <strong>justify hardware selections and model choices to stakeholders</strong>. Framing decisions around "performance-per-dollar" and "Queries Per Dollar" clearly demonstrates the business value of optimized deployments.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="model_types.html">Generative AI Model Variations in Model Naming</a></span>
-  <span class="next"><a href="lab_models.html">Pre-Selected Course Models</a></span>
+  <span class="prev"><a href="model_types.html">The Red Hat AI Validated Model Repository</a></span>
+  <span class="next"><a href="lab_models.html">Granite Models</a></span>
 </nav>
 </article>
   </div>
