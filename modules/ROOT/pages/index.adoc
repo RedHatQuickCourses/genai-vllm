@@ -66,6 +66,5 @@ Version:: 1.0
 * Rupali Talwatkar
 * Sam Zahran
 * Caitlyn Rymarchyk
-* The OpenShift AI team
 * Samuel Monson - for writing an awesome GuideLLM notebook.
 * Karlos Knox
