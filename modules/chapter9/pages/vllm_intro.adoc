@@ -1,179 +1,81 @@
-= Project and Data Connection Setup
+= Model Selection: Why We Chose Granite
 
-With the OpenShift AI environment updated and configured, the next logical step is to establish the workspace and storage mechanisms for AI assets.
+Welcome to the Granite family of models. This page explains what Granite models are, why the `Granite-3.3-2B-instruct` model was selected for this course, and how it fits into the broader ecosystem of enterprise-ready AI.
 
-== Create a Data Science Project
+== What are Granite Models?
 
-The project serves as the **fundamental organizational unit** for Openshift AI resources, equivalent to a Kubernetes namespace. It enables user access control and resource allocation, fostering a self-service MLOps workflow. Project names should ideally use lowercase letters and hyphens.
+**Granite** is a series of large language models (LLMs) created by IBM specifically for enterprise applications. Unlike some other models, the Granite family is built with the needs of businesses at the forefront, emphasizing trust, transparency, and practical application.
 
-After logging into the Red Hat OpenShift AI dashboard:
+What truly sets Granite models apart for enterprise use are two key factors:
 
-1.  Select **Data Science Projects** from the left navigation menu.
-2.  Click **Create data science project**.
-3.  Enter a **Name** for your project. For example, `vllm-lab` or as shown in the example below `Innovatech`.
-4.  Enter an optional description for the project
-5. Click or select *"create".*
+* **Open and Assured**: The models are open-sourced under the **Apache 2.0 license**. This allows developers to freely experiment, modify, and deploy the models in their own environments—a critical feature for organizations handling sensitive data that cannot rely on external services.
+* **Transparent Training Data**: IBM discloses the data used to train the models, building a foundation of trust and making them more suitable and auditable for enterprise environments.
 
 
-== Deploy S3-Compatible Storage (MinIO): 
+== The Granite Family: A Model for Every Need
 
-Large files, such as trained models and pipeline artifacts, require dedicated storage. MinIO, a high-performance S3-compatible object store, is deployed directly into the OpenShift cluster for lab and prototyping purposes.
+Granite is not a single model but a diverse suite designed for various enterprise tasks. This ecosystem approach means you can select the right tool for the job.
 
-
-[WARNING]
+[]
 ====
-This deployment uses the community version of MinIO and is intended for lab and prototyping purposes only. It should not be used in a production environment. Red Hat does not provide support for MinIO.
-====
+*Granite Language Models*:: Base and instruction-tuned models with strong reasoning capabilities, ideal for agentic workflows, Retrieval-Augmented Generation (RAG), summarization, and content generation.
 
-To deploy MinIO, we will use the OpenShift web console to import a YAML configuration file.
+*Granite Vision Models*:: Specialized models for document and image understanding across a range of file types and resolutions.
 
-. From the OpenShift console dashboard (not the OpenShift AI dashboard), select the project you just created (e.g., `vllm-lab`) from the project dropdown menu.
-. Click the **+ Add** icon in the top navigation bar.
-. On the **Import YAML** screen, paste the entire MinIO deployment configuration provided below.
-. Click **Create** to deploy all the MinIO resources.
+*Granite Speech Models*:: Compact and efficient models for high-performance transcription and translation tasks.
 
-.Click to view and copy the MinIO deployment code.
-[%collapsible]
-====
-```yaml
-# --- Start of MinIO Deployment YAML ---
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: minio-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 40Gi
-  volumeMode: Filesystem
----
-kind: Secret
-apiVersion: v1
-metadata:
-  name: minio-secret
-stringData:
-  # It is recommended to change these default values
-  minio_root_user: minio
-  minio_root_password: minio321!
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  name: minio
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: minio
-  template:
-    metadata:
-      labels:
-        app: minio
-    spec:
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: minio-pvc
-      containers:
-        - name: minio
-          image: quay.io/minio/minio:RELEASE.2023-06-19T19-52-50Z
-          args:
-            - server
-            - /data
-            - '--console-address'
-            - ':9090'
-          env:
-            - name: MINIO_ROOT_USER
-              valueFrom:
-                secretKeyRef:
-                  name: minio-secret
-                  key: minio_root_user
-            - name: MINIO_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: minio-secret
-                  key: minio_root_password
-          ports:
-            - containerPort: 9000
-              protocol: TCP
-            - containerPort: 9090
-              protocol: TCP
-          volumeMounts:
-            - name: data
-              mountPath: /data
-              subPath: minio
-          resources: {}
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: minio-service
-spec:
-  ports:
-    - name: api
-      port: 9000
-      targetPort: 9000
-    - name: ui
-      port: 9090
-      targetPort: 9090
-  selector:
-    app: minio
----
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: minio-api
-spec:
-  to:
-    kind: Service
-    name: minio-service
-  port:
-    targetPort: api
-  tls:
-    termination: edge
-    insecureEdgeTerminationPolicy: Redirect
----
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: minio-ui
-spec:
-  to:
-    kind: Service
-    name: minio-service
-  port:
-    targetPort: ui
-  tls:
-    termination: edge
-    insecureEdgeTerminationPolicy: Redirect
-# --- End of MinIO Deployment YAML ---
-```
+*Granite for Time Series*:: Lightweight, pre-trained models for time-series forecasting, optimized to run efficiently on various hardware.
+
+*Granite Guardian*:: A safety-focused model designed to mitigate risks and safeguard AI applications by screening for harmful content in both user prompts and LLM responses.
+
+*Granite for Geospatial Data*:: A foundational model created in partnership with NASA, built on large-scale satellite and remote sensing data.
+
+*Granite Embedding Models*:: Models designed to enhance the understanding of user intent, crucial for improving the relevance of information in search and RAG applications.
 ====
 
-== Final Steps
-
- *   **Configure Storage Buckets**: Within MinIO, it's a required practice to create specific subdirectories (e.g., `models` bucket) for model files, rather than storing them in the root.
-
- *   **Create Data Connections**: These connections link your OpenShift AI project to your MinIO buckets, making it easy for workbenches and model servers to access stored data.
-
- *   **Initialize Pipeline Server**: A pipeline server is set up to support data science pipelines within the project.
 
 
-== Interactive Demo: Project, Deployment, and Data Connection Walkthrough
+== Our Course Model: A Deep Dive into Granite-3.3-2B-Instruct
+
+The primary model used throughout this course is `ibm-granite/granite-3.3-2b-instruct`. It represents a perfect balance of modern features, manageable size, and robust performance for our learning objectives.
+
+[sidebar]
+.Model Snapshot
+****
+* **Developers**: Granite Team, IBM
+* **Release Date**: April 16th, 2025
+* **License**: Apache 2.0
+* **GitHub**: link:https://github.com/ibm-granite/granite-3.3-language-models[ibm-granite/granite-3.3-language-models]
+* **Context Length**: 128,000 tokens
+* **Supported Languages**: Excellent in English, with support for German, Spanish, French, Japanese, and more.
+****
+
+This is a **2-billion parameter** instruction-following model fine-tuned for enhanced reasoning. It supports structured outputs using `<think>` and `<response>` tags, which provides a clear separation between the model's internal "thought process" and the final answer, a valuable feature for debugging and creating reliable AI agents.
+
+=== Key Capabilities
+
+The model is designed for a wide range of enterprise tasks, including:
+
+* Retrieval Augmented Generation (RAG)
+* Question-Answering and Summarization
+* Text classification and extraction
+* Code generation and function-calling
+* Long-context tasks (e.g., summarizing long documents or meetings)
 
 
-++++
-<iframe
-  src="https://demo.arcade.software/zXaporBqhNRPEkU7H47z?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-  width="100%"
-  height="600px"
-  frameborder="0"
-  allowfullscreen
-  webkitallowfullscreen
-  mozallowfullscreen
-  allow="clipboard-write"
-  muted>
-</iframe>
-++++
+== The Selection Story: A Practical Choice for This Course
+
+Choosing the right model for a course involves balancing performance, accessibility, and relevance to real-world engineering challenges. Here’s why `Granite-3.3-2B-instruct` was the ideal choice:
+
+.A Forward-Looking Foundation
+The selection process began with a key technical goal in mind: **quantization**. We needed a full-sized base model that was powerful enough to be useful but small enough to be a practical candidate for a future lab on model optimization. At 2 billion parameters, it hits this sweet spot perfectly.
+
+.The Sweet Spot of Performance and Resources
+For AI platform engineers, resource management is critical. A major advantage of this model is its ability to deliver exceptional performance within a manageable resource footprint. Paired with its huge **128K context window**, it allows for sophisticated, long-document analysis while fitting comfortably on a standard **24GB GPU**, a common hardware profile in enterprise labs.
+
+.Exceeding Expectations
+Throughout the development of this course, the model consistently provided accurate answers and demonstrated impressive capabilities. While extensive benchmarks against every available model weren't performed, its performance for a model of its size far exceeded all initial expectations.
+
+=== Looking Ahead: The Evolution of Granite
+
+The world of AI moves fast, and the Granite 4 models are now available. Future iterations of this course may incorporate these newer models. This presents an exciting opportunity to create a lab focused on **comparing generational improvements**, allowing students to benchmark the gains in performance, efficiency, and capability from one model generation to the next—a common and valuable task in enterprise AI.

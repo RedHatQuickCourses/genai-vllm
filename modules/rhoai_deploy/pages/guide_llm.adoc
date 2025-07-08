@@ -1,4 +1,200 @@
-= Arcade Interactive Experience - Granite Model Evaluation with GuideLLM
+= Performance Benchmarking with GuideLLM
+
+This lab will guide you through the process of running performance benchmarks on your deployed Large Language Model. We will use `guidellm`, a library designed to stress-test LLM endpoints to measure key performance indicators like throughput and latency under various loads.
+
+Understanding these metrics is crucial for determining how well your model will perform in a real-world application and for making decisions about resource allocation.
+
+---
+
+## Step 1: Install Dependencies
+
+First, we need to install `guidellm` and other Python libraries required for data manipulation and visualization.
+
+[source,bash]
+----
+# Install GuideLLM from its GitHub repository
+%pip install -q git+https://github.com/neuralmagic/guidellm.git
+
+# Install extra requirements for the playbook
+%pip install -q ipywidgets matplotlib seaborn pandas
+----
+
+With the packages installed, let's import the necessary tools for our script.
+
+[source,python]
+----
+# FIXME: These imports should come from guidellm.benchmark in the future
+from guidellm.benchmark.entrypoints import benchmark_with_scenario
+from guidellm.benchmark.scenario import GenerativeTextScenario
+
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+from IPython.display import JSON
+
+# Set a consistent visual style for our plots
+sns.set_style("darkgrid")
+----
+
+---
+
+## Step 2: Configure the Benchmark Scenario
+
+In this step, we'll set up all the configuration variables for our benchmark run. This is done by creating a `GenerativeTextScenario` object that defines the load, duration, and data for the test.
+
+.Action Required
+[IMPORTANT]
+====
+You must replace the placeholder value for `target` below with the **Inference endpoint** URL from your model's details page in OpenShift AI.
+====
+
+[source,python]
+----
+scenario = GenerativeTextScenario(
+    # The hostname of our model server <1>
+    target="https://granite-innovatech.apps.cluster-xwmgb.xwmgb.sandbox664.opentlc.com",
+
+    # The name of the model we wish to test <2>
+    model="granite",
+
+    # The Hugging Face model ID for the tokenizer <3>
+    processor="ibm-granite/granite-3.3-2b-instruct",
+
+    # Configure our load pattern to test with multiple levels of concurrent users <4>
+    rate_type="concurrent",
+    rate=[1, 2, 4, 16, 64],
+
+    # For each rate, run a 30-second benchmark <5>
+    max_seconds=30,
+    max_requests=None,
+
+    # Configure the synthetic dataset generator <6>
+    data="prompt_tokens=256,prompt_tokens_stdev=32,output_tokens=128",
+)
+
+# Display our scenario configuration as a JSON object to verify it
+JSON(scenario.model_dump())
+----
+<1> **target**: The full inference endpoint URL for your deployed model.
+<2> **model**: The name you gave your deployment in OpenShift AI (e.g., `granite`).
+<3> **processor**: The full Hugging Face model ID (e.g., `ibm-granite/granite-3.3-2b-instruct`). This is needed to download the correct tokenizer.
+<4> **rate**: In `concurrent` mode, this is the number of simultaneous users sending requests. We will run a separate test for each value in the list.
+<5> **max_seconds**: The duration for each benchmark run.
+<6> **data**: Defines the characteristics of the test data. Here, we are generating prompts with a mean of 256 tokens and requesting exactly 128 tokens in the response.
+
+---
+
+## Step 3: Run the Benchmark
+
+With the scenario defined, executing the benchmark is a single command. This function will iterate through the `rate` list from our configuration, running one test for each concurrency level.
+
+[source,python]
+----
+# FIXME: output_path and output_extras should default to None
+results, _ = await benchmark_with_scenario(
+    scenario,
+    output_path=None,
+    output_extras=None
+)
+----
+
+---
+
+## Step 4: Analyze the Results
+
+The `results` object contains detailed statistics for each benchmark run. We'll first process this data into a Pandas DataFrame for easier analysis and plotting.
+
+### Process Raw Data
+
+This code extracts the most important metrics—like requests, latency, and throughput—and organizes them into a structured table.
+
+[source,python]
+----
+rows = []
+for bench in results.benchmarks:
+    rows.append({
+        # Number of virtual concurrent users (our rate variable)
+        "concurrency": bench.args.strategy.streams,
+
+        # Number of requests by their status at the end of the test
+        "requests_successful": bench.run_stats.requests_made.successful,
+        "requests_incomplete": bench.run_stats.requests_made.incomplete,
+        "requests_failed": bench.run_stats.requests_made.errored,
+
+        # Latency metrics
+        "ttft_median": bench.metrics.time_to_first_token_ms.successful.median,
+        "ttft_p99": bench.metrics.time_to_first_token_ms.successful.percentiles.p99,
+        "itl_median": bench.metrics.inter_token_latency_ms.successful.median,
+        "itl_p99": bench.metrics.inter_token_latency_ms.successful.percentiles.p99,
+        "e2e_median": bench.metrics.request_latency.successful.median,
+        "e2e_p99": bench.metrics.request_latency.successful.percentiles.p99,
+
+        # Throughput metrics
+        "output_throughput": bench.metrics.output_tokens_per_second.successful.mean,
+        "request_throughput": bench.metrics.requests_per_second.successful.mean,
+    })
+
+df = pd.DataFrame(rows)
+df
+----
+
+### Analyze Throughput
+
+[NOTE]
+====
+The atomic unit of work for an LLM is a **token**. Therefore, when benchmarking LLMs, **tokens per second** is a more reliable measure of throughput than requests per second. Our synthetic data uses a fixed output length, so the results are directly comparable across different concurrency levels.
+====
+
+Let's plot the output token throughput against the number of concurrent users. We expect to see throughput increase with concurrency until the model server reaches its saturation point.
+
+[source,python]
+----
+fig = sns.lineplot(df, x="concurrency", y="output_throughput", marker='o')
+fig.set(
+    title="Output Token Throughput (higher is better) vs. Concurrent Users",
+    xlabel="Concurrency",
+    ylabel="Mean Output Tokens Per Second",
+)
+plt.show()
+----
+
+
+### Analyze Latency
+
+Most LLM runtimes stream tokens back to the client. We measure latency in three ways:
+
+* **Time To First Token (TTFT):** Time from sending the request to receiving the first token.
+* **Inter-Token Latency (ITL):** The delay between each subsequent token.
+* **End-to-End Latency:** The total time for the entire request.
+
+Let's plot these latency metrics to see how they change as we increase the load.
+
+[source,python]
+----
+# Make a grid of latency metrics vs Concurrency
+fig, axes = plt.subplots(3, 2, figsize=(14, 10))
+fig.suptitle("Latency (lower is better) vs. Concurrent Users")
+
+# Plot each latency metric
+for ax, metric in zip(axes.flat, ["ttft_median", "ttft_p99", "itl_median", "itl_p99", "e2e_median", "e2e_p99"]):
+    f = sns.lineplot(df, ax=ax, x="concurrency", y=metric, marker="o")
+    f.set(xlabel="Concurrency", ylabel="")
+
+# Set titles and labels
+for ax, col in zip(axes[0], ["Median", "99th Percentile"]):
+    ax.set_title(col)
+
+for ax, row in zip(axes[:,0], ["Time To First Token (ms)", "Inter-Token Latency (ms)", "Request Latency (sec)"]):
+    ax.set_ylabel(row, size='large')
+
+fig.show()
+----
+
+By analyzing these charts, you can determine the optimal load for your model, identify performance bottlenecks, and make informed decisions about scaling your AI service.
+
+
+== Arcade Interactive Experience - Granite Model Evaluation with GuideLLM
+
 
 
 ++++
@@ -15,5 +211,3 @@
 </iframe>
 ++++
 
-
-== Work in Progress Page
