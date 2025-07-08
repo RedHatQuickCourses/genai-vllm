@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Course Module: Real-World Use Case - The Support Ticket Triage Assistant :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-vllm" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM and Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">vLLM Technical Deep Dive and Advanced Capabilities</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model_types.html">The Red Hat AI Validated Model Repository</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="val_models.html">Intro Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="lab_models.html">Granite Models</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="section3.html">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Course Module: Real-World Use Case - The Support Ticket Triage Assistant</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to the hands-on portion of our course. In this series of modules, we will move from theory to practice by building a solution for a common customer scenario. As a delivery engineer or consultant, you will frequently be asked to demonstrate the value of AI quickly and efficiently. This use case is designed to equip you with the skills to do just that.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_the_scenario_a_customers_challenge"><a class="anchor" href="#_1_the_scenario_a_customers_challenge"></a>1. The Scenario: A Customer&#8217;s Challenge</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our customer, a growing enterprise software company, is facing a challenge in their support department. Their support engineers spend a significant amount of time on initial ticket triage: reading the ticket, categorizing it, searching for relevant knowledge base articles, and writing an initial summary. This manual process slows down response times and is a repetitive, low-value task for skilled engineers.</p>
+</div>
+<div class="paragraph">
+<p>They believe an AI-powered assistant could accelerate this process but are hesitant to invest in a large-scale project without proof of its value and technical feasibility in their own environment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_the_objective_a_proof_of_concept_poc"><a class="anchor" href="#_2_the_objective_a_proof_of_concept_poc"></a>2. The Objective: A Proof-of-Concept (PoC)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our goal is to design and deploy a <strong>Support Ticket Triage Assistant</strong> as a Proof-of-Concept. This PoC must satisfy two primary constraints:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Prove Technical Feasibility:</strong> Demonstrate that a Large Language Model (LLM) can be effectively deployed and integrated within their existing infrastructure to deliver tangible value.</p>
+</li>
+<li>
+<p><strong>Minimize Initial Investment:</strong> The entire PoC must be completed within a limited budget of <strong>~$10,000</strong>, covering cloud credits and approximately 2-3 weeks of focused engineering time.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_the_solution_a_human_in_the_loop_mvp"><a class="anchor" href="#_3_the_solution_a_human_in_the_loop_mvp"></a>3. The Solution: A Human-in-the-Loop MVP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To achieve the objective safely and build trust, we will architect a <strong>Human-in-the-Loop</strong> Minimum Viable Product (MVP). This approach ensures that the AI <strong>assists</strong> the support engineer rather than automating them out of the process.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="workflow_diagram.png" alt="System Workflow">
+</div>
+<div class="title">Figure 1. System Workflow</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s how it will function:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A customer submits a new support ticket in Jira.</p>
+</li>
+<li>
+<p>An application, triggered by the new ticket, sends the ticket&#8217;s title and description to our AI service.</p>
+</li>
+<li>
+<p>Our vLLM-powered model processes the text and generates a structured JSON output containing:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A predicted <code>category</code> (e.g., "Billing," "Bug Report," "Feature Request").</p>
+</li>
+<li>
+<p>A concise <code>summary</code> of the issue.</p>
+</li>
+<li>
+<p>A list of suggested <code>knowledge_base_urls</code> for troubleshooting.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The application posts this JSON payload as a <strong>private comment</strong> within the Jira ticket.</p>
+</li>
+<li>
+<p>The support engineer opens the ticket and immediately sees the AI-generated triage information, ready for validation and use.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This design provides immediate value by reducing manual work while keeping the engineer in full control of the final response to the customer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_4_technical_environment_constraints"><a class="anchor" href="#_4_technical_environment_constraints"></a>4. Technical Environment &amp; Constraints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A critical part of any engagement is working within the customer&#8217;s existing technical landscape.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Platform:</strong> The customer uses <strong>Red Hat OpenShift AI</strong>. Our solution must be deployable and manageable within this environment.</p>
+</li>
+<li>
+<p><strong>Hardware:</strong> They have allocated two compute nodes for this PoC, each equipped with an <strong>NVIDIA A10G GPU</strong> containing 24GB of VRAM.</p>
+</li>
+<li>
+<p><strong>Model Sizing:</strong> This hardware configuration imposes a constraint on model size. A common rule of thumb is that a model requires at least twice its parameter count in GPU memory for weights and KV cache.</p>
+</li>
+<li>
+<p><strong>Calculation:</strong> <code>24GB VRAM per GPU</code></p>
+</li>
+<li>
+<p><strong>Constraint:</strong> To run efficiently on a single A10G, we should target models significantly smaller than 12B parameters.</p>
+</li>
+<li>
+<p><strong>Decision:</strong> For this initial PoC, a smaller, fine-tuned model (e.g., in the 1B to 7B parameter range) is ideal. It will provide fast inference and can be highly effective when provided with good context from past ticket data.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_5_division_of_responsibilities"><a class="anchor" href="#_5_division_of_responsibilities"></a>5. Division of Responsibilities</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clear boundaries are key to a successful PoC.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Our Team (The vLLM Experts):</strong></p>
+</li>
+<li>
+<p>Select an appropriate open-source text-generation model.</p>
+</li>
+<li>
+<p>Optimize and deploy the model using <strong>vLLM</strong> on OpenShift AI to ensure high-throughput and low-latency inference.</p>
+</li>
+<li>
+<p>Provide a stable, documented API endpoint for the AI service.</p>
+</li>
+<li>
+<p>Focus on model performance, scalability, and deployment best practices.</p>
+</li>
+<li>
+<p><strong>The Customer&#8217;s Team:</strong></p>
+</li>
+<li>
+<p>Develop the application logic that acts as the "glue."</p>
+</li>
+<li>
+<p>Handle the Jira integration: using the Jira API to monitor for new tickets (e.g., via webhooks) and to post the private comments.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_6_next_steps_model_selection"><a class="anchor" href="#_6_next_steps_model_selection"></a>6. Next Steps: Model Selection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the requirements and architecture defined, our immediate next step is to identify the best candidate model for the job. We will begin by exploring the curated models available in the <strong>Red Hat AI Model Library on Hugging Face</strong> to find a suitable starting point for our Support Ticket Triage Assistant.</p>
+</div>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">== Phase 2: Rapid Viability Assessment &amp; PoC (The "How" and "If")
+
+Objective: Prove the "Support Ticket Triage Assistant" is technically feasible and will work in their environment, without over-investing.
+Budget Allocation: ~$10,000 (for cloud credits and 2-3 weeks of engineering time).
+
+Design the MVP (Human-in-the-Loop): Instead of full automation, you design a safer, more helpful MVP. The AI will not respond to customers directly. Instead, when a support engineer opens a ticket in Jira, the AI's analysis (category, suggested URL, and a draft summary) will automatically appear in a private comment field.
+
+
+Need a summarization model or text to text based model for text generation.
+The actual model that could meet these requirements is pretty broad.
+With our knowledge of the their existing hardware of two nodes with GPUs both A10Gs 24GB video memory means we could possible host a model up to ~12B parameters, working with calculation that a model requires 2x its parameters in GPU memory to operator and more for KV caching or other features.
+With this assumption, we can expect to select a model with less than 12B parameters and for this project we could probably go with a really small model since we can use data from previous ticket help align the model or at least provide additional context for model queries.
+
+Design would be something like a new ticket created in Jira for support,  an API that collects the data in json format and submits it to our AI model for summarization, categorization, and to determine the best links for additional information on the topic.
+
+Model format the output as json and the application returns this to the jira application which post the summarization and links to urls within the comment field.
+
+What this group will deliver is an deploy AI model in OpenShift AI that provides and endpoint for the customer application that will query Jira, construct the prompt, query the AI model, collect the response, return the response to the application which will in turn post the response to Jira.
+
+The customer will be responsible for the application and Jira integration and we will focus on AI model selection, deployment, performance, along with safety and security coming in later course modules.
+
+We understand the requirements, the next step is to find and select a model as our first test candidate.
+
+To narrow down the model selection process, we are going to review a few of the models in the red hat ai model repository on huggingface.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
