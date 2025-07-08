@@ -48,6 +48,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -131,56 +147,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -246,10 +214,10 @@
 <p>Navigate to your Data Science Project dashboard and select the <strong>Models and model servers</strong> page.</p>
 </li>
 <li>
-<p>Locate your <code>granite-model</code> deployment. You should see a green checkmark with a <strong>Running</strong> status.</p>
+<p>Locate your <code>granite</code> or <code>your-deployment-name</code> deployment. You should see a green checkmark with a <strong>Running</strong> status.</p>
 </li>
 <li>
-<p>Click on the deployment name, <strong>granite-model</strong>, to open its details page.</p>
+<p>Click on the deployment name, <strong>granite</strong>, to open its details page.</p>
 </li>
 <li>
 <p><strong>Find the Inference Endpoint:</strong> Near the top of the details page, locate the <strong>Inference endpoint</strong> URL. This is the external address for your model. Copy this URL to a temporary text file.</p>
@@ -260,7 +228,7 @@
 </ol>
 </div>
 <div class="paragraph">
-<p>We now have the two credentials needed to query our model.</p>
+<p>We now have the three credentials needed to query our model.</p>
 </div>
 <hr>
 </div>
@@ -274,10 +242,10 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Navigate to the <strong>Workbenches</strong> tab in your project.</p>
+<p>Navigate to the <strong>Workbench</strong> tab in your project.</p>
 </li>
 <li>
-<p>Find your <code>vllm-workbench</code> and click the <strong>Launch</strong> icon (the arrow pointing out of a box).</p>
+<p>Find <code>Innovatech</code> or <code>your-workbench-name</code> and click the <strong>Launch</strong> icon (the arrow pointing out of a box).</p>
 </li>
 </ol>
 </div>
@@ -305,18 +273,26 @@
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Go to the <code>File</code> menu and select <code>New &#8594; Terminal</code>.</p>
+<p>Go to the <code>lefthand menu bar</code> and select the Git icon</p>
 </li>
 <li>
-<p>In the new terminal window, run the following command to clone the example files:
-+
-<code><code>bash
-git clone [<a href="https://github.com/RedHatQuickCourses/genai-apps.git" class="bare">https://github.com/RedHatQuickCourses/genai-apps.git</a>](<a href="https://github.com/RedHatQuickCourses/genai-apps.git" class="bare">https://github.com/RedHatQuickCourses/genai-apps.git</a>)
-</code></code></p>
+<p>From this list, select clone repository.</p>
+</li>
+<li>
+<p>In the pop up window paste the following git repository URL.</p>
 </li>
 </ol>
 </div>
 </li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/RedHatQuickCourses/genai-apps.git</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><strong>Open the Notebook:</strong></p>
 <div class="olist loweralpha">
@@ -359,10 +335,10 @@ git clone [<a href="https://github.com/RedHatQuickCourses/genai-apps.git" class=
 <p><strong>VLLM_API_URL</strong>: Replace the placeholder URL with the <strong>Inference endpoint</strong> you copied from the model details page.</p>
 </li>
 <li>
-<p><strong>VLLM_API_KEY</strong>: Replace the <code>your-token-here</code> placeholder with the <strong>Authentication Token</strong> you copied.</p>
+<p><strong>VLLM_API_KEY</strong>: Replace the <code>sha256~token-here</code> placeholder with the <strong>Authentication Token</strong> you copied.</p>
 </li>
 <li>
-<p><strong>MODEL_NAME</strong>: The code defaults to <code>mistralai/Mistral-7B-v0.1</code>. Replace this with the name of our deployment: <code>granite-model</code>.</p>
+<p><strong>MODEL_NAME</strong>: The code defaults to <code>granite</code>. Replace this with the name of our deployment.</p>
 </li>
 </ol>
 </div>
@@ -374,25 +350,19 @@ git clone [<a href="https://github.com/RedHatQuickCourses/genai-apps.git" class=
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Configure the connection to the vLLM server
 VLLM_API_URL = "https://granite-model-vllm-lab.apps.cluster-domain.com/v1"
 VLLM_API_KEY = "sha256~AbcDeFgHiJkLmNoPqRsTuVwXyZ..."
-MODEL_NAME = "granite-model"</code></pre>
+MODEL_NAME = "granite"</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>Execute the cells to send test queries and observe model responses.</strong></p>
+</div>
+<hr>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_interactive_demo_query_a_machine_learning_model_from_a_jupyter_notebook"><a class="anchor" href="#_interactive_demo_query_a_machine_learning_model_from_a_jupyter_notebook"></a>Interactive Demo: Query a Machine Learning Model from a Jupyter Notebook</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The following interactive demonstration will walk you through the process of:
-1.  lauching a Jupyter Server instance
-2.  Cloning a git repository of sample files
-3.  Replace URL ENDPOINT, MODEL_NAME, and API TOKEN in the example notebook.
-4.  Experimentation with various prompts to see how the model responds.</p>
-</div>
-<div class="paragraph">
-<p>Follow the on-screen prompts in the demo to complete the model deployment.</p>
-</div>
 <iframe
   src="https://demo.arcade.software/NxmVClp8oaIivhYA5aU6?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%"

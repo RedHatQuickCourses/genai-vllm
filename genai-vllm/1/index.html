@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>vLLM: Optimizing and Serving Models on OpenShift AI :: vLLM Optimizing and Serving Models on OpenShift AI</title>
-    <link rel="next" href="vllm/index.html">
+    <link rel="next" href="LABENV/index.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -40,6 +40,22 @@
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -130,56 +146,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="chapter9/section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="chapter9/section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="rhoai_deploy/guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -228,13 +196,13 @@
 <h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying large language models (LLMs) in a real-world enterprise environment comes with its unique set of challenges—from selecting the right model within budget constraints to ensuring seamless integration and robust performance.</p>
+<p>Deploying large language models in an enterprise environment is a high-stakes game. While the promise of AI is massive, the reality is often plagued by slow inference speeds, high resource consumption, and budget overruns. How do you deliver a solution that is not only powerful but also practical and performant?</p>
 </div>
 <div class="paragraph">
-<p>This course is designed to provide you with the practical skills and knowledge to confidently deliver the platform for an AI initiative.</p>
+<p>This course provides the answer. We dive deep into solving the critical "last mile" problem of AI delivery: efficient model inference. You will learn to harness the power of vLLM on OpenShift AI, a combination that unlocks significant performance gains and dramatically reduces operational costs.</p>
 </div>
 <div class="paragraph">
-<p>Our mission is straightforward: to guide you through budget driven model selection from the Red Hat AI catalog, then serve that model on OpenShift AI for Inference, evaulute the performance for a given solution, empowering you to demonstrate the tangible delivery of a functional AI engine for an application.</p>
+<p>Our mission is to equip you with the skills to turn AI potential into production reality. We will walk you through a complete, real-world workflow: from selecting the right model in the Red Hat AI catalog to deploying it with vLLM for unparalleled inference speed. By the end of this course, you won&#8217;t just have a theoretical understanding; you will have the practical ability to build, measure, and deliver a high-performance AI service. This is the key to unlocking successful AI incubators and impressing stakeholders by demonstrating a solution that is not only smart but also economically viable.</p>
 </div>
 <div class="sect3">
 <h4 id="_duration_1_2_hours"><a class="anchor" href="#_duration_1_2_hours"></a>Duration: 1-2 hours</h4>
@@ -251,16 +219,16 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Select a capable model from the Red Hat AI Model Repository.</p>
+<p><strong>Select Models Strategically:</strong> Choose a capable model from the Red Hat AI Model Repository based on both performance and budget.</p>
 </li>
 <li>
-<p>Deploy multiple optimized models using OpenShift AI.</p>
+<p><strong>Deploy for Performance:</strong> Implement multiple, optimized models on OpenShift AI using the vLLM engine.</p>
 </li>
 <li>
-<p>Query these models using RHOAI Workbench + Notebook.</p>
+<p><strong>Query and Test:</strong> Interact with your deployed models using the RHOAI Workbench and Jupyter Notebooks.</p>
 </li>
 <li>
-<p>Evaluation of model on standarized Question and Answers.</p>
+<p><strong>Evaluate and Prove:</strong> Use a guide LLM to evaluate your model&#8217;s performance and demonstrate its value.</p>
 </li>
 </ul>
 </div>
@@ -270,21 +238,18 @@
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This course assumes that you have the following prior experience:</p>
+<p>The following courses and labs are recommended before attempting this course:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Knowledge of OpenShift AI Dashboard Menus and Tabs.</p>
+<p><a href="https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinklp%3D78588241" target="blank">Practical Approach to RHOAI Series.</a></p>
 </li>
 <li>
-<p>Knowledge of Jupyter notebooks and Python.</p>
+<p><a href="https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D79898868" target="blank">vLLM - Technical Reference Guide v.101</a></p>
 </li>
 <li>
-<p>vLLM Inference server (runtime) and LLM Compressor.</p>
-</li>
-<li>
-<p>Understanding of LLM compression techniques such as quantization and sparzation.</p>
+<p><a href="https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D81576358" target="blank">LLM Compressor for vLLM - Technical Reference - v.101</a></p>
 </li>
 </ul>
 </div>
@@ -294,7 +259,7 @@
 <h2 id="_interactive_experiences"><a class="anchor" href="#_interactive_experiences"></a>Interactive Experiences</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This course features a series of interactive experiences designed to provide a hands-on learning environment. These modules simulate real-world lab scenarios, requiring you to click on specific hotspots to advance through the steps. Think of these as guided, self-paced walkthroughs of critical tasks like configuring OpenShift AI or deploying a model for inference with vLLM. This interactive format is designed to build procedural muscle memory and deepen your understanding of the end-to-end workflow, ensuring you can confidently apply these skills in customer engagements.</p>
+<p>This course features a series of interactive experiences designed to provide a hands-on learning environment. These modules simulate real-world lab scenarios, requiring you to click on specific hotspots to advance through the steps. Think of these as guided, self-paced walkthroughs of tasks like configuring OpenShift AI or deploying a model for inference with vLLM. This interactive format is designed to build procedural muscle memory and deepen your understanding of the end-to-end workflow, ensuring you can confidently apply these skills in customer engagements.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -304,11 +269,11 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<div class="title">Quick interactive introduction to using and customizing your Workbench (recommended)</div>
+<div class="title">Quick interactive experience example, enabling Nvidia NIM on OpenShift AI  (optional)</div>
 <p>(This Interactive demo.)</p>
 </div>
 <iframe
-  src="https://demo.arcade.software/0ttb9MxpcNxWhaF1e49W?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  src="https://demo.arcade.software/Ny9x31AbeGxSYW21ht05?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%"
   height="600px"
   frameborder="0"
@@ -324,8 +289,38 @@
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>Acknowledgements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Ravi Srinivasan</p>
+</li>
+<li>
+<p>Rupali Talwatkar</p>
+</li>
+<li>
+<p>Sam Zahran</p>
+</li>
+<li>
+<p>Caitlyn Rymarchyk</p>
+</li>
+<li>
+<p>The OpenShift AI team</p>
+</li>
+<li>
+<p>Samuel Monson - for writing an awesome GuideLLM notebook.</p>
+</li>
+<li>
+<p>Karlos Knox</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="next"><a href="vllm/index.html">vLLM Overview</a></span>
+  <span class="next"><a href="LABENV/index.html">Lab Environments</a></span>
 </nav>
 </article>
   </div>

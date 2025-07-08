@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>The Red Hat AI Validated Model Repository :: vLLM Optimizing and Serving Models on OpenShift AI</title>
-    <link rel="prev" href="section3.html">
+    <title>Project and Data Connection Setup :: vLLM Optimizing and Serving Models on OpenShift AI</title>
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -40,6 +39,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -130,56 +145,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section3.html">blank</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -214,8 +181,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
-    <li><a href="index.html">blank</a></li>
-    <li><a href="vllm_intro.html">The Red Hat AI Validated Model Repository</a></li>
+    <li><a href="vllm_intro.html">Project and Data Connection Setup</a></li>
   </ul>
 </nav>
 </div>
@@ -224,135 +190,241 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">The Red Hat AI Validated Model Repository</h1>
+<h1 class="page">Project and Data Connection Setup</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The open-source AI landscape, particularly on platforms like Hugging Face, presents a vast and often challenging environment due to the sheer number of available models, making it difficult to discern which are performant, accurate, or truly ready for enterprise use. To address this complexity, the <strong>Red Hat AI Validated Model Repository</strong> emerges as a curated ecosystem designed to streamline model selection and deployment.</p>
+<p>With the OpenShift AI environment updated and configured, the next logical step is to establish the workspace and storage mechanisms for AI assets.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_what_is_the_red_hat_ai_validated_model_repository"><a class="anchor" href="#_what_is_the_red_hat_ai_validated_model_repository"></a>What is the Red Hat AI Validated Model Repository?</h2>
+<h2 id="_create_a_data_science_project"><a class="anchor" href="#_create_a_data_science_project"></a>Create a Data Science Project</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>It is an open-source initiative stemming from a deep collaboration between IBM and Red Hat. Its primary mission is to <strong>bridge the gap between cutting-edge research and robust production deployments</strong> by offering open, accessible, and community-driven AI solutions. Far from being just a list of models, it functions as a strategic solution to <strong>de-risk AI projects</strong> by providing models that have been pre-vetted for performance, accuracy, and overall enterprise readiness.</p>
+<p>The project serves as the <strong>fundamental organizational unit</strong> for Openshift AI resources, equivalent to a Kubernetes namespace. It enables user access control and resource allocation, fostering a self-service MLOps workflow. Project names should ideally use lowercase letters and hyphens.</p>
+</div>
+<div class="paragraph">
+<p>After logging into the Red Hat OpenShift AI dashboard:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select <strong>Data Science Projects</strong> from the left navigation menu.</p>
+</li>
+<li>
+<p>Click <strong>Create data science project</strong>.</p>
+</li>
+<li>
+<p>Enter a <strong>Name</strong> for your project. For example, <code>vllm-lab</code> or as shown in the example below <code>Innovatech</code>.</p>
+</li>
+<li>
+<p>Enter an optional description for the project</p>
+</li>
+<li>
+<p>Click or select <strong>"create".</strong></p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_why_use_a_validated_model"><a class="anchor" href="#_why_use_a_validated_model"></a>Why Use a Validated Model?</h2>
+<h2 id="_deploy_s3_compatible_storage_minio"><a class="anchor" href="#_deploy_s3_compatible_storage_minio"></a>Deploy S3-Compatible Storage (MinIO):</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For AI platform delivery engineers, utilizing models from this repository offers significant advantages:</p>
+<p>Large files, such as trained models and pipeline artifacts, require dedicated storage. MinIO, a high-performance S3-compatible object store, is deployed directly into the OpenShift cluster for lab and prototyping purposes.</p>
 </div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Key Benefits of Using a Validated Model</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Reduces Guesswork:</strong> Provides reliable performance expectations and recommended deployment settings, eliminating the need for extensive trial-and-error.</p>
-</li>
-<li>
-<p><strong>Ensures Enterprise Readiness:</strong> Validates that models perform well under load using enterprise-grade tools like vLLM.</p>
-</li>
-<li>
-<p><strong>Optimizes for Cost:</strong> Offers clear guidance on pairing models with the right hardware, maximizing inference efficiency and lowering Total Cost of Ownership (TCO).</p>
-</li>
-<li>
-<p><strong>Provides Flexibility:</strong> Offers a range of popular models in various optimized formats to meet diverse project requirements.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_the_rigorous_validation_process"><a class="anchor" href="#_the_rigorous_validation_process"></a>The Rigorous Validation Process</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The confidence in Red Hat&#8217;s validated models stems from a rigorous and transparent validation process that employs industry-standard open-source tooling, ensuring reproducibility of results. The key tools involved are:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>GuideLLM</strong>: A powerful benchmarking tool used for capacity planning. It simulates real-world traffic to assess a model’s throughput, latency, and resource utilization across different hardware configurations.</p>
-</li>
-<li>
-<p><strong>Language Model Evaluation Harness (LM Eval Harness)</strong>: This is the industry standard for <strong>accuracy evaluation</strong>. It measures a model’s reasoning and generalization capabilities across a wide range of academic benchmarks.</p>
-</li>
-<li>
-<p><strong>vLLM</strong>: This specific inference engine is used during the performance validation itself, ensuring that the benchmarks reflect the performance achievable when deploying with vLLM on OpenShift AI.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>This thorough validation process provides the transparent data necessary for making informed decisions and setting realistic expectations for model performance on target hardware.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_v1_0_collection_of_red_hat_ai_validated_models"><a class="anchor" href="#_v1_0_collection_of_red_hat_ai_validated_models"></a>v1.0 Collection of Red Hat AI Validated Models</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This initial collection features leading third-party generative AI models rigorously validated for efficient use across the Red Hat AI Product Portfolio. Each model listed below has associated configurations for various quantization levels (e.g., <code>w4a16</code> for 4-bit weights and 16-bit activations, <code>w8a8</code> for 8-bit weights and 8-bit activations, or <code>FP8-dynamic</code> for dynamic FP8 quantization).</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Gemma-3 Quantized</p>
-</li>
-<li>
-<p>Whisper Quantized (Note: Whisper is typically an ASR model, but its text-generation component is relevant)</p>
-</li>
-<li>
-<p>Llama 4 Quantized</p>
-</li>
-<li>
-<p>Qwen3 Quantized</p>
-</li>
-<li>
-<p>Mistral Small-3.1 Instruct Quantized</p>
-</li>
-<li>
-<p>Phi-4 Quantized</p>
-</li>
-<li>
-<p>Llama 3.3 70B Instruct Quantized</p>
-</li>
-<li>
-<p>Qwen 2.5 Quantized</p>
-</li>
-<li>
-<p>Granite Quantized</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-The specific quantization scheme (e.g., <code>w4a16</code>, <code>w8a8</code>, <code>FP8-dynamic</code>) for each model is typically indicated in its full name or metadata within the Red Hat AI Hugging Face repository. These notations signify the precision used for weights (w) and activations (a), or the dynamic FP8 method.
+<div class="paragraph">
+<p>This deployment uses the community version of MinIO and is intended for lab and prototyping purposes only. It should not be used in a production environment. Red Hat does not provide support for MinIO.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_availability_and_selection_criteria"><a class="anchor" href="#_availability_and_selection_criteria"></a>Availability and Selection Criteria</h4>
 <div class="paragraph">
-<p>While Red Hat AI focuses on validated models, other models may also be available in the repository but have not undergone the full validation process. For practical deployment in this course, we will focus on specific pre-selected models from the validated collection.</p>
+<p>To deploy MinIO, we will use the OpenShift web console to import a YAML configuration file.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the OpenShift console dashboard (not the OpenShift AI dashboard), select the project you just created (e.g., <code>vllm-lab</code>) from the project dropdown menu.</p>
+</li>
+<li>
+<p>Click the <strong>+ Add</strong> icon in the top navigation bar.</p>
+</li>
+<li>
+<p>On the <strong>Import YAML</strong> screen, paste the entire MinIO deployment configuration provided below.</p>
+</li>
+<li>
+<p>Click <strong>Create</strong> to deploy all the MinIO resources.</p>
+</li>
+</ol>
+</div>
+<details>
+<summary class="title">Click to view and copy the MinIO deployment code.</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># --- Start of MinIO Deployment YAML ---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: minio-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 40Gi
+  volumeMode: Filesystem
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: minio-secret
+stringData:
+  # It is recommended to change these default values
+  minio_root_user: minio
+  minio_root_password: minio321!
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: minio-pvc
+      containers:
+        - name: minio
+          image: quay.io/minio/minio:RELEASE.2023-06-19T19-52-50Z
+          args:
+            - server
+            - /data
+            - '--console-address'
+            - ':9090'
+          env:
+            - name: MINIO_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio_root_user
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: minio_root_password
+          ports:
+            - containerPort: 9000
+              protocol: TCP
+            - containerPort: 9090
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /data
+              subPath: minio
+          resources: {}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: minio-service
+spec:
+  ports:
+    - name: api
+      port: 9000
+      targetPort: 9000
+    - name: ui
+      port: 9090
+      targetPort: 9090
+  selector:
+    app: minio
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: minio-api
+spec:
+  to:
+    kind: Service
+    name: minio-service
+  port:
+    targetPort: api
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: minio-ui
+spec:
+  to:
+    kind: Service
+    name: minio-service
+  port:
+    targetPort: ui
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+# --- End of MinIO Deployment YAML ---</code></pre>
 </div>
 </div>
 </div>
+</details>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="section3.html">blank</a></span>
-</nav>
+</div>
+<div class="sect1">
+<h2 id="_final_steps"><a class="anchor" href="#_final_steps"></a>Final Steps</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Configure Storage Buckets</strong>: Within MinIO, it&#8217;s a required practice to create specific subdirectories (e.g., <code>models</code> bucket) for model files, rather than storing them in the root.</p>
+</li>
+<li>
+<p><strong>Create Data Connections</strong>: These connections link your OpenShift AI project to your MinIO buckets, making it easy for workbenches and model servers to access stored data.</p>
+</li>
+<li>
+<p><strong>Initialize Pipeline Server</strong>: A pipeline server is set up to support data science pipelines within the project.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interactive_demo_project_deployment_and_data_connection_walkthrough"><a class="anchor" href="#_interactive_demo_project_deployment_and_data_connection_walkthrough"></a>Interactive Demo: Project, Deployment, and Data Connection Walkthrough</h2>
+<div class="sectionbody">
+<iframe
+  src="https://demo.arcade.software/zXaporBqhNRPEkU7H47z?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+</div>
+</div>
 </article>
   </div>
 </main>

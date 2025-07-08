@@ -48,6 +48,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -131,56 +147,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -229,7 +197,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A model-serving runtime provides the necessary integration between Red Hat OpenShift AI and a specific model server. Before deploying our model, we must ensure the <strong>vLLM NVIDIA GPU ServingRuntime</strong> is available in our environment.</p>
+<p>Before deploying any model, ensuring the correct serving runtime is available is paramount. The <strong>vLLM NVIDIA GPU ServingRuntime</strong> is the necessary integration between Red Hat OpenShift AI and the model inference.</p>
 </div>
 <div class="paragraph">
 <p>This page outlines the runtimes included in a recent version of OpenShift AI and provides instructions to add the vLLM runtime manually if you are using an older version.</p>
@@ -237,10 +205,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_default_model_serving_runtimes"><a class="anchor" href="#_default_model_serving_runtimes"></a>Default Model Serving Runtimes</h2>
+<h2 id="_model_serving_runtimes"><a class="anchor" href="#_model_serving_runtimes"></a>Model Serving Runtimes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default, a modern version of Red Hat OpenShift AI (like v2.21) includes several powerful runtimes out-of-the-box:</p>
+<p>Red Hat OpenShift AI (like v2.21) includes several powerful runtimes out-of-the-box:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -285,7 +253,12 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <strong>vLLM NVIDIA GPU ServingRuntime for KServe</strong> is already available when you go to deploy a model, you do not need to complete the following exercise and can proceed to the next section.</p>
+<p>If the <strong>vLLM NVIDIA GPU ServingRuntime for KServe</strong> is already available, manual configuration is unnecessary.</p>
+</div>
+<div class="sect2">
+<h3 id="_adding_custom_runtimes"><a class="anchor" href="#_adding_custom_runtimes"></a>Adding Custom Runtimes:</h3>
+<div class="paragraph">
+<p>If an older version of OpenShift AI is used and vLLM is not default, it can be added as a custom runtime through the OpenShift AI dashboard&#8217;s <code>Settings</code> &#8594; <code>Serving runtimes</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -300,6 +273,7 @@
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -405,10 +379,7 @@ spec:
 </div>
 <hr>
 <div class="paragraph">
-<p>With the vLLM runtime now available in your cluster, the next step is to configure a storage location for our models. We will use MinIO, an S3-compatible object store, for this lab.</p>
-</div>
-<div class="paragraph">
-<p>Continue to the next section to deploy and configure MinIO.</p>
+<p>Continue to the next section to deploy.</p>
 </div>
 </div>
 </div>

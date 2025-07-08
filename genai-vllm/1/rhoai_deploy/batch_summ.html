@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Using the AI Model for Batch Summarization :: vLLM Optimizing and Serving Models on OpenShift AI</title>
     <link rel="prev" href="rhoai_query.html">
-    <link rel="next" href="../appendix/appendix.html">
+    <link rel="next" href="guide_llm.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -41,6 +41,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -131,56 +147,8 @@
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -234,26 +202,21 @@
 <div class="paragraph">
 <p>Within the Jupyter environment, you should have already cloned the <code>genai-apps</code> git repository. For this lab, you&#8217;ll navigate to the <code>genai-vllm</code> directory and open the <code>batch_summarize_query.ipynb</code> notebook.</p>
 </div>
-<div class="paragraph">
-<p>This notebook simulates a scenario where you have a folder of support tickets in JSON format. You&#8217;ll use your deployed model to automatically:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Read each ticket.</p>
-</li>
-<li>
-<p>Generate a concise, one-sentence summary of the issue.</p>
-</li>
-<li>
-<p>Suggest potential troubleshooting steps.</p>
-</li>
-<li>
-<p>Save this analysis to a new summary file.</p>
-</li>
-</ol>
 </div>
-<hr>
+<div class="sect1">
+<h2 id="_practical_application_of_llm_in_batch_processing"><a class="anchor" href="#_practical_application_of_llm_in_batch_processing"></a>Practical Application of LLM in Batch Processing:</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Access Notebook</strong>: Navigate to the <code>genai-vllm</code> directory and open the <code>batch_summarize_query.ipynb</code> notebook within the Jupyter environment.</p>
+</li>
+<li>
+<p><strong>Core Workflow</strong>: The notebook simulates a scenario where the deployed model automatically reads support tickets (in JSON format), generates concise, one-sentence summaries, suggests troubleshooting steps, and saves the analysis to new summary files.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -262,7 +225,6 @@
 <div class="paragraph">
 <p>The first code cell ensures that the necessary Python packages are installed in your workbench environment. It uses the <code>%pip</code> command to install <strong>langchain-openai</strong>, which helps in interacting with the model, and <strong>httpx</strong>, which handles the underlying API requests.</p>
 </div>
-<hr>
 </div>
 </div>
 <div class="sect1">
@@ -306,7 +268,6 @@ INPUT_FOLDER = "support_tickets"
 JSON_TICKET_KEY = "issue_description"</code></pre>
 </div>
 </div>
-<hr>
 </div>
 </div>
 </div>
@@ -319,7 +280,6 @@ JSON_TICKET_KEY = "issue_description"</code></pre>
 <div class="paragraph">
 <p>This serves as a useful example of how data can be generated or prepared directly within a notebook for testing purposes.</p>
 </div>
-<hr>
 </div>
 </div>
 <div class="sect1">
@@ -338,7 +298,6 @@ JSON_TICKET_KEY = "issue_description"</code></pre>
 </li>
 </ul>
 </div>
-<hr>
 </div>
 </div>
 <div class="sect1">
@@ -352,7 +311,6 @@ JSON_TICKET_KEY = "issue_description"</code></pre>
 1. Provide a one-sentence summary.
 2. List potential troubleshooting steps.</p>
 </div>
-<hr>
 </div>
 </div>
 <div class="sect1">
@@ -377,7 +335,6 @@ JSON_TICKET_KEY = "issue_description"</code></pre>
 </li>
 </ol>
 </div>
-<hr>
 </div>
 </div>
 <div class="sect1">
@@ -391,15 +348,6 @@ JSON_TICKET_KEY = "issue_description"</code></pre>
 <div class="sect1">
 <h2 id="_interactive_demo_query_a_machine_learning_model_from_a_jupyter_notebook"><a class="anchor" href="#_interactive_demo_query_a_machine_learning_model_from_a_jupyter_notebook"></a>Interactive Demo: Query a Machine Learning Model from a Jupyter Notebook</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The following interactive demonstration will walk you through the process of:
-1.  Simulating summarization of support tickets use case
-3.  Replace URL ENDPOINT, MODEL_NAME, and API TOKEN in the example notebook.
-4.  Experimentation with various prompts to see how the model responds.</p>
-</div>
-<div class="paragraph">
-<p>Follow the on-screen prompts in the demo to complete the model deployment.</p>
-</div>
 <iframe
   src="https://demo.arcade.software/kfx35IMXnxrklUUmNwlT?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%"
@@ -415,7 +363,7 @@ JSON_TICKET_KEY = "issue_description"</code></pre>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a></span>
-  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
+  <span class="next"><a href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a></span>
 </nav>
 </article>
   </div>

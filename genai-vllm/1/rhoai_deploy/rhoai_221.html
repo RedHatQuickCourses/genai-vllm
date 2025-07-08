@@ -48,6 +48,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -131,56 +147,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -229,57 +197,43 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Welcome to the hands-on portion of the course. This section details the first steps required to configure your personal lab environment for deploying models with vLLM.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="title">Lab Environment Deployment Time</div>
-<div class="paragraph">
-<p>The lab environment used for this course takes approximately <strong>1.5 to 2 hours</strong> to deploy. It is highly recommended that you requested your environment <strong>before</strong> starting this section to avoid a lengthy delay.</p>
-</div>
-<div class="paragraph">
-<p><strong>If you have not yet requested your lab environment, please do so now.</strong> The provisioning system will send you an email notification once it is ready.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>If you prefer to wait for your environment, you can proceed with the reference material.</p>
-</li>
-<li>
-<p>If you wish to continue without a hands-on lab, this course includes interactive demos that provide a visual walkthrough of the required steps.</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
+<p>The initial phase of any AI deployment involves preparing the underlying infrastructure. For this course, a pre-provisioned lab environment is utilized, requiring specific customization and updates to ensure compatibility with modern vLLM runtimes.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_upgrading_red_hat_openshift_ai"><a class="anchor" href="#_upgrading_red_hat_openshift_ai"></a>Upgrading Red Hat OpenShift AI</h2>
+<h2 id="_key_actions_for_engineers"><a class="anchor" href="#_key_actions_for_engineers"></a>Key Actions for Engineers:</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The provided lab environment comes with a pre-installed version of Red Hat OpenShift AI. However, to work with the features and performance of a more recent vLLM runtime, we first need to upgrade the platform to a newer version.</p>
-</div>
-<div class="paragraph">
-<p>The installed version is based on OpenShift AI 4.18 and includes an older vLLM runtime. Our goal is to upgrade to <strong>Red Hat OpenShift AI v2.21 or later</strong>, which provides vLLM runtime version 0.9.01 (as of July 2025), bringing it closer to the latest community releases and ensuring better compatibility.</p>
-</div>
-<div class="paragraph">
-<p>The upgrade process is handled by updating the "subscription channel" for the Red Hat OpenShift AI Operator. This tells the operator to pull down and install a newer version of the platform.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Environment Preparation</strong>: It is highly recommended to <strong>request the lab environment in advance</strong> due to an approximate deployment time of 1.5 to 2 hours.</p>
+</li>
+<li>
+<p><strong>Platform Upgrade</strong>: The provided lab environment typically starts with Red Hat OpenShift AI v4.18, which includes an older vLLM runtime. To leverage the features and performance of a more recent vLLM runtime (e.g., v0.9.01 as of July 2025), it is <strong>essential to upgrade the platform to Red Hat OpenShift AI v2.21 or later</strong>.</p>
+</li>
+<li>
+<p><strong>Upgrade Process</strong>: The upgrade is managed by updating the "subscription channel" for the Red Hat OpenShift AI Operator, which instructs the operator to install a newer platform version. An interactive demonstration guides users through logging in, navigating to Installed Operators, and changing subscription settings.</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="_interactive_demo_logging_in_and_upgrading_openshift_ai"><a class="anchor" href="#_interactive_demo_logging_in_and_upgrading_openshift_ai"></a>Interactive Demo: Logging In and Upgrading OpenShift AI</h3>
 <div class="paragraph">
-<p>The following interactive demonstration will walk you through the process of:
-1.  Logging into the OpenShift Cluster.
-2.  Navigating to the Installed Operators.
-3.  Changing the subscription settings for the OpenShift AI Operator to initiate the upgrade.</p>
+<p>The following interactive demonstration will walk you through the process of:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Logging into the OpenShift Cluster.</p>
+</li>
+<li>
+<p>Navigating to the Installed Operators.</p>
+</li>
+<li>
+<p>Changing the subscription settings for the OpenShift AI Operator to initiate the upgrade.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Follow the on-screen prompts in the demo to complete the upgrade process.</p>

@@ -48,6 +48,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -131,56 +147,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -229,26 +197,61 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous segment we uploaded the granite model to our S3 Storage.</p>
+<p>With the model files uploaded and the vLLM runtime available, the next step is to deploy the LLM itself using OpenShift AI&#8217;s serving capabilities.</p>
 </div>
 <div class="paragraph">
-<p>Now it&#8217;s time to deploy that model in our workbench</p>
+<p><strong>Steps for Model Deployment:</strong></p>
 </div>
-<div class="paragraph">
-<p>Let&#8217;s head to the OpenShift AI Dashboard, in our Data Science Project, select the Models tab of our bench.  There are two options Single Model Serving and Multi-Model Serving.</p>
-</div>
-<div class="paragraph">
-<p>We are going use the Single Model Serving Option.</p>
-</div>
-<div class="paragraph">
-<p>In order to deploy our model we&#8217;ll need to specific a details</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>first is " model deployment name" :  This example uses granite for the deployment name.</p>
+<p><strong>Access Model Serving Options</strong>: From the Data Science Project dashboard,</p>
+<div class="ulist">
+<ul>
+<li>
+<p>navigate to the <code>Models</code> tab, where <code>Single Model Serving</code> and <code>Multi-Model Serving</code> options are available.</p>
 </li>
-</ol>
+<li>
+<p>For this lab, <code>Single Model Serving</code> is used.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Specify Deployment Details</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Model Deployment Name</strong>: This name (e.g., <code>granite</code>) becomes the exposed name of the model service.</p>
+</li>
+<li>
+<p><strong>Serving Runtime</strong>: Select the <code>vLLM NVIDIA GPU servingRuntime Kserve</code>.</p>
+</li>
+<li>
+<p><strong>Framework</strong>: For this runtime, the framework should auto-populate as <code>vLLM</code>.</p>
+</li>
+<li>
+<p><strong>Number of Model Replicas</strong>: Due to video card requirements for the lab, keep this set to <strong>one</strong>.</p>
+</li>
+<li>
+<p><strong>Model Size (T-shift size)</strong>: Options include Small, Medium, Large, or custom. For the lab, the <code>Large</code> option is chosen.</p>
+</li>
+<li>
+<p><strong>External Route and Authentication</strong>: <strong>Check the box to make the deployed model available through an external route</strong>, which automatically selects requiring token authentication. A custom service account can be set for easier logging and metrics tracking.</p>
+</li>
+<li>
+<p><strong>Source Model Location</strong>: Select the existing data connection (models) and specify the subdirectory where the model files reside (granite).</p>
+</li>
+<li>
+<p><strong>Additional Serving Runtime Arguments</strong>: Optionally, add arguments to execute when loading the model for inference.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Deployment Process</strong>: Clicking <code>deploy</code> initiates the process. Model deployment can take time as large model files are copied from S3 into the container before they can start.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -263,87 +266,10 @@ if you connect to the model, it will be known as granite only, not the full mode
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>the second dropdown option is for serving runtime available.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>select the vLLM NVIDIA GPU servingRuntime Kserve -</p>
-</div>
-<div class="paragraph">
-<p>The framework should be auto populated with vLLM for this runtime, other runtimes have a few options available.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>third option is to set the the number of model replcias for this deployment.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Due the video card requirment, keep this set to one.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>next selection is for the model size</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>These are T-shift size, in Small, Medium, Large, or custom</p>
-</div>
-<div class="paragraph">
-<p>For our lab choose the the large option, even though the walkthrough below will show medium.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Is a checkbox, that say&#8217;s "make deployed model available through an external route".</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>check this box, which is automicmailly select the box to require token authenication.</p>
-</div>
-<div class="paragraph">
-<p>it will also show a new option for a service account, set to the default-name.  Optionally change this to be the model name, just to keep logs and metrics easier to track.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The next step is to select the source model location.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>first select from existing data connection, or add a new connection.   once the connection has been added, then we can specific the subdirectory where model files reside.</p>
-</div>
-<div class="paragraph">
-<p>7 finally we can add additional serving runtime arguments to execute when loading the model for inference.</p>
-</div>
-<div class="paragraph">
-<p>click deploy</p>
-</div>
-<div class="paragraph">
-<p>Model deploy can take some time as large model files are copied from s3 into the container before they can even be started.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_interactive_demo_vllm_openshift_ai_granite_llm_inference"><a class="anchor" href="#_interactive_demo_vllm_openshift_ai_granite_llm_inference"></a>Interactive Demo: vLLM, OpenShift AI, Granite LLM Inference</h3>
-<div class="paragraph">
-<p>The following interactive demonstration will walk you through the process of:
-1.  Deploy an LLM using the Single Model Serving option in OpenShift AI Workbench
-2.  Configure properites needed to deploy a model.
-3.  Optionally create a token service account for external model access.</p>
-</div>
-<div class="paragraph">
-<p>Follow the on-screen prompts in the demo to complete the model deployment.</p>
-</div>
 <iframe
   src="https://demo.arcade.software/xf4enBigdszSusJapXdE?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%"

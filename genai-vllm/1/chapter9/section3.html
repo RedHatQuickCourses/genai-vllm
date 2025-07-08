@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>blank :: vLLM Optimizing and Serving Models on OpenShift AI</title>
-    <link rel="prev" href="section2.html">
-    <link rel="next" href="vllm_intro.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -41,6 +39,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -131,56 +145,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -215,7 +181,6 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
-    <li><a href="index.html">blank</a></li>
     <li><a href="section3.html">blank</a></li>
   </ul>
 </nav>
@@ -226,78 +191,7 @@
 </aside>
 <article class="doc">
 <h1 class="page">blank</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Based on the principles outlined, here are practical lessons for your next AI deployment project:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Start with a Validated Repository</strong>: Before exploring the thousands of models on Hugging Face, <strong>begin your search with a curated source like the Red Hat AI repository</strong>. This will significantly save time and reduce the risk of selecting an unsuitable model.</p>
-</li>
-<li>
-<p><strong>Utilize the "Model Card"</strong>: The detailed analysis provided for each validated model is your primary decision-making tool. <strong>Use the benchmark data, especially accuracy recovery scores</strong>, to understand the real-world trade-offs when using a quantized model.</p>
-</li>
-<li>
-<p><strong>Match Quantization to the Job and Hardware</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>For <strong>maximum speed with high accuracy on modern hardware</strong> (like Hopper, Ada, Blackwell GPUs), prioritize <strong>FP8</strong> models.</p>
-</li>
-<li>
-<p>For a <strong>solid balance of performance and savings on a wide range of GPUs</strong>, <strong>INT8</strong> is a reliable choice.</p>
-</li>
-<li>
-<p>To <strong>fit the largest possible model into a a tight memory budget</strong>, <strong>INT4</strong> provides the highest compression, though with higher accuracy risk.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Frame Decisions by TCO</strong>: Use validated model data to make a strong business case for your hardware and model selections, focusing on cost-efficiency.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_further_considerations_and_potentially_missing_information"><a class="anchor" href="#_further_considerations_and_potentially_missing_information"></a>Further Considerations and Potentially Missing Information</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>While the sources provide valuable insights, an AI platform delivery engineer might seek further details on:</p>
-</div>
-<div class="sect2">
-<h3 id="_specific_quantization_methodologies"><a class="anchor" href="#_specific_quantization_methodologies"></a><strong>Specific Quantization Methodologies</strong>:</h3>
-<div class="paragraph">
-<p>Although the sources mention the precision levels (e.g., INT4 requiring AWQ/GPTQ), they do not elaborate on the specific <strong>techniques or tools Red Hat AI uses to perform the quantization itself</strong>. Understanding if these are post-training quantization, quantization-aware training, or specific algorithms could be beneficial for deeper optimization.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_broader_enterprise_readiness_criteria"><a class="anchor" href="#_broader_enterprise_readiness_criteria"></a><strong>Broader Enterprise Readiness Criteria</strong>:</h3>
-<div class="paragraph">
-<p>Beyond performance under load and cost optimization, "enterprise readiness" could encompass other critical aspects like <strong>security scanning of models, compliance certifications, support for model versioning, integration with existing CI/CD pipelines, and detailed logging/monitoring capabilities</strong> specifically for deployed LLMs. While implied, explicit details on these elements are not provided in the sources.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_model_lineage_and_lifecycle"><a class="anchor" href="#_model_lineage_and_lifecycle"></a><strong>Model Lineage and Lifecycle</strong>:</h3>
-<div class="paragraph">
-<p>The sources briefly touch on "Generative AI Model Variations in Model Naming", describing base, instruct, chat, and code models. However, they don&#8217;t explicitly detail <strong>how the validation process or enterprise readiness criteria might differ across these distinct model types</strong>, which could be relevant for a delivery engineer tasked with deploying diverse AI applications.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_repository_access_and_contribution"><a class="anchor" href="#_repository_access_and_contribution"></a><strong>Repository Access and Contribution</strong>:</h3>
-<div class="paragraph">
-<p>The sources mention "Red Hat AI repository on Hugging Face", but explicit instructions on <strong>how to access the repository (e.g., specific URLs, authentication requirements)</strong>, or information on <strong>how the community can contribute</strong> validated models or provide feedback, are not provided.</p>
-</div>
-</div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="section2.html">Intro Quantization Strategies</a></span>
-  <span class="next"><a href="vllm_intro.html">The Red Hat AI Validated Model Repository</a></span>
-</nav>
+
 </article>
   </div>
 </main>

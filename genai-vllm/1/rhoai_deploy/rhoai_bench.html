@@ -48,6 +48,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -131,56 +147,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter9/index.html">blank</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section4.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section2.html">Intro Quantization Strategies</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/section3.html">blank</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter9/vllm_intro.html">The Red Hat AI Validated Model Repository</a>
+    <a class="nav-link" href="guide_llm.html">Arcade Interactive Experience - Granite Model Evaluation with GuideLLM</a>
   </li>
 </ul>
   </li>
@@ -229,34 +197,30 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>With our project and data connections configured, it&#8217;s time to create our primary development environment: the <strong>Red Hat OpenShift AI Workbench</strong>. We will then download several open-source Large Language Models (LLMs) and upload them to our MinIO S3 bucket, preparing them for deployment.</p>
+<p>With our project and data connections configured, it&#8217;s time to create our primary development environment: the <strong>Red Hat OpenShift AI Workbench</strong>.</p>
 </div>
-<hr>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_part_1_configure_and_launch_the_workbench"><a class="anchor" href="#_part_1_configure_and_launch_the_workbench"></a>Part 1: Configure and Launch the Workbench</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The workbench provides a fully containerized and interactive data science environment, with JupyterLab as its core component. Here, we will select the right tools, compute resources, and storage connections to build and test our vLLM deployments.</p>
+<p>The workbench provides a fully containerized and interactive data science environment, most with JupyterLab as as the core component. In this segment, we will select the right tools, compute resources, and storage connections to build and test our vLLM deployments.</p>
+</div>
+<div class="paragraph">
+<p>From the Data Science Project dashboard, click <strong>Create workbench</strong>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>From your Data Science Project dashboard, click <strong>Create workbench</strong>.</p>
-</li>
-<li>
 <p><strong>Name:</strong> Provide a descriptive name for your workbench, for example, <code>vllm-workbench</code>.</p>
 </li>
 <li>
-<p><strong>Notebook image:</strong> This is the container image that defines your development environment. It includes the operating system, drivers, and pre-installed libraries.</p>
+<p><strong>Notebook image:</strong> This is the container image that defines your development environment.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Scroll through the list of available images. You will see options like Standard Python, PyTorch, and TensorFlow.</p>
-</li>
-<li>
-<p>For this lab, it is essential to select an image with NVIDIA GPU support. Choose the <strong>CUDA</strong> notebook image (e.g., <code>CUDA - 12.3.2</code>). This image includes the necessary NVIDIA drivers to communicate with the GPU accelerator.</p>
 </li>
 </ul>
 </div>
@@ -275,14 +239,11 @@
 </div>
 </li>
 <li>
-<p><strong>Accelerator:</strong> This is where you attach a physical GPU.</p>
+<p><strong>Accelerator:</strong> allocate a GPU to the workbench.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Click the <strong>Select an accelerator</strong> dropdown.</p>
-</li>
-<li>
-<p>Select <strong>NVIDIA GPU</strong>, and ensure the number of accelerators is set to <strong>1</strong>.</p>
+<p>We won&#8217;t need an accelerator for this lab</p>
 </li>
 </ul>
 </div>
@@ -292,16 +253,20 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Check the box for the <strong>models-storage</strong> data connection. This will mount our <code>models</code> bucket inside the workbench, making it easy to access.</p>
+<p>Select the <strong>models</strong> connection from the dropdown box for data connections. This will mount our <code>models</code> storage bucket inside the workbench, for easy access.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Cluster storage:</strong> This is the persistent storage for your workbench&#8217;s home directory. Leave the default settings to create a new persistent volume. This ensures your work is saved even if you stop and restart the workbench.</p>
-</li>
+<p><strong>Cluster storage:</strong> This is the persistent storage for your workbench&#8217;s home directory. Leave the default settings to create a new persistent volume.</p>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Review your selections and click <strong>Create workbench</strong>.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -315,57 +280,53 @@
 <h2 id="_part_2_download_and_upload_ai_models"><a class="anchor" href="#_part_2_download_and_upload_ai_models"></a>Part 2: Download and Upload AI Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When we deploy a model server in OpenShift AI, the most common method is to have it download the model files directly from an S3-compatible storage location. We will now download several LLMs from Hugging Face and upload them to our MinIO <code>models</code> bucket.</p>
+<p>When deploying a model server in OpenShift AI, the most common method is to have it download the model files directly from an S3-compatible storage location.</p>
+</div>
+<div class="paragraph">
+<p>The model used in this lab is:  <a href="https://huggingface.co/ibm-granite/granite-3.3-2b-instruct" target="blank">ibm-granite/granite-3.3-2b-instruct</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone --depth=1 git clone https://huggingface.co/ibm-granite/granite-3.3-2b-instruct</code></pre>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_step_a_download_models_from_hugging_face"><a class="anchor" href="#_step_a_download_models_from_hugging_face"></a>Step A: Download Models from Hugging Face</h3>
 <div class="paragraph">
 <p>On your local computer, create a directory for your models. The easiest way to download a model from Hugging Face is using <code>git</code>.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>To save time and disk space, you can perform a "shallow clone" which downloads the latest version without the entire version history. Use the <code>--depth=1</code> flag with your <code>git clone</code> command.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Open a terminal on your local machine and clone the following models. These are relatively small models suitable for a lab environment.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_step_b_upload_models_to_minio"><a class="anchor" href="#_step_b_upload_models_to_minio"></a>Step B: Upload Models to MinIO</h3>
 <div class="paragraph">
-<p>It is a best practice—and often a requirement—that model files reside in a subdirectory within your storage bucket, not in the root. We will create a folder for each model.</p>
+<p>It is a requirement—that model files reside in a subdirectory within your storage bucket, not in the root. Create a folder for each model.</p>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p>Log back into the MinIO UI dashboard.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>Navigate to the models bucket.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>For each model you downloaded, perform the following actions:
-a.  Click Create new path and create a subdirectory named after the model (e.g., Qwen1.5-0.5B-Chat).
-b.  Navigate into the newly created path.
-c.  Click the Upload button and select Upload folder.
-d.  Select the corresponding model folder you cloned onto your local machine to upload all of its contents.</p>
+<p>For each model you downloaded, perform the following actions:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Qwen 1.5 (0.5 Billion parameters)</strong></p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone --depth=1 [https://huggingface.co/RedHatAI/granite-3.1-2b-instruct-FP8-dynamic](https://huggingface.co/RedHatAI/granite-3.1-2b-instruct-FP8-dynamic)</code></pre>
-</div>
+<p>Click <strong>Create new path</strong> to create a subdirectory named after the model (e.g., granite).</p>
+</li>
+<li>
+<p>Click the Upload button and select the AI model files from local foldel.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Upload all of its contents, not just the model files.</p>
+</li>
+</ol>
 </div>
 </li>
 </ol>
@@ -376,25 +337,6 @@ d.  Select the corresponding model folder you cloned onto your local machine to 
 <div class="sect1">
 <h2 id="_interactive_demo_project_deployment_and_data_connection_walkthrough"><a class="anchor" href="#_interactive_demo_project_deployment_and_data_connection_walkthrough"></a>Interactive Demo: Project, Deployment, and Data Connection Walkthrough</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The following interactive demonstration will walk you through the process of:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create a subdirectory named Granite, upload the granite model files.</p>
-</li>
-<li>
-<p>Creating a Workbench in OpenShift AI.</p>
-</li>
-<li>
-<p>Select the appropriate notebook image, size, and data connections.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Follow the on-screen prompts in the demo to complete configuiration process.</p>
-</div>
 <iframe
   src="https://demo.arcade.software/o95APuRqMKhyFEkEFXhf?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
   width="100%"
