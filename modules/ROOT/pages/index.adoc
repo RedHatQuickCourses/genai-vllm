@@ -3,11 +3,11 @@
 
 == Introduction
 
-Deploying large language models (LLMs) in a real-world enterprise environment comes with its unique set of challenges—from selecting the right model within budget constraints to ensuring seamless integration and robust performance. 
+Deploying large language models in an enterprise environment is a high-stakes game. While the promise of AI is massive, the reality is often plagued by slow inference speeds, high resource consumption, and budget overruns. How do you deliver a solution that is not only powerful but also practical and performant?
 
-This course is designed to provide you with the practical skills and knowledge to confidently deliver the platform for an AI initiative.
+This course provides the answer. We dive deep into solving the critical "last mile" problem of AI delivery: efficient model inference. You will learn to harness the power of vLLM on OpenShift AI, a combination that unlocks significant performance gains and dramatically reduces operational costs.
 
-Our mission is straightforward: to guide you through budget driven model selection from the Red Hat AI catalog, then serve that model on OpenShift AI for Inference, evaulute the performance for a given solution, empowering you to demonstrate the tangible delivery of a functional AI engine for an application.
+Our mission is to equip you with the skills to turn AI potential into production reality. We will walk you through a complete, real-world workflow: from selecting the right model in the Red Hat AI catalog to deploying it with vLLM for unparalleled inference speed. By the end of this course, you won't just have a theoretical understanding; you will have the practical ability to build, measure, and deliver a high-performance AI service. This is the key to unlocking successful AI incubators and impressing stakeholders by demonstrating a solution that is not only smart but also economically viable.
 
 ==== Duration: 1-2 hours
 
@@ -15,23 +15,22 @@ Our mission is straightforward: to guide you through budget driven model selecti
 
 On completing this course, you should be able to:
 
-* Select a capable model from the Red Hat AI Model Repository.
-* Deploy multiple optimized models using OpenShift AI.
-* Query these models using RHOAI Workbench + Notebook.
-* Evaluation of model on standarized Question and Answers.
+* *Select Models Strategically:* Choose a capable model from the Red Hat AI Model Repository based on both performance and budget.
+* *Deploy for Performance:* Implement multiple, optimized models on OpenShift AI using the vLLM engine.
+* *Query and Test:* Interact with your deployed models using the RHOAI Workbench and Jupyter Notebooks.
+* *Evaluate and Prove:* Use a guide LLM to evaluate your model's performance and demonstrate its value.
 
 == Prerequisites
 
-This course assumes that you have the following prior experience:
+The following courses and labs are recommended before attempting this course:
 
-* Knowledge of OpenShift AI Dashboard Menus and Tabs.
-* Knowledge of Jupyter notebooks and Python.
-* vLLM Inference server (runtime) and LLM Compressor.
-* Understanding of LLM compression techniques such as quantization and sparzation.
+ * https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinklp%3D78588241[Practical Approach to RHOAI Series.,window=blank]
+ * https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D79898868[vLLM - Technical Reference Guide v.101, window=blank]
+ * https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D81576358[LLM Compressor for vLLM - Technical Reference - v.101, window=blank]   
 
 == Interactive Experiences
 
-This course features a series of interactive experiences designed to provide a hands-on learning environment. These modules simulate real-world lab scenarios, requiring you to click on specific hotspots to advance through the steps. Think of these as guided, self-paced walkthroughs of critical tasks like configuring OpenShift AI or deploying a model for inference with vLLM. This interactive format is designed to build procedural muscle memory and deepen your understanding of the end-to-end workflow, ensuring you can confidently apply these skills in customer engagements.
+This course features a series of interactive experiences designed to provide a hands-on learning environment. These modules simulate real-world lab scenarios, requiring you to click on specific hotspots to advance through the steps. Think of these as guided, self-paced walkthroughs of tasks like configuring OpenShift AI or deploying a model for inference with vLLM. This interactive format is designed to build procedural muscle memory and deepen your understanding of the end-to-end workflow, ensuring you can confidently apply these skills in customer engagements.
 
 [NOTE]
 ====
@@ -61,3 +60,13 @@ Level:: Intermediate
 Prerequisites:: Foundational knowledge of Large Language Models (LLMs), containerization (Docker), and REST APIs. Familiarity with GPU hardware is beneficial.
 Version:: 1.0
 ////
+
+== Acknowledgements
+
+* Ravi Srinivasan
+* Rupali Talwatkar
+* Sam Zahran
+* Caitlyn Rymarchyk
+* The OpenShift AI team
+* Samuel Monson - for writing an awesome GuideLLM notebook.
+* Karlos Knox
