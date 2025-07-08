@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Optional - RHOAI Self-Managed :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="rhoai_221.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-vllm" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM and Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">vLLM Technical Deep Dive and Advanced Capabilities</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rh_hg_ai/index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/model_types.html">Generative AI Model Variations in Model Naming</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/val_models.html">Validated Models and Quantization Strategies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Pre-Selected Course Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rh_hg_ai/summary.html">From Curation to Confident Deployment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="batch_summ.html">Using the AI Model for Batch Summarization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../appendix/further_study.html">Hands on Exploration and Further Study</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter9/index.html">blank</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section4.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section2.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/section3.html">blank</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter9/vllm_intro.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">OpenShift AI Configuration</a></li>
+    <li><a href="rhoai_self.html">Optional - RHOAI Self-Managed</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Optional - RHOAI Self-Managed</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before proceeding with vLLM model deployment, it is necessary to prepare the lab environment. This section provides an overview of the setup for a self-managed Red Hat OpenShift AI instance, including the required dependent operators and the components for NVIDIA GPU hardware acceleration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_red_hat_openshift_ai_installation"><a class="anchor" href="#_red_hat_openshift_ai_installation"></a>Red Hat OpenShift AI Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The foundation of our lab is a self-managed instance of Red Hat OpenShift AI. This platform provides the core services for deploying and managing machine learning models. A self-managed installation offers a comprehensive, hands-on understanding of the platform&#8217;s architecture.</p>
+</div>
+<div class="sect2">
+<h3 id="_required_operators"><a class="anchor" href="#_required_operators"></a>Required Operators</h3>
+<div class="paragraph">
+<p>OpenShift Operators are a fundamental component for managing the lifecycle of applications within the cluster. The installation of the primary <strong>Red Hat OpenShift AI Operator</strong> orchestrates the deployment of the platform.</p>
+</div>
+<div class="paragraph">
+<p>For the single-model serving capabilities used in this course, the following operators must also be present in the cluster. While the OpenShift AI operator often manages these dependencies, it is important to verify their installation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpenShift Service Mesh Operator</strong>: Provides essential networking capabilities for secure and reliable communication between model serving microservices.</p>
+</li>
+<li>
+<p><strong>OpenShift Serverless Operator</strong>: Enables efficient resource utilization by allowing serving pods to scale based on demand, including scaling down to zero.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+while OpenShift AI can deploy and serve models without Authorino, it&#8217;s a required component specifically for the use case of providing secure, external access to those models.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Red Hat Authorino Operator</strong>: Provides protection for deployed models through token-based authentication and authorization, enabling secure external access.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operators are available for installation from the <strong>OperatorHub</strong> within the OpenShift web console.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nvidia_gpu_hardware_acceleration"><a class="anchor" href="#_nvidia_gpu_hardware_acceleration"></a>NVIDIA GPU Hardware Acceleration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To achieve high-performance model inference with vLLM, access to NVIDIA GPUs is required. Enabling GPU support in OpenShift involves two key operators that work together.</p>
+</div>
+<div class="sect2">
+<h3 id="_prerequisite_node_feature_discovery_operator"><a class="anchor" href="#_prerequisite_node_feature_discovery_operator"></a>Prerequisite: Node Feature Discovery Operator</h3>
+<div class="paragraph">
+<p>Before installing the main GPU operator, the <strong>Node Feature Discovery (NFD) Operator</strong> must be installed and running.</p>
+</div>
+<div class="paragraph">
+<p>The role of the NFD Operator is to detect hardware features and configurations across all nodes in the cluster. It then applies labels to each node based on the discovered hardware, such as the presence of a specific PCI device like an NVIDIA GPU. This labeling is what allows the NVIDIA GPU Operator to identify which nodes it needs to manage.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nvidia_gpu_operator"><a class="anchor" href="#_nvidia_gpu_operator"></a>NVIDIA GPU Operator</h3>
+<div class="paragraph">
+<p>With the NFD Operator in place, you can then install the <strong>NVIDIA GPU Operator</strong>. This operator automates the complex process of configuring the GPU-enabled nodes that were previously identified and labeled by NFD. It manages all necessary NVIDIA software components, including drivers and the container runtime, simplifying the use of GPUs for AI workloads.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installation_sequence"><a class="anchor" href="#_installation_sequence"></a>Installation Sequence</h3>
+<div class="paragraph">
+<p>The installation process for enabling GPU support follows this order:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Install the Node Feature Discovery Operator</strong>: From the OperatorHub, install the NFD Operator first. After installation, you must create an instance of the <code>NodeFeatureDiscovery</code> custom resource (CR) to initiate the node scanning and labeling process.</p>
+</li>
+<li>
+<p><strong>Install the NVIDIA GPU Operator</strong>: Once NFD is running, install the NVIDIA GPU Operator from the OperatorHub.</p>
+</li>
+<li>
+<p><strong>Create a <code>ClusterPolicy</code></strong>: After the NVIDIA operator is installed, create a <code>ClusterPolicy</code> custom resource. This CR instructs the operator to begin the configuration of the GPU worker nodes. The default configuration is generally sufficient for standard lab environments.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_the_data_science_cluster"><a class="anchor" href="#_create_the_data_science_cluster"></a>Create the Data Science Cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After the Red Hat OpenShift AI Operator is installed, you must create a <strong>Data Science Cluster (DSC)</strong> to deploy the platform&#8217;s services.</p>
+</div>
+<div class="paragraph">
+<p>A <code>DataScienceCluster</code> is a Custom Resource that defines the configuration for your OpenShift AI instance. By editing its YAML manifest (often named <code>dsc.yaml</code>), you can control which components are managed by the operator and customize their settings.</p>
+</div>
+<div class="paragraph">
+<p>For this lab, we will create a default instance.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the <strong>Installed Operators</strong> section in the OpenShift console.</p>
+</li>
+<li>
+<p>Click on the <strong>Red Hat OpenShift AI</strong> operator.</p>
+</li>
+<li>
+<p>Select the <strong>Data Science Cluster</strong> tab.</p>
+</li>
+<li>
+<p>Click <strong>Create DataScienceCluster</strong>.</p>
+</li>
+<li>
+<p>Accept the default configuration by clicking <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The deployment process will take approximately 5-10 minutes. Once the <code>Ready</code> status is shown for the DSC, you can access the <strong>Red Hat OpenShift AI</strong> dashboard from the application launcher in the OpenShift console&#8217;s top bar.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_arcade_interactive_experience_installation_of_rhoai_v2_18"><a class="anchor" href="#_arcade_interactive_experience_installation_of_rhoai_v2_18"></a>Arcade Interactive Experience - Installation of RHOAI v2.18</h2>
+<div class="sectionbody">
+<iframe
+  src="https://demo.arcade.software/lie2H2wlw0aDEaR7Q4D5?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+<hr>
+<div class="paragraph">
+<p>With these foundational components configured, the OpenShift AI environment is prepared for deploying models with the vLLM serving runtime.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">OpenShift AI Configuration</a></span>
+  <span class="next"><a href="rhoai_221.html">Lab Environment Customization</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
