@@ -7,7 +7,7 @@ With the model files uploaded and the vLLM runtime available, the next step is t
 
  *   **Access Model Serving Options**: From the Data Science Project dashboard, 
 
- ** navigate to the `Models` tab, where `Single Model Serving` and `Multi-Model Serving` options are available. 
+ ** Navigate to the `Models` tab, where `Single Model Serving` and `Multi-Model Serving` options are available. 
  ** For this lab, `Single Model Serving` is used.
 
  *   **Specify Deployment Details**:
@@ -23,7 +23,7 @@ With the model files uploaded and the vLLM runtime available, the next step is t
 
 [NOTE]
 It's important to note that this name is the name of the model service that will be exposed. 
-if you connect to the model, it will be known as granite only, not the full model name. 
+If you connect to the model, it will be known as `granite` only, not the full model name. 
  
 
 === Interactive Demo: vLLM, OpenShift AI, Granite LLM Inference

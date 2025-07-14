@@ -18,7 +18,7 @@ On completing this course, you should be able to:
 * *Select Models Strategically:* Choose a capable model from the Red Hat AI Model Repository based on both performance and budget.
 * *Deploy for Performance:* Implement multiple, optimized models on OpenShift AI using the vLLM engine.
 * *Query and Test:* Interact with your deployed models using the RHOAI Workbench and Jupyter Notebooks.
-* *Evaluate and Prove:* Use a guide LLM to evaluate your model's performance and demonstrate its value.
+* *Evaluate and Prove:* Use a GuideLLM to evaluate your model's performance and demonstrate its value.
 
 == Prerequisites
 

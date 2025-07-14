@@ -1,6 +1,6 @@
 = Performance Benchmarking with GuideLLM
 
-This lab will guide you through the process of running performance benchmarks on your deployed Large Language Model. We will use `guidellm`, a library designed to stress-test LLM endpoints to measure key performance indicators like throughput and latency under various loads.
+This lab will guide you through the process of running performance benchmarks on your deployed Large Language Model. We will use `GuideLLM`, a library designed to stress-test LLM endpoints to measure key performance indicators like throughput and latency under various loads.
 
 Understanding these metrics is crucial for determining how well your model will perform in a real-world application and for making decisions about resource allocation.
 
@@ -8,7 +8,7 @@ Understanding these metrics is crucial for determining how well your model will 
 
 ## Step 1: Install Dependencies
 
-First, we need to install `guidellm` and other Python libraries required for data manipulation and visualization.
+First, we need to install `GuideLLM` and other Python libraries required for data manipulation and visualization.
 
 [source,bash]
 ----
