@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>The Granite Model Family :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <link rel="prev" href="val_models.html">
+    <link rel="next" href="../rhoai_deploy/index.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-vllm" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../LABENV/index.html">Lab Environments</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/index-lab-demo.html">Red Hat Demo Hub: Lab Environment Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../LABENV/developer_sandbox.html">Red Hat Developer Platform</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../vllm/index.html">vLLM Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_intro.html">vLLM and Red Hat AI Platforms</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_rhoai.html">Integrating vLLM with OpenShift AI: The Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_deploy.html">Deploying and Interacting with Models on OpenShift AI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../vllm/vllm_concl.html">vLLM Technical Deep Dive and Advanced Capabilities</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../model_sizing/index.html">GPU Architecture and Model Sizing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_cost.html">Estimating GPU VRAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../model_sizing/gpu_arch.html">Optimizing with NVIDIA GPU Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Red Hat AI Model Repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model_types.html">The Red Hat AI Validated Model Repository</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="val_models.html">Intro Quantization Strategies</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="lab_models.html">The Granite Model Family</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rhoai_deploy/index.html">OpenShift AI Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_self.html">Optional - RHOAI Self-Managed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_221.html">Lab Environment Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_config.html">Project and Data Connection Setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_bench.html">Creating the AI Workbench and Preparing Models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/add_runtime.html">vLLM Serving Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_model.html">Deploy Granite LLM on RHOAI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/rhoai_query.html">Querying the Deployed Model in a Jupyter Notebook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/batch_summ.html">Using the AI Model for Batch Summarization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rhoai_deploy/guide_llm.html">Performance Benchmarking with GuideLLM</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">vLLM Optimizing and Serving Models on OpenShift AI</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
+    <li><a href="index.html">Red Hat AI Model Repository</a></li>
+    <li><a href="lab_models.html">The Granite Model Family</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">The Granite Model Family</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This course will utilize models from the Granite family, a series of enterprise-grade, open-source Large Language Models (LLMs) developed by IBM. This section provides an overview of the Granite models and details the specific model we will use in our labs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introducing_granite_enterprise_ready_ai_models"><a class="anchor" href="#_introducing_granite_enterprise_ready_ai_models"></a>Introducing Granite: Enterprise-Ready AI Models</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Granite is a family of foundation models designed to support a wide range of generative AI use cases involving language, code, and vision. Developed by IBM, these models are built with enterprise applications in mind, emphasizing trust, transparency, and performance.</p>
+</div>
+<div class="paragraph">
+<p>Key characteristics of the Granite model family include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Open Source:</strong> All Granite models are released under the permissive <code>Apache 2.0</code> license. This allows developers and organizations to freely use, modify, and distribute the models, making them ideal for environments where data sensitivity requires a self-hosted LLM.</p>
+</li>
+<li>
+<p><strong>Transparent Training Data:</strong> IBM discloses the training data for Granite models, fostering trust and enabling better evaluation for enterprise-specific use cases.</p>
+</li>
+<li>
+<p><strong>Purpose-Built:</strong> The Granite family includes a diverse set of models, each optimized for specific tasks, from code generation and text summarization to document understanding and time-series forecasting.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_granite_model_ecosystem"><a class="anchor" href="#_the_granite_model_ecosystem"></a>The Granite Model Ecosystem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Granite family is composed of several specialized model types, each tailored for different enterprise needs.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Model Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Language Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base and instruction-tuned models with advanced reasoning capabilities. Designed for agentic workflows, Retrieval-Augmented Generation (RAG), text analytics, classification, and content generation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Vision Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pre-trained models specialized in vision tasks for document and image understanding. They support a range of file types and are optimized for efficient deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Speech Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compact and efficient speech-to-text models for transcription and translation tasks, supporting English and seven other languages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Time Series Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight, pre-trained models for time-series forecasting, optimized to run efficiently across various hardware configurations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Embedding Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Designed to enhance the understanding of user intent and improve the relevance of information retrieved in RAG and semantic search applications.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Geospatial Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A specialized foundation model developed in partnership with NASA, trained on large-scale satellite and remote sensing data for Earth observations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Granite Guardian</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A model focused on AI safety, designed to mitigate risks by safeguarding against problematic user prompts and ensuring secure LLM responses. It has demonstrated top performance across numerous safety benchmarks.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_focus_model_ibm_granitegranite_3_3_2b_instruct"><a class="anchor" href="#_focus_model_ibm_granitegranite_3_3_2b_instruct"></a>Focus Model: <code>ibm-granite/granite-3.3-2b-instruct</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Throughout this course, we will primarily use the <code>ibm-granite/granite-3.3-2b-instruct</code> model.</p>
+</div>
+<div class="sect2">
+<h3 id="_rationale_for_selection"><a class="anchor" href="#_rationale_for_selection"></a>Rationale for Selection</h3>
+<div class="paragraph">
+<p>The selection of this model was deliberate for several key reasons relevant to this course&#8217;s learning objectives:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Quantization Labs:</strong> It is a full-sized base model, making it an excellent candidate for our future labs on model quantization. This allows us to demonstrate the process of reducing a model&#8217;s footprint for more efficient deployment.</p>
+</li>
+<li>
+<p><strong>Performance and Size:</strong> As a 2-billion parameter model, it strikes a balance between performance and resource requirements. It is small enough to be uploaded and deployed for inference relatively quickly, even in resource-constrained environments.</p>
+</li>
+<li>
+<p><strong>Generational Comparison:</strong> With the recent release of the Granite 4 series, using a 3.3 generation model provides a perfect baseline. This will enable a future lab where we can directly compare the performance gains between model generations, a common task in production environments.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>From hands-on experience during the development of this course, the <code>granite-3.3-2b-instruct</code> model has consistently provided correct and relevant answers. Its large 128K context window, paired with its relatively small size, allows for ample performance on a single 24GB GPU.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_model_details_granite_3_3_2b_instruct"><a class="anchor" href="#_model_details_granite_3_3_2b_instruct"></a>Model Details: <code>Granite-3.3-2B-Instruct</code></h3>
+<div class="paragraph">
+<p>Here is a summary of the key details for our focus model.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developers:</strong> Granite Team, IBM</p>
+</li>
+<li>
+<p><strong>Hugging Face ID:</strong> <code>ibm-granite/granite-3.3-2b-instruct</code></p>
+</li>
+<li>
+<p><strong>GitHub Repository:</strong> <a href="https://github.com/ibm-granite/granite-3.3-language-models">ibm-granite/granite-3.3-language-models</a></p>
+</li>
+<li>
+<p><strong>Release Date:</strong> April 16th, 2025</p>
+</li>
+<li>
+<p><strong>License:</strong> <code>Apache 2.0</code></p>
+</li>
+<li>
+<p><strong>Supported Languages:</strong> Primarily English, with capabilities in German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese. The model can be fine-tuned for additional languages.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_intended_use_and_capabilities"><a class="anchor" href="#_intended_use_and_capabilities"></a>Intended Use and Capabilities</h4>
+<div class="paragraph">
+<p>This model is designed for general instruction-following tasks and can be integrated into AI assistants across various domains. Its capabilities include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Summarization</p>
+</li>
+<li>
+<p>Text Classification &amp; Extraction</p>
+</li>
+<li>
+<p>Question Answering (QA)</p>
+</li>
+<li>
+<p>Retrieval-Augmented Generation (RAG)</p>
+</li>
+<li>
+<p>Code Generation &amp; Function-Calling</p>
+</li>
+<li>
+<p>Multilingual Dialog</p>
+</li>
+<li>
+<p>Long-Context Tasks (e.g., document summarization, meeting analysis)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A notable feature is its support for structured reasoning through <code>&lt;think&gt;</code> and <code>&lt;response&gt;</code> tags, which provides a clear separation between the model&#8217;s internal "thought process" and the final output it generates.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="val_models.html">Intro Quantization Strategies</a></span>
+  <span class="next"><a href="../rhoai_deploy/index.html">OpenShift AI Configuration</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
