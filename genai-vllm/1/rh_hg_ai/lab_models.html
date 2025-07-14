@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Granite Models :: vLLM Optimizing and Serving Models on OpenShift AI</title>
+    <title>The Granite Model Family :: vLLM Optimizing and Serving Models on OpenShift AI</title>
     <link rel="prev" href="val_models.html">
     <link rel="next" href="../rhoai_deploy/index.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -111,7 +111,7 @@
     <a class="nav-link" href="val_models.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="lab_models.html">Granite Models</a>
+    <a class="nav-link" href="lab_models.html">The Granite Model Family</a>
   </li>
 </ul>
   </li>
@@ -184,7 +184,7 @@
   <ul>
     <li><a href="../index.html">vLLM Optimizing and Serving Models on OpenShift AI</a></li>
     <li><a href="index.html">Red Hat AI Model Repository</a></li>
-    <li><a href="lab_models.html">Granite Models</a></li>
+    <li><a href="lab_models.html">The Granite Model Family</a></li>
   </ul>
 </nav>
 </div>
@@ -193,102 +193,176 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Granite Models</h1>
+<h1 class="page">The Granite Model Family</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Meet Granite 3.3
-The third generation of AI language models are here. Fit for purpose and open sourced, these enterprise-ready multimodal models deliver exceptional performance against safety benchmarks and across a wide range of enterprise tasks from cybersecurity to RAG.</p>
+<p>This course will utilize models from the Granite family, a series of enterprise-grade, open-source Large Language Models (LLMs) developed by IBM. This section provides an overview of the Granite models and details the specific model we will use in our labs.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_what_are_granite_models"><a class="anchor" href="#_what_are_granite_models"></a>What are Granite models?</h2>
+<h2 id="_introducing_granite_enterprise_ready_ai_models"><a class="anchor" href="#_introducing_granite_enterprise_ready_ai_models"></a>Introducing Granite: Enterprise-Ready AI Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Granite is a series of large language models (LLMs) created by IBM for enterprise applications. Granite foundation models can support generative artificial intelligence (gen AI) use cases that involve language and code.</p>
+<p>Granite is a family of foundation models designed to support a wide range of generative AI use cases involving language, code, and vision. Developed by IBM, these models are built with enterprise applications in mind, emphasizing trust, transparency, and performance.</p>
 </div>
 <div class="paragraph">
-<p>Granite family models are open source assured under the Apache 2.0 license, which means developers can experiment with, modify, and distribute Granite models for free. This makes Granite models a good choice for organizations that deal with sensitive data and want to run their own LLM rather than relying on an outside service.</p>
+<p>Key characteristics of the Granite model family include:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Open Source:</strong> All Granite models are released under the permissive <code>Apache 2.0</code> license. This allows developers and organizations to freely use, modify, and distribute the models, making them ideal for environments where data sensitivity requires a self-hosted LLM.</p>
+</li>
+<li>
+<p><strong>Transparent Training Data:</strong> IBM discloses the training data for Granite models, fostering trust and enabling better evaluation for enterprise-specific use cases.</p>
+</li>
+<li>
+<p><strong>Purpose-Built:</strong> The Granite family includes a diverse set of models, each optimized for specific tasks, from code generation and text summarization to document understanding and time-series forecasting.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_granite_model_ecosystem"><a class="anchor" href="#_the_granite_model_ecosystem"></a>The Granite Model Ecosystem</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>what sets the Granite AI models apart is the disclosure of their training data, building trust with their users and making them more suitable for enterprise environments.</p>
+<p>The Granite family is composed of several specialized model types, each tailored for different enterprise needs.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Model Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Language Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base and instruction-tuned models with advanced reasoning capabilities. Designed for agentic workflows, Retrieval-Augmented Generation (RAG), text analytics, classification, and content generation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Vision Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pre-trained models specialized in vision tasks for document and image understanding. They support a range of file types and are optimized for efficient deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Speech Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compact and efficient speech-to-text models for transcription and translation tasks, supporting English and seven other languages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Time Series Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight, pre-trained models for time-series forecasting, optimized to run efficiently across various hardware configurations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Embedding Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Designed to enhance the understanding of user intent and improve the relevance of information retrieved in RAG and semantic search applications.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Geospatial Models</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A specialized foundation model developed in partnership with NASA, trained on large-scale satellite and remote sensing data for Earth observations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Granite Guardian</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A model focused on AI safety, designed to mitigate risks by safeguarding against problematic user prompts and ensuring secure LLM responses. It has demonstrated top performance across numerous safety benchmarks.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_focus_model_ibm_granitegranite_3_3_2b_instruct"><a class="anchor" href="#_focus_model_ibm_granitegranite_3_3_2b_instruct"></a>Focus Model: <code>ibm-granite/granite-3.3-2b-instruct</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Throughout this course, we will primarily use the <code>ibm-granite/granite-3.3-2b-instruct</code> model.</p>
 </div>
 <div class="sect2">
-<h3 id="_granite_3_3_2b_instruct_model"><a class="anchor" href="#_granite_3_3_2b_instruct_model"></a>Granite-3.3-2B-instruct model</h3>
+<h3 id="_rationale_for_selection"><a class="anchor" href="#_rationale_for_selection"></a>Rationale for Selection</h3>
 <div class="paragraph">
-<p>The primary model used in this course in the IBM/Granite-3.3-2B-instruct.</p>
+<p>The selection of this model was deliberate for several key reasons relevant to this course&#8217;s learning objectives:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Quantization Labs:</strong> It is a full-sized base model, making it an excellent candidate for our future labs on model quantization. This allows us to demonstrate the process of reducing a model&#8217;s footprint for more efficient deployment.</p>
+</li>
+<li>
+<p><strong>Performance and Size:</strong> As a 2-billion parameter model, it strikes a balance between performance and resource requirements. It is small enough to be uploaded and deployed for inference relatively quickly, even in resource-constrained environments.</p>
+</li>
+<li>
+<p><strong>Generational Comparison:</strong> With the recent release of the Granite 4 series, using a 3.3 generation model provides a perfect baseline. This will enable a future lab where we can directly compare the performance gains between model generations, a common task in production environments.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>Primary reason for selecting this model was because I planned to quantize it in a future segment of the cousre. So I wanted a full size model and I also wanted a small model so it&#8217;s faster to upload and deploy for inference.</p>
+<p>From hands-on experience during the development of this course, the <code>granite-3.3-2b-instruct</code> model has consistently provided correct and relevant answers. Its large 128K context window, paired with its relatively small size, allows for ample performance on a single 24GB GPU.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_model_details_granite_3_3_2b_instruct"><a class="anchor" href="#_model_details_granite_3_3_2b_instruct"></a>Model Details: <code>Granite-3.3-2B-Instruct</code></h3>
+<div class="paragraph">
+<p>Here is a summary of the key details for our focus model.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developers:</strong> Granite Team, IBM</p>
+</li>
+<li>
+<p><strong>Hugging Face ID:</strong> <code>ibm-granite/granite-3.3-2b-instruct</code></p>
+</li>
+<li>
+<p><strong>GitHub Repository:</strong> <a href="https://github.com/ibm-granite/granite-3.3-language-models">ibm-granite/granite-3.3-language-models</a></p>
+</li>
+<li>
+<p><strong>Release Date:</strong> April 16th, 2025</p>
+</li>
+<li>
+<p><strong>License:</strong> <code>Apache 2.0</code></p>
+</li>
+<li>
+<p><strong>Supported Languages:</strong> Primarily English, with capabilities in German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese. The model can be fine-tuned for additional languages.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_intended_use_and_capabilities"><a class="anchor" href="#_intended_use_and_capabilities"></a>Intended Use and Capabilities</h4>
+<div class="paragraph">
+<p>This model is designed for general instruction-following tasks and can be integrated into AI assistants across various domains. Its capabilities include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Summarization</p>
+</li>
+<li>
+<p>Text Classification &amp; Extraction</p>
+</li>
+<li>
+<p>Question Answering (QA)</p>
+</li>
+<li>
+<p>Retrieval-Augmented Generation (RAG)</p>
+</li>
+<li>
+<p>Code Generation &amp; Function-Calling</p>
+</li>
+<li>
+<p>Multilingual Dialog</p>
+</li>
+<li>
+<p>Long-Context Tasks (e.g., document summarization, meeting analysis)</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>After using this modeling throughout the course, it provided an answer to most questions, allows a huge context window paired with a small model size allow plenty performance room on 24GB GPU.</p>
+<p>A notable feature is its support for structured reasoning through <code>&lt;think&gt;</code> and <code>&lt;response&gt;</code> tags, which provides a clear separation between the model&#8217;s internal "thought process" and the final output it generates.</p>
 </div>
-<div class="paragraph">
-<p>While I haven&#8217;t bench marked a ton of model, this one outperformed all expections.</p>
-</div>
-<div class="paragraph">
-<p>The Granite 4 models are now available, so this course may shift to latest model as the first comparison of gain between generations of models.</p>
-</div>
-<div class="paragraph">
-<p>Granite language models
-Base and instruction-tuned language models with new reasoning capabilities designed for agentic workflows, RAG, text summarization, text analytics and extraction, classification, and content generation.</p>
-</div>
-<div class="paragraph">
-<p>Granite vision models
-Pre-trained models specialized on vision tasks for document and image understanding, supporting a range of file types and resolutions, and designed for efficient deployment in enterprise environments.</p>
-</div>
-<div class="paragraph">
-<p>Granite speech models
-Compact and efficient speech-language models designed for transcription and translation tasks from English to 7 languages, with competitive performance compared to both similarly sized and much larger models.</p>
-</div>
-<div class="paragraph">
-<p>Granite for time series
-Lightweight and pre-trained for time-series forecasting, optimized to run efficiently across a range of hardware configurations.</p>
-</div>
-<div class="paragraph">
-<p>Granite Guardian
-Safeguard AI with Granite Guardian, ensuring enterprise data security and mitigating risks across a variety of user prompts and LLM responses, with top performance in 15+ safety benchmarks.</p>
-</div>
-<div class="paragraph">
-<p>Granite for geospatial data
-NASA and IBM teamed up to create an AI Foundation Model for Earth Observations using large-scale satellite and remote sensing data.</p>
-</div>
-<div class="paragraph">
-<p>Granite embedding models
-Designed to significantly enhance understanding of user intent and increase the relevance of information and sources in response to a query.</p>
-</div>
-<div class="paragraph">
-<p>Granite-3.3-2B-Instruct
-Model Summary: Granite-3.3-2B-Instruct is a 2-billion parameter 128K context length language model fine-tuned for improved reasoning and instruction-following capabilities. Built on top of Granite-3.3-2B-Base, the model delivers significant gains on benchmarks for measuring generic performance including AlpacaEval-2.0 and Arena-Hard, and improvements in mathematics, coding, and instruction following. It supports structured reasoning through &lt;think&gt;&lt;/think&gt; and &lt;response&gt;&lt;/response&gt; tags, providing clear separation between internal thoughts and final outputs. The model has been trained on a carefully balanced combination of permissively licensed data and curated synthetic tasks.</p>
-</div>
-<div class="paragraph">
-<p>Developers: Granite Team, IBM
-GitHub Repository: ibm-granite/granite-3.3-language-models
-Website: Granite Docs
-Release Date: April 16th, 2025
-License: Apache 2.0
-Supported Languages: English, German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese. However, users may finetune this Granite model for languages beyond these 12 languages.</p>
-</div>
-<div class="paragraph">
-<p>Intended Use: This model is designed to handle general instruction-following tasks and can be integrated into AI assistants across various domains, including business applications.</p>
-</div>
-<div class="paragraph">
-<p>Capabilities</p>
-</div>
-<div class="paragraph">
-<p>Thinking
-Summarization
-Text classification
-Text extraction
-Question-answering
-Retrieval Augmented Generation (RAG)
-Code related tasks
-Function-calling tasks
-Multilingual dialog use cases
-Long-context tasks including long document/meeting summarization, long document QA, etc.
-Generation: This is a simple example of how to use Granite-3.3-2B-Instruct model.</p>
 </div>
 </div>
 </div>

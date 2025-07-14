@@ -111,7 +111,7 @@
     <a class="nav-link" href="../rh_hg_ai/val_models.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Granite Models</a>
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">The Granite Model Family</a>
   </li>
 </ul>
   </li>
@@ -224,12 +224,14 @@ An administrator with cluster privileges must first install necessary OpenShift 
 <p>Fill in the model name, select the vLLM (NVIDIA GPU) serving runtime, and point to the data connection and specific model path.</p>
 </li>
 <li>
-<p>Critical Resource Allocation: This is the most critical step for successful deployment.</p>
+<p>Memory Resource Allocation: This is the most critical step for successful deployment.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>GPU VRAM (Video RAM): This is the memory on the GPU itself. The entire model and its KV Cache must fit into VRAM. If insufficient VRAM is allocated, the model will fail to load. For example, a 7B parameter model in FP16 requires approximately 14 GB of VRAM.
-System RAM: Used by the operating system and for pre-loading operations before the model is transferred to the GPU. Allocate a healthy amount of system RAM (e.g., 16 GB or more) to prevent unexpected pod crashes and ensure stability during startup.</p>
+<p>GPU VRAM (Video RAM): This is the memory on the GPU itself. The entire model and its KV Cache must fit into VRAM. If insufficient VRAM is allocated, the model will fail to load. For example, a 7B parameter model in FP16 requires approximately 14 GB of VRAM.</p>
+</li>
+<li>
+<p>System RAM: Used by the operating system and for pre-loading operations before the model is transferred to the GPU. Allocate a healthy amount of system RAM (e.g., 16 GB or more) to prevent unexpected pod crashes and ensure stability during startup.</p>
 </li>
 </ol>
 </div>

@@ -111,7 +111,7 @@
     <a class="nav-link" href="../rh_hg_ai/val_models.html">Intro Quantization Strategies</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../rh_hg_ai/lab_models.html">Granite Models</a>
+    <a class="nav-link" href="../rh_hg_ai/lab_models.html">The Granite Model Family</a>
   </li>
 </ul>
   </li>
@@ -197,7 +197,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before deploying any model, ensuring the correct serving runtime is available is paramount. The <strong>vLLM NVIDIA GPU ServingRuntime</strong> is the necessary integration between Red Hat OpenShift AI and the model inference.</p>
+<p>Before deploying any model, ensuring the correct serving runtime is available is paramount. The <strong>vLLM NVIDIA GPU Serving Runtime</strong> is the necessary integration between Red Hat OpenShift AI and the model inference.</p>
 </div>
 <div class="paragraph">
 <p>This page outlines the runtimes included in a recent version of OpenShift AI and provides instructions to add the vLLM runtime manually if you are using an older version.</p>
@@ -349,7 +349,7 @@ spec:
      autoSelect: true
  containers:
    - name: kserve-container
-     image: quay.io/modh/vllm:rhoai-2.20-cuda
+     image: quay.io/modh/vllm:rhoai-2.21-cuda
      command: ["python", "-m", "vllm.entrypoints.openai.api_server"]
      args:
        - "--port=8080"
