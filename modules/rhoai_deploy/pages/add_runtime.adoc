@@ -1,6 +1,6 @@
 = vLLM Serving Runtime
 
-Before deploying any model, ensuring the correct serving runtime is available is paramount. The **vLLM NVIDIA GPU ServingRuntime** is the necessary integration between Red Hat OpenShift AI and the model inference.
+Before deploying any model, ensuring the correct serving runtime is available is paramount. The **vLLM NVIDIA GPU Serving Runtime** is the necessary integration between Red Hat OpenShift AI and the model inference.
 
 This page outlines the runtimes included in a recent version of OpenShift AI and provides instructions to add the vLLM runtime manually if you are using an older version.
 
@@ -76,7 +76,7 @@ spec:
      autoSelect: true
  containers:
    - name: kserve-container
-     image: quay.io/modh/vllm:rhoai-2.20-cuda
+     image: quay.io/modh/vllm:rhoai-2.21-cuda
      command: ["python", "-m", "vllm.entrypoints.openai.api_server"]
      args:
        - "--port=8080"

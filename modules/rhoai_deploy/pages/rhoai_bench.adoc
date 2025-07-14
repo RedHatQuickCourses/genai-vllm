@@ -59,7 +59,7 @@ It is a requirement—that model files reside in a subdirectory within your stor
 
  * Log back into the MinIO UI dashboard.
 
-* Navigate to the models bucket.
+ * Navigate to the models bucket.
 
 For each model you downloaded, perform the following actions:
 

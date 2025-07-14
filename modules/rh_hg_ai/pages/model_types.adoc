@@ -51,4 +51,4 @@ The specific quantization scheme (e.g., `w4a16`, `w8a8`, `FP8-dynamic`) for each
 
 ==== Availability and Selection Criteria
 
-While Red Hat AI focuses on validated models, other models may also be available in the repository but have not undergone the full validation process. For practical deployment in this course, we will focus on specific pre-selected models from the validated collection.
+While Red Hat AI focuses on validated models, other models may also be available in the repository but have not undergone the full validation process. 

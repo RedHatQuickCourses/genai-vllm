@@ -1,76 +1,82 @@
-= Granite Models
+= The Granite Model Family
 
-Meet Granite 3.3
-The third generation of AI language models are here. Fit for purpose and open sourced, these enterprise-ready multimodal models deliver exceptional performance against safety benchmarks and across a wide range of enterprise tasks from cybersecurity to RAG.
+This course will utilize models from the Granite family, a series of enterprise-grade, open-source Large Language Models (LLMs) developed by IBM. This section provides an overview of the Granite models and details the specific model we will use in our labs.
 
-== What are Granite models?
+== Introducing Granite: Enterprise-Ready AI Models
 
-Granite is a series of large language models (LLMs) created by IBM for enterprise applications. Granite foundation models can support generative artificial intelligence (gen AI) use cases that involve language and code.
+Granite is a family of foundation models designed to support a wide range of generative AI use cases involving language, code, and vision. Developed by IBM, these models are built with enterprise applications in mind, emphasizing trust, transparency, and performance.
 
-Granite family models are open source assured under the Apache 2.0 license, which means developers can experiment with, modify, and distribute Granite models for free. This makes Granite models a good choice for organizations that deal with sensitive data and want to run their own LLM rather than relying on an outside service.
+Key characteristics of the Granite model family include:
 
-what sets the Granite AI models apart is the disclosure of their training data, building trust with their users and making them more suitable for enterprise environments.
+* **Open Source:** All Granite models are released under the permissive `Apache 2.0` license. This allows developers and organizations to freely use, modify, and distribute the models, making them ideal for environments where data sensitivity requires a self-hosted LLM.
+* **Transparent Training Data:** IBM discloses the training data for Granite models, fostering trust and enabling better evaluation for enterprise-specific use cases.
+* **Purpose-Built:** The Granite family includes a diverse set of models, each optimized for specific tasks, from code generation and text summarization to document understanding and time-series forecasting.
 
-=== Granite-3.3-2B-instruct model
+== The Granite Model Ecosystem
 
-The primary model used in this course in the IBM/Granite-3.3-2B-instruct.
+The Granite family is composed of several specialized model types, each tailored for different enterprise needs.
 
+[cols="1,2"]
+|===
+| Model Type | Description
 
-Primary reason for selecting this model was because I planned to quantize it in a future segment of the cousre. So I wanted a full size model and I also wanted a small model so it's faster to upload and deploy for inference. 
+| *Language Models*
+| Base and instruction-tuned models with advanced reasoning capabilities. Designed for agentic workflows, Retrieval-Augmented Generation (RAG), text analytics, classification, and content generation.
 
-After using this modeling throughout the course, it provided an answer to most questions, allows a huge context window paired with a small model size allow plenty performance room on 24GB GPU. 
+| *Vision Models*
+| Pre-trained models specialized in vision tasks for document and image understanding. They support a range of file types and are optimized for efficient deployment.
 
-While I haven't bench marked a ton of model, this one outperformed all expections. 
+| *Speech Models*
+| Compact and efficient speech-to-text models for transcription and translation tasks, supporting English and seven other languages.
 
-The Granite 4 models are now available, so this course may shift to latest model as the first comparison of gain between generations of models. 
+| *Time Series Models*
+| Lightweight, pre-trained models for time-series forecasting, optimized to run efficiently across various hardware configurations.
 
+| *Embedding Models*
+| Designed to enhance the understanding of user intent and improve the relevance of information retrieved in RAG and semantic search applications.
 
+| *Geospatial Models*
+| A specialized foundation model developed in partnership with NASA, trained on large-scale satellite and remote sensing data for Earth observations.
 
-Granite language models
-Base and instruction-tuned language models with new reasoning capabilities designed for agentic workflows, RAG, text summarization, text analytics and extraction, classification, and content generation.
+| *Granite Guardian*
+| A model focused on AI safety, designed to mitigate risks by safeguarding against problematic user prompts and ensuring secure LLM responses. It has demonstrated top performance across numerous safety benchmarks.
+|===
 
-Granite vision models
-Pre-trained models specialized on vision tasks for document and image understanding, supporting a range of file types and resolutions, and designed for efficient deployment in enterprise environments.
+== Focus Model: `ibm-granite/granite-3.3-2b-instruct`
 
-Granite speech models
-Compact and efficient speech-language models designed for transcription and translation tasks from English to 7 languages, with competitive performance compared to both similarly sized and much larger models.
+Throughout this course, we will primarily use the `ibm-granite/granite-3.3-2b-instruct` model.
 
-Granite for time series
-Lightweight and pre-trained for time-series forecasting, optimized to run efficiently across a range of hardware configurations.
+=== Rationale for Selection
 
-Granite Guardian
-Safeguard AI with Granite Guardian, ensuring enterprise data security and mitigating risks across a variety of user prompts and LLM responses, with top performance in 15+ safety benchmarks.
+The selection of this model was deliberate for several key reasons relevant to this course's learning objectives:
 
-Granite for geospatial data
-NASA and IBM teamed up to create an AI Foundation Model for Earth Observations using large-scale satellite and remote sensing data.
+. **Quantization Labs:** It is a full-sized base model, making it an excellent candidate for our future labs on model quantization. This allows us to demonstrate the process of reducing a model's footprint for more efficient deployment.
+. **Performance and Size:** As a 2-billion parameter model, it strikes a balance between performance and resource requirements. It is small enough to be uploaded and deployed for inference relatively quickly, even in resource-constrained environments.
+. **Generational Comparison:** With the recent release of the Granite 4 series, using a 3.3 generation model provides a perfect baseline. This will enable a future lab where we can directly compare the performance gains between model generations, a common task in production environments.
 
-Granite embedding models
-Designed to significantly enhance understanding of user intent and increase the relevance of information and sources in response to a query.
+From hands-on experience during the development of this course, the `granite-3.3-2b-instruct` model has consistently provided correct and relevant answers. Its large 128K context window, paired with its relatively small size, allows for ample performance on a single 24GB GPU.
 
+=== Model Details: `Granite-3.3-2B-Instruct`
 
+Here is a summary of the key details for our focus model.
 
-Granite-3.3-2B-Instruct
-Model Summary: Granite-3.3-2B-Instruct is a 2-billion parameter 128K context length language model fine-tuned for improved reasoning and instruction-following capabilities. Built on top of Granite-3.3-2B-Base, the model delivers significant gains on benchmarks for measuring generic performance including AlpacaEval-2.0 and Arena-Hard, and improvements in mathematics, coding, and instruction following. It supports structured reasoning through <think></think> and <response></response> tags, providing clear separation between internal thoughts and final outputs. The model has been trained on a carefully balanced combination of permissively licensed data and curated synthetic tasks.
+* **Developers:** Granite Team, IBM
+* **Hugging Face ID:** `ibm-granite/granite-3.3-2b-instruct`
+* **GitHub Repository:** link:https://github.com/ibm-granite/granite-3.3-language-models[ibm-granite/granite-3.3-language-models]
+* **Release Date:** April 16th, 2025
+* **License:** `Apache 2.0`
+* **Supported Languages:** Primarily English, with capabilities in German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese. The model can be fine-tuned for additional languages.
 
-Developers: Granite Team, IBM
-GitHub Repository: ibm-granite/granite-3.3-language-models
-Website: Granite Docs
-Release Date: April 16th, 2025
-License: Apache 2.0
-Supported Languages: English, German, Spanish, French, Japanese, Portuguese, Arabic, Czech, Italian, Korean, Dutch, and Chinese. However, users may finetune this Granite model for languages beyond these 12 languages.
+==== Intended Use and Capabilities
 
-Intended Use: This model is designed to handle general instruction-following tasks and can be integrated into AI assistants across various domains, including business applications.
+This model is designed for general instruction-following tasks and can be integrated into AI assistants across various domains. Its capabilities include:
 
-Capabilities
+* Summarization
+* Text Classification & Extraction
+* Question Answering (QA)
+* Retrieval-Augmented Generation (RAG)
+* Code Generation & Function-Calling
+* Multilingual Dialog
+* Long-Context Tasks (e.g., document summarization, meeting analysis)
 
-Thinking
-Summarization
-Text classification
-Text extraction
-Question-answering
-Retrieval Augmented Generation (RAG)
-Code related tasks
-Function-calling tasks
-Multilingual dialog use cases
-Long-context tasks including long document/meeting summarization, long document QA, etc.
-Generation: This is a simple example of how to use Granite-3.3-2B-Instruct model.
+A notable feature is its support for structured reasoning through `<think>` and `<response>` tags, which provides a clear separation between the model's internal "thought process" and the final output it generates.
