@@ -2,9 +2,16 @@
 
 This lab will guide you through the process of running performance benchmarks on your deployed Large Language Model. We will use `GuideLLM`, a library designed to stress-test LLM endpoints to measure key performance indicators like throughput and latency under various loads.
 
+Within the Jupyter environment, you should have already cloned the `genai-apps` git repository. For this lab, you'll navigate to the `vllm_rhoai/GuideLLM` directory and open the `benchmark_with_guidellm.ipynb` notebook.
+
 Understanding these metrics is crucial for determining how well your model will perform in a real-world application and for making decisions about resource allocation.
 
----
+[IMPORTANT]
+ Disable model token authentication requirements.
+ Before proceeding with the next steps, return to the OpenShift AI model serving dashboard.  Edit the deployed model by unchecking the 
+ box 'require token authenication'.  Click save. 
+
+
 
 ## Step 1: Install Dependencies
 
@@ -36,7 +43,6 @@ from IPython.display import JSON
 sns.set_style("darkgrid")
 ----
 
----
 
 ## Step 2: Configure the Benchmark Scenario
 
@@ -82,7 +88,6 @@ JSON(scenario.model_dump())
 <5> **max_seconds**: The duration for each benchmark run.
 <6> **data**: Defines the characteristics of the test data. Here, we are generating prompts with a mean of 256 tokens and requesting exactly 128 tokens in the response.
 
----
 
 ## Step 3: Run the Benchmark
 
@@ -98,7 +103,6 @@ results, _ = await benchmark_with_scenario(
 )
 ----
 
----
 
 ## Step 4: Analyze the Results
 
