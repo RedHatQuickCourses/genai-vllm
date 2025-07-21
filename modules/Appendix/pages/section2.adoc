@@ -11,27 +11,27 @@ In your Jupyter notebook environment, clone the https://github.com/ibm-granite-c
  * Entity Extraction
  * Function Calling
  * Contract Analysis
- * Tool Calling(Not compatible with Colab)
- * Structured Responses(Not compatible with Colab)
+ * Tool Calling
+ * Structured Responses
 
 === Compound Systems
- * RAG - LangChain Open
- * RAG - LlamaIndex Open
- * Understanding ReAct Open
- * Agentic RAG Open
- * Travel planner Agent Open
- * Github Agent Open
+ * RAG - LangChain 
+ * RAG - LlamaIndex 
+ * Understanding ReAct
+ * Agentic RAG
+ * Travel planner Agent 
+ * Github Agent
  * Prompt Declaration Language (PDL)
  * Notebook that uses the PDL Jupyter Extension
  * Notebook that uses the PDL Python API
- * Docling for RAG 
+ * Docling for RAG
  * Multimodal RAG
  * Inference Scaling RAG
  * Responsible Prompting
  * Model Context Protocol
 
 === Intrinsic Functions
- * Chain of thought (cot) reasoning Open In Colab
+ * Chain of thought (cot) reasoning
  * Retrieval Augmented Generation (RAG) with Granite RAG 3.0 8b (it requires a >16GB memory)
 
 === Tuning
