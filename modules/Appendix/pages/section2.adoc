@@ -1,0 +1,62 @@
+= Granite Snack Cookbook
+
+The "Recipes" in the Granite Snack Cookbook showcase the essential capabilities of IBM Granite models, in bite-sized instructional notebooks.
+
+In your Jupyter notebook environment, clone the https://github.com/ibm-granite-community/granite-snack-cookbook.git[granite-snack-cookbook repository.,window=blank]. Then experiment by following the notebook instructions. 
+
+== Recipes
+
+=== Basic Capabilities
+ * Document Summarization
+ * Entity Extraction
+ * Function Calling
+ * Contract Analysis
+ * Tool Calling(Not compatible with Colab)
+ * Structured Responses(Not compatible with Colab)
+
+=== Compound Systems
+ * RAG - LangChain Open
+ * RAG - LlamaIndex Open
+ * Understanding ReAct Open
+ * Agentic RAG Open
+ * Travel planner Agent Open
+ * Github Agent Open
+ * Prompt Declaration Language (PDL)
+ * Notebook that uses the PDL Jupyter Extension
+ * Notebook that uses the PDL Python API
+ * Docling for RAG 
+ * Multimodal RAG
+ * Inference Scaling RAG
+ * Responsible Prompting
+ * Model Context Protocol
+
+=== Intrinsic Functions
+ * Chain of thought (cot) reasoning Open In Colab
+ * Retrieval Augmented Generation (RAG) with Granite RAG 3.0 8b (it requires a >16GB memory)
+
+=== Tuning
+ * Fine Tuning Granite - LlamaFactory
+ * Fine Tuning Granite
+ * Loading a LoRA from Huggingface
+
+=== Model Evaluation
+ * Evaluating Granite with Unitxt
+ * Evaluating Few-Shot Strategies
+ * Using Granite as Judge 
+
+=== Guardian
+ * Granite Guardian 3.0
+ * Granite Guardian 3.0 Watsonx Usage
+
+=== Contributing
+For information about contributing to this repo, code of conduct guidelines, etc., see the community CONTRIBUTING and Code of Conduct guides. All commits require DCO-signoff (discussed here) and GPG or SSH signing (discussed here). The GitHub recommended code security settings are enforced on this public repository (which include the signing requirement).
+
+For more background and a FAQ, please see the community wiki
+
+=== Licenses
+The Granite Snack Cookbook's base license is CC BY 4.0.
+Code in this repository, including in notebook cells, is licensed under Apache 2.0.
+Any example datasets committed to this repository are licensed under CDLA Permissive 2.0.
+
+=== IBM Public Repository Disclosure
+All content in these repositories including code has been provided by IBM under the associated open source software license and IBM is under no obligation to provide enhancements, updates, or support. IBM developers produced this code as an open source project (not as an IBM product), and IBM makes no assertions as to the level of quality nor security, and will not be maintaining this code going forward.
