@@ -6,8 +6,9 @@ The initial phase of any AI deployment involves preparing the underlying infrast
 == Key Actions for Engineers:
 
 *   **Environment Preparation**: It is highly recommended to **request the lab environment in advance** due to an approximate deployment time of 1.5 to 2 hours.
-*   **Platform Upgrade**: The provided lab environment typically starts with Red Hat OpenShift AI v4.18, which includes an older vLLM runtime. To leverage the features and performance of a more recent vLLM runtime (e.g., v0.9.01 as of July 2025), it is **essential to upgrade the platform to Red Hat OpenShift AI v2.21 or later**.
+*   **Platform Upgrade**: The provided lab environment typically starts with Red Hat OpenShift AI v4.18, which includes an older vLLM runtime. To leverage the features and performance of a more recent vLLM runtime (e.g., v0.9.01 as of July 2025), it is **essential to upgrade the platform to Red Hat OpenShift AI v2.21 or 2.22**. (Avoid 2.23-2.24 at this time)
 *   **Upgrade Process**: The upgrade is managed by updating the "subscription channel" for the Red Hat OpenShift AI Operator, which instructs the operator to install a newer platform version. An interactive demonstration guides users through logging in, navigating to Installed Operators, and changing subscription settings.
+
 
 
 
